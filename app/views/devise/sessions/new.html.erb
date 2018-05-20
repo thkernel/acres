@@ -1,0 +1,61 @@
+
+<div class="container">
+<div class="login-box">
+  <div class="login-logo">
+    
+  </div>
+  <!-- /.login-logo -->
+
+  <div class="card">
+  <div class="card-content">
+    <p class="login-box-msg">Connectez-vous!</p>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-group has-feedback">
+
+        <%= f.email_field :email, autofocus: true, class: "form-control" , placeholder: "Email", required: true %>
+
+      </div>
+      <div class="form-group has-feedback">
+        <!-- <input type="password" class="form-control" placeholder="Password"> -->
+        <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Mot de passe", required: true %>
+
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+         
+            <div class="form-group">
+                <%= f.check_box :remember_me %>
+                <%= f.label "Session active" %>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                
+            </div>
+        </div>
+
+        <!-- /.col -->
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <%= f.button "Se connecter", class: "waves-effect waves-light btn" , data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Connexion..."} %>
+          <!-- <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>-->
+        </div>
+        <!-- /.col -->
+      </div>
+   <% end %>
+
+
+    
+    
+    
+      
+  </div>
+  <!-- /.login-box-body -->
+
+  </div>
+</div>
+</div>
+
+

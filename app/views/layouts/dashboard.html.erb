@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Acres</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+	<div class="wrapper">
+
+		<!-- Left Sidebar -->
+	  <%= render('layouts/partials/dashboard/sidebar') %>
+	   <!-- End Left sidebar -->
+
+
+	 
+
+	  <!-- Content Wrapper. Contains page content -->
+	  <div class="main-panel">
+	  		<!-- Left Sidebar -->
+			  <%= render('layouts/partials/dashboard/navbar') %>
+			   <!-- End Left sidebar -->
+	    <%= yield %>
+	 
+
+	  <!-- Main Footer -->
+	  <%= render('layouts/partials/dashboard/footer') %>
+	   <!-- End Main Footer -->
+ 	</div><!-- /.content-wrapper -->
+
+	</div><!-- ./wrapper -->
+  </body>
+</html>
