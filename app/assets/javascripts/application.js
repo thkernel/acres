@@ -12,18 +12,13 @@
 //
 //= require jquery
 //= require rails-ujs
-// require jquery_ujs
-//= require materialize-sprockets
-//= require bootstrap-sprockets
 //= require turbolinks
+//= require bootstrap-sprockets
 //= require bootstrap
-//= require bootstrap-material-design
-//= require material-dashboard
-//= require_tree .
+//= require DataTables/datatables
+//= require "dataTablesFrench"
 
-$(document).on('turbolinks:load',function(){
-    $('.modal-trigger').leanModal({
-    	 dismissible: true
-    });
-
-  });
+$(document).on('turbolinks:load', function() {
+    // For fixed width containers
+    $('#table-list').DataTable();
+})

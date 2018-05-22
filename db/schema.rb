@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180517024334) do
+ActiveRecord::Schema.define(version: 20180522044358) do
+
+  create_table "banks", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "commission_percentage"
+    t.integer "hypoplus_commission_percentage"
+    t.integer "first_installment"
+    t.integer "number_of_dates"
+    t.string "phone"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "first_name"
@@ -30,6 +43,16 @@ ActiveRecord::Schema.define(version: 20180517024334) do
     t.string "city"
     t.string "country"
     t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "credits", force: :cascade do |t|
+    t.date "production_date"
+    t.date "acte_date"
+    t.integer "customer_id"
+    t.integer "bank_id"
+    t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,6 +81,17 @@ ActiveRecord::Schema.define(version: 20180517024334) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "address"
+    t.string "user"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user"], name: "index_profiles_on_user"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -71,6 +105,10 @@ ActiveRecord::Schema.define(version: 20180517024334) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "superadmin_role"
+    t.boolean "admin_role"
+    t.boolean "user_role"
+    t.integer "created_by"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

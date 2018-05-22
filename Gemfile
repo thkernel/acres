@@ -57,10 +57,14 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'devise', '~> 4.4', '>= 4.4.3'
 gem 'devise-i18n', '~> 1.6', '>= 1.6.2'
-gem 'cancan', '~> 1.6', '>= 1.6.10'
+gem 'cancancan', '~> 2.2'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
+#gem 'font-awesome-sass', '~> 5.0.13'
+
 gem 'pg', '~> 1.0'
-gem 'materialize-sass', '~> 0.100.2'
 #gem 'bootstrap', '~> 4.1', '>= 4.1.1'
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'bootstrap-sass', '~> 3.3.7'
+
 gem 'rails-i18n', '~> 5.1', '>= 5.1.1'
 gem 'friendly_id', '~> 5.2', '>= 5.2.4'
+

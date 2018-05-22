@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Production date:</strong>
+  <%= @credit.production_date %>
+</p>
+
+<p>
+  <strong>Acte date:</strong>
+  <%= @credit.acte_date %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @credit.customer_id %>
+</p>
+
+<p>
+  <strong>Bank:</strong>
+  <%= @credit.bank_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @credit.amount %>
+</p>
+
+<%= link_to 'Edit', edit_credit_path(@credit) %> |
+<%= link_to 'Back', credits_path %>
