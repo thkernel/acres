@@ -3,8 +3,23 @@ class CustomUsersController < ApplicationController
     layout "dashboard"
 
     
+    def new
+      @user = User.new
+    end
     def create
-      # admins only
+      @user = User.new(user_params)
+
+      respond_to do |format|
+        if @user.save
+          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.json { render :show, status: :created, location: @contributor }
+          format.js
+        else
+          format.html { render :new }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.js
+        end
+      end
     end
 
     def index
@@ -44,7 +59,7 @@ class CustomUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:role, :name)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
 end

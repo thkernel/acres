@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522044358) do
+ActiveRecord::Schema.define(version: 20180522175345) do
 
   create_table "banks", force: :cascade do |t|
     t.string "name"
@@ -47,6 +47,19 @@ ActiveRecord::Schema.define(version: 20180522044358) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contributors", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "address"
+    t.string "phone"
+    t.string "email"
+    t.string "city"
+    t.string "country"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "credits", force: :cascade do |t|
     t.date "production_date"
     t.date "acte_date"
@@ -79,6 +92,19 @@ ActiveRecord::Schema.define(version: 20180522044358) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "producers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "address"
+    t.string "phone"
+    t.string "email"
+    t.string "city"
+    t.string "country"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "profiles", force: :cascade do |t|

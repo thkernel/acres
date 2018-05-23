@@ -1,9 +1,12 @@
 <div class="container">
     <div class="row">
     <div class="col-md-12">
+    <div class="index-heading pull-left">
+    <h3>Liste des clients</h3>
+    </div>
    <div class="pull-right">
    <p>
-    <%= link_to "Nouveau", new_customer_path ,  class: "btn btn-primary " %>
+    <%= link_to raw('<i class="fa fa-plus" aria-hidden="true"></i> Nouveau'), new_customer_path ,  class: "btn btn-primary", remote: true %>
     </p>
     </div>
     </div>
@@ -49,7 +52,10 @@
     </div>
 </div>
 </div>
+
+
+
+
 </div>
 
-
-<div id="customer-modal"></div>
+<div id="customer-modal" class="modal fade"></div>

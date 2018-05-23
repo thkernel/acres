@@ -9,6 +9,7 @@
   </head>
 
   <body>
+   <%= render :partial => 'layouts/partials/flash_messages', :flash => flash %>
     <%= yield %>
   </body>
 </html>

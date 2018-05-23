@@ -31,3 +31,15 @@
 
 en:
   hello: "Hello world"
+  subscription_successfull: "Vous êtes abonné avec succès!"
+  subscription_exist: "Cette adresse email existe déjà dans nos base donées!"
+  recaptcha:
+    errors:
+      verification_failed: 'Fail'
+  error_404_title: "Oops! The page you were looking for doesn't exist."
+  error_404_body: "You may have mistyped the address or the page may have moved. If you are the application owner check the logs for more information."
+  error_500_title: "Oops! We're sorry, but something went wrong."
+  error_500_body: "If you are the application owner check the logs for more information."
+  country: "Country"
+  city: "City"
+

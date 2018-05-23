@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :contributors
+  resources :producers
   resources :credits
   resources :banks
   resources :profiles
@@ -11,6 +13,7 @@ Rails.application.routes.draw do
   get "/customers" => "customers#index", as: :customers_index
   get "/users"     => "custom_users#index", as: :all_users
   post "/users/new"     => "custom_users#create", as: :create_user
+  get "/users/new"     => "custom_users#new", as: :new_user
   #devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #devise_for :users, path: 'user', path_names: { 

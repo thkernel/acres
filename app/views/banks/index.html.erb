@@ -4,9 +4,12 @@
 
 <div class="row">
 <div class="col-md-12">
+<div class="index-heading pull-left">
+    <h3>Liste des banques</h3>
+    </div>
 <div class="pull-right">
 <p>
-<%= link_to 'Nouveau', new_bank_path, class: "btn btn-primary" %>
+<%= link_to raw('<i class="fa fa-plus" aria-hidden="true"></i> Nouveau'), new_bank_path, class: "btn btn-primary", remote: true %>
 </p>
 </div>
 </div>

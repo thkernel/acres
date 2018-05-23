@@ -1,9 +1,12 @@
 <div class="container">
     <div class="row">
     <div class="col-md-12">
+    <div class="index-heading pull-left">
+    <h3>Liste des utilisateurs</h3>
+    </div>
    <div class="pull-right">
    <p>
-    <%= link_to 'Nouveau', create_user_path, class: "btn btn-primary" %>
+    <%= link_to raw('<i class="fa fa-plus" aria-hidden="true"></i> Nouveau'), new_user_path, class: "btn btn-primary", remote: true %>
     </p>
     </div>
     </div>
@@ -22,7 +25,7 @@
             </tr>
           </thead>
 
-          <tbody>
+          <tbody class="users-index">
             <% @users.each do |user| %>
               <tr>
                 <td><%= user.email %></td>
@@ -36,3 +39,4 @@
 </div>
 </div>
 </div>
+<div id="user-modal" class="modal fade"></div>

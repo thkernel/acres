@@ -1,5 +1,6 @@
 class CreditsController < ApplicationController
   before_action :set_credit, only: [:show, :edit, :update, :destroy]
+  layout "dashboard"
 
   # GET /credits
   # GET /credits.json

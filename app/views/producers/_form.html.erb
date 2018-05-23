@@ -1,0 +1,68 @@
+<div class="row">
+<div class="col-md-6">
+              <div class="card">
+                <div class="card-header d-flex align-items-center">
+                </div>
+                <div class="card-body">
+
+
+<%= form_with(model: producer, local: true) do |form| %>
+  <% if producer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(producer.errors.count, "error") %> prohibited this producer from being saved:</h2>
+
+      <ul>
+      <% producer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+  
+    <%= form.text_field :first_name, id: :producer_first_name, class: "form-control", placeholder: "Prénom" %>
+  </div>
+
+  <div class="form-group">
+  
+    <%= form.text_field :last_name, id: :producer_last_name,  class: "form-control", placeholder: "Nom" %>
+  </div>
+
+  <div class="form-group">
+  
+    <%= form.text_field :address, id: :producer_address, class: "form-control", placeholder: "Adresse" %>
+  </div>
+
+  <div class="form-group">
+   
+    <%= form.text_field :phone, id: :producer_phone, class: "form-control", placeholder: "Télphone" %>
+  </div>
+
+  <div class="form-group">
+   
+    <%= form.text_field :email, id: :producer_email, class: "form-control", placeholder: "E-mail" %>
+  </div>
+
+  <div class="form-group">
+    
+    <%= form.text_field :city, id: :producer_city, class: "form-control", placeholder: "Ville" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :country, id: :producer_country, class: "form-control", placeholder: "Pays" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_area :notes, id: :producer_notes, class: "form-control", placeholder: "Notes" %>
+  </div>
+
+  <div class="form-group pull-right">
+    <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+  </div>
+<% end %>
+ </div>
+  </div>
+  </div>
+  </div>
+

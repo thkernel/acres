@@ -17,6 +17,7 @@
 //= require bootstrap
 //= require DataTables/datatables
 //= require "dataTablesFrench"
+//= require toastr
 
 $(document).on('turbolinks:load', function() {
     // For fixed width containers

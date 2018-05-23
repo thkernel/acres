@@ -5,8 +5,9 @@
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <!-- User Info-->
           <div class="sidenav-header-inner text-center">
-          <%= image_tag  "thumb/avatar-1",  alt: "person",  class: "img-fluid rounded-circle" %>
-            <h2 class="h5">Anderson Hardy</h2><span>Web Developer</span>
+            <!-- <%= image_tag  "thumb/avatar-1",  alt: "person",  class: "img-fluid rounded-circle" %> -->
+            <h1>ACRES</h1> 
+            <!-- <span>Web Developer</span> -->
           </div>
           <!-- Small Brand information, appears on minimized sidebar-->
           <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -19,9 +20,14 @@
 
 Tableau de bord'), dashboard_path %></li>
              <li><%= link_to raw('<i class="fa fa-money" aria-hidden="true"></i>
-Crédits'), banks_path %></li>
+Crédits'), credits_path %></li>
             <li><%= link_to raw('<i class="fa fa-users" aria-hidden="true"></i>
 Clients'), customers_path %></li>
+<li><%= link_to raw('<i class="fa fa-address-book-o" aria-hidden="true"></i>
+Apporteurs'), contributors_path %></li>
+<li><%= link_to raw('<i class="fa fa-address-book" aria-hidden="true"></i>
+
+Producteurs'), producers_path %></li>
              <li><%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i>
 Banques'), banks_path %></li>
             <li>

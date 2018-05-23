@@ -19,8 +19,10 @@ a {
     max-width: 100% !important;
 }
 
-.login-page form,
-.btn-primary {}
+.login-page .form-inner,
+.btn-primary {
+    width: 100% !important;
+}
 
 .login-page .form-outer,
 .register-page .form-outer {
@@ -80,15 +82,44 @@ table.table-bordered.dataTable {
     font-size: 14px !important;
 }
 
-.navbar-holder {
-    bottom: -5px;
-    box-shadow: inset 0px 4px 8px -3px rgba(17, 17, 17, .06);
-    content: "";
-    height: 5px;
-    left: 0px;
-    opacity: 1;
-    pointer-events: none;
-    right: 0px;
-    width: 100%;
-    z-index: 2050;
+.navbar .navbar-holder img {
+    width: 32px;
+    height: 32px;
+}
+
+label,
+input,
+.form-control,
+.btn {
+    font-size: 14px !important;
+}
+
+label {
+    font-weight: normal !important;
+}
+
+input.form-control::-moz-placeholder {
+    font-size: 14px !important;
+}
+
+.dropdown {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.login-page .logo,
+.register-page .logo {
+    font-size: 3em !important;
+    font-weight: 900 !important;
+    margin-top: 80px !important;
+}
+
+.form-title {
+    color: #ccc;
+}
+
+.index-heading h3,
+h4,
+h5 {
+    color: silver;
 }
