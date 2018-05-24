@@ -1,4 +1,5 @@
 class ProducersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_producer, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
   # GET /producers

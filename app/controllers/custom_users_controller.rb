@@ -1,4 +1,5 @@
 class CustomUsersController < ApplicationController
+    before_action :authenticate_user!
     before_action :set_user, only: [:show, :edit, :update] # probably want to keep using this
     layout "dashboard"
 
@@ -14,6 +15,9 @@ class CustomUsersController < ApplicationController
           format.html { redirect_to @user, notice: 'User was successfully created.' }
           format.json { render :show, status: :created, location: @contributor }
           format.js
+          # Send mail to the new user.
+          NewUserMailer.new_user_mail(@user.email, @user.password).deliver_now
+
         else
           format.html { render :new }
           format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -36,6 +40,23 @@ class CustomUsersController < ApplicationController
     def edit
 
     end
+
+      # DELETE /user_skills/1
+  # DELETE /user_skills/1.json
+  def destroy
+   
+   @user.destroy
+   respond_to do |format|
+     format.html { redirect_to users_path, notice: 'User skill was successfully destroyed.' }
+     format.json { head :no_content }
+       format.js
+   end
+ end
+
+
+   def delete
+     @user = User.find(params[:id])
+ end
 
     # # PATCH/PUT /users/1
     # # PATCH/PUT /users/1.json

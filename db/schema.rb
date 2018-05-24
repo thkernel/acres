@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522175345) do
+ActiveRecord::Schema.define(version: 20180524140310) do
 
   create_table "banks", force: :cascade do |t|
     t.string "name"
@@ -94,6 +94,15 @@ ActiveRecord::Schema.define(version: 20180522175345) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "logs", force: :cascade do |t|
+    t.string "file_name"
+    t.float "no_record"
+    t.string "error"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "producers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -131,10 +140,11 @@ ActiveRecord::Schema.define(version: 20180522175345) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "superadmin_role"
-    t.boolean "admin_role"
-    t.boolean "user_role"
     t.integer "created_by"
+    t.boolean "superadmin_role", default: false
+    t.boolean "admin_role", default: false
+    t.boolean "producer_role", default: false
+    t.boolean "contributor_role", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
