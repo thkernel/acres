@@ -1,0 +1,37 @@
+<div class="page login-page d-flex" >
+    <div class="container">
+        <div class="form-outer   align-items-center">
+            <div class="logo text-uppercase text-center " >
+                <span> ACR</span> <strong class="text-primary">ES</strong>
+            </div>
+            <div class="form-inner">
+              
+            <h2 class= "form-title text-center">Connexion</h2>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="form-group">
+               <%= f.label "Adresse e-mail" %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email",  class: "form-control", placeholder: "Adresse e-mail" %>
+              </div>
+
+              <div class="form-group">
+               <%= f.label "Mot de passe" %>
+                <%= f.password_field :password, autocomplete: "off", class: "form-control" ,  placeholder: "Mot de passe"%>
+              </div>
+
+              <% if devise_mapping.rememberable? -%>
+                <div class="field">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me %>
+                </div>
+              <% end -%>
+
+              <div class="form-group">
+                <%= f.submit "Se connecter", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+
+        
+</div>
+</div>
+</div>
+</div>

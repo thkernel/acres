@@ -8,8 +8,8 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '9d6bc94faa013f4756efc50e053c633e623828d3c815189aa02e509924171d626c55b760ae0899f6b7fffd523af99d79c6957e98c07d9d61f4a83e49b837a0a0'
-  
+  #config.secret_key = '9d6bc94faa013f4756efc50e053c633e623828d3c815189aa02e509924171d626c55b760ae0899f6b7fffd523af99d79c6957e98c07d9d61f4a83e49b837a0a0'
+  config.secret_key = '286334e1831df7c798de46f86e83b623c9b28ee9c8089cc845a078fb892f0667cbe9ddac81f1955148a6a5885cf725bfc1b17e53bd6ea0bcc8c781da84fd1cc3'
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -18,7 +18,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'salut.amos@gmail.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -280,4 +280,5 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+  config.scoped_views = true
 end

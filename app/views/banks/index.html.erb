@@ -1,0 +1,49 @@
+
+
+<div class="container">
+
+<div class="row">
+<div class="col-md-12">
+<div class="index-heading pull-left">
+    <h3>Liste des banques</h3>
+    </div>
+<div class="pull-right">
+<p>
+<%= link_to raw('<i class="fa fa-plus" aria-hidden="true"></i> Nouveau'), new_bank_path, class: "btn btn-primary", remote: true %>
+</p>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default">
+<div class="panel-body">
+<table  id="table-list" class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Commission percentage</th>
+      <th>Actions</th> 
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @banks.each do |bank| %>
+      <tr>
+        <td><%= bank.name %></td>
+        <td><%= bank.description %></td>
+        <td><%= bank.commission_percentage %></td>
+        <td><%= link_to 'Show', bank %>
+        <%= link_to 'Edit', edit_bank_path(bank) %>
+        <%= link_to 'Destroy', bank, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div>

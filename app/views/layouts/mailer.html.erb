@@ -1,13 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-      /* Email styles need to be inline */
-    </style>
-  </head>
+    <head>
+        
+        
+         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css">
+            .email-wrapper{
+                max-width: 700px;
+                margin-left: auto; 
+                margin-right: auto;
+                background: #f5f8fa;
+                background-color: rgb(245, 248, 250);
+                border: 4px solid #e5e9ee;
+                border-radius: 5px;
+                padding: 30px;
+                font-size: 15pt;
+            }
+            .email-header{
+                text-align: center;
+                margin: 15px;
+            }
+            .team-cordially{
+                text-align: right;
+            }
+        </style>
 
-  <body>
-    <%= yield %>
-  </body>
+    </head>
+
+    <body>
+        <div class="email-wrapper">
+            <div class="email-header">
+            </div>
+            <div class="email-body">
+                <%= yield %>
+            </div>
+            <div class="email-footer">
+                
+            </div>
+        </div>
+    </body>
 </html>

@@ -10,20 +10,19 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- 
+
  *= require_self
  */
+
 @import "style";
-@import "materialize";
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "material-dashboard";
-
-
-
+@import "font-awesome";
+@import "style.default";
+@import "DataTables/datatables";
+@import "dataTables.bootstrap";
+@import "toastr";
 
 /* Googlefont */
-@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Oswald:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto:400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:400,400i,600,600i,700,700i,900,900i');
-/*@import url('https://unpkg.com/element-ui@1.4.8/lib/theme-default/index.css');*/
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Oswald:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto:400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:400,400i,600,600i,700,700i,900,900i');

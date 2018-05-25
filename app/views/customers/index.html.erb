@@ -1,58 +1,61 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="index-heading pull-left">
+    <h3>Liste des clients</h3>
+    </div>
+   <div class="pull-right">
+   <p>
+    <%= link_to raw('<i class="fa fa-plus" aria-hidden="true"></i> Nouveau'), new_customer_path ,  class: "btn btn-primary", remote: true %>
+    </p>
+    </div>
+    </div>
+ </div>
+  <div class="row">
+ <div class="col-lg-12">
+    <div class="panel panel-default">
+          
+             
+                    <div class="panel-body">
+        <table id="table-list" class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Gender</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>Country</th>
+              <th>Phone</th>
+              <!-- <th colspan="3"></th> -->
+            </tr>
+          </thead>
 
-<h1>Customers</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Gender</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>Country</th>
-      <th>Phone</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @customers.each do |customer| %>
-      <tr>
-        <td><%= customer.first_name %></td>
-        <td><%= customer.last_name %></td>
-        <td><%= customer.gender %></td>
-        <td><%= customer.address %></td>
-        <td><%= customer.city %></td>
-        <td><%= customer.country %></td>
-        <td><%= customer.phone %></td>
-        <td><%= link_to 'Show', customer %></td>
-        <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-        <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-
-
-<div class="fixed-action-btn">
-  <%= link_to raw('<i class="large material-icons">create</i>'), new_customer_path, class: "btn-floating btn-large red" %>
-  
-  
+          <tbody>
+            <% @customers.each do |customer| %>
+              <tr>
+                <td><%= customer.first_name %></td>
+                <td><%= customer.last_name %></td>
+                <td><%= customer.gender %></td>
+                <td><%= customer.address %></td>
+                <td><%= customer.city %></td>
+                <td><%= customer.country %></td>
+                <td><%= customer.phone %></td>
+                <td><%= link_to 'Show', customer %></td>
+                <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
+                <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
+    </div>
 </div>
-       <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger " href="#modal12" data-toggle="modal">Modal</a>
+</div>
 
-  <!-- Modal Structure -->
-  <div id="modal12" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
+
+
+
+</div>
+
+<div id="customer-modal" class="modal fade"></div>

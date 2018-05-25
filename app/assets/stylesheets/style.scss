@@ -1,7 +1,137 @@
-.login-box{
+body {
+    font-family: Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px !important;
+}
 
-	max-width: 450px;
-	margin-top: 80px;
-	margin-left: auto;
-	margin-right: auto;
+a {
+    font-size: 1.6rem;
+}
+
+.login-page .form-inner,
+.register-page .form-inner {
+    width: 100% !important;
+    box-shadow: 0 2px 4px rgba(50, 50, 93, 0.11) !important;
+}
+
+.login-page form,
+.register-page form {
+    margin: 2rem auto 1rem;
+    max-width: 100% !important;
+}
+
+.login-page .form-inner,
+.btn-primary {
+    width: 100% !important;
+}
+
+.login-page .form-outer,
+.register-page .form-outer {
+    max-width: 400px !important;
+    width: 100%;
+}
+
+nav.navbar {
+    border-radius: 0px !important;
+}
+
+panel-default>.panel-heading {
+    box-shadow: 0 2px 4px rgba(50, 50, 93, 0.11) !important;
+    background: #fff !important;
+}
+
+.footer {
+    padding: 10px 18px;
+    background: #ffffff;
+    border-top: 1px solid #e4e5e7;
+    transition: all 0.4s ease 0s;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.table-bordered {
+    border: 1px solid #ddd !important;
+}
+
+table.dataTable {
+    clear: both;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+}
+
+table.table-bordered.dataTable {
+    border-collapse: separate !important;
+}
+
+.panel-default {
+    /*border-color: #ddd !important;*/
+    border: 1px solid #e5e5e5 !important;
+    border-radius: 0px !important;
+    box-shadow: 0 2px 4px rgba(50, 50, 93, 0.11)!important;
+}
+
+.side-navbar .main-menu a {
+    font-size: 14px !important;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.navbar-holder a {
+    font-size: 14px !important;
+}
+
+.navbar .navbar-holder img {
+    width: 32px;
+    height: 32px;
+}
+
+label,
+input,
+.form-control,
+.btn {
+    font-size: 14px !important;
+}
+
+label {
+    font-weight: normal !important;
+}
+
+input.form-control::-moz-placeholder {
+    font-size: 14px !important;
+}
+
+.dropdown {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.login-page .logo,
+.register-page .logo {
+    font-size: 3em !important;
+    font-weight: 900 !important;
+    margin-top: 80px !important;
+}
+
+.form-title {
+    color: #ccc;
+}
+
+.index-heading h3,
+h4,
+h5 {
+    color: silver;
+}
+
+.action-buttons a {
+    margin: 0 5px;
+}
+
+.delete {
+    color: red !important;
+}
+
+.copyright .pull-right {
+    color: #9c9898 !important;
 }
