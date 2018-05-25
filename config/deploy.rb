@@ -2,7 +2,8 @@
 lock "~> 3.10.2"
 
 set :application, "ACRES"
-set :repo_url, "https://thkernel@bitbucket.org/thkernel/acres.git"
+set :repo_url, "https://github.com/thkernel/acres.git"
+#set :ssh_options, { auth_methods: %w(password), password: "AMOSXZIBITDE88" }
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
