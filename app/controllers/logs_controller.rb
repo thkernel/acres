@@ -1,6 +1,8 @@
 class LogsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_log, only: [:show, :edit, :update, :destroy]
-
+  layout "dashboard"
+  
   # GET /logs
   # GET /logs.json
   def index

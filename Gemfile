@@ -9,7 +9,7 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -39,6 +39,19 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+
+  # For deploymentt
+  gem 'capistrano', '~> 3.10', '>= 3.10.2'
+
+  # For rails requirement
+  gem 'capistrano-rails', '~> 1.3', '>= 1.3.1'
+
+  # For rvm
+  gem 'capistrano-rvm', '~> 0.1.2'
+
+  # For puma
+  #gem 'capistrano3-puma', '~> 3.1', '>= 3.1.1'
+  gem 'capistrano3-puma', github: "seuros/capistrano-puma"
 end
 
 group :development do

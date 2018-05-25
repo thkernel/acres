@@ -28,35 +28,32 @@ class CustomUsersController < ApplicationController
 
     def index
       @users = User.all
-      #render "custom-users/index"
-    end
-    # # GET /users/1
-    # # GET /users/1.json
+	end
+	
+    # GET /users/1
+    # GET /users/1.json
     def show
-
     end
 
     # GET /users/1/edit
     def edit
-
     end
 
-      # DELETE /user_skills/1
-  # DELETE /user_skills/1.json
-  def destroy
-   
-   @user.destroy
-   respond_to do |format|
-     format.html { redirect_to users_path, notice: 'User skill was successfully destroyed.' }
-     format.json { head :no_content }
-       format.js
-   end
- end
+	# DELETE /user_skills/1
+	# DELETE /user_skills/1.json
+	def destroy
+		
+		@user.destroy
+		respond_to do |format|
+			format.html { redirect_to users_path, notice: 'User skill was successfully destroyed.' }
+			format.json { head :no_content }
+			format.js
+		end
+ 	end
 
-
-   def delete
+   	def delete
      @user = User.find(params[:id])
- end
+ 	end
 
     # # PATCH/PUT /users/1
     # # PATCH/PUT /users/1.json

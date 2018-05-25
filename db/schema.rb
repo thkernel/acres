@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20180524140310) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "banks", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -43,8 +46,10 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.string "city"
     t.string "country"
     t.string "phone"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_companies_on_user_id"
   end
 
   create_table "contributors", force: :cascade do |t|
@@ -82,7 +87,7 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "friendly_id_slugs", force: :cascade do |t|
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
@@ -140,11 +145,11 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "created_by"
     t.boolean "superadmin_role", default: false
     t.boolean "admin_role", default: false
     t.boolean "producer_role", default: false
     t.boolean "contributor_role", default: false
+    t.bigint "created_by"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   resources :profiles
   resources :companies
   resources :customers
-  resources :clients
-  #resources :custom_users
+ 
 
   get "/dashboard" => "dashboard#index" , as: :dashboard
   get "/customers" => "customers#index", as: :customers_index
@@ -18,7 +17,9 @@ Rails.application.routes.draw do
   get "/user/edit/:id" => "custom_users#edit", as: :edit_user
   delete "/user/delete/:id" => "custom_users#delete", as: :delete_user
   get "/user/delete/:id" => "custom_users#delete", as: :get_delete_user
+  post "/user/delete/:id" => "custom_users#delete", as: :post_delete_user
   get "/user/show/:id" => "custom_users#show", as: :show_user
+
   #devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #devise_for :users, path: 'user', path_names: { 
