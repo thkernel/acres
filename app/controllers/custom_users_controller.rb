@@ -13,7 +13,7 @@ class CustomUsersController < ApplicationController
 
       respond_to do |format|
         if @user.save
-          @users = User.find(created_by: current_user)
+          @users = User.all
 
           format.html { redirect_to @user, notice: 'User was successfully created.' }
           format.json { render :show, status: :created, location: @contributor }

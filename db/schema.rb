@@ -53,6 +53,10 @@ ActiveRecord::Schema.define(version: 20180528071220) do
     t.string "phone"
     t.bigint "user_id", null: false
     t.string "slug"
+    t.string "brand_file_name"
+    t.string "brand_content_type"
+    t.integer "brand_file_size"
+    t.datetime "brand_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_companies_on_user_id", unique: true

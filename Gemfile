@@ -85,5 +85,5 @@ gem 'premailer-rails', '~> 1.10', '>= 1.10.2'
 gem 'remotipart', '~> 1.4', '>= 1.4.2'
 gem 'roo', '~> 2.7', '>= 2.7.1'
 gem 'creek', '~> 2.2'
-#gem 'paperclip', '~> 5.0.0'
+gem 'paperclip', '~> 6.0'
 
