@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :mail_configurations
   resources :logs
   resources :contributors
   resources :producers
@@ -7,6 +8,14 @@ Rails.application.routes.draw do
   resources :profiles
   resources :companies
   resources :customers
+
+  resources :customers do
+    get 'delete'
+  end
+
+  resources :banks do
+    get 'delete'
+  end
  
 
   get "/dashboard" => "dashboard#index" , as: :dashboard
@@ -19,6 +28,9 @@ Rails.application.routes.draw do
   get "/user/delete/:id" => "custom_users#delete", as: :get_delete_user
   post "/user/delete/:id" => "custom_users#delete", as: :post_delete_user
   get "/user/show/:id" => "custom_users#show", as: :show_user
+  #get "/logs/import" => "logs#import", as: :import_file
+  post "/logs/import" => "logs#import", as: :import_file
+  get "/companies/new/:slug" => "companies#new", as: :complete_company
 
   #devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

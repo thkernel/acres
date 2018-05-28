@@ -20,16 +20,17 @@ class CompaniesController < ApplicationController
 
   # GET /companies/1/edit
   def edit
+    render layout: "dashboard"
   end
 
   # POST /companies
   # POST /companies.json
   def create
-    @company = Company.new(company_params)
+    @company = current_user.build_company(company_params)
 
     respond_to do |format|
       if @company.save
-        format.html { redirect_to @company, notice: 'Company was successfully created.' }
+        format.html { redirect_to dashboard_path, notice: 'Company was successfully created.' }
         format.json { render :show, status: :created, location: @company }
       else
         format.html { render :new }

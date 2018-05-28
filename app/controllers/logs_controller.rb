@@ -2,7 +2,18 @@ class LogsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_log, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
+
   
+
+  def import
+	#Log.import(params[:file])
+	#name = params[:file]
+	
+	uploaded_io = params[:file]
+  File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+    file.write(uploaded_io.read)
+  end
+  end
   # GET /logs
   # GET /logs.json
   def index
@@ -26,15 +37,17 @@ class LogsController < ApplicationController
   # POST /logs
   # POST /logs.json
   def create
-    @log = Log.new(log_params)
+    @log = currenr_user.logs.build(log_params)
 
     respond_to do |format|
       if @log.save
         format.html { redirect_to @log, notice: 'Log was successfully created.' }
         format.json { render :show, status: :created, location: @log }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @log.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

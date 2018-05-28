@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180524140310) do
+ActiveRecord::Schema.define(version: 20180528071220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_banks_on_user_id", unique: true
   end
 
   create_table "clients", force: :cascade do |t|
@@ -36,8 +38,11 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.string "city"
     t.string "country"
     t.string "phone"
+    t.bigint "user_id"
+    t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -46,10 +51,11 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.string "city"
     t.string "country"
     t.string "phone"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
+    t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_companies_on_user_id"
+    t.index ["user_id"], name: "index_companies_on_user_id", unique: true
   end
 
   create_table "contributors", force: :cascade do |t|
@@ -73,6 +79,8 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_credits_on_user_id", unique: true
   end
 
   create_table "customers", force: :cascade do |t|
@@ -85,6 +93,8 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_customers_on_user_id", unique: true
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -106,6 +116,24 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_logs_on_user_id", unique: true
+  end
+
+  create_table "mail_configurations", force: :cascade do |t|
+    t.string "host"
+    t.string "user_name"
+    t.string "password"
+    t.string "domain"
+    t.string "address"
+    t.integer "port"
+    t.string "authentication"
+    t.boolean "enable_starttls_auto"
+    t.boolean "ssl"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_mail_configurations_on_user_id", unique: true
   end
 
   create_table "producers", force: :cascade do |t|
@@ -129,7 +157,9 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.string "user"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["user"], name: "index_profiles_on_user"
+    t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -154,4 +184,5 @@ ActiveRecord::Schema.define(version: 20180524140310) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "mail_configurations", "users"
 end

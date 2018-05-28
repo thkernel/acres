@@ -9,4 +9,11 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true
 
+  has_many :logs, dependent: :destroy
+  has_one :company, dependent: :destroy
+  has_one :mail_configuration, dependent: :destroy
+  has_one :profile, dependent: :destroy
+  has_many  :banks, dependent: :destroy
+  has_many :customers, dependent: :destroy
+
 end

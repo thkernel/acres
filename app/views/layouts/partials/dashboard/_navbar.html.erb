@@ -88,15 +88,7 @@
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
-                  <%= image_tag  "thumb/missing",  alt: "person",  class: "img-fluid rounded-circle" %> 
-
-
-                <p>
-                  <!-- <%=  %> -->
-                  <!-- <small><%=  %></small>-->
-                  <small><%= current_user.email %></small>
-                </p>
+               
               </li>
               <!-- Menu Body -->
               
@@ -107,7 +99,7 @@
                   <!-- <a href="#" class="btn btn-default btn-flat">Profile</a> -->
                 </div>
                 <div class="pull-right">
-                 <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn bg-maroon"  %>
+                 <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-danger"  %>
                 </div>
               </li>
             </ul>

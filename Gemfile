@@ -80,4 +80,10 @@ gem 'bootstrap-sass', '~> 3.3.7'
 
 gem 'rails-i18n', '~> 5.1', '>= 5.1.1'
 gem 'friendly_id', '~> 5.2', '>= 5.2.4'
+gem 'dotenv-rails', groups: [:development, :test]
+gem 'premailer-rails', '~> 1.10', '>= 1.10.2'
+gem 'remotipart', '~> 1.4', '>= 1.4.2'
+gem 'roo', '~> 2.7', '>= 2.7.1'
+gem 'creek', '~> 2.2'
+#gem 'paperclip', '~> 5.0.0'
 

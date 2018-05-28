@@ -1,53 +1,73 @@
 <!-- Side Navbar -->
-    <nav class="side-navbar">
-      <div class="side-navbar-wrapper">
+<nav class="side-navbar">
+	<div class="side-navbar-wrapper">
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
-          <!-- User Info-->
-          <div class="sidenav-header-inner text-center">
-            <!-- <%= image_tag  "thumb/avatar-1",  alt: "person",  class: "img-fluid rounded-circle" %> -->
-            <h1>ACRES</h1> 
-            <!-- <span>Web Developer</span> -->
-          </div>
-          <!-- Small Brand information, appears on minimized sidebar-->
-          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
+			<!-- User Info-->
+			<div class="sidenav-header-inner text-center">
+				<!-- <%= image_tag  "thumb/avatar-1",  alt: "person",  class: "img-fluid rounded-circle" %> -->
+            	<h1>ACRES</h1> 
+            	<!-- <span>Web Developer</span> -->
+          	</div>
+          	<!-- Small Brand information, appears on minimized sidebar-->
+          	<div class="sidenav-header-logo">
+				<a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a>
+			</div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
-          <h5 class="sidenav-heading">Menu</h5>
-          <ul id="side-main-menu" class="side-menu list-unstyled">                 
-             <li><%= link_to raw('<i class="fa fa-line-chart" aria-hidden="true"></i>
-
-Tableau de bord'), dashboard_path %></li>
-             <li><%= link_to raw('<i class="fa fa-money" aria-hidden="true"></i>
-Crédits'), credits_path %></li>
-
- <li><%= link_to raw('<i class="fa fa-money" aria-hidden="true"></i>
-Logs'), logs_path %></li>
-
-            <li><%= link_to raw('<i class="fa fa-users" aria-hidden="true"></i>
-Clients'), customers_path %></li>
-<li><%= link_to raw('<i class="fa fa-address-book-o" aria-hidden="true"></i>
-Apporteurs'), contributors_path %></li>
-<li><%= link_to raw('<i class="fa fa-address-book" aria-hidden="true"></i>
-
-Producteurs'), producers_path %></li>
-             <li><%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i>
-Banques'), banks_path %></li>
-            <li>
-            <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs" aria-hidden="true"></i>
-Paramètres</a>
-              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                           <li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
-Société'), dashboard_path %></li>
-                 <li><%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %></li>
-               <li><%= link_to raw('<i class="fa fa-envelope" aria-hidden="true"></i>
- Config. messagerie'), banks_path %></li>
-              </ul>
-            </li>
-            
-          </ul>
-        </div>
-        
-      </div>
-    </nav>
+        	<h5 class="sidenav-heading">Menu</h5>
+        	<ul id="side-main-menu" class="side-menu list-unstyled">                 
+            	<li>
+					<%= link_to raw('<i class="fa fa-line-chart" aria-hidden="true"></i>Tableau de bord'), dashboard_path %>
+				</li>
+				<li>
+					<a href="#commissiondropdownDropdown" aria-expanded="false" data-toggle="collapse"> 
+					<i class="fa fa-money" aria-hidden="true"></i>Commissions</a>
+    				<ul id="commissiondropdownDropdown" class="collapse list-unstyled ">
+        				<li><%= link_to raw('<i class="fa fa-address-book-o" aria-hidden="true"></i>Apporteurs'), dashboard_path %>
+						</li>
+                 		<li>
+							<%= link_to raw('<i class="fa fa-address-book" aria-hidden="true"></i> Producteurs'), all_users_path %>
+						</li>
+               			<li>
+						   <%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i> Banques'), banks_path %>
+						</li>
+              		</ul>
+            	</li>
+				<li>
+					<%= link_to raw('<i class="fa fa-history" aria-hidden="true"></i>Logs'), logs_path %>
+				</li>
+				<li>
+					<%= link_to raw('<i class="fa fa-users" aria-hidden="true"></i>Clients'), customers_path %>
+				</li>
+				<!--
+				<li>
+					<%= link_to raw('<i class="fa fa-address-book-o" aria-hidden="true"></i>Apporteurs'), contributors_path %>
+				</li>
+				<li>
+					<%= link_to raw('<i class="fa fa-address-book" aria-hidden="true"></i>Producteurs'), producers_path %>
+				</li>
+				-->
+				<li>
+					<%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i>Banques'), banks_path %>
+				</li>
+				<li>
+					<a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs" aria-hidden="true"></i>
+					Paramètres</a>
+    				<ul id="exampledropdownDropdown" class="collapse list-unstyled">
+        				<li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
+							Société'), edit_company_path(current_user.company) %>
+						</li>
+                 		<li>
+							<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
+						</li>
+               			<li>
+						   <%= link_to raw('<i class="fa fa-envelope" aria-hidden="true"></i>Config. messagerie'), mail_configurations_path %>
+						</li>
+              		</ul>
+            	</li>
+    		</ul>
+    	</div>  
+    </div>
+</nav>

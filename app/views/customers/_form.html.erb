@@ -1,16 +1,11 @@
-<%= form_with(model: customer, local: true) do |form| %>
+<%= form_with(model: customer, local: false) do |form| %>
     <div class="modal-body">
-      <% if customer.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+      <ul class="errors">
 
-          <ul>
-          <% customer.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
+          <% @customer.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+        </ul>
 
         <div class="row">
             <div class="col-md-12">
@@ -19,32 +14,28 @@
                 </div>
 
                 <div class="form-group">
-                  <%= form.text_field :last_name, id: :customer_last_name, class:"form-control", placeholder: "Prénom" %>
+                  <%= form.text_field :last_name, id: :customer_last_name, class:"form-control", placeholder: "Nom" %>
                 </div>
 
                 <div class="form-group">
-                  <%= form.text_field :gender, id: :customer_gender, class: "form-control", placeholder: "Prénom" %>
+                  <%= form.text_field :address, id: :customer_address, class: "form-control", placeholder: "Adresse" %>
                 </div>
 
                 <div class="form-group">
-                  <%= form.text_field :address, id: :customer_address, class: "form-control", placeholder: "Prénom" %>
+                  <%= form.text_field :city, id: :customer_city, class: "form-control", placeholder: "Ville" %>
                 </div>
 
                 <div class="form-group">
-                  <%= form.text_field :city, id: :customer_city, class: "form-control", placeholder: "Prénom" %>
+                  <%= form.text_field :country, id: :customer_country , class: "form-control", placeholder: "Pays" %>
                 </div>
 
                 <div class="form-group">
-                  <%= form.text_field :country, id: :customer_country , class: "form-control", placeholder: "Prénom" %>
-                </div>
-
-                <div class="form-group">
-                  <%= form.text_field :phone, id: :customer_phone, class: "form-control", placeholder: "Prénom" %>
+                  <%= form.text_field :phone, id: :customer_phone, class: "form-control", placeholder: "Téléphone" %>
                 </div>
             </div><!-- end col -->
         </div><!-- end row -->
         <div class="modal-footer">
-              <%= link_to "Cancel", "#", class: "btn", data: {dismiss: "modal"} %>
+              <%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
               <%= form.submit class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
         </div>
 <% end %>

@@ -1,0 +1,15 @@
+<%= form_tag import_file_path, multipart: false do  %>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group text-center">
+                    <%= file_field_tag :file %>
+                </div>
+            </div>
+        </div>
+    </div><!-- modal body -->
+    <div class="modal-footer">
+        <%= link_to "Cancel", "#", class: "btn", data: {dismiss: "modal"} %>
+        <%= submit_tag "Importer",  class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+    </div>
+<% end %>

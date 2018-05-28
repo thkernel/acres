@@ -1,0 +1,63 @@
+<%= form_with(model: mail_configuration, local: false) do |form| %>
+  <div class="modal-body">
+      <ul class="errors">
+
+          <% @mail_configuration.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+        </ul>
+
+        <div class="row">
+            <div class="col-md-12">
+
+  <div class="form-group">
+    <%= form.text_field :host, id: :mail_configuration_host, class: "form-control", placeholder: "Host" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :user_name, id: :mail_configuration_user_name, class: "form-control", placeholder: "User name" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :password, id: :mail_configuration_password, class: "form-control",  placeholder: "Password" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :domain, id: :mail_configuration_domain, class: "form-control", placeholder: "Domain" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :address, id: :mail_configuration_address, class: "form-control", placeholder: "Address" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :port %>
+    <%= form.number_field :port, id: :mail_configuration_port, class: "form-control", placeholder: "Port" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :authentication %>
+    <%= form.text_field :authentication, id: :mail_configuration_authentication, class: "form-control", placeholder: "Authentification" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :enable_starttls_auto %>
+    <%= form.check_box :enable_starttls_auto, id: :mail_configuration_enable_starttls_auto %>
+  </div>
+
+
+  <div class="form-group">
+    <%= form.label :ssl %>
+    <%= form.check_box :ssl, id: :mail_configuration_ssl %>
+  </div>
+
+  
+
+  
+  </div><!-- end col -->
+        </div><!-- end row -->
+        <div class="modal-footer">
+              <%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
+              <%= form.submit class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+        </div>
+<% end %>

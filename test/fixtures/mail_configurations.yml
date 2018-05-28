@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  host: MyString
+  user_name: MyString
+  password: MyString
+  domain: MyString
+  address: MyString
+  port: 1
+  authentication: MyString
+  enable_starttls_auto: MyString
+  boolean: MyString
+  ssl: false
+  user: one
+
+two:
+  host: MyString
+  user_name: MyString
+  password: MyString
+  domain: MyString
+  address: MyString
+  port: 1
+  authentication: MyString
+  enable_starttls_auto: MyString
+  boolean: MyString
+  ssl: false
+  user: two
