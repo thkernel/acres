@@ -6,7 +6,10 @@
 			<!-- User Info-->
 			<div class="sidenav-header-inner text-center">
 				<!-- <%= image_tag  "thumb/avatar-1",  alt: "person",  class: "img-fluid rounded-circle" %> -->
-            	<h1>ACRES</h1> 
+            	<!-- <h1>ACRES</h1>  -->
+				<div class="brand">
+					<%= image_tag current_user.company.brand.url(:medium) ,  alt: "Logo" %>
+				 </div>
             	<!-- <span>Web Developer</span> -->
           	</div>
           	<!-- Small Brand information, appears on minimized sidebar-->

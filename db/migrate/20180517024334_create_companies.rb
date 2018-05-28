@@ -8,7 +8,7 @@ class CreateCompanies < ActiveRecord::Migration[5.1]
       t.string :phone
       t.references :user , null: false, index: {unique: true}
       t.string :slug, unique: true
-      #t.attachment :brand
+      t.attachment :brand
 
       t.timestamps
     end
