@@ -9,9 +9,12 @@ class CustomUsersController < ApplicationController
     end
     def create
       @user = User.new(user_params)
+      @user.created_by = current_user
 
       respond_to do |format|
         if @user.save
+          @users = User.find(created_by: current_user)
+
           format.html { redirect_to @user, notice: 'User was successfully created.' }
           format.json { render :show, status: :created, location: @contributor }
           format.js
@@ -27,7 +30,8 @@ class CustomUsersController < ApplicationController
     end
 
     def index
-      @users = User.all
+      #@users = User.find(created_by: current_user).where.not(id: current_user)
+      @users = User.where.not(id: current_user)
 	end
 	
     # GET /users/1
@@ -45,6 +49,7 @@ class CustomUsersController < ApplicationController
 		
 		@user.destroy
 		respond_to do |format|
+			@users = User.find(created_by: current_user)
 			format.html { redirect_to users_path, notice: 'User skill was successfully destroyed.' }
 			format.json { head :no_content }
 			format.js
@@ -59,7 +64,9 @@ class CustomUsersController < ApplicationController
     # # PATCH/PUT /users/1.json
     def update
       respond_to do |format|
-        if @user.update(user_params)
+		if @user.update(user_params)
+			@users = User.find(created_by: current_user)
+			
           format.html { redirect_to @user, notice: 'User was successfully updated.' }
           format.json { render :show, status: :ok, location: @user }
         else

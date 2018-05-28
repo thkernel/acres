@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @mail_configuration.host %>
+</p>
+
+<p>
+  <strong>User name:</strong>
+  <%= @mail_configuration.user_name %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @mail_configuration.password %>
+</p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @mail_configuration.domain %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @mail_configuration.address %>
+</p>
+
+<p>
+  <strong>Port:</strong>
+  <%= @mail_configuration.port %>
+</p>
+
+<p>
+  <strong>Authentication:</strong>
+  <%= @mail_configuration.authentication %>
+</p>
+
+<p>
+  <strong>Enable starttls auto:</strong>
+  <%= @mail_configuration.enable_starttls_auto %>
+</p>
+
+<p>
+  <strong>Boolean:</strong>
+  <%= @mail_configuration.boolean %>
+</p>
+
+<p>
+  <strong>Ssl:</strong>
+  <%= @mail_configuration.ssl %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @mail_configuration.user %>
+</p>
+
+<%= link_to 'Edit', edit_mail_configuration_path(@mail_configuration) %> |
+<%= link_to 'Back', mail_configurations_path %>

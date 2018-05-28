@@ -26,7 +26,7 @@ class CreditsController < ApplicationController
   # POST /credits
   # POST /credits.json
   def create
-    @credit = Credit.new(credit_params)
+    @credit = current_user.credits.build(credit_params)
 
     respond_to do |format|
       if @credit.save

@@ -26,15 +26,18 @@ class BanksController < ApplicationController
   # POST /banks
   # POST /banks.json
   def create
-    @bank = Bank.new(bank_params)
+    @banks = current_user.banks
+    @bank = current_user.banks.build(bank_params)
 
     respond_to do |format|
       if @bank.save
         format.html { redirect_to @bank, notice: 'Bank was successfully created.' }
         format.json { render :show, status: :created, location: @bank }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @bank.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -44,11 +47,15 @@ class BanksController < ApplicationController
   def update
     respond_to do |format|
       if @bank.update(bank_params)
+        @banks = current_user.banks
+
         format.html { redirect_to @bank, notice: 'Bank was successfully updated.' }
         format.json { render :show, status: :ok, location: @bank }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @bank.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -57,9 +64,12 @@ class BanksController < ApplicationController
   # DELETE /banks/1.json
   def destroy
     @bank.destroy
+    @banks = current_user.banks
+
     respond_to do |format|
       format.html { redirect_to banks_url, notice: 'Bank was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 
