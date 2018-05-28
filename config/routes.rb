@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :banks do
     get 'delete'
   end
+
+
  
 
   get "/dashboard" => "dashboard#index" , as: :dashboard
@@ -32,6 +34,11 @@ Rails.application.routes.draw do
   post "/logs/import" => "logs#import", as: :import_file
   get "/companies/new/:slug" => "companies#new", as: :complete_company
 
+
+
+  %w( 404 422 500 ).each do |code|
+    get code, :to => "errors#show", :code => code
+  end
   #devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #devise_for :users, path: 'user', path_names: { 
