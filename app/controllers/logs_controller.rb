@@ -2,17 +2,20 @@ class LogsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_log, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
+  
 
   
 
   def import
-	#Log.import(params[:file])
-	#name = params[:file]
+    #Log.import(params[:file])
+    #file = Spreadshet::Excel.new('params[ :uploaded_file ][ :filename ]', 'w+')
+    #file.write( params[ :uploaded_file ][ :tempfile ].read )
+    #puts params[:file_name][:file_name]
+   
+
+  
+	puts "hello"
 	
-	uploaded_io = params[:file]
-  File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-    file.write(uploaded_io.read)
-  end
   end
   # GET /logs
   # GET /logs.json
@@ -37,19 +40,28 @@ class LogsController < ApplicationController
   # POST /logs
   # POST /logs.json
   def create
-    @log = currenr_user.logs.build(log_params)
+    file = params[:log][:file_name]
+    #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+      #file.write(uploaded_io.read)
+    #end
+    puts file.path
+   Log.import(file.path, current_user)
+    #@log = currenr_user.logs.build(log_params)
+   
+    #Log.import(params[:file_name])
+    #puts params[:file_name]
 
-    respond_to do |format|
-      if @log.save
-        format.html { redirect_to @log, notice: 'Log was successfully created.' }
-        format.json { render :show, status: :created, location: @log }
-        format.js
-      else
-        format.html { render :new }
-        format.json { render json: @log.errors, status: :unprocessable_entity }
-        format.js
-      end
-    end
+    #respond_to do |format|
+      #if @log.save
+        #format.html { redirect_to @log, notice: 'Log was successfully created.' }
+        #format.json { render :show, status: :created, location: @log }
+        #format.js
+      #else
+        #format.html { render :new }
+        #format.json { render json: @log.errors, status: :unprocessable_entity }
+        #format.js
+      #end
+    #end
   end
 
   # PATCH/PUT /logs/1

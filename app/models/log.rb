@@ -1,16 +1,22 @@
 class Log < ApplicationRecord
+    require 'roo'
     require 'creek'
     belongs_to :user
 
-    def self.import(file)
-        #file = params[:file]
-        creek =  Creek::Book.new(file.path, check_file_extension: false)
+    def self.import(file, user)
+        creek = Creek::Book.new(file)
         sheet = creek.sheets[0]
-    
+
+        i = 2
         sheet.rows.each do |row|
-            puts row # => {"A1"=>"Content 1", "B1"=>nil, C1"=>nil, "D1"=>"Content 3"}
-        end
-    
-      end
+            a = "A" + i.to_s
+            puts row[a]
+            puts "=================================="
+            i = i + 1
+        end   
+    end
+
+    has_attached_file :file_name
+    validates_attachment :file_name, presence: true
 
 end

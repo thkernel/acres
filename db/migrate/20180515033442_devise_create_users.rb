@@ -3,6 +3,13 @@
 class DeviseCreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :users do |t|
+
+      t.boolean :superadmin_role,  default: false
+      t.boolean :admin_role, default: false
+      t.boolean :producer_role,  default: false
+      t.boolean :contributor_role,  default: false
+      t.bigint  :created_by
+      
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
