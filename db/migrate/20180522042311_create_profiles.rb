@@ -5,12 +5,12 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string :last_name
       t.string :phone
       t.string :address
-      t.string :user
-      #t.string :slug, unique: true
-      #t.attachment  :avatar
+      t.string :slug, unique: true
+      t.attachment  :avatar
+      t.references :user , null: false, index: {unique: true}
 
       t.timestamps
     end
-    add_index :profiles, :user
+    
   end
 end

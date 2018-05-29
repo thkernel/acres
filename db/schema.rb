@@ -24,25 +24,10 @@ ActiveRecord::Schema.define(version: 20180528071220) do
     t.integer "number_of_dates"
     t.string "phone"
     t.string "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_banks_on_user_id", unique: true
-  end
-
-  create_table "clients", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "gender"
-    t.string "address"
-    t.string "city"
-    t.string "country"
-    t.string "phone"
-    t.bigint "user_id"
-    t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_clients_on_user_id"
+    t.index ["user_id"], name: "index_banks_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -62,29 +47,17 @@ ActiveRecord::Schema.define(version: 20180528071220) do
     t.index ["user_id"], name: "index_companies_on_user_id", unique: true
   end
 
-  create_table "contributors", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "address"
-    t.string "phone"
-    t.string "email"
-    t.string "city"
-    t.string "country"
-    t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "credits", force: :cascade do |t|
+    t.bigint "credit_id"
     t.date "production_date"
     t.date "acte_date"
     t.integer "customer_id"
     t.integer "bank_id"
     t.float "amount"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_credits_on_user_id", unique: true
+    t.index ["user_id"], name: "index_credits_on_user_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -95,10 +68,15 @@ ActiveRecord::Schema.define(version: 20180528071220) do
     t.string "city"
     t.string "country"
     t.string "phone"
+    t.string "slug"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.integer "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_customers_on_user_id", unique: true
+    t.index ["user_id"], name: "index_customers_on_user_id"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -118,10 +96,10 @@ ActiveRecord::Schema.define(version: 20180528071220) do
     t.float "no_record"
     t.string "error"
     t.boolean "status"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_logs_on_user_id", unique: true
+    t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
   create_table "mail_configurations", force: :cascade do |t|
@@ -140,33 +118,28 @@ ActiveRecord::Schema.define(version: 20180528071220) do
     t.index ["user_id"], name: "index_mail_configurations_on_user_id", unique: true
   end
 
-  create_table "producers", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "address"
-    t.string "phone"
-    t.string "email"
-    t.string "city"
-    t.string "country"
-    t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "phone"
     t.string "address"
-    t.string "user"
+    t.string "slug"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.integer "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user"], name: "index_profiles_on_user"
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
+    t.boolean "superadmin_role", default: false
+    t.boolean "admin_role", default: false
+    t.boolean "producer_role", default: false
+    t.boolean "contributor_role", default: false
+    t.bigint "created_by"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -179,11 +152,6 @@ ActiveRecord::Schema.define(version: 20180528071220) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "superadmin_role", default: false
-    t.boolean "admin_role", default: false
-    t.boolean "producer_role", default: false
-    t.boolean "contributor_role", default: false
-    t.bigint "created_by"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
