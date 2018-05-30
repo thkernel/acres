@@ -20,10 +20,10 @@
 						<thead>
 							<tr>
 								<th>Date</th>
-								<th>File name</th>
-								<th>No record</th>
-								<th>Error</th>
-								<th>Status</th>
+								<th>Fichier</th>
+								<th>Nombre d'enregistrement</th>
+								<th>Erreur</th>
+								<th>Etat</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -33,7 +33,13 @@
 									<td><%= log.file_name %></td>
 									<td><%= log.no_record %></td>
 									<td><%= log.error %></td>
-									<td><%= log.status %></td>
+									<td>
+										<% if status?(log) %>
+											<span class="green-check"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+										<% else %>
+											<span class="import-failed"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+										<% end %>
+									</td>
 								</tr>
 							<% end %>
 						</tbody>

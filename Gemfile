@@ -86,4 +86,4 @@ gem 'remotipart', '~> 1.4', '>= 1.4.2'
 gem 'roo', '~> 2.7', '>= 2.7.1'
 gem 'creek', '~> 2.2'
 gem 'paperclip', '~> 6.0'
-
+gem 'client_side_validations', '~> 11.1', '>= 11.1.2'

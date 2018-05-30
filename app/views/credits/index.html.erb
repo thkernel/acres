@@ -23,12 +23,15 @@
   <thead>
     <tr>
      <th>N° Dossier</th>
-      <th>Production date</th>
-      <th>Acte date</th>
-      <th>Customer</th>
-      <th>Bank</th>
-      <th>Amount</th>
-      <th>Actions</th>
+      <th>Date production</th>
+      <th>Date acte</th>
+      <th>Client</th>
+      <th>Banque</th>
+      <th>Montant</th>
+      <th>Apporteur</th>
+      <th>Producteur</th>
+      <th>Notaire</th>
+      <th>Hypoplus</th>
     </tr>
   </thead>
 
@@ -38,13 +41,14 @@
         <td><%= credit.credit_id %></td>
         <td><%= credit.production_date %></td>
         <td><%= credit.acte_date %></td>
-        <td><%= credit.customer_id %></td>
-        <td><%= credit.bank_id %></td>
+        <td><%= credit.customer_name %></td>
+        <td><%= credit.bank_name %></td>
         <td><%= credit.amount %></td>
-        <td>
-        <%= link_to 'Show', credit %>
-        <%= link_to 'Edit', edit_credit_path(credit) %>
-        <%= link_to 'Destroy', credit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= credit.contributor_name %></td>
+        <td><%= credit.producer_name %></td>
+        <td><%= credit.notary_name %></td>
+        <td><%= credit.hypoplus %></td>
+        
       </tr>
     <% end %>
   </tbody>

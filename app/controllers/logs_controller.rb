@@ -1,22 +1,10 @@
 class LogsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_log, only: [:show, :edit, :update, :destroy]
+  helper LogsHelper
   layout "dashboard"
-  
 
-  
 
-  def import
-    #Log.import(params[:file])
-    #file = Spreadshet::Excel.new('params[ :uploaded_file ][ :filename ]', 'w+')
-    #file.write( params[ :uploaded_file ][ :tempfile ].read )
-    #puts params[:file_name][:file_name]
-   
-
-  
-	puts "hello"
-	
-  end
   # GET /logs
   # GET /logs.json
   def index
@@ -45,7 +33,7 @@ class LogsController < ApplicationController
       #file.write(uploaded_io.read)
     #end
     puts file.path
-   Log.import(file.path, current_user)
+   Log.import(file, current_user)
     #@log = currenr_user.logs.build(log_params)
    
     #Log.import(params[:file_name])
