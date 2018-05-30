@@ -19,6 +19,7 @@
 //= require DataTables/datatables
 //= require "dataTablesFrench"
 //= require toastr
+//= require rails.validations
 
 $(document).on('turbolinks:load', function() {
     // For fixed width containers
