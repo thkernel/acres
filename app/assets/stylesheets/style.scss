@@ -19,8 +19,7 @@ a {
     max-width: 100% !important;
 }
 
-.login-page .form-inner,
-.btn-primary {
+.login .btn-primary {
     width: 100% !important;
 }
 
@@ -154,4 +153,8 @@ h5 {
 
 .import-failed {
     color: red;
+}
+
+select.form-control {
+    height: 34px !important;
 }

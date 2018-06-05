@@ -6,7 +6,7 @@ class CreditsController < ApplicationController
   # GET /credits
   # GET /credits.json
   def index
-    @credits = Credit.all
+    @credits = current_user.credits
   end
 
   # GET /credits/1
@@ -30,11 +30,16 @@ class CreditsController < ApplicationController
 
     respond_to do |format|
       if @credit.save
+        @credits = current_user.credits
+
         format.html { redirect_to @credit, notice: 'Credit was successfully created.' }
         format.json { render :show, status: :created, location: @credit }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @credit.errors, status: :unprocessable_entity }
+        format.js
+
       end
     end
   end
@@ -44,22 +49,36 @@ class CreditsController < ApplicationController
   def update
     respond_to do |format|
       if @credit.update(credit_params)
+        @credits = current_user.credits
+
         format.html { redirect_to @credit, notice: 'Credit was successfully updated.' }
         format.json { render :show, status: :ok, location: @credit }
+        format.js
+
       else
         format.html { render :edit }
         format.json { render json: @credit.errors, status: :unprocessable_entity }
+        format.js
+
       end
     end
+  end
+
+  def delete 
+    @credit = Credit.find(params[:id])
   end
 
   # DELETE /credits/1
   # DELETE /credits/1.json
   def destroy
     @credit.destroy
+    @credits = current_user.credits
+
     respond_to do |format|
       format.html { redirect_to credits_url, notice: 'Credit was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
+
     end
   end
 

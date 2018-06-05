@@ -14,8 +14,8 @@
   </p>
   </div>
   <div class="modal-footer">
-    <%= link_to "Non", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
-    <%= link_to "Oui", post_delete_user_path(@user), method: :delete, remote: true, class: "btn btn-danger" %>
+    <%= link_to "Annuler", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
+    <%= link_to "Oui, supprimer", destroy_user_path(@user), method: :delete, remote: true, class: "btn btn-danger" %>
   </div>
   </div>
 </div>

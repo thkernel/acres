@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  # Set the default Status value
+	after_initialize :set_defaults
 	#extend FriendlyId
   #friendly_id :name, use: :slugged
   #@user = User.friendly.find(params[:id]) In controller
@@ -8,6 +10,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :email, uniqueness: true
+  validates :role, presence: true
+  attr_accessor :current
 
   has_many :logs, dependent: :destroy
   has_one :company, dependent: :destroy
@@ -15,5 +19,26 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many  :banks, dependent: :destroy
   has_many :customers, dependent: :destroy
+  has_many :credits, dependent: :destroy
+
+
+  def self.find_by_created_by(user)
+      where("created_by = ? ", "#{user.id}")
+
+  end
+
+  
+  def set_defaults
+		self.current ||= "open"
+	end
+  
+  def self.current
+    Thread.current[:user]
+  end
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
+
+  
 
 end

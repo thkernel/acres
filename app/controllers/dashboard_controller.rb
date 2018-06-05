@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
 	layout 'dashboard'
 	
 	def index
-		if !current_user.superadmin_role? and current_user.company.blank?
+		if current_user.role == "Admin"  && current_user.company.blank?
 			redirect_to complete_company_path(current_user)
 		end
 	end

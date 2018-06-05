@@ -6,7 +6,7 @@ class BanksController < ApplicationController
   # GET /banks
   # GET /banks.json
   def index
-    @banks = Bank.all
+    @banks = current_user.banks
   end
 
   # GET /banks/1
