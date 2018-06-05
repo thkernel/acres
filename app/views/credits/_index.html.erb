@@ -1,0 +1,21 @@
+ <% @credits.each do |credit| %>
+      <tr>
+        <td><%= credit.credit_id %></td>
+        <td><%= credit.production_date %></td>
+        <td><%= credit.acte_date %></td>
+        <td><%= credit.customer_name %></td>
+        <td><%= credit.bank_name %></td>
+        <td><%= credit.amount %></td>
+        <td><%= credit.contributor_name %></td>
+        <td><%= credit.producer_name %></td>
+        <td><%= credit.notary_name %></td>
+        <td>
+			<div class="action-buttons">
+				<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_credit_path(credit), title: "Modifier", remote: true %>
+				<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>'), delete_credit_path(credit), remote: true, title: "Supprimer", class: "delete" %>
+
+			</div>
+        </td>
+        
+      </tr>
+    <% end %>

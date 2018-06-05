@@ -1,42 +1,61 @@
-<%= form_with(model: credit, local: true) do |form| %>
-  <% if credit.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(credit.errors.count, "error") %> prohibited this credit from being saved:</h2>
+<%= form_with(model: credit, local: false) do |form| %>
+ <div class="modal-body">
+		<div class="row">
+			<div class="">
+				<ul class="errors">
+					<% @credit.errors.full_messages.each do |message| %>
+						<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+			<div class="col-xs-5">
+				<div class="form-group">
+					<%= form.label :credit_id %>
+					<%= form.number_field :credit_id, id: :credit_id, class: "form-control" %>
+				</div>
 
-      <ul>
-      <% credit.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+				<div class="form-group">
+					<%= form.label :production_date %>
+					<%= form.date_field :production_date, id: :credit_production_date, class: "form-control" %>
+          		</div>
+				<div class="form-group">
+					<%= form.label :acte_date %>
+					<%= form.date_field :acte_date, id: :credit_acte_date, class: "form-control" %>
+				</div>
+				 <div class="form-group">
+					<%= form.label :customer_name %>
+					<%= form.text_field :customer_name, id: :credit_customer_name , class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= form.label :producer_name %>
+					<%= form.text_field :producer_name, id: :credit_producer_name , class: "form-control" %>
+				</div>
+			</div>
 
-  <div class="field">
-    <%= form.label :production_date %>
-    <%= form.date_select :production_date, id: :credit_production_date %>
-  </div>
+			<div class="col-xs-5">
+			
+				<div class="form-group">
+					<%= form.label :contributor_name %>
+					<%= form.text_field :contributor_name, id: :credit_contributor_name , class: "form-control" %>
+				</div>
 
-  <div class="field">
-    <%= form.label :acte_date %>
-    <%= form.date_select :acte_date, id: :credit_acte_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.number_field :customer_id, id: :credit_customer_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :bank_id %>
-    <%= form.number_field :bank_id, id: :credit_bank_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :amount %>
-    <%= form.text_field :amount, id: :credit_amount %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+				<div class="form-group">
+					<%= form.label :notary_name %>
+					<%= form.text_field :notary_name, id: :credit_notary_name , class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= form.label :bank_name %>
+					<%= form.text_field :bank_name, id: :credit_bank_name, class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= form.label :amount %>
+					<%= form.text_field :amount, id: :credit_amount, class: "form-control"  %>
+				</div>
+			</div>
+		</div>
+	</div><!-- modal body -->
+	<div class="modal-footer">
+		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
+		<%= form.submit class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+	</div>
 <% end %>

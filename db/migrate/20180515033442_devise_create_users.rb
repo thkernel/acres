@@ -4,10 +4,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :users do |t|
 
-      t.boolean :superadmin_role,  default: false
-      t.boolean :admin_role, default: false
-      t.boolean :producer_role,  default: false
-      t.boolean :contributor_role,  default: false
+      t.string  :role,   null: false
+      #t.boolean :superadmin_role,  default: false
+      #t.boolean :admin_role, default: false
+      #t.boolean :producer_role,  default: false
+      #t.boolean :contributor_role,  default: false
       t.bigint  :created_by
       
       ## Database authenticatable

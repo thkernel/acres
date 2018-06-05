@@ -26,7 +26,7 @@ class MailConfigurationsController < ApplicationController
   # POST /mail_configurations
   # POST /mail_configurations.json
   def create
-    @mail_configuration = MailConfiguration.new(mail_configuration_params)
+    @mail_configuration = current_user.build_mail_configuration(mail_configuration_params)
 
     respond_to do |format|
       if @mail_configuration.save

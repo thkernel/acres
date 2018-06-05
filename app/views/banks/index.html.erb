@@ -22,9 +22,10 @@
 <table  id="table-list" class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Commission percentage</th>
+      <th>Nom</th>
+      <th>Pourcentage commission (%)</th>
+      <th>Pourcentage commission hypoplus (%)</th>
+      <th>Première tranche</th>
       <th>Actions</th> 
     </tr>
   </thead>
@@ -33,8 +34,9 @@
   		<% @banks.each do |bank| %>
       <tr>
         <td><%= bank.name %></td>
-        <td><%= bank.description %></td>
         <td><%= bank.commission_percentage %></td>
+        <td><%= bank.hypoplus_commission_percentage %></td>
+        <td><%= bank.hypoplus_commission_percentage %></td>
         <td>
 					<div class="action-buttons">
 					<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>

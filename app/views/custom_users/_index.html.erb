@@ -1,6 +1,7 @@
 <% @users.each do |user| %>
 			  <tr>
 					<td><%= user.email %></td>
+					<td><%= user.role %></td>
 					<td>
 					<div class="action-buttons">
 					<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>
