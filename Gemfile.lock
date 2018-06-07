@@ -73,6 +73,8 @@ GEM
     capistrano-rails (1.3.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano-rails-collection (0.1.0)
+      capistrano-rails (~> 1.1)
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
@@ -299,6 +301,7 @@ DEPENDENCIES
   cancancan (~> 2.2)
   capistrano (~> 3.10, >= 3.10.2)
   capistrano-rails (~> 1.3, >= 1.3.1)
+  capistrano-rails-collection (~> 0.1.0)
   capistrano-rvm (~> 0.1.2)
   capistrano3-puma!
   capybara (~> 2.13)
