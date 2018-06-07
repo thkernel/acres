@@ -1,5 +1,4 @@
 class Log < ApplicationRecord
-    require 'roo'
     require 'creek'
     belongs_to :user
 
@@ -7,7 +6,7 @@ class Log < ApplicationRecord
 
     def self.import(file, user)
          # But before import in database, we delete all data in our model
-         Credit.delete_all
+         Credit.delete_all#(user_id: user.id) #if Credit.find_by(user_id: user.id).present?
 
         # Opening file
         creek = Creek::Book.new(file.path)

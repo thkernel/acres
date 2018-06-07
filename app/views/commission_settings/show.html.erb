@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Commission percentage:</strong>
+  <%= @commission_setting.commission_percentage %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @commission_setting.user %>
+</p>
+
+<%= link_to 'Edit', edit_commission_setting_path(@commission_setting) %> |
+<%= link_to 'Back', commission_settings_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180604145825) do
+ActiveRecord::Schema.define(version: 20180606161049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20180604145825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_banks_on_user_id"
+  end
+
+  create_table "commission_settings", force: :cascade do |t|
+    t.integer "commission_percentage"
+    t.integer "hypoplus_commission_percentage"
+    t.integer "first_installment"
+    t.integer "number_of_dates"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_commission_settings_on_user_id", unique: true
   end
 
   create_table "companies", force: :cascade do |t|
@@ -167,5 +178,6 @@ ActiveRecord::Schema.define(version: 20180604145825) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "commission_settings", "users"
   add_foreign_key "mail_configurations", "users"
 end

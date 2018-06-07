@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Commission Settings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Commission percentage</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @commission_settings.each do |commission_setting| %>
+      <tr>
+        <td><%= commission_setting.commission_percentage %></td>
+        <td><%= commission_setting.user %></td>
+        <td><%= link_to 'Show', commission_setting %></td>
+        <td><%= link_to 'Edit', edit_commission_setting_path(commission_setting) %></td>
+        <td><%= link_to 'Destroy', commission_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Commission Setting', new_commission_setting_path, remote: true %>
+<div id="commission-setting-modal" class="modal fade"></div>

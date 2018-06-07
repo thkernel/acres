@@ -158,3 +158,55 @@ h5 {
 select.form-control {
     height: 34px !important;
 }
+
+.top-margin {
+    margin-top: 30px;
+}
+
+.statistics .income strong {
+    font-size: 1em !important;
+    text-transform: uppercase;
+}
+
+.statistics .text-primary {
+    color: #33b35a !important;
+}
+
+.icon .fa {
+    color: #999 !important;
+}
+
+.profile-section-title {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.profile-section-subtitle {
+    float: left;
+    display: block;
+}
+
+.uppercase {
+    text-transform: uppercase !important;
+}
+
+.card-header {
+    background-color: white !important;
+}
+
+.profile-section-password,
+.profile-section-bacic-infos,
+.profile-section-commissions {
+    margin: 5px 0px 5px 0px;
+}
+
+.profile-section-title .fa {
+    font-size: 1.3em !important;
+    margin-right: 5px;
+}
+
+.table th,
+.table td {
+    border-top: 0px !important;
+}
