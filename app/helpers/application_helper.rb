@@ -60,4 +60,12 @@ module ApplicationHelper
 			false
 		end
 	end
+
+	def have_mail_settings?(user)
+		if user.mail_configuration.present?
+			true
+		else
+			false
+		end
+	end
 end

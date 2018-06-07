@@ -98,10 +98,10 @@
               <li class="user-footer">
                 <div class="pull-left">
                  
-                   <%= link_to "Mon compte" , profile_settings_path %>
+                   <%= link_to "Mon compte" , profile_settings_path, class: "btn btn-primary" %>
                 </div>
                 <div class="pull-right">
-                 <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete  %>
+                 <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-danger"  %>
                 </div>
               </li>
             </ul>

@@ -218,9 +218,14 @@ select.form-control {
 
 nav.navbar .dropdown-menu a {
     font-size: 0.9em;
-    color: black !important;
+    /*color: black !important;*/
 }
 
 .dropdown-menu {
     width: 230px !important;
+}
+
+.center-box {
+    margin-left: auto;
+    margin-right: auto;
 }

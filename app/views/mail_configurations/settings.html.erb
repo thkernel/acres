@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header align-items-center">
+                    <div class="card-header-title-text">
+                        <h1 class="uppercase">Configuration SMTP</h1>
+                    </div>
+                    <div class="card-header-subtitle-text">
+                        <p>Informations de votre compte de messagerie</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="profile">
+                        <!-- Start section -->
+                        <div class="profile-section-bacic-infos">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-section-title">
+                                        <div class="pull-left">
+                                            <span>
+                                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span><h3>Informations du compte</h3></span>
+                                        </div>
+                                        <div class="pull-right">
+                                            <span>
+                                                <% if have_mail_settings?(current_user) %>
+                                                    <%= link_to "Mettre à jour", edit_mail_configuration_path(current_user.mail_configuration.id), title: "Modifier", remote: true %>
+                                                <% else %>
+                                                    <%= link_to "Mettre à jour", new_mail_configuration_path, title: "Modifier", remote: true %>
+                                                
+                                                <% end %>
+                                            </span>
+                                        </div>
+                                    </div><!-- end section title -->
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-section-body">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <td class="uppercase">Serveur</td>
+                                                <td ><%= current_user.mail_configuration.host if current_user.mail_configuration.present? %></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Nom d'utilisateur</td>
+                                                <td><%= current_user.mail_configuration.user_name if current_user.mail_configuration.present? %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="uppercase">Domain</td>
+                                                <td><%= current_user.mail_configuration.domain if current_user.mail_configuration.present? %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="uppercase">Adresse</td>
+                                                <td><%= current_user.mail_configuration.address if current_user.mail_configuration.present? %></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Port</td>
+                                                <td><%= current_user.mail_configuration.port if current_user.mail_configuration.present? %></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Authentification</td>
+                                                <td><%= current_user.mail_configuration.authentication if current_user.mail_configuration.present? %></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Enable starttls auto </td>
+                                                <td><%= current_user.mail_configuration.enable_starttls_auto if current_user.mail_configuration.present? %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="uppercase"> Ssl </td>
+                                                <td><%= current_user.mail_configuration.ssl if current_user.mail_configuration.present? %></td>
+                                            </tr>
+                                            
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end section -->
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="smtp-modal" class="modal fade"></div>
