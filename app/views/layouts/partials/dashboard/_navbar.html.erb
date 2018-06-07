@@ -85,7 +85,7 @@
               <!-- The user image in the navbar-->
               <%= image_tag   current_user.avatar.url(:medium),  alt: "Avatar",  class: "img-fluid rounded-circle" %> 
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-               <span class="hidden-xs"><%= current_user.first_name %></span> 
+               <span class="hidden-xs"><%= current_user.login %></span> 
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -98,14 +98,17 @@
               <li class="user-footer">
                 <div class="pull-left">
                  
-                   <%= link_to "Mon compte" , profile_settings_path, class: "btn btn-success" %>
+                   <%= link_to "Mon compte" , profile_settings_path %>
                 </div>
                 <div class="pull-right">
-                 <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-danger"  %>
+                 <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete  %>
                 </div>
               </li>
             </ul>
           </li>
+
+
+          
 
                   
                     <% end %>

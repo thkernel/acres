@@ -57,6 +57,21 @@
                                                 <td class="uppercase">Date création</td>
                                                 <td><%= current_user.created_at %></td>
                                             </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Connexions</td>
+                                                <td><%= current_user.sign_in_count %></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Dernière connexion</td>
+                                                <td><%= current_user.last_sign_in_at %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="uppercase">Dernière IP</td>
+                                                <td><%= current_user.last_sign_in_ip %></td>
+                                            </tr>
+                                            
                                         </table>
                                     </div>
                                 </div>

@@ -13,7 +13,8 @@ class User < ApplicationRecord
 	# Fields validations.
 	validates :email, uniqueness: true
 	validates :role, presence: true
-	validates :first_name, presence: true
+	validates :full_name, presence: true
+	validates :login, presence: true
 	
 
 	# User relationships.

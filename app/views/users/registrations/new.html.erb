@@ -13,20 +13,20 @@
 					<div class="row">
 						<div class="col-xs-6">
 							<div class="form-group">
-								<%= f.label "Prénom" %>
-								<%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control", placeholder: "Prénom" %>
+								<%= f.label "Nom complet" %>
+								<%= f.text_field :full_name, autofocus: true, autocomplete: "full_name", class: "form-control", placeholder: "Nm complet" %>
 							</div>
 						</div>
 						<div class="col-xs-6">
 							<div class="form-group">
-								<%= f.label "Nom" %>
-								<%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: "form-control", placeholder: "Nom" %>
+								<%= f.label "Login" %>
+								<%= f.text_field :login, autofocus: true, autocomplete: "login", class: "form-control", placeholder: "Login" %>
 							</div>
 						</div>
 						<div class="col-md-12">
 
 							<div class="form-group">
-								<%= f.label "Rôle" %>
+								<%= f.label "Profil" %>
 								<%= f.collection_select(:role, @roles,  :name, :name , {prompt: "Votre rôle"}, class: "form-control", required: true) %>
 														
 							</div>
