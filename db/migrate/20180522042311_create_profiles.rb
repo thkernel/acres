@@ -7,7 +7,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string :address
       t.string :slug, unique: true
       t.attachment  :avatar
-      t.references :user , null: false, index: {unique: true}
+      t.references :user, foreign_key: true, null: false, index: {unique: true}
 
       t.timestamps
     end

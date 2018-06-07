@@ -9,7 +9,8 @@ class CreateBanks < ActiveRecord::Migration[5.1]
       t.integer :number_of_dates #nombre d'écheance
       t.string :phone
       t.string :address
-      t.references :user, null: false, index:  true
+      t.string :slug, unique: true
+      t.references :user, foreign_key: true, null: false, index: true
 
       t.timestamps
     end

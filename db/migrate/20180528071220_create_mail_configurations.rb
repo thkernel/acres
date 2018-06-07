@@ -10,6 +10,7 @@ class CreateMailConfigurations < ActiveRecord::Migration[5.1]
       t.string :authentication
       t.boolean :enable_starttls_auto
       t.boolean :ssl
+      t.string :slug, unique: true
       t.references :user, foreign_key: true, null: false, index: {unique: true}
 
       t.timestamps

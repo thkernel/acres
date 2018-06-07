@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20180606161049) do
     t.integer "number_of_dates"
     t.string "phone"
     t.string "address"
+    t.string "slug"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20180606161049) do
     t.integer "hypoplus_commission_percentage"
     t.integer "first_installment"
     t.integer "number_of_dates"
+    t.string "slug"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,12 +49,13 @@ ActiveRecord::Schema.define(version: 20180606161049) do
     t.string "city"
     t.string "country"
     t.string "phone"
-    t.bigint "user_id", null: false
     t.string "slug"
+    t.integer "percentage_commission"
     t.string "brand_file_name"
     t.string "brand_content_type"
     t.integer "brand_file_size"
     t.datetime "brand_updated_at"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_companies_on_user_id", unique: true
@@ -65,9 +68,6 @@ ActiveRecord::Schema.define(version: 20180606161049) do
     t.integer "customer_id"
     t.integer "bank_id"
     t.float "amount"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "bank_name"
     t.string "customer_name"
     t.integer "producer_id"
@@ -76,7 +76,15 @@ ActiveRecord::Schema.define(version: 20180606161049) do
     t.string "contributor_name"
     t.string "notary_name"
     t.string "hypoplus"
-    t.index ["user_id"], name: "index_credits_on_user_id"
+    t.float "total_commission_bank"
+    t.float "total_commission_producer"
+    t.float "total_commission_contributor"
+    t.float "total_commission_company"
+    t.string "slug"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_credits_on_user_id", unique: true
   end
 
   create_table "customers", force: :cascade do |t|
@@ -115,6 +123,7 @@ ActiveRecord::Schema.define(version: 20180606161049) do
     t.float "no_record"
     t.string "error"
     t.boolean "status"
+    t.string "slug"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -131,6 +140,7 @@ ActiveRecord::Schema.define(version: 20180606161049) do
     t.string "authentication"
     t.boolean "enable_starttls_auto"
     t.boolean "ssl"
+    t.string "slug"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -160,6 +170,12 @@ ActiveRecord::Schema.define(version: 20180606161049) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.integer "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.string "role", null: false
     t.bigint "created_by"
     t.string "email", default: "", null: false
@@ -178,6 +194,12 @@ ActiveRecord::Schema.define(version: 20180606161049) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "banks", "users"
   add_foreign_key "commission_settings", "users"
+  add_foreign_key "companies", "users"
+  add_foreign_key "credits", "users"
+  add_foreign_key "customers", "users"
+  add_foreign_key "logs", "users"
   add_foreign_key "mail_configurations", "users"
+  add_foreign_key "profiles", "users"
 end
