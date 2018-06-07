@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
+  resources :commission_settings
   resources :roles
   resources :mail_configurations
   resources :logs
-  resources :contributors
-  resources :producers
   resources :credits
   resources :banks
   resources :profiles
@@ -22,6 +21,8 @@ Rails.application.routes.draw do
     get 'delete'
   end
 
+  
+
  
 
   get "/dashboard" => "dashboard#index" , as: :dashboard
@@ -30,6 +31,9 @@ Rails.application.routes.draw do
   post "/users/new"     => "custom_users#create", as: :create_user
   get "/users/new"     => "custom_users#new", as: :new_user
   get "/user/edit/:id" => "custom_users#edit", as: :edit_user
+
+  #get "/commissions/settings/new"     => "commission_settings#new", as: :new_commission_setting
+  #get "/commissions/settings/edit/:id" => "commission_settings#edit", as: :edit_commission_setting
   
   delete "/user/destroy/:id" => "custom_users#destroy", as: :destroy_user
   get "/credits/delete/:id" => "credits#delete", as: :delete_credit
@@ -45,26 +49,12 @@ Rails.application.routes.draw do
   get "/commissions/contributors" => "commissions#contributor", as: :contributors_commissions
   get "/commissions/producers" => "commissions#producer", as: :producers_commissions
   get "/commissions/banks" => "commissions#bank", as: :banks_commissions
+  get "/profile/settings" => "profiles#settings", as: :profile_settings
 
 
 
 
-  %w( 404 422 500 ).each do |code|
-    get code, :to => "errors#show", :code => code
-  end
-  #devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  #devise_for :users, path: 'user', path_names: { 
-        #sign_in: 'login', 
-        #sign_out: 'logout', 
-        #password: 'secret', 
-        #confirmation: 'verification', 
-        #unlock: 'unblock', 
-        #registration: 'register', 
-        #sign_up: '' 
-
-    #}
-
+  
     devise_for :users, path: '', controllers: { 
             registrations: "users/registrations",
             confirmations: 'users/confirmations',
@@ -90,7 +80,11 @@ Rails.application.routes.draw do
   		unauthenticated do
     		root 'users/sessions#new', as: :unauthenticated_root
   		end
-    end
+	end
+	
+	%w( 404 422 500 ).each do |code|
+		get code, :to => "errors#show", :code => code
+	  end
 
 
 end

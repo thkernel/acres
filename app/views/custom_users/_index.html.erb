@@ -6,7 +6,19 @@
 					<div class="action-buttons">
 					<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>
 '), edit_user_path(user), title: "Modifier", remote: true %>
-					<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
+
+
+<% if not_admin_or_superadmin(user) == true %>
+	<% if have_commission_settings?(user) %>
+	<%= link_to raw('<i class="fa fa-cog" aria-hidden="true"></i>
+'), edit_commission_setting_path(user.commission_setting.id), title: "Paramètres commissions", remote: true %>
+<% else %>
+<%= link_to raw('<i class="fa fa-cog" aria-hidden="true"></i>
+'), new_commission_setting_path(user: user.id), title: "Paramètres commissions", remote: true %>
+<% end %>
+<% end %>
+					
+<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
 '), delete_user_path(user), remote: true, title: "Supprimer", class: "delete" %>
 </div>
 </td>

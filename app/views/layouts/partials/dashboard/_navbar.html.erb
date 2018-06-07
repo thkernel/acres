@@ -40,17 +40,20 @@
                 <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
                   <ul aria-labelledby="notifications" class="dropdown-menu">
                     <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-profile">               <%= image_tag  "thumb/missing.png",  alt: "person",  class: "img-fluid rounded-circle" %> 
+</div>
                         <div class="msg-body">
                           <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
                         </div></a></li>
                     <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-profile">               <%= image_tag  "thumb/missing.png",  alt: "person",  class: "img-fluid rounded-circle" %> 
+</div>
                         <div class="msg-body">
                           <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
                         </div></a></li>
                     <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-profile">               <%= image_tag  "thumb/missing.png",  alt: "person",  class: "img-fluid rounded-circle" %> 
+</div>
                         <div class="msg-body">
                           <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
                         </div></a></li>
@@ -80,10 +83,9 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
-              <%= image_tag  "thumb/missing.png",  alt: "person",  class: "img-fluid rounded-circle" %> 
+              <%= image_tag   current_user.avatar.url(:medium),  alt: "Avatar",  class: "img-fluid rounded-circle" %> 
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-               <span class="hidden-xs"><%= current_user.email %></span> 
+               <span class="hidden-xs"><%= current_user.login %></span> 
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -95,14 +97,18 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <!-- <a href="#" class="btn btn-default btn-flat">Profile</a> -->
+                 
+                   <%= link_to "Mon compte" , profile_settings_path %>
                 </div>
                 <div class="pull-right">
-                 <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-danger"  %>
+                 <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete  %>
                 </div>
               </li>
             </ul>
           </li>
+
+
+          
 
                   
                     <% end %>

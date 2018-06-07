@@ -18,15 +18,15 @@
                 <%= f.password_field :password, autocomplete: "off", class: "form-control" ,  placeholder: "*******"%>
               </div>
 
-              <% if devise_mapping.rememberable? -%>
-                <div class="field">
-                  <%= f.check_box :remember_me %>
-                  <%= f.label :remember_me %>
-                </div>
-              <% end -%>
-
               <div class="form-group">
-                <%= f.submit "Se connecter", class: "login btn btn-primary" %>
+                <div class="row">
+                  <div class="col-xs-7">
+                  	  <%= render "users/shared/forgotpassword" %>
+                  </div>
+                  <div class="col-xs-5 login">
+                		<%= f.submit "Se connecter", class: "btn btn-primary" %>
+                	</div>
+				</div>
               </div>
             <% end %>
 

@@ -39,8 +39,25 @@ module ApplicationHelper
 
 	end
 
+	def not_admin_or_superadmin(user)
+		if  user.role != 'Admin' && user.role != 'Superadmin'
+			true
+		else
+			false
+		end
+
+	end
+
 	def admin_company_logo(user)
 		admin = User.find_by(id: user.created_by)
 		admin.company
+	end
+
+	def have_commission_settings?(user)
+		if user.commission_setting.present?
+			true
+		else
+			false
+		end
 	end
 end

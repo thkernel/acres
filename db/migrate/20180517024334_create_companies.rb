@@ -6,9 +6,11 @@ class CreateCompanies < ActiveRecord::Migration[5.1]
       t.string :city
       t.string :country
       t.string :phone
-      t.references :user , null: false, index: {unique: true}
       t.string :slug, unique: true
+      t.integer :percentage_commission
       t.attachment :brand
+      t.references :user, foreign_key: true, null: false, index: {unique: true}
+
 
       t.timestamps
     end

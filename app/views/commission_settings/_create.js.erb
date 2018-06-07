@@ -1,0 +1,10 @@
+$("ul.errors").html("");
+<% if @commission_setting.errors.any? %>
+  <% @commission_setting.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
+  <% end %>
+<% else %>
+  $(".commission_settings").html("<%= escape_javascript(render 'index') %>");
+  $("#commission_setting-modal").modal("hide");
+ 
+<% end %>

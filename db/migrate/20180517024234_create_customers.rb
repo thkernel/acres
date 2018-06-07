@@ -10,7 +10,7 @@ class CreateCustomers < ActiveRecord::Migration[5.1]
       t.string :phone
       t.string :slug, unique: true
       t.attachment :avatar
-      t.references :user, null: false, index:  true
+      t.references :user, foreign_key: true, null: false, index:  true
 
 
       t.timestamps

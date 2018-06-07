@@ -1,7 +1,12 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  layout 'dashboard'
 
+
+
+  def settings
+  end
   # GET /profiles
   # GET /profiles.json
   def index

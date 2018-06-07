@@ -4,6 +4,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :users do |t|
 
+	  t.string	:full_name
+	  t.string 	:login, null: false, unique: true
+	  t.attachment	:avatar
       t.string  :role,   null: false
       #t.boolean :superadmin_role,  default: false
       #t.boolean :admin_role, default: false

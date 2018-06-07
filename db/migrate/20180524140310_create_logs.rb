@@ -5,7 +5,8 @@ class CreateLogs < ActiveRecord::Migration[5.1]
       t.float :no_record
       t.string :error
       t.boolean :status
-      t.references :user, null: false, index:  true
+      t.string :slug, unique: true
+      t.references :user, foreign_key: true, null: false, index: true
 
 
       t.timestamps

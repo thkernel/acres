@@ -1,0 +1,140 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header align-items-center">
+                    <div class="card-header-title-text">
+                        <h1 class="uppercase">Mon compte</h1>
+                    </div>
+                    <div class="card-header-subtitle-text">
+                        <p>Informations de votre compte</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="profile">
+                        <!-- Start section -->
+                        <div class="profile-section-bacic-infos">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-section-title">
+                                        <div class="pull-left">
+                                            <span>
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                            </span>
+                                            <span><h3>Informations du compte</h3></span>
+                                        </div>
+                                        <div class="pull-right">
+                                            <span>
+                                                <%= link_to "Mettre à jour", edit_user_path(user), title: "Modifier", remote: true %>
+                                            </span>
+                                        </div>
+                                    </div><!-- end section title -->
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-section-body">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <td class="uppercase">Nom</td>
+                                                <td class="uppercase"></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Prénom</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="uppercase">Profil</td>
+                                                <td><%= current_user.role %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="uppercase">E-mail</td>
+                                                <td><%= current_user.email %></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Date création</td>
+                                                <td><%= current_user.created_at %></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Connexions</td>
+                                                <td><%= current_user.sign_in_count %></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="uppercase">Dernière connexion</td>
+                                                <td><%= current_user.last_sign_in_at %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="uppercase">Dernière IP</td>
+                                                <td><%= current_user.last_sign_in_ip %></td>
+                                            </tr>
+                                            
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end section -->
+
+                        
+
+                        <!-- Start section -->
+                        <div class="profile-section-commissions">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-section-title">
+                                        <div class="pull-left">
+                                            <span>
+                                                <i class="fa fa-cog" aria-hidden="true"></i>                                            
+                                            </span>
+                                            <span>
+                                                <h3>Paramètres commissions</h3>
+                                            </span>
+                                        </div>
+                                        <div class="pull-right">
+                                            <span>
+                                                
+                                            </span>
+                                        </div>
+                                    </div><!-- end section title -->
+                                    <div class="profile-section-subtitle">
+                                        <p>Cette section modifiable par l'administrateur seulement.</p>
+                                    </div>
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-section-body">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <td class="uppercase">Pourcentage commissions (%)</td>
+                                                <td><%= current_user.commission_setting.commission_percentage if current_user.commission_setting.present? %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="uppercase">Pourcentage commission hypoplus (%)</td>
+                                                <td><%= current_user.commission_setting.hypoplus_commission_percentage if current_user.commission_setting.present? %></td>
+                                            </tr>
+                                             <tr>
+                                                <td class="uppercase">Première tranche</td>
+                                                <td><%= current_user.commission_setting.first_installment if current_user.commission_setting.present? %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="uppercase">Nombre décheance</td>
+                                                <td><%= current_user.commission_setting.number_of_dates if current_user.commission_setting.present? %></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end section -->
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="user-modal" class="modal fade"></div>
+
