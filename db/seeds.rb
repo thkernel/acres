@@ -20,3 +20,14 @@ Role.create(name: "Superadmin")
 Role.create(name: "Admin")
 Role.create(name: "Producteur")
 Role.create(name: "Apporteur")
+
+
+# Capistrano-rails-collection cammands
+#cap production rails:rake:log:clear
+#cap production rails:rake:tmp:clear
+#cap production rails:rake:db:drop
+#cap production rails:rake:db:reset
+#cap production rails:rake:db:setup
+#cap production rails:rake:db:seed
+#cap production rails:rake:db:migrate
+#cap production rails:rake:db:rollback
