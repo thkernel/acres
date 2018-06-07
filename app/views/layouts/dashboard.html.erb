@@ -10,7 +10,7 @@
 
   <body>
 	<div class="wrapper">
-<%= render :partial => 'layouts/partials/flash_messages', :flash => flash %>
+	<%= render :partial => 'layouts/partials/flash_messages', :flash => flash %>
 		<!-- Left Sidebar -->
 	  <%= render('layouts/partials/dashboard/sidebar') %>
 	   <!-- End Left sidebar -->
@@ -23,6 +23,10 @@
 	  		<!-- Left Sidebar -->
 			  <%= render('layouts/partials/dashboard/navbar') %>
 			   <!-- End Left sidebar -->
+				<!-- Left Sidebar -->
+	  <%= render('layouts/partials/smtp_alert') %>
+	   <!-- End Left sidebar -->
+				
 	    <%= yield %>
 	 
 
