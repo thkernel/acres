@@ -23,7 +23,7 @@ class CreateCredits < ActiveRecord::Migration[5.1]
       t.float :total_commission_company
       
       t.string :slug, unique: true
-      t.references :user, foreign_key: true, null: false, index: {unique: true}
+      t.references :user, foreign_key: true, null: false, index:  true
 
       t.timestamps
     end
