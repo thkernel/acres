@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
 
 	#add_flash_types :success, :danger, :info
 	def configure_permitted_parameters
-		devise_parameter_sanitizer.permit(:sign_up, keys: [:role, :last_name, :first_name])
-		devise_parameter_sanitizer.permit(:account_update, keys: [:role, :last_name, :first_name, :avatar])
+		devise_parameter_sanitizer.permit(:sign_up, keys: [:role, :full_name, :login])
+		devise_parameter_sanitizer.permit(:account_update, keys: [:role, :full_name, :login, :avatar])
 	end
 
   def after_sign_in_path_for(resource)
