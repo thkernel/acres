@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   get "/user/delete/:id" => "custom_users#delete", as: :delete_user
   get "/user/update/:id" => "custom_users#update", as: :update_user
 
+  get "/settings/mail" => "mail_configurations#settings", as: :mail_settings
+
   get "/user/show/:id" => "custom_users#show", as: :show_user
   #get "/logs/import" => "logs#import", as: :import_file
   post "/logs/import" => "logs#import", as: :import_file

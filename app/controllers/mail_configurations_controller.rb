@@ -9,6 +9,9 @@ class MailConfigurationsController < ApplicationController
     @mail_configurations = MailConfiguration.all
   end
 
+
+  def settings
+  end
   # GET /mail_configurations/1
   # GET /mail_configurations/1.json
   def show
