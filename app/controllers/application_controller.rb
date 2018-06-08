@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 	
   protect_from_forgery with: :exception
 	before_action :configure_permitted_parameters, if: :devise_controller?
-	before_action :set_mailer_settings
+	after_action :set_mailer_settings
  
 	
 
@@ -22,19 +22,25 @@ class ApplicationController < ActionController::Base
 
 	private
 
-  def set_mailer_settings
-		@smtp_settings = current_user.mail_configuration if current_user.mail_configuration.present?
-    ActionMailer::Base.smtp_settings.merge!({
-			:address => @smtp_settings.address, 
-			:port => @smtp_settings.port,
-			:domain => @smtp_settings.domain,
-			:authentication => 'plain',
-			:user_name => @smtp_settings.user_name,
-			:password => @smtp_settings.password,
-			:enable_starttls_auto => true
-			})
+	def set_mailer_settings
+		if  current_user.present?
+			smtp_settings = current_user.mail_configuration 
 
-			#ActionMailer::Base.default_options = {from: "slatejob.official@gmail.com"}
+			if current_user.mail_configuration.present?
+				ActionMailer::Base.smtp_settings.merge!({
+					:address => smtp_settings.address , 
+					:port => smtp_settings.port,
+					:domain => smtp_settings.domain,
+					:authentication => 'plain',
+					:user_name => smtp_settings.user_name,
+					:password => smtp_settings.password,
+					:enable_starttls_auto => true
+				})
+				
+			end
+				#ActionMailer::Base.default_options = {from: "slatejob.official@gmail.com"}
+
+		end
 
   end
 	
