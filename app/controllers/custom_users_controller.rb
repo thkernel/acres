@@ -22,13 +22,8 @@ class CustomUsersController < ApplicationController
           format.json { render :show, status: :created, location: @contributor }
           format.js
 
-          # Send mail to the new user.
-         @smtp_settings = current_user.mail_configuration if !current_user.mail_configuration.nil?
-         @delivery_method = ""
-
-          NewUserMailer.set_smtp_settings(@smtp_settings)
-          #NewUserMailer.delivery_method(@delivery_method)
-          NewUserMailer.new_user_mail(@user.email, @user.password).deliver_now
+         
+          NewUserMailer.new_user_mail(@user.email, @user.password, ).deliver_now
 
         else
           format.html { render :new }
