@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180606161049) do
+ActiveRecord::Schema.define(version: 20180611125534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,24 @@ ActiveRecord::Schema.define(version: 20180606161049) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_commission_settings_on_user_id", unique: true
+  end
+
+  create_table "commissions", force: :cascade do |t|
+    t.string "bank_name"
+    t.string "contributor_name"
+    t.string "producer_name"
+    t.string "company_name"
+    t.integer "contributor_commission_percentage"
+    t.float "contributor_commission"
+    t.integer "producer_commission_percentage"
+    t.float "producer_commission"
+    t.integer "bank_commission_percentage"
+    t.float "bank_commission"
+    t.integer "company_commission_percentage"
+    t.float "company_commission"
+    t.float "amount_credit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "companies", force: :cascade do |t|

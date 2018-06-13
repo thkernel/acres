@@ -38,6 +38,11 @@ class User < ApplicationRecord
 		where("created_by = ? ", "#{user.id}")
 	end
 
+	# Find users by authors.
+	def self.find_by_fullname(name)
+		where("full_name = ? ", "#{user}")
+	end
+
 
 	# For Paperclip usage
 	has_attached_file :avatar, styles: { medium: "300x300>", thumb: "200x200>" }, default_url: "/images/avatar/:style/missing.png",  validate_media_type: false

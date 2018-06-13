@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #resources :commissions
   resources :commission_settings
   resources :roles
   resources :mail_configurations
@@ -6,7 +7,7 @@ Rails.application.routes.draw do
   resources :credits
   resources :banks
   resources :profiles
-  resources :companies
+  #resources :companies
   resources :customers
 
   resources :customers do
@@ -32,6 +33,8 @@ Rails.application.routes.draw do
   get "/users/new"     => "custom_users#new", as: :new_user
   get "/user/edit/:id" => "custom_users#edit", as: :edit_user
 
+  patch "/user/update/:id" => "custom_users#update", as: :udapte_user
+
   #get "/commissions/settings/new"     => "commission_settings#new", as: :new_commission_setting
   #get "/commissions/settings/edit/:id" => "commission_settings#edit", as: :edit_commission_setting
   
@@ -46,11 +49,19 @@ Rails.application.routes.draw do
   get "/user/show/:id" => "custom_users#show", as: :show_user
   #get "/logs/import" => "logs#import", as: :import_file
   post "/logs/import" => "logs#import", as: :import_file
-  get "/companies/new/:slug" => "companies#new", as: :complete_company
 
-  get "/commissions/contributors" => "commissions#contributor", as: :contributors_commissions
-  get "/commissions/producers" => "commissions#producer", as: :producers_commissions
-  get "/commissions/banks" => "commissions#bank", as: :banks_commissions
+  get "/companies/new" => "companies#new", as: :complete_company
+  get "/companies/:id" => "companies#show", as: :show_company
+  get "/companies/edit/:id" => "companies#edit", as: :edit_company
+  #get "/companies/:id" => "companies#index", as: :company
+  patch "/companies/:id"  => "companies#update", as: :company
+
+
+
+  get "/commissions/contributors" => "commissions#contributors", as: :contributors_commissions
+  get "/commissions/producers" => "commissions#producers", as: :producers_commissions
+  
+  get "/commissions/banks" => "commissions#banks", as: :banks_commissions
   get "/profile/settings" => "profiles#settings", as: :profile_settings
 
 
