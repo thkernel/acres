@@ -1,6 +1,7 @@
 class CompaniesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_company, only: [:show, :edit, :update, :destroy]
+  layout 'dashboard'
 
   # GET /companies
   # GET /companies.json
@@ -46,9 +47,11 @@ class CompaniesController < ApplicationController
       if @company.update(company_params)
         format.html { redirect_to @company, notice: 'Company was successfully updated.' }
         format.json { render :show, status: :ok, location: @company }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @company.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -66,11 +69,13 @@ class CompaniesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_company
-      @company = Company.find(params[:id])
+      #@company = Company.find(params[:id])
+      @company = Company.friendly.find(params[:id])
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :address, :city, :country, :phone)
+      params.require(:company).permit(:name, :address, :city, :country, :phone, :percentage_commission)
     end
 end

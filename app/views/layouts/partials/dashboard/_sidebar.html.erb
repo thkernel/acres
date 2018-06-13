@@ -36,7 +36,7 @@
 Crédits'), credits_path %>
 				</li>
 				<li>
-					<%= link_to raw('<i class="fa fa-history" aria-hidden="true"></i>Logs'), logs_path %>
+					<%= link_to raw('<i class="fa fa-history" aria-hidden="true"></i>Injections'), logs_path %>
 				</li>
 				<li>
 					<a href="#commissiondropdownDropdown" aria-expanded="false" data-toggle="collapse"> 
@@ -48,7 +48,7 @@ Crédits'), credits_path %>
 							<%= link_to raw('<i class="fa fa-address-book" aria-hidden="true"></i> Producteurs'), producers_commissions_path %>
 						</li>
                			<li>
-						   <%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i> Banques'), banks_path %>
+						   <%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i> Banques'), banks_commissions_path %>
 						</li>
               		</ul>
             	</li>
@@ -71,7 +71,7 @@ Crédits'), credits_path %>
 							<% end %>
 							<% if is_admin? %>
 								<li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
-									Société'), edit_company_path(current_user.company) %>
+									Société'), show_company_path(current_user.company) %>
 								</li>
 							
 							

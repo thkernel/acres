@@ -1,5 +1,10 @@
 class Company < ApplicationRecord
-    belongs_to :user
+	
+	# FriendlyID, to have nice permalink.
+	extend FriendlyId
+	friendly_id :name, use: :slugged
+	
+	belongs_to :user
     validates_presence_of :name, :phone
 
     # For Paperclip usage

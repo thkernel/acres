@@ -3,6 +3,9 @@ class BanksController < ApplicationController
   before_action :set_bank, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
 
+
+
+
   # GET /banks
   # GET /banks.json
   def index

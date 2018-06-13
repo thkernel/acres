@@ -1,13 +1,10 @@
 <%= form_with(model: company, local: true) do |form| %>
   <ul class="errors">
-    <% if company.errors.any? %>
-      <div class="alert alert-danger" role="alert">
-					<% @company.errors.full_messages.each do |message| %>
-						<li><%= message %></li>
-					<% end %>
-        </div>
-      <% end %>
-			</ul>
+
+          							<% company.errors.full_messages.each do |message| %>
+                        				<li><%= message %></li>
+                      				<% end %>
+        		</ul>
 
   <div class="form-group">
     <%= form.text_field :name, id: :company_name, class: "form-control", placeholder: "Nom" %>

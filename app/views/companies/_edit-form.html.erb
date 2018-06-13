@@ -1,0 +1,42 @@
+<%= form_with(model: company, local: false) do |form| %>
+	<div class="modal-body">
+<ul class="errors">
+
+          							<% company.errors.full_messages.each do |message| %>
+                        				<li><%= message %></li>
+                      				<% end %>
+        						</ul>
+
+		<div class="form-group">
+			<%= form.text_field :name, id: :company_name, class: "form-control", placeholder: "Nom" %>
+		</div>
+
+		<div class="form-group">
+			<%= form.text_field :address, id: :company_address, class: "form-control", placeholder: "Adresse" %>
+		</div>
+
+		<div class="form-group">
+			<%= form.text_field :city, id: :company_city, class: "form-control", placeholder: "Ville" %>
+		</div>
+
+		<div class="form-group">
+			<%= form.text_field :country, id: :company_country, class: "form-control", placeholder: "Pays" %>
+		</div>
+
+		<div class="form-group">
+			<%= form.text_field :phone, id: :company_phone, class: "form-control", placeholder: "Téléphone" %>
+		</div>
+		<div class="form-group">
+			<%= form.number_field :percentage_commission, id: :percentage_commission, class: "form-control", placeholder: "Pourcentage commission" %>
+		</div>
+		<div class="form-group">
+				<%= form.label "Votre logo" %>
+				<%= form.file_field :brand, id: :company_phone,  placeholder: "Logo" %>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
+		<%= form.submit class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+	</div>
+<% end %>
