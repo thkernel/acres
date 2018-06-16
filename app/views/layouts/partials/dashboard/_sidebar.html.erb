@@ -6,13 +6,17 @@
 			<!-- User Info-->
 			<div class="sidenav-header-inner text-center">
             	 <%  if is_admin?  %>
-				   <div class="brand">
-					<%= image_tag current_user.company.brand.url(:medium) ,  alt: "Logo" %>
-				 </div>
+				 	<% if current_user.company.present? %>
+						<div class="brand">
+							<%= image_tag current_user.company.brand.url(:medium) ,  alt: "Logo" %>
+						</div>
+					<% end %>
 				 <% elsif not_admin_or_superadmin? %>
-				 	<div class="brand">
-						<%= image_tag admin_company_logo(current_user).brand.url(:medium) ,  alt: "Logo" %>
-					</div>
+				 	<% if !current_user.company.present? %>
+						<div class="brand">
+							<%= image_tag admin_company_logo(current_user).brand.url(:medium) ,  alt: "Logo" %>
+						</div>
+					<% end %>
 				 <% elsif is_superadmin? %>
 				   <h1>ACRES</h1>  
 				 <% end %>
@@ -26,63 +30,19 @@
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
-        	<h5 class="sidenav-heading">Menu</h5>
-        	<ul id="side-main-menu" class="side-menu list-unstyled">                 
-            	<li>
-					<%= link_to raw('<i class="fa fa-line-chart" aria-hidden="true"></i>Tableau de bord'), dashboard_path %>
-				</li>
-				<li>
-					<%= link_to raw('<i class="fa fa-balance-scale" aria-hidden="true"></i>
-Crédits'), credits_path %>
-				</li>
-				<li>
-					<%= link_to raw('<i class="fa fa-history" aria-hidden="true"></i>Injections'), logs_path %>
-				</li>
-				<li>
-					<a href="#commissiondropdownDropdown" aria-expanded="false" data-toggle="collapse"> 
-					<i class="fa fa-money" aria-hidden="true"></i>Commissions</a>
-    				<ul id="commissiondropdownDropdown" class="collapse list-unstyled ">
-        				<li><%= link_to raw('<i class="fa fa-address-book-o" aria-hidden="true"></i>Apporteurs'), contributors_commissions_path %>
-						</li>
-                 		<li>
-							<%= link_to raw('<i class="fa fa-address-book" aria-hidden="true"></i> Producteurs'), producers_commissions_path %>
-						</li>
-               			<li>
-						   <%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i> Banques'), banks_commissions_path %>
-						</li>
-              		</ul>
-            	</li>
-				
-				<li>
-					<%= link_to raw('<i class="fa fa-users" aria-hidden="true"></i>Clients'), customers_path %>
-				</li>
-				<li>
-					<%= link_to raw('<i class="fa fa-building-o" aria-hidden="true"></i>Banques'), banks_path %>
-				</li>
-				<% if is_admin? || is_superadmin? %>
-					<li>
-						<a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs" aria-hidden="true"></i>
-						Paramètres</a>
-						<ul id="exampledropdownDropdown" class="collapse list-unstyled">
-							<% if is_admin? || is_superadmin? %>
-								<li>
-									<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
-								</li>
-							<% end %>
-							<% if is_admin? %>
-								<li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
-									Société'), show_company_path(current_user.company) %>
-								</li>
-							
-							
-								<li>
-									<%= link_to raw('<i class="fa fa-envelope" aria-hidden="true"></i>Config. messagerie'), mail_settings_path %>
-								</li>
-							<% end %>
-						</ul>
-					</li>
-				<% end %>
-    		</ul>
+        	<% if is_admin? %>
+					<!-- Show Admin menu -->
+					<%= render 'layouts/partials/dashboard/navs/admin-nav' %>
+				<% elsif is_superadmin? %>
+					<!-- Show Superadmin menu -->
+					<%= render 'layouts/partials/dashboard/navs/superadmin-nav' %>
+				<% elsif is_producer?(current_user) %>
+					<!-- Show Producer menu -->
+					<%= render 'layouts/partials/dashboard/navs/producer-nav' %>
+				<% elsif is_contributor?(current_user) %>
+					<!-- Show Contributor menu -->
+					<%= render 'layouts/partials/dashboard/navs/contributor-nav' %>
+			<% end %>
     	</div>  
     </div>
 </nav>

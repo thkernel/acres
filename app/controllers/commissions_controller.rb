@@ -1,78 +1,140 @@
 class CommissionsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_commission, only: [:show, :edit, :update, :destroy]
-  after_action  :compute_commissions
-  layout "dashboard"
+	# This controller is reserved for all user authenticate users
+	before_action :authenticate_user!
+
+	# Calling set_commion methode on before action to initialize commissions variable.
+	before_action :set_commission, only: [:show, :edit, :update, :destroy]
+	
+	# Calling compute_commissions methode on after action to compute the commission.
+	after_action  :compute_commissions
+
+	
+
+	# Render dashboard layout for all actions.
+	layout "dashboard"
 
 
+	def contributors
 
+		if current_user.present? && is_contributor?(current_user)
+			@commissions = Commission.where(contributor_name: current_user.full_name)
+		elsif is_admin?
+			#@commissions = current_user.commissions 
+			users = User.where(role: 'Apporteur')
+			@commissions = []
+			users.each {|user|
+				commissions = Commission.where(contributor_name: user.full_name)
+				commissions.each{|commission|
+					@commissions.push(commission)
+				}
+				
+			}
+		end
 
-  def contributors
+		
+	end
 
-    # Load all commissions
-    @commissions = Commission.all
-  end
+	def producers
+		if current_user.present? && is_producer?(current_user)
+			@commissions = Commission.where(producer_name: current_user.full_name)
+		elsif is_admin?
+			#@commissions = current_user.commissions 
+			users = User.where(role: 'Producteur')
+			@commissions = []
+			users.each {|user|
+				commissions = Commission.where(producer_name: user.full_name)
+				commissions.each{|commission|
+					@commissions.push(commission)
+				}
+				
+			}
+		end
+	end
 
-  def producers
-    @commissions = Commission.all
-  end
+	def banks
+		@commissions = Commission.all
+	end
 
-  def banks
-	@commissions = Commission.all
-  end
+	def company 
+		@commissions = Commission.all
+	end
+	# GET /commissions
+	# GET /commissions.json
+	def index
+		@commissions = Commission.all
+	end
 
-  def company 
-	@commissions = Commission.all
-  end
-  # GET /commissions
-  # GET /commissions.json
-  def index
-    @commissions = Commission.all
-  end
+	def resume_producer
+		if params[:producer_name].present?
+			@producer_name = params[:producer_name] 
+			@commissions = Commission.where(producer_name: @producer_name)
+		elsif params[:producer_name].blank?
+			@producer_name = current_user.full_name 
+			@commissions = Commission.where(producer_name: @producer_name)
+		end
+		
+	end
 
-  # GET /commissions/1
-  # GET /commissions/1.json
-  def show
-  end
+	def resume_contributor
+		if params[:contributor_name].present?
+			@contributor_name = params[:contributor_name] 
+			@commissions = Commission.where(contributor_name: @contributor_name)
+		elsif params[:contributor_name].blank?
+			@contributor_name = current_user.full_name 
+			@commissions = Commission.where(contributor_name: @contributor_name)
+		end
+		
+	end
 
-  # GET /commissions/new
-  def new
-    @commission = Commission.new
-  end
+	def resume_bank
+		@bank_name = params[:bank_name] if params[:bank_name].present?
+		@commissions = Commission.where(bank_name: @bank_name)
+		
+	end
 
-  # GET /commissions/1/edit
-  def edit
-  end
+	# GET /commissions/1
+	# GET /commissions/1.json
+	def show
+	end
 
-  # POST /commissions
-  # POST /commissions.json
-  def create
-    @commission = Commission.new(commission_params)
+	# GET /commissions/new
+	def new
+		@commission = Commission.new
+	end
 
-    respond_to do |format|
-      if @commission.save
-        format.html { redirect_to @commission, notice: 'Commission was successfully created.' }
-        format.json { render :show, status: :created, location: @commission }
-      else
-        format.html { render :new }
-        format.json { render json: @commission.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+	# GET /commissions/1/edit
+	def edit
+	end
 
-  # PATCH/PUT /commissions/1
-  # PATCH/PUT /commissions/1.json
-  def update
-    respond_to do |format|
-      if @commission.update(commission_params)
-        format.html { redirect_to @commission, notice: 'Commission was successfully updated.' }
-        format.json { render :show, status: :ok, location: @commission }
-      else
-        format.html { render :edit }
-        format.json { render json: @commission.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+	# POST /commissions
+	# POST /commissions.json
+	def create
+		@commission = Commission.new(commission_params)
+
+		respond_to do |format|
+		if @commission.save
+			format.html { redirect_to @commission, notice: 'Commission was successfully created.' }
+			format.json { render :show, status: :created, location: @commission }
+		else
+			format.html { render :new }
+			format.json { render json: @commission.errors, status: :unprocessable_entity }
+		end
+		end
+	end
+
+	# PATCH/PUT /commissions/1
+	# PATCH/PUT /commissions/1.json
+	def update
+		respond_to do |format|
+		if @commission.update(commission_params)
+			format.html { redirect_to @commission, notice: 'Commission was successfully updated.' }
+			format.json { render :show, status: :ok, location: @commission }
+		else
+			format.html { render :edit }
+			format.json { render json: @commission.errors, status: :unprocessable_entity }
+		end
+		end
+	end
 
   # DELETE /commissions/1
   # DELETE /commissions/1.json
@@ -96,14 +158,15 @@ class CommissionsController < ApplicationController
 	end
 	
 	def compute_commissions
-		Commission.delete_all
+		commission = current_user.commissions
+		commission.delete_all if commission.present?
 		# Load all credits.
-		@credits = Credit.all  
+		@credits = current_user.credits 
 
 		# Loop credits.
 		@credits.each {|credit|
 
-			# Commissions.
+			# Instance of Commission.
 			commission = Commission.new
 
 			# Get credit infos.
@@ -121,8 +184,9 @@ class CommissionsController < ApplicationController
 				commission.producer_name = credit_producer_name
 				commission.producer_commission_percentage = producer_commission_percentage
 				credit_amount = credit.amount if credit.amount.present?
+				
 				if producer.commission_setting.present?
-				commission.producer_commission = (((producer_commission_percentage) * (credit.amount))/100)
+					commission.producer_commission = (((producer_commission_percentage) * (credit.amount))/100)
 				end
 			
 			end
@@ -132,8 +196,9 @@ class CommissionsController < ApplicationController
 				commission.contributor_name = credit_contributor_name
 				commission.contributor_commission_percentage = contributor_commission_percentage
 				credit_amount = credit.amount if credit.amount.present?
+				
 				if contributor.commission_setting.present?
-				commission.contributor_commission = (((contributor_commission_percentage) * (credit.amount))/100)
+					commission.contributor_commission = (((contributor_commission_percentage) * (credit.amount))/100)
 				end
 			
 			end
@@ -143,6 +208,7 @@ class CommissionsController < ApplicationController
 				commission.bank_name = credit_bank_name
 				commission.bank_commission_percentage = bank_commission_percentage
 				credit_amount = credit.amount if credit.amount.present?
+				
 				if bank.commission_percentage.present?
 				commission.bank_commission = (((bank_commission_percentage) * (credit.amount))/100)
 				end
@@ -151,12 +217,16 @@ class CommissionsController < ApplicationController
 
 			if current_user.role == 'Admin'
 				if current_user.company.present?
-					company_commission_percentage = current_user.company.percentage_commission if current_user.company.percentage_commission.present?
-					commission.company_commission = (((company_commission_percentage) * (credit.amount))/100)
+					if current_user.company.percentage_commission.present?
+						company_commission_percentage = current_user.company.percentage_commission 
+						commission.company_commission = (((company_commission_percentage) * (credit.amount))/100)
+					end
 				end
 			end
 			
+			commission.credit_id = credit.credit_id
 			commission.amount_credit = credit_amount
+			commission.user_id = current_user.id
 			commission.save
 
     	}

@@ -23,6 +23,7 @@ class User < ApplicationRecord
 	has_one :mail_configuration, dependent: :destroy
 	has_one :commission_setting, dependent: :destroy
 	has_one :profile, dependent: :destroy
+	has_many :commissions, dependent: :destroy
 	has_many  :banks, dependent: :destroy
 	has_many :customers, dependent: :destroy
 	has_many :credits, dependent: :destroy

@@ -68,4 +68,37 @@ module ApplicationHelper
 			false
 		end
 	end
+
+	def is_producer?(user) 
+		if user.present? 
+			if user.role == 'Producteur'
+				true 
+			else
+				false 
+			end
+		end
+	end
+
+	def is_contributor?(user) 
+		if user.present? 
+			if user.role == 'Apporteur'
+				true 
+			else
+				false 
+			end
+		end
+	end
+
+	def is_main_admin?(user)
+	end
+
+	def credit_acte_date(credit_id)
+		credit = Credit.find_by(credit_id: credit_id)
+		credit.acte_date if credit.acte_date.present?
+	end
+
+	def credit_customer_name(credit_id)
+		credit = Credit.find_by(credit_id: credit_id)
+		credit.customer_name
+	end
 end
