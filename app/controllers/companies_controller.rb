@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_company, only: [:show, :edit, :update, :destroy]
-  layout 'dashboard'
+  layout 'dashboard', only: [:edit, :show, :update, :destroy]
 
   # GET /companies
   # GET /companies.json
@@ -21,7 +21,7 @@ class CompaniesController < ApplicationController
 
   # GET /companies/1/edit
   def edit
-    render layout: "dashboard"
+    #render layout: "dashboard"
   end
 
   # POST /companies
@@ -76,6 +76,6 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :address, :city, :country, :phone, :percentage_commission)
+      params.require(:company).permit(:name, :address, :city, :country, :phone, :percentage_commission, :user_id)
     end
 end

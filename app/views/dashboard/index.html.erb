@@ -1,76 +1,12 @@
-<!-- Statistics Section -->
-<section class="statistics">
-	<div class="container-fluid">
-		<div class="row d-flex">
-			<div class="col-md-3">
-				<!-- Income -->
-				<div class="card income text-center">
-					<div class="icon"><i class="fa fa-balance-scale" aria-hidden="true"></i></div>
-					<div class="number"><%= @credits_count.to_i %></div><strong class="text-primary">Crédits</strong>
-					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p> -->
-				</div>
-			</div>
+<% if is_admin? %>
+		<%= render "dashboard/partials/admin-dashboard" %>
+	<% elsif is_superadmin? %>
+		<%= render "dashboard/partials/admin-dashboard" %>
+	<% elsif is_contributor?(current_user) %>
+		<%= render "dashboard/partials/contributor-dashboard" %>
+	<% elsif is_producer?(current_user) %>
+		<%= render "dashboard/partials/producer-dashboard" %>
+<% end %>
 
-			<div class="col-md-3">
-				<!-- Income -->
-				<div class="card income text-center">
-					<div class="icon"><i class="fa fa-building" aria-hidden="true"></i></div>
-					<div class="number"><%= @banks_count.to_i %></div><strong class="text-primary">Banques</strong>
-					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p> -->
-				</div>
-			</div>
 
-			<div class="col-md-3">
-				<!-- Income -->
-				<div class="card income text-center">
-					<div class="icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
-					<div class="number"><%= @customers_count.to_i %></div><strong class="text-primary">Clients</strong>
-					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p> -->
-				</div>
-			</div>
 
-			<div class="col-md-3">
-				<!-- Income -->
-				<div class="card income text-center">
-					<div class="icon"><i class="fa fa-users" aria-hidden="true"></i></div>
-					<div class="number"><%= @producers_and_contributors_count %></div><strong class="text-primary">Producteurs & Apporteurs</strong>
-					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p> -->
-				</div>
-			</div>
-			
-			
-		</div>
-
-		<div class="row d-flex top-margin">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<table id="table-list" class="table table-striped table-bordered table-hover">
-							<thead>
-								<tr>
-								<th>N° Dossier</th>
-								<th>Date production</th>
-								<th>Date acte</th>
-								<th>Client</th>
-								<th>Banque</th>
-								<th>Montant</th>
-								<th>Apporteur</th>
-								<th>Producteur</th>
-								<th>Notaire</th>
-								<th>Actions</th>
-								</tr>
-							</thead>
-
-							<tbody class="credits">
-								<%= render('./credits/index') %>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-			
-			
-	

@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180611125534) do
   end
 
   create_table "commissions", force: :cascade do |t|
+    t.bigint "credit_id"
     t.string "bank_name"
     t.string "contributor_name"
     t.string "producer_name"
@@ -57,8 +58,10 @@ ActiveRecord::Schema.define(version: 20180611125534) do
     t.integer "company_commission_percentage"
     t.float "company_commission"
     t.float "amount_credit"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_commissions_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -214,6 +217,7 @@ ActiveRecord::Schema.define(version: 20180611125534) do
 
   add_foreign_key "banks", "users"
   add_foreign_key "commission_settings", "users"
+  add_foreign_key "commissions", "users"
   add_foreign_key "companies", "users"
   add_foreign_key "credits", "users"
   add_foreign_key "customers", "users"

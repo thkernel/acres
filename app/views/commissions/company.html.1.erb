@@ -5,7 +5,7 @@
 <div class="row">
 <div class="col-md-12">
 <div class="index-heading pull-left">
-    <h3>Commissions des producteurs</h3>
+    <h3>Commissions de l'entreprise</h3>
     </div>
 <div class="pull-right">
 
@@ -28,22 +28,25 @@
       <th>Commission banque</th>
       <th>Commission d'entreprise</th>
       <th>Montant empruntés</th>
-      
+      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @commissions.each do |commission| %>
       <tr>
-        <td><%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %></td>
+        <td><%= commission.bank_name %></td>
         <td><%= commission.contributor_name %></td>
-        <td><%= link_to "#{commission.producer_name}", producer_resume_path(producer_name: commission.producer_name) %></td>
+        <td><%= commission.producer_name %></td>
         <td><%= commission.contributor_commission %></td>
-        <td><%= commission.producer_commission %></td>
-        <td><%= commission.bank_commission %></td>
-        <td><%= commission.company_commission %></td>
+         <td><%= commission.producer_commission %></td>
+          <td><%= commission.bank_commission %></td>
+           <td><%= commission.company_commission %></td>
         <td><%= commission.amount_credit %></td>
-        
+        <td>
+        <%= link_to raw('<i class="fa fa-eye" aria-hidden="true"></i>
+'), dashboard_path, class: "text-center" %>
+        </td>
       </tr>
     <% end %>
   </tbody>

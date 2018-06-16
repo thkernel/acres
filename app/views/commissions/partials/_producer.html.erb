@@ -1,0 +1,58 @@
+
+
+<div class="container">
+
+<div class="row">
+<div class="col-md-12">
+<div class="index-heading pull-left">
+<p>
+    <h3>Résumé des commissions: <%= producer_name %></h3>
+    </p>
+    </div>
+<div class="pull-right">
+
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default">
+<div class="panel-body">
+<table  id="table-list" class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+    
+      <th>Date acte</th>
+      <th>Numéro dossier</th>
+      <th>Banque</th>
+      <th>Client</th>
+      <th>Montant empruntés</th>
+      <th>Montant commission</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% commissions.each do |commission| %>
+      <tr>
+        <td><%= credit_acte_date(commission.credit_id) %></td>
+        <td><%= commission.credit_id %></td>
+        <td><%= commission.bank_name %></td>
+        <td><%= credit_customer_name(commission.credit_id) %></td>
+        <td><%= commission.amount_credit %></td>
+        <td><%= commission.producer_commission %></td>
+        <td>
+        <%= link_to raw('<i class="fa fa-eye" aria-hidden="true"></i>
+'), dashboard_path %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+</div>

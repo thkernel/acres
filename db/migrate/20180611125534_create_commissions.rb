@@ -1,6 +1,7 @@
 class CreateCommissions < ActiveRecord::Migration[5.1]
   def change
     create_table :commissions do |t|
+      t.bigint   :credit_id, unique: true
       t.string   :bank_name
       t.string   :contributor_name
       t.string   :producer_name
@@ -19,6 +20,9 @@ class CreateCommissions < ActiveRecord::Migration[5.1]
       t.float    :company_commission 
 
       t.float    :amount_credit
+
+      t.references :user, foreign_key: true, null: false, index:  true
+
 
       t.timestamps
     end

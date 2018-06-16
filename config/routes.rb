@@ -50,10 +50,13 @@ Rails.application.routes.draw do
   #get "/logs/import" => "logs#import", as: :import_file
   post "/logs/import" => "logs#import", as: :import_file
 
-  get "/companies/new" => "companies#new", as: :complete_company
+
+  
+  get "/companies/index" => "companies#index" , as: :companies
+  post "/companies/new/" => "companies#create", as: :create_company
+  get "/companies/new/" => "companies#new", as: :new_company
   get "/companies/:id" => "companies#show", as: :show_company
   get "/companies/edit/:id" => "companies#edit", as: :edit_company
-  #get "/companies/:id" => "companies#index", as: :company
   patch "/companies/:id"  => "companies#update", as: :company
 
 
@@ -64,7 +67,9 @@ Rails.application.routes.draw do
   get "/commissions/banks" => "commissions#banks", as: :banks_commissions
   get "/profile/settings" => "profiles#settings", as: :profile_settings
 
-
+  get "commissions/resume/:producer_name" => "commissions#resume_producer", as: :producer_resume
+  get "commissions/resume/:contributor_name" => "commissions#resume_contributor", as: :contributor_resume
+  get "commissions/resume/:bank_name" => "commissions#resume_bank", as: :bank_resume
 
 
   
