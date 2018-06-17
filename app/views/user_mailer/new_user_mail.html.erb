@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+
+    <p>
+      Salut <%= @email %>,<br>
+      Votre compte a été crée avec succès! <br />
+    </p>
+        <b>Vos identifiants de connexions sont: </b> <br/>
+        Login: <%= @email %> <br />
+        Mot de passe: <%= @password %> <br />
+    <p>
+        Pour se connecter à l'application, suivez juste ce lien: <%= @url %>.<br>
+    </p>
+    <p>
+        <b>Cordialement </b>
+
+    </p>
+  </body>
+</html>
