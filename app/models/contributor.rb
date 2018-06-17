@@ -1,2 +1,0 @@
-class Contributor < ApplicationRecord
-end
