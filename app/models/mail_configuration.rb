@@ -3,6 +3,6 @@ class MailConfiguration < ApplicationRecord
 
   # Validations.
 
-  validates_presnce_of :user_name, :password, :domain, :address, :port, :authentication
+  validates_presence_of :user_name, :password, :domain, :address, :port, :authentication
 
 end
