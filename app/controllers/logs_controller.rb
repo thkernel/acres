@@ -28,28 +28,19 @@ class LogsController < ApplicationController
   # POST /logs
   # POST /logs.json
   def create
-    file = params[:log][:file_name]
-    #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-      #file.write(uploaded_io.read)
-    #end
-    puts file.path
-   Log.import(file, current_user)
-    #@log = currenr_user.logs.build(log_params)
-   
-    #Log.import(params[:file_name])
-    #puts params[:file_name]
-
-    #respond_to do |format|
-      #if @log.save
-        #format.html { redirect_to @log, notice: 'Log was successfully created.' }
-        #format.json { render :show, status: :created, location: @log }
-        #format.js
-      #else
-        #format.html { render :new }
-        #format.json { render json: @log.errors, status: :unprocessable_entity }
-        #format.js
-      #end
-    #end
+	file = params[:log][:file_name]
+	
+    respond_to do |format|
+      if Log.import?(file, current_user)
+        format.html { redirect_to @log, notice: 'Log was successfully created.' }
+        format.json { render :show, status: :created, location: @log }
+        format.js
+      else
+        format.html { render :new }
+        format.json { render json: @log.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
     @logs = current_user.logs
 
   end

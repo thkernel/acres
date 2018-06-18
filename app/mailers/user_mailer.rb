@@ -1,4 +1,4 @@
-class NewUserMailer < ApplicationMailer
+class UserMailer < ApplicationMailer
 	
 	#include SmtpHelper
 	helper :application
@@ -7,12 +7,20 @@ class NewUserMailer < ApplicationMailer
   	add_template_helper ApplicationHelper
 	default from: '<imofy.official@gmail.com>'
 
-	def new_user_mail(email, password)
+	def new_user_mail(email, password, url)
 		
-		@url  = ENV['HOST']
+		@url  = url
         @email = email
         @password = password
 		mail(to: @email, subject: "Création de compte")
+	end
+
+	def edit_user_mail(email, password, url)
+		
+		@url  = url
+        @email = email
+        @password = password
+		mail(to: @email, subject: "Modification d'informations de connexion")
 	end
 
 

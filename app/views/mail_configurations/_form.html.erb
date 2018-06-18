@@ -15,11 +15,11 @@
   </div>
 
   <div class="form-group">
-    <%= form.text_field :user_name, id: :mail_configuration_user_name, class: "form-control", placeholder: "User name" %>
+    <%= form.text_field :user_name, id: :mail_configuration_user_name, class: "form-control", placeholder: "Nom d'utilisateur" %>
   </div>
 
   <div class="form-group">
-    <%= form.text_field :password, id: :mail_configuration_password, class: "form-control",  placeholder: "Password" %>
+    <%= form.text_field :password, id: :mail_configuration_password, class: "form-control",  placeholder: "Mot de passe" %>
   </div>
 
   <div class="form-group">
@@ -27,7 +27,7 @@
   </div>
 
   <div class="form-group">
-    <%= form.text_field :address, id: :mail_configuration_address, class: "form-control", placeholder: "Address" %>
+    <%= form.text_field :address, id: :mail_configuration_address, class: "form-control", placeholder: "Adresse" %>
   </div>
 
   <div class="form-group">
@@ -37,7 +37,7 @@
 
   <div class="form-group">
     <%= form.label :authentication %>
-    <%= form.text_field :authentication, id: :mail_configuration_authentication, class: "form-control", placeholder: "Authentification" %>
+    <%= form.text_field :authentication, id: :mail_configuration_authentication, class: "form-control", placeholder: "Authentification", value: "plain" %>
   </div>
 
   <div class="form-group">

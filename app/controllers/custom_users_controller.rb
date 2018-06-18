@@ -22,8 +22,8 @@ class CustomUsersController < ApplicationController
           format.json { render :show, status: :created, location: @contributor }
           format.js
 
-         
-          NewUserMailer.new_user_mail(@user.email, @user.password, ).deliver_now
+        	url = unauthenticated_root_path
+          UserMailer.new_user_mail(@user.email, @user.password, url).deliver_now
 
         else
           format.html { render :new }
@@ -78,7 +78,11 @@ class CustomUsersController < ApplicationController
 			
           format.html { redirect_to @user, notice: 'User was successfully updated.' }
           format.json { render :show, status: :ok, location: @user }
-          format.js
+		  format.js
+		  
+		  # Send mail to user.
+		  url = unauthenticated_root_path
+          UserMailer.edit_user_mail(@user.email, @user.password, url).deliver_now
         else
           format.html { render :edit }
           format.json { render json: @user.errors, status: :unprocessable_entity }

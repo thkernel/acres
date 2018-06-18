@@ -4,7 +4,7 @@ class Log < ApplicationRecord
 
     validates_presence_of :file_name
 
-    def self.import(file, user)
+    def self.import?(file, user)
          # But before import in database, we delete all data in our model
          Credit.delete_all#(user_id: user.id) #if Credit.find_by(user_id: user.id).present?
 
@@ -45,6 +45,7 @@ class Log < ApplicationRecord
         log.status = true
         log.user_id = user.id
         log.save
+        return true
     end
 
     #has_attached_file :file_name
