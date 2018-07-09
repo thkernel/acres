@@ -26,3 +26,11 @@ $(document).on('turbolinks:load', function() {
     // For fixed width containers
     $('#table-list').DataTable();
 })
+/*$(document).on('turbolinks:load', function() {
+    $('#table-list').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );*/

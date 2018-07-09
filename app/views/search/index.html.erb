@@ -1,0 +1,90 @@
+<div class="container">
+
+    <section class="content-header">
+        <h1>
+            Clients         
+                <small class="hidden-xs"> | Liste des clients</small>
+                
+                <div class="pull-right">
+                </div>
+        </h1>
+    </section>
+
+
+    <section class="content">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+
+                <div class="box-header">
+                  <h3 class="box-title">&nbsp;</h3>
+                  <div class="box-tools">
+
+
+                    <div class>
+                       
+                      
+                      <%= form_tag(search_path, :method => "get", class: "form-inline") do %>
+                        <div class="form-group">
+                            <%= text_field_tag :bank, nil, placeholder: "Banque ", class: "form-control " %>
+                        </div>
+                        <div class="form-group">
+                            <%= text_field_tag :contributor, nil, placeholder: "Apporteur ", class: "form-control " %>
+                        </div>
+                        <div class="form-group">
+                            <%= text_field_tag :producer, nil, placeholder: "Producteur ", class: "form-control " %>
+                        </div>
+                        <div class="form-group">
+                        <%= text_field_tag :notary, nil, placeholder: "Notaire", class: "form-control" %>
+                    </div>
+
+                        <div class="form-group">
+                          <%= submit_tag "Rechercher", class: "btn btn-sm btn-primary" %>
+                          </div>
+                      <% end %>
+
+                    </div>
+
+
+
+                  </div>
+                </div><!-- /.box-header -->
+
+            <div class="box-body no-padding">
+              <div class="checkbox-auto-toggle">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      
+                      <th>Raison sociale</th>
+                      <th>Nom contact</th>
+                      <th>Téléphone</th>
+                      <th style="width: 40px"></th>
+                      <th style="width: 40px"></th>
+                    </tr>
+                  </thead>
+                  <tbody class="client-index">
+
+                  </tbody>
+              </table>
+            <div>
+      </div><!-- /.box-body -->
+            
+    </div><!-- /.box -->
+  </div>
+</div>
+
+</div>
+
+
+</div>
+    <div class="row page-navi">
+        
+    </div>
+</section>
+
+
+</div>
+
+
