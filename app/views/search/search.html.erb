@@ -62,6 +62,12 @@
                         <% end %>
                     </div>
                 </div>
+
+                <div class="export ">
+                    <p>
+                        <%= link_to "Excel", export_to_excel_path(format: "xls"), class: 'btn btn-primary' %>
+                    </p>
+                    </div>
                 <div class="panel panel-default">
               	    <div class="panel-body">
                         <table class="table table-striped">

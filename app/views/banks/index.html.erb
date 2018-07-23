@@ -31,22 +31,7 @@
   </thead>
 
   <tbody class="banks">
-  		<% @banks.each do |bank| %>
-      <tr>
-        <td><%= bank.name %></td>
-        <td><%= bank.commission_percentage %></td>
-        <td><%= bank.hypoplus_commission_percentage %></td>
-        <td><%= bank.hypoplus_commission_percentage %></td>
-        <td>
-					<div class="action-buttons">
-					<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>
-'), edit_bank_path(bank), title: "Modifier", remote: true %>
-					<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
-'), bank_delete_path(bank), remote: true, title: "Supprimer", class: "delete" %>
-</div>
-</td>
-      </tr>
-    <% end %>
+    <%= render('index') %>
   </tbody>
 </table>
 </div>
