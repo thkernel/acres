@@ -40,8 +40,22 @@ class CustomUsersController < ApplicationController
     end
     
     def unregistered
-      @users = User.find_by_created_by(current_user).where.not(id: current_user)
-      #puts "Mon host: " + host.to_s
+     
+      # Apporteur and producteur.
+      users = User.find_user_by_role('Apporteur','Producteur')
+
+      #Users where commission settings is null.
+      users.each { |user_id |
+        user_commission_percentage = CommissionSetting.find_by(user_id: user_id)
+
+        if !user_commission_percentage.present?
+          user = User.find_by(id: user_id)
+      
+          @users = user
+        end
+      }
+      
+      return @users
     end
 	
     # GET /users/1
