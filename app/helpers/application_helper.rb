@@ -101,4 +101,14 @@ module ApplicationHelper
 		credit = Credit.find_by(credit_id: credit_id)
 		credit.customer_name
 	end
+
+	def unregistered_commission_percentage?
+		commission_setting = 10 #CommissionSetting.unregistered_commission_percentage
+		if commission_setting > 0
+			true
+		else
+			false
+		end
+
+	end
 end

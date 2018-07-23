@@ -37,7 +37,12 @@ class CustomUsersController < ApplicationController
       @users = User.find_by_created_by(current_user).where.not(id: current_user)
       #puts "Mon host: " + host.to_s
       #@users = User.where.not(id: current_user)
-	end
+    end
+    
+    def unregistered
+      @users = User.find_by_created_by(current_user).where.not(id: current_user)
+      #puts "Mon host: " + host.to_s
+    end
 	
     # GET /users/1
     # GET /users/1.json

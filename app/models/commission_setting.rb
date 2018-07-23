@@ -6,5 +6,9 @@ class CommissionSetting < ApplicationRecord
     validates_presence_of :first_installment
     validates_presence_of :number_of_dates
 
+    #def self.unregistered_commission_percentage
+        #where('commission_percentage', )
+    #end
+
     
 end
