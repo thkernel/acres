@@ -44,6 +44,11 @@ class User < ApplicationRecord
 		where("full_name = ? ", "#{user}")
 	end
 
+	# Find user by role ("Apporteur or Producteur")
+	def self.find_user_by_role(role1, role2)
+		where("role = ? OR role = ?", "#{role1}", "#{role2}")
+	end
+
 
 	# For Paperclip usage
 	has_attached_file :avatar, styles: { medium: "300x300>", thumb: "200x200>" }, default_url: "/images/avatar/:style/missing.png",  validate_media_type: false

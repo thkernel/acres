@@ -103,12 +103,21 @@ module ApplicationHelper
 	end
 
 	def unregistered_commission_percentage?
-		commission_setting = 10 #CommissionSetting.unregistered_commission_percentage
-		if commission_setting > 0
-			true
-		else
-			false
+		
+		users = User.find_user_by_role('Apporteur','Producteur' )
+		status = false
+		users.each do |user_id|
+			
+			user_commission_percentage = CommissionSetting.find_by(user_id: user_id)
+
+			if user_commission_percentage.present?
+				status = false
+			else
+				status = true
+			end
 		end
+
+		return status
 
 	end
 end
