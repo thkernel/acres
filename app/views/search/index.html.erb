@@ -2,89 +2,101 @@
 
     <section class="content-header">
         <h1>
-            Clients         
-                <small class="hidden-xs"> | Liste des clients</small>
-                
-                <div class="pull-right">
-                </div>
+            Rechercher         
+                    
         </h1>
-    </section>
-
-
+	</section>
+	
     <section class="content">
-
-          <div class="row">
+        <div class="row">
             <div class="col-md-12">
-              <div class="box box-primary">
+            	<div class="panel panel-default">
+					  <div class="panel-body">
+					  <%= form_with url: research_path, method: :get, local: false , class: "form-inlinee" do |f| %>
+							<div class="row">	
+								<div class="col-xs-2">
+									<div class="form-group">
+										
+										<%= f.text_field :production_date, id: :production_date, placeholder: "Date production", class: "form-control " %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<%= f.text_field :acte_date, id: :acte_date, placeholder: "Date acte ", class: "form-control " %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<%= f.text_field :bank, id: :bank, placeholder: "Banque ", class: "form-control " %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<%= f.text_field :contributor, id: :contributor, placeholder: "Apporteur ", class: "form-control " %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<%= f.text_field :producer, id: :producer, placeholder: "Producteur ", class: "form-control " %>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<%= f.text_field :notary, id: :notary, placeholder: "Notaire", class: "form-control" %>
+									</div>
+								</div>
+							</div>
 
-                <div class="box-header">
-                  <h3 class="box-title">&nbsp;</h3>
-                  <div class="box-tools">
-
-
-                    <div class>
-                       
-                      
-                      <%= form_tag(search_path, :method => "get", class: "form-inline") do %>
-                        <div class="form-group">
-                            <%= text_field_tag :bank, nil, placeholder: "Banque ", class: "form-control " %>
-                        </div>
-                        <div class="form-group">
-                            <%= text_field_tag :contributor, nil, placeholder: "Apporteur ", class: "form-control " %>
-                        </div>
-                        <div class="form-group">
-                            <%= text_field_tag :producer, nil, placeholder: "Producteur ", class: "form-control " %>
-                        </div>
-                        <div class="form-group">
-                        <%= text_field_tag :notary, nil, placeholder: "Notaire", class: "form-control" %>
-                    </div>
-
-                        <div class="form-group">
-                          <%= submit_tag "Rechercher", class: "btn btn-sm btn-primary" %>
-                          </div>
-                      <% end %>
-
-                    </div>
-
-
-
-                  </div>
-                </div><!-- /.box-header -->
-
-            <div class="box-body no-padding">
-              <div class="checkbox-auto-toggle">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      
-                      <th>Raison sociale</th>
-                      <th>Nom contact</th>
-                      <th>Téléphone</th>
-                      <th style="width: 40px"></th>
-                      <th style="width: 40px"></th>
-                    </tr>
-                  </thead>
-                  <tbody class="client-index">
-
-                  </tbody>
-              </table>
-            <div>
-      </div><!-- /.box-body -->
-            
-    </div><!-- /.box -->
-  </div>
-</div>
-
-</div>
-
-
-</div>
-    <div class="row page-navi">
-        
-    </div>
-</section>
-
-
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group search-btn">
+										<%= f.submit "Rechercher", class: "btn btn-sm btn-primary" %>
+									</div>
+								</div>
+							</div>
+						<% end %>
+					</div>
+				</div>
+				<div class="panel panel-default">
+              		<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+						
+									<th>Montant empruntés</th>
+									<th>Banque</th>
+									<th>Apporteur</th>
+									<th>Pourcentage commission apporteur</th>
+									<th>Commission apporteur</th>
+									<th>Producteur</th>
+									<th>Pourcentage commission producteur</th>
+									<th>Commission producteur</th>
+									<th>Pourcentage commission ACRES</th>
+									<th>Commission totale banque</th>
+									<th>Commission nette ACRES</th>
+									<th style="width: 40px"></th>
+									<th style="width: 40px"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @credits.each do |credit| %>
+									<tr>
+									
+										<td><%= credit.amount %></td>
+										<td><%= credit.bank_name %></td>
+										<td><%= credit.producer_name %></td>
+										<td><%= credit.contributor_name %></td>
+										<td><%= credit.producer_name %></td>
+										<td><%= credit.notary_name %></td>
+									</tr>
+								<% end %>
+							</tbody>
+						</table>
+            		<div>
+      			</div>    
+    		</div>
+  		</div>  
+	</section>
 </div>
 
 

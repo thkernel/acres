@@ -1,0 +1,15 @@
+<% if @credits.present? %>
+    <% @credits.each do |credit| %>
+        <tr>
+        <td><%= credit.credit_id %></td>
+            <td><%= credit.production_date %></td>
+            <td><%= credit.acte_date %></td>
+            <td><%= credit.customer_name %></td>
+            <td><%= credit.bank_name %></td>
+            <td><%= credit.amount %></td>
+            <td><%= credit.contributor_name %></td>
+            <td><%= credit.producer_name %></td>
+            <td><%= credit.notary_name %></td>
+        </tr>
+    <% end %>
+<% end %>

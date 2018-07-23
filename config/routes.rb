@@ -72,7 +72,9 @@ Rails.application.routes.draw do
   get "commissions/resume/:producer_name" => "commissions#resume_producer", as: :producer_resume
   get "commissions/resume/:contributor_name" => "commissions#resume_contributor", as: :contributor_resume
   get "commissions/resume/:bank_name" => "commissions#resume_bank", as: :bank_resume
-  get 'search/index' => 'search#index', as: :search
+  
+  get 'search' => 'search#search', as: :search
+
 
   
     devise_for :users, path: '', controllers: { 
