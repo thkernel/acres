@@ -50,8 +50,8 @@ class CustomUsersController < ApplicationController
 
         if !user_commission_percentage.present?
           user = User.find_by(id: user_id)
-      
-          @users = user
+          @users = []
+          @users << user
         end
       }
       
