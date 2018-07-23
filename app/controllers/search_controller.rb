@@ -11,20 +11,28 @@ class SearchController < ApplicationController
 
   def search
     bank_name = params[:bank] if params[:bank].present?
+    producer_name = params[:producer] if params[:producer].present?
+    contributor_name = params[:contributor] if params[:contributor].present?
     production_date = params[:production_date] if params[:production_date].present?
     acte_date = params[:acte_date] if params[:acte_date].present? 
-    producer = params[:producer] if params[:producer].present?
-    contributor = params[:contributor] if params[:contributor].present?
     notary = params[:notary] if params[:notary].present?
 
-    @credits = Credit.search(bank_name)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
+    @commissions= Commission.search(production_date,acte_date,  bank_name, producer_name, contributor_name, notary)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
 
     respond_to do |format|
       format.html { }
+      format.xls
       format.json {  }
       format.js
     end
    
   end
+
+  protected
+
+def set_attachment_name(name)
+  escaped = URI.encode(name)
+  response.headers['Content-Disposition'] = "attachment; filename*=UTF-8''#{escaped}"
+end
 
 end

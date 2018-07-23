@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   get "commissions/resume/:bank_name" => "commissions#resume_bank", as: :bank_resume
   
   get 'search' => 'search#search', as: :search
+  get 'export/excel' => 'search#search', as: :export_to_excel
 
 
   

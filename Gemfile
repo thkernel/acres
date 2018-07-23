@@ -38,7 +38,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+  #gem 'selenium-webdriver'
 
   # For deploymentt
   gem 'capistrano', '~> 3.10', '>= 3.10.2'
@@ -90,3 +90,6 @@ gem 'paperclip', '~> 6.0'
 gem 'client_side_validations', '~> 11.1', '>= 11.1.2'
 gem 'action_mailer_auto_url_options', '~> 1.0', '>= 1.0.2'
 gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'
+#gem 'rubyzip', '~> 1.2', '>= 1.2.1'
+#gem 'axlsx', '~> 2.0', '>= 2.0.1'
+#gem 'axlsx_rails', '~> 0.5.2'

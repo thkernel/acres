@@ -225,6 +225,10 @@ class CommissionsController < ApplicationController
 			end
 			
 			commission.credit_id = credit.credit_id
+			commission.production_date = credit.production_date
+			commission.acte_date = credit.acte_date
+			commission.customer_id = credit.customer_id
+			commission.notary_name = credit.notary_name
 			commission.amount_credit = credit_amount
 			commission.user_id = current_user.id
 			commission.save
