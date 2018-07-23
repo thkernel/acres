@@ -11,6 +11,7 @@
   <body>
 	<div class="wrapper">
 	<%= render :partial => 'layouts/partials/flash_messages', :flash => flash %>
+	<
 		<!-- Left Sidebar -->
 	  <%= render('layouts/partials/dashboard/sidebar') %>
 	   <!-- End Left sidebar -->
@@ -24,7 +25,9 @@
 			  <%= render('layouts/partials/dashboard/navbar') %>
 			   <!-- End Left sidebar -->
 				<!-- Left Sidebar -->
-	  <%= render('layouts/partials/smtp_alert') %>
+		<%= render('layouts/partials/smtp_alert') %>
+		<%= render('layouts/partials/unregistered_alert') %>
+
 	   <!-- End Left sidebar -->
 				
 	    <%= yield %>

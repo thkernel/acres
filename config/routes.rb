@@ -30,7 +30,9 @@ Rails.application.routes.draw do
 
   get "/dashboard" => "dashboard#index" , as: :dashboard
   get "/customers" => "customers#index", as: :customers_index
-  get "/users"     => "custom_users#index", as: :all_users
+  get "/users"     => "custom_users#index", as: :all_users 
+  get "/users/unregistered"     => "custom_users#unregistered", as: :unregistered_commission_percentage 
+  
   post "/users/new"     => "custom_users#create", as: :create_user
   get "/users/new"     => "custom_users#new", as: :new_user
   get "/user/edit/:id" => "custom_users#edit", as: :edit_user
