@@ -11,30 +11,20 @@ class Commission < ApplicationRecord
             where('bank_name = ? AND producer_name = ? AND contributor_name= ?',   "#{bank_name}", "#{producer_name}", "#{contributor_name}")
         end
 
-        if  notary_name.present?
-            where(' notary_name= ?',    "#{notary_name}")
-        end
+        
 
         if bank_name.present?
             where('bank_name = ?', "#{bank_name}")
         end
 
-        if producer_name.present?
-            where('producer_name = ?', "#{producer_name}")
-        end
+        
 
-        if contributor_name.present?
-            where('contributor_name = ?', "#{contributor_name}")
-        end
+        
 
 
-        if production_date.present?
-            where('production_date = ?', "#{production_date}")
-        end
+        
 
-        if acte_date.present?
-            where('acte_date = ?', "#{acte_date}")
-        end
+        
     end
 
     def self.to_csv(options = {})

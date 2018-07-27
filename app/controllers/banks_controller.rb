@@ -63,11 +63,16 @@ class BanksController < ApplicationController
     end
   end
 
+
+  def delete
+    @bank = Bank.find(params[:bank_id])
+  end
   # DELETE /banks/1
   # DELETE /banks/1.json
   def destroy
-    @bank.destroy
     @banks = current_user.banks
+    @bank.destroy
+    
 
     respond_to do |format|
       format.html { redirect_to banks_url, notice: 'Bank was successfully destroyed.' }
