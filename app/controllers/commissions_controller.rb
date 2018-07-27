@@ -180,37 +180,44 @@ class CommissionsController < ApplicationController
 			bank = Bank.find_by(name: credit_bank_name)
 
 			if producer.present?
-				producer_commission_percentage = producer.commission_setting.commission_percentage
-				commission.producer_name = credit_producer_name
-				commission.producer_commission_percentage = producer_commission_percentage
-				credit_amount = credit.amount if credit.amount.present?
-				
 				if producer.commission_setting.present?
+					producer_commission_percentage = producer.commission_setting.commission_percentage
+					commission.producer_name = credit_producer_name
+					commission.producer_commission_percentage = producer_commission_percentage
+					credit_amount = credit.amount if credit.amount.present?
+					
+					
 					commission.producer_commission = (((producer_commission_percentage) * (credit.amount))/100)
 				end
 			
 			end
 			
 			if contributor.present?
-				contributor_commission_percentage = contributor.commission_setting.commission_percentage
-				commission.contributor_name = credit_contributor_name
-				commission.contributor_commission_percentage = contributor_commission_percentage
-				credit_amount = credit.amount if credit.amount.present?
-				
+
 				if contributor.commission_setting.present?
+
+					contributor_commission_percentage = contributor.commission_setting.commission_percentage
+					commission.contributor_name = credit_contributor_name
+					commission.contributor_commission_percentage = contributor_commission_percentage
+					credit_amount = credit.amount if credit.amount.present?
+					
+					
 					commission.contributor_commission = (((contributor_commission_percentage) * (credit.amount))/100)
 				end
 			
 			end
 
 			if bank.present?
-				bank_commission_percentage = bank.commission_percentage
-				commission.bank_name = credit_bank_name
-				commission.bank_commission_percentage = bank_commission_percentage
-				credit_amount = credit.amount if credit.amount.present?
-				
+
 				if bank.commission_percentage.present?
-				commission.bank_commission = (((bank_commission_percentage) * (credit.amount))/100)
+
+					bank_commission_percentage = bank.commission_percentage
+					commission.bank_name = credit_bank_name
+					commission.bank_commission_percentage = bank_commission_percentage
+					credit_amount = credit.amount if credit.amount.present?
+					
+					
+					commission.bank_commission = (((bank_commission_percentage) * (credit.amount))/100)
 				end
 			
 			end
