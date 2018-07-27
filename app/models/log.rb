@@ -21,7 +21,16 @@ class Log < ApplicationRecord
            cell = row.keys
 
            # Insert the line in database,
+           #user = User.new
+           bank = Bank.new
            credit = Credit.new   
+           # Begin insert a bank, before to insert bank we check if bank exist
+           unless Bank.exists(row[cell[4]]).present?
+                bank.name = row[cell[4]]
+                bank.user_id =
+                bank.save
+           end
+
            credit.credit_id = row[cell[0]]
            credit.production_date = row[cell[1]]
            credit.acte_date = row[cell[2]]

@@ -26,10 +26,12 @@
 			
 			<%= form.hidden_field :user_id, id: :commission_setting_user_id, value: params[:user] if params[:user].present? %>
 		</div>
+
 		<div class="warning alert alert-danger">
 			ATTENTION, le pourcentage de commission, est fixé annuellement. <br />
 			Aucun rétro calcul ne sera effectué lorsque vous modifier ce pourcentage.
 		</div>
+		
 	</div><!-- modal body -->
 	<div class="modal-footer">
 		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>

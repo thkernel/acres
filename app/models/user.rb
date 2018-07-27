@@ -44,6 +44,12 @@ class User < ApplicationRecord
 		where("full_name = ? ", "#{user}")
 	end
 
+	# Find user by fulle_name.
+
+    def self.exist?(full_name)
+		where("full_name = ? ", "#{user}")
+    end
+
 	# Find user by role ("Apporteur or Producteur")
 	def self.find_user_by_role(role1, role2)
 		where("role = ? OR role = ?", "#{role1}", "#{role2}")
