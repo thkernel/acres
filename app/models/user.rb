@@ -34,6 +34,16 @@ class User < ApplicationRecord
 		where("role = ? AND created_by = ?", "#{role}", user)
 	end
 
+	# Find users by roles and authors.
+	def self.is_contributor(full_name)
+		where("full_name = ?  ",  full_name)
+	end
+
+	# Find users by roles and authors.
+	def self.is_producer(full_name)
+		where("full_name = ? ",  full_name)
+	end
+
 	# Find users by authors.
 	def self.find_by_created_by(user)
 		where("created_by = ? ", "#{user.id}")

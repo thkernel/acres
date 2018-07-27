@@ -5,6 +5,6 @@ class Bank < ApplicationRecord
     # Find bank by name.
 
     def self.exists(bank_name)
-        where('name = ?', bank_name)
+        where('name = ?', bank_name).first
     end
 end

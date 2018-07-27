@@ -22,14 +22,50 @@ class Log < ApplicationRecord
 
            # Insert the line in database,
            #user = User.new
-           bank = Bank.new
-           credit = Credit.new   
+           
+           credit = Credit.new 
+
            # Begin insert a bank, before to insert bank we check if bank exist
-           unless Bank.exists(row[cell[4]]).present?
-                bank.name = row[cell[4]]
-                bank.user_id =
-                bank.save
-           end
+            if row[cell[4]].present?
+                unless Bank.exists(row[cell[4]]).present?
+                    bank = Bank.new
+                    bank.name = row[cell[4]]
+                    bank.commission_percentage = 0
+                    bank.hypoplus_commission_percentage = 0
+                    bank.user_id = user.id
+                    bank.save
+                end
+            end
+
+            # Begin insert a user, before to insert user we check if user exist
+            if row[cell[6]].present?
+                unless User.is_contributor(row[cell[6]]).present?
+                    contributor = User.new
+                    contributor.full_name = row[cell[6]]
+                    contributor.email =  record_count.to_s + "a@exemple.com"
+                    contributor.password = '12345678'
+                    contributor.password_confirmation = '12345678'
+                    contributor.login = row[cell[6]].delete('').downcase
+                    contributor.role = "Apporteur"
+                    contributor.created_by = user.id
+                    contributor.save
+                end
+            end
+
+            if row[cell[7]].present?
+                unless User.is_producer(row[cell[7]]).present?
+                    producer = User.new
+                    producer.full_name = row[cell[7]]
+                    producer.email = record_count.to_s + "p@exemple.com"
+                    producer.password = '12345678'
+                    producer.password_confirmation = '12345678'
+                    producer.login = row[cell[7]].delete(' ').downcase
+                    producer.role = "Producteur"
+                    producer.created_by = user.id
+                    producer.save
+                end
+            end
+
 
            credit.credit_id = row[cell[0]]
            credit.production_date = row[cell[1]]
