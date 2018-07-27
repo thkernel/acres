@@ -25,6 +25,18 @@ class Log < ApplicationRecord
            
            credit = Credit.new 
 
+
+           # Begin insert a bank, before to insert bank we check if bank exist
+           if row[cell[3]].present?
+            unless Customer.exists(row[cell[3]]).present?
+                customer = Customer.new
+                customer.full_name = row[cell[3]]
+                customer.user_id = user.id
+                customer.save
+            end
+        end
+
+
            # Begin insert a bank, before to insert bank we check if bank exist
             if row[cell[4]].present?
                 unless Bank.exists(row[cell[4]]).present?
