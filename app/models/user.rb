@@ -27,6 +27,7 @@ class User < ApplicationRecord
 	has_many  :banks, dependent: :destroy
 	has_many :customers, dependent: :destroy
 	has_many :credits, dependent: :destroy
+	has_many :notaries, dependent: :destroy
 
 
 	# Find users by roles and authors.

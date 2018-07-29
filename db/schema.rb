@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180727024637) do
+ActiveRecord::Schema.define(version: 20180729204816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,17 @@ ActiveRecord::Schema.define(version: 20180727024637) do
     t.index ["user_id"], name: "index_mail_configurations_on_user_id", unique: true
   end
 
+  create_table "notaries", force: :cascade do |t|
+    t.string "full_name"
+    t.string "address"
+    t.string "phone"
+    t.string "email"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notaries_on_user_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -226,5 +237,6 @@ ActiveRecord::Schema.define(version: 20180727024637) do
   add_foreign_key "customers", "users"
   add_foreign_key "logs", "users"
   add_foreign_key "mail_configurations", "users"
+  add_foreign_key "notaries", "users"
   add_foreign_key "profiles", "users"
 end

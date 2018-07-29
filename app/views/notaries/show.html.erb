@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Full name:</strong>
+  <%= @notary.full_name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @notary.address %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @notary.phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @notary.email %>
+</p>
+
+<%= link_to 'Edit', edit_notary_path(@notary) %> |
+<%= link_to 'Back', notaries_path %>
