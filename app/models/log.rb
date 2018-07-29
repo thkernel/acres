@@ -78,6 +78,15 @@ class Log < ApplicationRecord
                 end
             end
 
+            if row[cell[8]].present?
+                unless Notary.is_notary(row[cell[8]]).present?
+                    notary = Notary.new
+                    notary.full_name = row[cell[8]]
+                    notary.user_id = user.id
+                    notary.save
+                end
+            end
+
 
            credit.credit_id = row[cell[0]]
            credit.production_date = row[cell[1]]

@@ -47,7 +47,7 @@
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <%= f.label "Notaire" %>
-                                        <%= f.collection_select(:notary, @producers, :full_name, :full_name, {prompt: "Notaire"}, class: "form-control") %>
+                                        <%= f.collection_select(:notary, @notaries, :full_name, :full_name, {prompt: "Notaire"}, class: "form-control") %>
                                     </div>
                                 </div>
                             </div>

@@ -1,0 +1,15 @@
+<% @notaries.each do |notary| %>
+    <tr>
+        <td><%= notary.full_name %></td>
+        <td><%= notary.address %></td>
+        <td><%= notary.phone %></td>
+        <td><%= notary.email %></td>
+        <td>
+			<div class="action-buttons">
+				<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_notary_path(notary), title: "Modifier", remote: true %>
+				<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
+'), notary_delete_path(notary), remote: true, title: "Supprimer", class: "delete" %>
+</div>
+</td>
+      </tr>
+    <% end %>

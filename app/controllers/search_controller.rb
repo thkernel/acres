@@ -10,14 +10,14 @@ class SearchController < ApplicationController
     @banks = Bank.all
     @contributors = User.find_by_role_and_creator('Apporteur', current_user)
     @producers = User.find_by_role_and_creator('Producteur', current_user)
-    #@notaries = Notary.all
+    @notaries = Notary.all
   end
 
   def search
     @banks = Bank.all
     @contributors = User.find_by_role_and_creator('Apporteur', current_user)
     @producers = User.find_by_role_and_creator('Producteur', current_user)
-    #@notaries = Notary.all
+    @notaries = Notary.all
 
     bank_name = params[:bank] if params[:bank].present?
     producer_name = params[:producer] if params[:producer].present?

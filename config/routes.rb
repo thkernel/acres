@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
 
+  resources :notaries do
+    get 'delete'
+  end
   #resources :commissions
   resources :commission_settings
   resources :roles
@@ -71,9 +74,12 @@ Rails.application.routes.draw do
   get "/commissions/banks" => "commissions#banks", as: :banks_commissions
   get "/profile/settings" => "profiles#settings", as: :profile_settings
 
-  get "commissions/resume/:producer_name" => "commissions#resume_producer", as: :producer_resume
-  get "commissions/resume/:contributor_name" => "commissions#resume_contributor", as: :contributor_resume
-  get "commissions/resume/:bank_name" => "commissions#resume_bank", as: :bank_resume
+  get "/commissions/resume/:producer_name" => "commissions#resume_producer", as: :producer_resume
+  get "/commissions/resume/:contributor_name" => "commissions#resume_contributor", as: :contributor_resume
+  get "/commissions/resume/:bank_name" => "commissions#resume_bank", as: :bank_resume
+
+  #get "/notaries/index" => "notaries#index", as: :notaries
+  #get "/nataries/new" => "notaries#new", as: :new_notary
   
   get 'search' => 'search#search', as: :search
   get 'export/excel' => 'search#search', as: :export_to_excel

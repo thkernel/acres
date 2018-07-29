@@ -1,0 +1,37 @@
+<%= form_with(model: notary, local: true) do |form| %>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="errors">
+					<% @notary.errors.full_messages.each do |message| %>
+						<li><%= message %></li>
+					<% end %>
+				</ul>
+
+					<div class="form-group">
+						<%= form.label :full_name %>
+						<%= form.text_field :full_name, id: :notary_full_name, class: "form-control" %>
+					</div>
+
+					<div class="form-group">
+						<%= form.label :address %>
+						<%= form.text_field :address, id: :notary_address, class: "form-control" %>
+					</div>
+
+					<div class="form-group">
+						<%= form.label :phone %>
+						<%= form.text_field :phone, id: :notary_phone, class: "form-control" %>
+					</div>
+
+					<div class="form-group">
+						<%= form.label :email %>
+						<%= form.text_field :email, id: :notary_email, class: "form-control" %>
+					</div>
+				</div>
+			</div>
+		</div><!-- modal body -->
+		<div class="modal-footer">
+			<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
+			<%= form.submit class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+		</div>
+	<% end %>
