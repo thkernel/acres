@@ -28,7 +28,9 @@ class CommissionSettingsController < ApplicationController
 
     respond_to do |format|
       if @commission_setting.save
-        format.html { redirect_to @commission_setting, notice: 'Commission setting was successfully created.' }
+        #format.html { redirect_to @commission_setting, notice: 'Commission setting was successfully created.' }
+        format.html { redirect_to all_users_path, notice: 'Commission setting was successfully updated.' }
+
         format.json { render :show, status: :created, location: @commission_setting }
         format.js
       else
@@ -44,9 +46,10 @@ class CommissionSettingsController < ApplicationController
   def update
     respond_to do |format|
       if @commission_setting.update(commission_setting_params)
-        format.html { redirect_to @commission_setting, notice: 'Commission setting was successfully updated.' }
+        #format.html { redirect_to @commission_setting, notice: 'Commission setting was successfully updated.' }
+        format.html { redirect_to all_users_path, notice: 'Commission setting was successfully updated.' }
         format.json { render :show, status: :ok, location: @commission_setting }
-        format.js
+        #format.js
       else
         format.html { render :edit }
         format.json { render json: @commission_setting.errors, status: :unprocessable_entity }
