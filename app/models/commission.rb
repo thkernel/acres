@@ -6,26 +6,25 @@ class Commission < ApplicationRecord
 
     # Search
     def self.search(production_date, acte_date, bank_name, producer_name, contributor_name, notary_name)
+        if  notary_name.present?
+            query = Commission.order(:production_date)
+            query = query.where("production_date = ? AND acte_date = ? AND notary_name =  ?", production_date, acte_date, notary_name) if notary_name.present?
+            query
         
-        if  bank_name.present? && producer_name.present? && contributor_name.present?
-            where('bank_name = ? AND producer_name = ? AND contributor_name= ?',   "#{bank_name}", "#{producer_name}", "#{contributor_name}")
+        else 
+            query = Commission.order(:production_date)
+            query = query.where("production_date = ? AND acte_date = ? AND bank_name = ? AND contributor_name = ? AND producer_name = ?", production_date, acte_date, bank_name, contributor_name, producer_name) if production_date.present?
+            query
+        
         end
-
-        
-
-        if bank_name.present?
-            where('bank_name = ?', "#{bank_name}")
-        end
-
-        
-
-        
-
+       
 
         
 
         
     end
+
+    
 
     def self.to_csv(options = {})
     CSV.generate(options) do |csv|
