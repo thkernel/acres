@@ -89,6 +89,16 @@ module ApplicationHelper
 		end
 	end
 
+	def is_contributor_or_producer?(user) 
+		if user.present? 
+			if user.role == 'Apporteur' || user.role == 'Producteur'
+				true 
+			else
+				false 
+			end
+		end
+	end
+
 	def is_main_admin?(user)
 	end
 
