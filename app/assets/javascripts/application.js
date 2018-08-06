@@ -21,6 +21,7 @@
 //= require toastr
 //= require rails.validations
 //= require custom
+//= require banks
 
 $(document).on('turbolinks:load', function() {
     // For fixed width containers

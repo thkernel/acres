@@ -81,9 +81,9 @@
                                     <th>Producteur</th>
                                     <th>Pourcentage commission producteur</th>
                                     <th>Commission producteur</th>
-                                    <th>Pourcentage commission ACRES</th>
+                                    <th>Pourcentage commission <%= current_user.company.name if current_user.company.present? %></th>
                                     <th>Commission totale banque</th>
-                                    <th>Commission nette ACRES</th>
+                                    <th>Commission nette <%= current_user.company.name if current_user.company.present? %></th>
                                     <th style="width: 40px"></th>
                                     <th style="width: 40px"></th>
                                 </tr>
