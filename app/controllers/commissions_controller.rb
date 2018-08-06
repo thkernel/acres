@@ -179,6 +179,10 @@ class CommissionsController < ApplicationController
 			credit_bank_name = credit.bank_name if credit.bank_name.present?
 			bank = Bank.find_by(name: credit_bank_name)
 
+			credit_company_name = current_user.company.name if  current_user.company.present?
+
+
+			# Compute producer commission
 			if producer.present?
 				if producer.commission_setting.present?
 					producer_commission_percentage = producer.commission_setting.commission_percentage
@@ -192,6 +196,7 @@ class CommissionsController < ApplicationController
 			
 			end
 			
+			# Compute contributor commission
 			if contributor.present?
 
 				if contributor.commission_setting.present?
@@ -207,6 +212,7 @@ class CommissionsController < ApplicationController
 			
 			end
 
+			# Compute bank commission
 			if bank.present?
 
 				if bank.commission_percentage.present?
@@ -222,11 +228,18 @@ class CommissionsController < ApplicationController
 			
 			end
 
+			# Compute company commission.
 			if current_user.role == 'Admin'
 				if current_user.company.present?
-					if current_user.company.percentage_commission.present?
-						company_commission_percentage = current_user.company.percentage_commission 
-						commission.company_commission = (((company_commission_percentage) * (credit.amount))/100)
+					if current_user.company.percentage_commission.present? && credit_company_name.present? 
+						if  credit_contributor_name == credit_company_name || credit_producer_name == credit_company_name || !credit_contributor_name.prensent?
+							company_commission_percentage = current_user.company.percentage_commission 
+							commission.company_commission = (((company_commission_percentage) * (credit.amount))/100)
+						else
+							company_commission_percentage = current_user.company.percentage_commission 
+							commission.company_commission = (((company_commission_percentage) * (credit.amount))/100)
+					
+						end
 					end
 				end
 			end
