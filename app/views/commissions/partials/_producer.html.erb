@@ -36,7 +36,7 @@
   <tbody>
     <% commissions.each do |commission| %>
       <tr>
-        <td><%= credit_acte_date(commission.credit_id) %></td>
+        <td><%= commission.acte_date %></td>
         <td><%= commission.credit_id %></td>
         <td><%= commission.bank_name %></td>
         <td><%= credit_customer_name(commission.credit_id) %></td>

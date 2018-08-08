@@ -26,7 +26,7 @@
       <th>Commission apporteur</th>
       <th>Commission producteur</th>
       <th>Commission banque</th>
-      <th>Commission d'entreprise</th>
+      <th>Commission <%= current_user.company.name if current_user.company.present? %> </th>
       <th>Montant empruntés</th>
       
     </tr>
