@@ -3,13 +3,27 @@
         <tr>
         
             <td><%= commission.amount_credit %></td>
-            <td><%= commission.bank_name %></td>
+            <% if commission.bank_name.present? %>
+                <td><%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %></td>
+                <% else %>
+                <td></td>
+                <% end %>
 
-            <td><%= commission.contributor_name %></td>
+            <% if commission.contributor_name.present? %>
+                <td><%= link_to "#{commission.contributor_name}", contributor_resume_path(contributor_name: commission.contributor_name) %></td>
+                <% else %>
+                <td></td>
+                <% end %>
+
             <td><%= commission.contributor_commission_percentage %></td>
             <td><%= commission.contributor_commission %></td>
 
-            <td><%= commission.producer_name %></td>
+            <% if commission.producer_name.present? %>
+                    <td><%= link_to "#{commission.producer_name}", producer_resume_path(producer_name: commission.producer_name) %></td>
+                <% else %>
+                    <td></td>
+            <% end %>
+
             <td><%= commission.producer_commission_percentage %></td>
             <td><%= commission.producer_commission %></td>
 

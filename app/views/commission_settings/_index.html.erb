@@ -1,0 +1,9 @@
+<% @commission_settings.each do |commission_setting| %>
+    <tr>
+      <td><%= commission_setting.commission_percentage %></td>
+      <td><%= commission_setting.user %></td>
+      <td><%= link_to 'Show', commission_setting %></td>
+      <td><%= link_to 'Edit', edit_commission_setting_path(commission_setting) %></td>
+      <td><%= link_to 'Destroy', commission_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>

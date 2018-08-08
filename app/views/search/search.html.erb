@@ -69,7 +69,7 @@
                     </div>
                 <div class="panel panel-default">
               	    <div class="panel-body">
-                        <table class="table table-striped">
+                        <table id="table-list" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
                         
@@ -84,8 +84,7 @@
                                     <th>Pourcentage commission <%= current_user.company.name if current_user.company.present? %></th>
                                     <th>Commission totale banque</th>
                                     <th>Commission nette <%= current_user.company.name if current_user.company.present? %></th>
-                                    <th style="width: 40px"></th>
-                                    <th style="width: 40px"></th>
+                                   
                                 </tr>
                             </thead>
                             <tbody class="search-result">
