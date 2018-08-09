@@ -16,8 +16,11 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require bootstrap
-//= require DataTables/datatables
-//= require "dataTablesFrench"
+//= require DataTables/datatables.min
+//= require DataTables/Buttons-1.5.1/js/dataTables.buttons.min
+//= require DataTables/JSZip-2.5.0/jszip.min
+
+// require "dataTablesFrench"
 //= require toastr
 //= require rails.validations
 //= require custom
@@ -25,7 +28,35 @@
 
 $(document).on('turbolinks:load', function() {
     // For fixed width containers
-    $('#table-list').DataTable();
+    $('#table-list').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'csv', 'excel', 'pdf', 'print'
+        ],
+        language: {
+            processing: "Traitement en cours...",
+            search: "Rechercher&nbsp;:",
+            lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+            info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+            infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+            infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+            infoPostFix: "",
+            loadingRecords: "Chargement en cours...",
+            zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+            emptyTable: "Aucune donnée disponible dans le tableau",
+            paginate: {
+                first: "Premier",
+                previous: "Pr&eacute;c&eacute;dent",
+                next: "Suivant",
+                last: "Dernier"
+            },
+            aria: {
+                sortAscending: ": activer pour trier la colonne par ordre croissant",
+                sortDescending: ": activer pour trier la colonne par ordre décroissant"
+            }
+        },
+        responsive: true
+    });
 })
 /*$(document).on('turbolinks:load', function() {
     $('#table-list').DataTable( {
