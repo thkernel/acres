@@ -215,16 +215,19 @@ class CommissionsController < ApplicationController
 						commission.contributor_commission_percentage = contributor_commission_percentage
 					elsif credit_contributor_name.present? && credit_contributor_name != credit_company_name && credit_contributor_name != credit_producer_name
 						contributor_commission_percentage = contributor.commission_setting.commission_percentage
+						
 						commission.contributor_commission_percentage = contributor_commission_percentage
 						credit_amount = credit.amount if credit.amount.present?
-						producer_commission_percentage = producer.commission_setting.commission_percentage
-						company_commission_percentage = current_user.company.percentage_commission
-
-						 
-						company_commission = (((company_commission_percentage) * (credit.amount))/100)
-						producer_commission = (((producer_commission_percentage) * (credit.amount))/100)
 						
-						commission.contributor_commission = ((company_commission / 2) + (producer_commission / 2))
+						producer_commission_percentage = producer.commission_setting.commission_percentage if producer.commission_setting.commission_percentage.present?
+						company_commission_percentage = current_user.company.percentage_commission if current_user.company.percentage_commission.present?
+
+						credit_amount = credit.amount if credit.amount.present?
+						
+						#company_commission = ((company_commission_percentage * credit_amount)/100)
+						#producer_commission = ((producer_commission_percentage * credit_amount)/100)
+						
+						#commission.contributor_commission = ((company_commission / 2) + (producer_commission / 2))
 					else 
 
 						contributor_commission_percentage = contributor.commission_setting.commission_percentage
