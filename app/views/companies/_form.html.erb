@@ -25,6 +25,9 @@
   <div class="form-group">
     <%= form.text_field :phone, id: :company_phone, class: "form-control", placeholder: "Téléphone" %>
   </div>
+  <div class="form-group">
+			<%= form.number_field :percentage_commission, id: :percentage_commission, class: "form-control", placeholder: "Pourcentage commission" %>
+		</div>
    <div class="form-group">
 		<%= form.label "Votre logo" %>
     	<%= form.file_field :brand, id: :company_phone,  placeholder: "Logo" %>

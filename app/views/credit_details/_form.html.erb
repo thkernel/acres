@@ -1,0 +1,47 @@
+<%= form_with(model: credit_detail, local: true) do |form| %>
+  <% if credit_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(credit_detail.errors.count, "error") %> prohibited this credit_detail from being saved:</h2>
+
+      <ul>
+      <% credit_detail.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :installment_payment %>
+    <%= form.text_field :installment_payment, id: :credit_detail_installment_payment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :installment_date %>
+    <%= form.date_select :installment_date, id: :credit_detail_installment_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commission %>
+    <%= form.text_field :commission, id: :credit_detail_commission %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cumulative_amount %>
+    <%= form.text_field :cumulative_amount, id: :credit_detail_cumulative_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :paid_by_bank %>
+    <%= form.check_box :paid_by_bank, id: :credit_detail_paid_by_bank %>
+  </div>
+
+  <div class="field">
+    <%= form.label :paid_to_contributor_or_producer %>
+    <%= form.check_box :paid_to_contributor_or_producer, id: :credit_detail_paid_to_contributor_or_producer %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

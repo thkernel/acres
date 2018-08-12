@@ -29,14 +29,18 @@
 
   <tbody>
     <% @commissions.each do |commission| %>
-      <tr>
-        <td><%= commission.bank_name %></td>
+    	<tr>
+      		<td>
+				<% if commission.bank_name.present? %>
+					<%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %>
+				<% end %>
+			</td>
         
-          <td><%= commission.bank_commission %></td>
+          	<td><%= commission.bank_commission %></td>
            
-        <td><%= commission.amount_credit %></td>
-        <td>
-        <%= link_to raw('<i class="fa fa-eye" aria-hidden="true"></i>
+        	<td><%= commission.amount_credit %></td>
+        	<td>
+        		<%= link_to raw('<i class="fa fa-eye" aria-hidden="true"></i>
 '), dashboard_path, class: "text-center" %>
         </td>
       </tr>

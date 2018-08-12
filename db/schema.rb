@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180805204647) do
+ActiveRecord::Schema.define(version: 20180812150934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,31 @@ ActiveRecord::Schema.define(version: 20180805204647) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_companies_on_user_id", unique: true
+  end
+
+  create_table "config_options", force: :cascade do |t|
+    t.string "app_name"
+    t.string "admin_name"
+    t.string "admin_email"
+    t.string "admin_password"
+    t.string "admin_role", default: "Admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "credit_details", force: :cascade do |t|
+    t.string "installment_payment"
+    t.date "installment_date"
+    t.float "commission"
+    t.float "cumulative_amount"
+    t.string "paid_by_bank", default: "Non"
+    t.string "paid_to_contributor_or_producer", default: "Non"
+    t.bigint "credit_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["credit_id"], name: "index_credit_details_on_credit_id"
+    t.index ["user_id"], name: "index_credit_details_on_user_id"
   end
 
   create_table "credits", force: :cascade do |t|
@@ -207,7 +232,6 @@ ActiveRecord::Schema.define(version: 20180805204647) do
 
   create_table "users", force: :cascade do |t|
     t.string "full_name"
-    t.string "login", null: false
     t.string "avatar_file_name"
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
@@ -234,6 +258,8 @@ ActiveRecord::Schema.define(version: 20180805204647) do
   add_foreign_key "commission_settings", "users"
   add_foreign_key "commissions", "users"
   add_foreign_key "companies", "users"
+  add_foreign_key "credit_details", "credits"
+  add_foreign_key "credit_details", "users"
   add_foreign_key "credits", "users"
   add_foreign_key "customers", "users"
   add_foreign_key "logs", "users"

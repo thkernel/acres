@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
+	
 	before_action :authenticate_user!
+	before_action :configure_options
 	before_action :has_company
 	layout 'dashboard'
 	
@@ -37,6 +39,14 @@ class DashboardController < ApplicationController
 	def has_company
 		if current_user.role == "Admin"  && current_user.company.blank?
 			redirect_to new_company_path
+		end
+	end
+
+	def configure_options
+		config_options = ConfigOption.all
+
+		unless config_options.present?
+			redirect_to new_config_option_path
 		end
 	end
 

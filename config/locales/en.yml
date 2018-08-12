@@ -42,4 +42,5 @@ en:
   error_500_body: "If you are the application owner check the logs for more information."
   country: "Country"
   city: "City"
+  app_name: "App name"
 

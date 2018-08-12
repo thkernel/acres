@@ -5,14 +5,14 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
     create_table :users do |t|
 
 	  t.string	:full_name
-	  t.string 	:login, null: false, unique: true
+	  #t.string 	:login, null: false, unique: true
 	  t.attachment	:avatar
-      t.string  :role,   null: false
-      #t.boolean :superadmin_role,  default: false
-      #t.boolean :admin_role, default: false
-      #t.boolean :producer_role,  default: false
-      #t.boolean :contributor_role,  default: false
-      t.bigint  :created_by
+    t.string  :role,   null: false
+    #t.boolean :superadmin_role,  default: false
+    #t.boolean :admin_role, default: false
+    #t.boolean :producer_role,  default: false
+    #t.boolean :contributor_role,  default: false
+    t.bigint  :created_by
       
       ## Database authenticatable
       t.string :email,              null: false, default: ""

@@ -1,0 +1,37 @@
+<%= form_with(model: config_option, local: true) do |form| %>
+  <% if config_option.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(config_option.errors.count, "error") %> prohibited this config_option from being saved:</h2>
+
+      <ul>
+      <% config_option.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label "Nom de l'application" %>
+    <%= form.text_field :app_name, id: :config_option_app_name, class: "form-control", required: true %>
+  </div>
+
+  <div><b><i>Compte administrateur</i></b></div>
+  <div class="form-group">
+    <%= form.label "Nom" %>
+    <%= form.text_field :admin_name, id: :config_option_admin_name, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= form.label "Email" %>
+    <%= form.email_field :admin_email, id: :config_option_admin_email, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= form.label "Mot de passe" %>
+    <%= form.password_field :admin_password, id: :config_option_admin_password, class: "form-control", required: true %>
+  </div>
+  
+
+  <div class="form-group config-validation-button">
+    <%= form.submit "VALIDER", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -115,6 +115,6 @@ fr:
   error_404_body: "Vous avez peut-être mal tapé l'adresse ou la page a peut-être été supprimée. Si vous êtes le propriétaire de l'application, consultez les journaux pour plus d'informations."
   error_500_title: "Oops! Nous sommes désolés, une erreur s'est produite."
   error_500_body: "Si vous êtes le propriétaire de l'application, consultez les journaux pour plus d'informations."
-
+  app_name: "Nom de l'application"
 
   

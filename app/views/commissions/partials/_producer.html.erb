@@ -6,7 +6,7 @@
 <div class="col-md-12">
 <div class="index-heading pull-left">
 <p>
-    <h3>Résumé des commissions: <%= producer_name %></h3>
+    <h3>Résumé des commissions: <%= producer_name %> | Pourcentage commission: <%= producer_commission_percentage %>%</h3>
     </p>
     </div>
 <div class="pull-right">
@@ -43,8 +43,8 @@
         <td><%= commission.amount_credit %></td>
         <td><%= commission.producer_commission %></td>
         <td>
-        <%= link_to raw('<i class="fa fa-eye" aria-hidden="true"></i>
-'), dashboard_path %>
+        <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
+'), credit_details_path(commission.credit_id) %>
         </td>
       </tr>
     <% end %>

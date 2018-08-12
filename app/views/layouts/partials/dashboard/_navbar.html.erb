@@ -85,7 +85,7 @@
               <!-- The user image in the navbar-->
               <%= image_tag   current_user.avatar.url(:medium),  alt: "Avatar",  class: "img-fluid rounded-circle" %> 
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-               <span class="hidden-xs"><%= current_user.login %></span> 
+               <span class="hidden-xs"><%= current_user.full_name %></span> 
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->

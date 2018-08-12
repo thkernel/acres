@@ -57,7 +57,7 @@ class Log < ApplicationRecord
                     contributor.email =  record_count.to_s + "a@exemple.com"
                     contributor.password = '12345678'
                     contributor.password_confirmation = '12345678'
-                    contributor.login = row[cell[6]].delete('').downcase
+                    #contributor.login = row[cell[6]].delete('').downcase
                     contributor.role = "Apporteur"
                     contributor.created_by = user.id
                     contributor.save
@@ -71,7 +71,7 @@ class Log < ApplicationRecord
                     producer.email = record_count.to_s + "p@exemple.com"
                     producer.password = '12345678'
                     producer.password_confirmation = '12345678'
-                    producer.login = row[cell[7]].delete(' ').downcase
+                    #producer.login = row[cell[7]].delete(' ').downcase
                     producer.role = "Producteur"
                     producer.created_by = user.id
                     producer.save
