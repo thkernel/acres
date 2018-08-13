@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
 
+  resources :config_options
+  #resources :credit_details
   resources :notaries do
     get 'delete'
   end
@@ -27,9 +29,6 @@ Rails.application.routes.draw do
     get 'delete'
   end
 
-  
-
- 
 
   get "/dashboard" => "dashboard#index" , as: :dashboard
   get "/customers" => "customers#index", as: :customers_index
@@ -84,6 +83,10 @@ Rails.application.routes.draw do
   get 'search' => 'search#search', as: :search
   get 'export/excel' => 'search#search', as: :export_to_excel
 
+  get 'credit/details/:id' => 'credit_details#index', as: :credit_details
+  get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
+  #get 'config/options' => 'config_options#new', as: :new_config_option
+
 
   
     devise_for :users, path: '', controllers: { 
@@ -103,19 +106,21 @@ Rails.application.routes.draw do
             sign_up: '' 
         }
 
-        devise_scope :user do
- 		authenticated :user do
-    		root 'dashboard#index', as: :authenticated_root
-  		end
+		root 'config_options#new'
+        #devise_scope :user do
+ 		    #authenticated :user do
+    		    #root 'dashboard#index', as: :authenticated_root
+  		    #end
 
-  		unauthenticated do
-    		root 'users/sessions#new', as: :unauthenticated_root
-  		end
-	end
+  		    #unauthenticated do
+    		    #root 'users/sessions#new', as: :unauthenticated_root
+  		    #end
+	    #end
 	
-	%w( 404 422 500 ).each do |code|
-		get code, :to => "errors#show", :code => code
-	  end
+		%w( 404 422 500 ).each do |code|
+			get code, :to => "errors#show", :code => code
+		end
+	
 
 
 end

@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App name:</strong>
+  <%= @config_option.app_name %>
+</p>
+
+<%= link_to 'Edit', edit_config_option_path(@config_option) %> |
+<%= link_to 'Back', config_options_path %>

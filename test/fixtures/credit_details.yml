@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  installment_payment: MyString
+  installment_date: 2018-08-12
+  commission: 1.5
+  cumulative_amount: 1.5
+  paid_by_bank: false
+  paid_to_contributor_or_producer: false
+
+two:
+  installment_payment: MyString
+  installment_date: 2018-08-12
+  commission: 1.5
+  cumulative_amount: 1.5
+  paid_by_bank: false
+  paid_to_contributor_or_producer: false

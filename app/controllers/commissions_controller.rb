@@ -67,9 +67,13 @@ class CommissionsController < ApplicationController
 	def resume_producer
 		if params[:producer_name].present?
 			@producer_name = params[:producer_name] 
+			@producer = User.find_by(full_name: @producer_name)
+			@producer_commission_percentage = @producer.commission_setting.commission_percentage if @producer.commission_setting.present?
 			@commissions = Commission.where(producer_name: @producer_name)
 		elsif params[:producer_name].blank?
 			@producer_name = current_user.full_name 
+			@producer = User.find_by(full_name: @producer_name)
+			@producer_commission_percentage = @producer.commission_setting.commission_percentage if @producer.commission_setting.present?
 			@commissions = Commission.where(producer_name: @producer_name)
 		end
 		
@@ -78,9 +82,14 @@ class CommissionsController < ApplicationController
 	def resume_contributor
 		if params[:contributor_name].present?
 			@contributor_name = params[:contributor_name] 
+			@contributor = User.find_by(full_name: @contributor_name)
+			@contributor_commission_percentage = @contributor.commission_setting.commission_percentage if @contributor.commission_setting.present?
 			@commissions = Commission.where(contributor_name: @contributor_name)
+			
 		elsif params[:contributor_name].blank?
 			@contributor_name = current_user.full_name 
+			@contributor = User.find_by(full_name: @contributor_name)
+			@contributor_commission_percentage = @contributor.commission_setting.commission_percentage if @contributor.commission_setting.present?
 			@commissions = Commission.where(contributor_name: @contributor_name)
 		end
 		

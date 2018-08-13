@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Installment payment:</strong>
+  <%= @credit_detail.installment_payment %>
+</p>
+
+<p>
+  <strong>Installment date:</strong>
+  <%= @credit_detail.installment_date %>
+</p>
+
+<p>
+  <strong>Commission:</strong>
+  <%= @credit_detail.commission %>
+</p>
+
+<p>
+  <strong>Cumulative amount:</strong>
+  <%= @credit_detail.cumulative_amount %>
+</p>
+
+<p>
+  <strong>Paid by bank:</strong>
+  <%= @credit_detail.paid_by_bank %>
+</p>
+
+<p>
+  <strong>Paid to contributor or producer:</strong>
+  <%= @credit_detail.paid_to_contributor_or_producer %>
+</p>
+
+<%= link_to 'Edit', edit_credit_detail_path(@credit_detail) %> |
+<%= link_to 'Back', credit_details_path %>
