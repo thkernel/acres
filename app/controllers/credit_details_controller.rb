@@ -8,9 +8,47 @@ class CreditDetailsController < ApplicationController
   # GET /credit_details
   # GET /credit_details.json
   def index
-    credit_id = params[:id] if params.present?
-    @credit = Credit.find_by(credit_id: credit_id)
-    @credit_details = @credit.credit_details
+    if params.present?
+	  credit_id = params[:id] 
+	  contributor_name = params[:contributor]
+	  producer_name = params[:producer]
+
+	  @credit = Credit.find_by(credit_id: credit_id)
+	  if @credit.present?
+		 
+		  #if @credit.credit_details.present?
+			#@credit_details = @credit.credit_details
+		  #else
+			commission = Commission.find_by(credit_id: credit_id)
+
+			#producer_commission = commission.producer_commission
+			#contributor_commission = commission.contributor_commission
+
+			bank = Bank.find_by(name: commission.bank_name)
+
+			#if bank.present? && bank.number_of_dates.present?
+				number_of_dates = bank.number_of_dates
+
+				number_of_dates.times do 
+					credit_detail = CreditDetail.new
+					credit_detail.installment_payment = "Echéance " 
+					credit_detail.installment_date = Date.today
+					credit_detail.commission = 0.0
+					credit_detail.cumulative_amount = 0.0
+					credit_detail.paid_by_bank = "Non" 
+					credit_detail.paid_to_contributor_or_producer = "Non" 
+					credit_detail.credit_id = credit_id
+					credit_detail.user_id = current_user.id
+					credit_detail.save
+				end
+			#end
+			@credit_details = @credit.credit_details
+		  #end
+	  end
+	end
+	
+	
+
   end
 
   # GET /credit_details/1

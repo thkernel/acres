@@ -38,16 +38,17 @@ class CommissionsController < ApplicationController
 		if current_user.present? && is_producer?(current_user)
 			@commissions = Commission.where(producer_name: current_user.full_name)
 		elsif is_admin?
+
 			#@commissions = current_user.commissions 
 			users = User.where(role: 'Producteur')
 			@commissions = []
-			users.each {|user|
+			users.each do |user|
 				commissions = Commission.where(producer_name: user.full_name)
-				commissions.each{|commission|
+				commissions.each do |commission|
 					@commissions.push(commission)
-				}
+				end
 				
-			}
+			end
 		end
 	end
 
@@ -166,133 +167,144 @@ class CommissionsController < ApplicationController
       params.require(:commission).permit(:bank_name, :contributor_name, :producer_name, :amount)
 	end
 	
+	# Computing all commissions.
 	def compute_commissions
+
+		# Load the current admin user old comissions and we delete there after.
 		commission = current_user.commissions
+
+		# Deleting the olds commissions before compute the news
 		commission.delete_all if commission.present?
+		
 		# Load all credits.
 		@credits = current_user.credits 
 
-		# Loop credits.
-		@credits.each {|credit|
+		# Explore credits.
+		@credits.each do |credit|
 
 			# Instance of Commission.
 			commission = Commission.new
 
-			# Get credit infos.
-			credit_contributor_name = credit.contributor_name if credit.contributor_name.present?
-			contributor = User.find_by(full_name: credit.contributor_name)
+			# Get contributor required infos for the compute.
+			if credit.contributor_name.present?
+				contributor_name = credit.contributor_name 
+				contributor = User.find_by(full_name: contributor_name)
+				if contributor.present? && contributor.commission_setting.present?
+					contributor_commission_percentage = contributor.commission_setting.commission_percentage 
+					contributor_hypoplus_commission_percentage = contributor.commission_setting.hypoplus_commission_percentage 
+					contributor_commission = 0.0
+				end
+			end
 			
-			credit_producer_name = credit.producer_name if credit.producer_name.present?
-			producer = User.find_by(full_name: credit_producer_name)
+			# Get producer required infos for the compute.
+			if credit.producer_name.present?
+				producer_name = credit.producer_name 
+				producer = User.find_by(full_name: producer_name)
+
+				if producer.present? && producer.commission_setting.present?
+					producer_commission_percentage = producer.commission_setting.commission_percentage
+					producer_hypoplus_commission_percentage = producer.commission_setting.hypoplus_commission_percentage 
+					producer_commission = 0.0
+				end
+			end
+
+			# Get bank infos required infos for the compute.
+			if credit.bank_name.present?
+				bank_name = credit.bank_name 
+				bank = Bank.find_by(name: bank_name)
+
+				if bank.present? && bank.commission_percentage.present?
+					bank_commission_percentage = bank.commission_percentage 
+					bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+					bank_amount_commission = 0.0
+				end
+			end
 			
-			credit_bank_name = credit.bank_name if credit.bank_name.present?
-			bank = Bank.find_by(name: credit_bank_name)
+			# Get company infos required infos for the compute.
+			if  current_user.company.present?
+				company_name = current_user.company.name 
+				company_commission_net = 0.0
+			end
 
-			credit_company_name = current_user.company.name if  current_user.company.present?
-
+			if credit.amount.present?
+				credit_amount = credit.amount 
+			end
 
 			# Compute producer commission
-			if producer.present?
-				if producer.commission_setting.present? && credit_company_name.present? 
-					if  credit_producer_name == credit_company_name 
-						commission.producer_commission = 0
-					else
-
-						producer_commission_percentage = producer.commission_setting.commission_percentage
-						commission.producer_commission_percentage = producer_commission_percentage
-						credit_amount = credit.amount if credit.amount.present?
-						
-						commission.producer_commission = (((producer_commission_percentage) * (credit.amount))/100)
-					end
-				end
-			
-			end
-			
-			# Compute contributor commission
-			if contributor.present?
-
-				if contributor.commission_setting.present? && credit_company_name.present? 
-					
-					if  credit_contributor_name == credit_company_name ||  !credit_contributor_name.present?
-						
-						commission.contributor_commission = 0
-						contributor_commission_percentage = contributor.commission_setting.commission_percentage
-						commission.contributor_commission_percentage = contributor_commission_percentage
-					elsif credit_contributor_name == credit_producer_name
-						commission.contributor_commission = 0
-						contributor_commission_percentage = contributor.commission_setting.commission_percentage
-						commission.contributor_commission_percentage = contributor_commission_percentage
-					elsif credit_contributor_name.present? && credit_contributor_name != credit_company_name && credit_contributor_name != credit_producer_name
-						contributor_commission_percentage = contributor.commission_setting.commission_percentage
-						
-						commission.contributor_commission_percentage = contributor_commission_percentage
-						credit_amount = credit.amount if credit.amount.present?
-						
-						producer_commission_percentage = producer.commission_setting.commission_percentage if producer.commission_setting.commission_percentage.present?
-						company_commission_percentage = current_user.company.percentage_commission if current_user.company.percentage_commission.present?
-
-						credit_amount = credit.amount if credit.amount.present?
-						
-						#company_commission = ((company_commission_percentage * credit_amount)/100)
-						#producer_commission = ((producer_commission_percentage * credit_amount)/100)
-						
-						#commission.contributor_commission = ((company_commission / 2) + (producer_commission / 2))
-					else 
-
-						contributor_commission_percentage = contributor.commission_setting.commission_percentage
-						commission.contributor_commission_percentage = contributor_commission_percentage
-						credit_amount = credit.amount if credit.amount.present?
-						
-						commission.contributor_commission = (((contributor_commission_percentage) * (credit.amount))/100)
-					end
-				end
-			
-			end
-
-			# Compute bank commission
-			if bank.present?
-
-				if bank.commission_percentage.present?
-
-					bank_commission_percentage = bank.commission_percentage
-					commission.bank_name = credit_bank_name
-					commission.bank_commission_percentage = bank_commission_percentage
-					credit_amount = credit.amount if credit.amount.present?
-					
-					
-					commission.bank_commission = (((bank_commission_percentage) * (credit.amount))/100)
-				end
-			
-			end
-
-			# Compute company commission.
-			if current_user.role == 'Admin'
-				if current_user.company.present?
-					if current_user.company.percentage_commission.present? && credit_company_name.present? 
-						if  credit_contributor_name == credit_company_name || credit_producer_name == credit_company_name || !credit_contributor_name.present?
-							#company_commission_percentage = current_user.company.percentage_commission 
-							commission.company_commission = (((100) * (credit.amount))/100)
-						else
-							company_commission_percentage = current_user.company.percentage_commission 
-							commission.company_commission_percentage = company_commission_percentage
-							commission.company_commission = (((company_commission_percentage) * (credit.amount))/100)
-					
-						end
-					end
+			# Rule 1
+			if contributor_name == company_name || producer_name == company_name || contributor_name.blank?
+				contributor_commission = 0.0
+				producer_commission = 0.0
+				bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+				company_commission_net = bank_amount_commission
+			else
+				if contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
+					contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+					producer_commission = (credit_amount * producer_commission_percentage) / 100
+					bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+					company_commission_net = bank_amount_commission - producer_commission - contributor_commission
 				end
 			end
+
+			# Rule 2 
+			if contributor_name ==  producer_name 
+				if contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
+
+					contributor_commission = 0.0
+					producer_commission = (credit_amount * producer_commission_percentage) / 100
+					bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+					company_commission_net = bank_amount_commission - producer_commission - contributor_commission
+				end
+			else
+				if contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
+
+					contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+					producer_commission = (credit_amount * producer_commission_percentage) / 100
+					bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+					company_commission_net = bank_amount_commission - producer_commission - contributor_commission
+				end
+			end
+
+			# Rule 3 
+			if contributor_name != producer_name  && contributor_name != company_name
+				if contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
+					contributor_commission = 0.0
+					producer_commission = (credit_amount * producer_commission_percentage) / 100
+					bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+					company_commission_net = bank_amount_commission - producer_commission - contributor_commission
+				end
+			elsif producer_name ==  company_name || producer_name.blank?
+
+			else
+				if contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
+
+					contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+					producer_commission = (credit_amount * producer_commission_percentage) / 100
+					bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+					company_commission_net = bank_amount_commission - producer_commission - contributor_commission
+				end
+			end
+			
 			
 			commission.credit_id = credit.credit_id
 			commission.production_date = credit.production_date
 			commission.acte_date = credit.acte_date
 			commission.customer_id = credit.customer_id
-			commission.contributor_name = credit_contributor_name
-			commission.producer_name = credit_producer_name
+			commission.contributor_name = contributor_name
+			commission.contributor_commission = contributor_commission
+			commission.contributor_commission_percentage = contributor_commission_percentage
+			commission.producer_name = producer_name
+			commission.producer_commission = producer_commission
+			commission.producer_commission_percentage = producer_commission_percentage
+			commission.bank_name = bank_name
+			commission.bank_commission = bank_amount_commission
+			commission.bank_commission_percentage = bank_commission_percentage
+			commission.company_commission = company_commission_net
 			commission.notary_name = credit.notary_name
 			commission.amount_credit = credit_amount
 			commission.user_id = current_user.id
 			commission.save
 
-    	}
+    	end
 	end
 end
