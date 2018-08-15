@@ -8,7 +8,7 @@ class CreditDetailsController < ApplicationController
   # GET /credit_details
   # GET /credit_details.json
   def index
-    if params.present?
+    
 	  credit_id = params[:id] 
 	  contributor_name = params[:contributor]
 	  producer_name = params[:producer]
@@ -42,9 +42,9 @@ class CreditDetailsController < ApplicationController
 					credit_detail.save
 				end
 			#end
-			@credit_details = @credit.credit_details
+			@credit_details = CreditDetail.all
 		  #end
-	  end
+	  
 	end
 	
 	
