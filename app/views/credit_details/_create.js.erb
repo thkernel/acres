@@ -1,0 +1,10 @@
+$("ul.errors").html("");
+<% if @credit_detail.errors.any? %>
+  <% @credit_detail.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
+  <% end %>
+<% else %>
+  $(".credit-details").html("<%= escape_javascript(render 'index') %>");
+  $("#credit-details-modal").modal("hide");
+ 
+<% end %>

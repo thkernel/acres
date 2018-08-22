@@ -47,9 +47,11 @@ class ConfigOptionsController < ApplicationController
 
         format.html { redirect_to dashboard_path, notice: 'Config option was successfully created.' }
         format.json { render :show, status: :created, location: @config_option }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @config_option.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

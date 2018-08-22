@@ -32,11 +32,11 @@ class CommissionSettingsController < ApplicationController
         format.html { redirect_to all_users_path, notice: 'Commission setting was successfully updated.' }
 
         format.json { render :show, status: :created, location: @commission_setting }
-        format.js
+        #format.js
       else
         format.html { render :new }
         format.json { render json: @commission_setting.errors, status: :unprocessable_entity }
-        format.js
+        #format.js
       end
     end
   end

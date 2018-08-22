@@ -1,4 +1,4 @@
-<%= form_with(model: commission_setting,  local: false) do |form| %>
+<%= form_with(model: commission_setting,  local: true) do |form| %>
 	<div class="modal-body">
 		<ul class="errors">
 			<% commission_setting.errors.full_messages.each do |message| %>
