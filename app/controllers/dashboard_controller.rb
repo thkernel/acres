@@ -14,7 +14,7 @@ class DashboardController < ApplicationController
 		elsif is_admin?
 			@credits = current_user.credits
 
-			@bank_count = current_user.banks.count if current_user.banks.present?
+			@banks_count = current_user.banks.count if current_user.banks.present?
 			@customers_count = current_user.customers.count if current_user.customers.present?
 			@credits_count = current_user.credits.count if current_user.credits.present?
 
@@ -25,8 +25,9 @@ class DashboardController < ApplicationController
 		elsif is_superadmin?
 			@credits = current_user.credits
 
-			@bank_count = current_user.banks.count if current_user.banks.present?
+			@banks_count = current_user.banks.count if current_user.banks.present?
 			@customers_count = current_user.customers.count if current_user.customers.present?
+			
 			@credits_count = current_user.credits.count if current_user.credits.present?
 	
 			contributors_count = User.find_by_role_and_creator('Apporteur', current_user.id).count if User.find_by_role_and_creator('Apporteur', current_user.id).present?
