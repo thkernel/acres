@@ -10,42 +10,56 @@ class CreditDetailsController < ApplicationController
   def index
     
 	  credit_id = params[:id] 
-	  contributor_name = params[:contributor]
-	  producer_name = params[:producer]
+	  #contributor_name = params[:contributor]
+    #producer_name = params[:producer]
+    
+    puts "Dossier: " + credit_id
 
-	  @credit = Credit.find_by(credit_id: credit_id)
-	  if @credit.present?
-		 
+    puts "Début d'instanciation de détails credit"
+
+    
+
+    puts "Instanciation de détails credit OK"
+
+    #credit_detail.installment_payment = "Echéance " 
+    #credit_detail.installment_date = ""
+    #credit_detail.commission = 0.0
+    #credit_detail.cumulative_amount = 0.0
+    #credit_detail.paid_by_bank = "Non" 
+    #credit_detail.paid_to_contributor_or_producer = "Non" 
+    #credit_detail.credit_id = credit_id
+    #puts "Credit ID: " + credit_id
+    #credit_detail.user_id = current_user.id
+    
+    #puts "User ID: " + current_user.id.to_s
+    #credit_detail.save
+    #puts "Détails credit OK"
+    
+    @credit = Credit.find_by(credit_id: credit_id)
+    credit_detail = CreditDetail.create
+	  #if @credit.present?
+		 #puts "Crédit trouvé dans la base"
 		  #if @credit.credit_details.present?
 			#@credit_details = @credit.credit_details
 		  #else
-			commission = Commission.find_by(credit_id: credit_id)
+			#commission = Commission.find_by(credit_id: credit_id)
 
 			#producer_commission = commission.producer_commission
 			#contributor_commission = commission.contributor_commission
 
-			bank = Bank.find_by(name: commission.bank_name)
+			#bank = Bank.find_by(name: commission.bank_name)
 
 			#if bank.present? && bank.number_of_dates.present?
-				number_of_dates = bank.number_of_dates
+				#number_of_dates = bank.number_of_dates
 
-				number_of_dates.times do 
-					credit_detail = CreditDetail.new
-					credit_detail.installment_payment = "Echéance " 
-					credit_detail.installment_date = Date.today
-					credit_detail.commission = 0.0
-					credit_detail.cumulative_amount = 0.0
-					credit_detail.paid_by_bank = "Non" 
-					credit_detail.paid_to_contributor_or_producer = "Non" 
-					credit_detail.credit_id = credit_id
-					credit_detail.user_id = current_user.id
-					credit_detail.save
-				end
+        #number_of_dates.times do 
+         
+				#end
 			#end
 			@credit_details = CreditDetail.all
 		  #end
 	  
-	end
+	#end
 	
 	
 
