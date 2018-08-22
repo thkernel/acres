@@ -7,8 +7,10 @@ class CreateCreditDetails < ActiveRecord::Migration[5.1]
       t.float :cumulative_amount
       t.string :paid_by_bank, default: 'Non'
       t.string :paid_to_contributor_or_producer, default: 'Non'
-      t.references :credit, foreign_key: true, null: false, index:  true
-      t.references :user, foreign_key: true, null: false, index:  true
+      t.bigint :creditUid, null: false 
+      t.references :credit, foreign_key: true, null: false , index:  true
+      
+      #t.references :user, null: false #, index:  true
       t.timestamps
     end
   end

@@ -104,12 +104,11 @@ ActiveRecord::Schema.define(version: 20180812150934) do
     t.float "cumulative_amount"
     t.string "paid_by_bank", default: "Non"
     t.string "paid_to_contributor_or_producer", default: "Non"
+    t.bigint "creditUid", null: false
     t.bigint "credit_id", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["credit_id"], name: "index_credit_details_on_credit_id"
-    t.index ["user_id"], name: "index_credit_details_on_user_id"
   end
 
   create_table "credits", force: :cascade do |t|
@@ -259,7 +258,6 @@ ActiveRecord::Schema.define(version: 20180812150934) do
   add_foreign_key "commissions", "users"
   add_foreign_key "companies", "users"
   add_foreign_key "credit_details", "credits"
-  add_foreign_key "credit_details", "users"
   add_foreign_key "credits", "users"
   add_foreign_key "customers", "users"
   add_foreign_key "logs", "users"

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
 
   resources :config_options
-  #resources :credit_details
+  resources :credit_details
   resources :notaries do
     get 'delete'
   end
@@ -83,7 +83,9 @@ Rails.application.routes.draw do
   get 'search' => 'search#search', as: :search
   get 'export/excel' => 'search#search', as: :export_to_excel
 
-  get 'credit/details/:id' => 'credit_details#index', as: :credit_details
+  get 'show/producer/credit/details/:id' => 'credit_details#producer_credit_details', as: :show_producer_credit_details
+  get 'show/contributor/credit/details/:id' => 'credit_details#contributor_credit_details', as: :show_contributor_credit_details
+
   #get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
   #get 'config/options' => 'config_options#new', as: :new_config_option
 
