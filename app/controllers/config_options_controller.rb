@@ -42,7 +42,7 @@ class ConfigOptionsController < ApplicationController
         admin_user.email = @config_option.admin_email if @config_option.admin_email.present?
         admin_user.password = @config_option.admin_password if @config_option.admin_password.present?
         admin_user.password_confirmation = @config_option.admin_password if @config_option.admin_password.present?
-        admin_user.role = "Admin"
+        admin_user.role = "Superadmin"
         admin_user.save
 
         format.html { redirect_to dashboard_path, notice: 'Config option was successfully created.' }
