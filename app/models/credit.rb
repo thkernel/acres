@@ -2,7 +2,7 @@ class Credit < ApplicationRecord
     require 'csv'
 
     belongs_to :user
-    has_many :credit_details
+    has_many :credit_details, dependent: :destroy
 
     
 

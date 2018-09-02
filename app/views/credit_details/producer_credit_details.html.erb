@@ -1,0 +1,30 @@
+<div class="container">
+
+<div class="title">
+<h1>Détails (Echéancier et paiements effectués)</h1>
+
+<h3>Date de l'acte: <%= @credit.acte_date %></h3>
+<h3>Numéro du dossier: <%= @credit.credit_id %></h3>
+</div>
+
+<table id="table-list" class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Tranche</th>
+      <th>Date</th>
+      <th>Commission</th>
+      <th>Montant cumulé</th>
+      <th>Payé par la banque</th>
+      <th>Payé à l'apport. ou au product.</th>
+      <th> Actions</th>
+    </tr>
+  </thead>
+
+  <tbody class="credit-details">
+    <%= render('index') %>
+  </tbody>
+</table>
+
+</div>
+
+<div id="credit-details-modal" class="modal fade"></div>

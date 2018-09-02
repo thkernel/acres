@@ -1,4 +1,5 @@
-<%= form_with(model: credit_detail, local: true) do |form| %>
+<%= form_with(model: credit_detail, local: false) do |form| %>
+  <div class="modal-body">
   <% if credit_detail.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(credit_detail.errors.count, "error") %> prohibited this credit_detail from being saved:</h2>
@@ -11,37 +12,40 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :installment_payment %>
-    <%= form.text_field :installment_payment, id: :credit_detail_installment_payment %>
+  <div class="form-group">
+    <%= form.label "Tranche de paiement"%>
+    <%= form.text_field :installment_payment, id: :credit_detail_installment_payment, class: "form-control", disabled: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :installment_date %>
-    <%= form.date_select :installment_date, id: :credit_detail_installment_date %>
+  <div class="form-group">
+    <%= form.label "Date de la tranche" %>
+    <%= form.date_field :installment_date, id: :credit_detail_installment_date, class: "form-control", disabled: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :commission %>
-    <%= form.text_field :commission, id: :credit_detail_commission %>
+  <div class="form-group">
+    <%= form.label "Commission" %>
+    <%= form.number_field :commission, id: :credit_detail_commission, class: "form-control", disabled: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :cumulative_amount %>
-    <%= form.text_field :cumulative_amount, id: :credit_detail_cumulative_amount %>
+  <div class="form-group">
+    <%= form.label "Montant cumulé" %>
+    <%= form.number_field :cumulative_amount, id: :credit_detail_cumulative_amount, class: "form-control", disabled: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :paid_by_bank %>
-    <%= form.check_box :paid_by_bank, id: :credit_detail_paid_by_bank %>
+  <div class="form-group">
+    <%= form.label "Payé par la banque" %>
+    <%= form.select :paid_by_bank,  CreditDetail::YES_NO, {prompt: ""}, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :paid_to_contributor_or_producer %>
-    <%= form.check_box :paid_to_contributor_or_producer, id: :credit_detail_paid_to_contributor_or_producer %>
+  <div class="form-group">
+    <%= form.label "Payé au apporteur ou au producteur" %>
+    <%= form.select :paid_to_contributor_or_producer,  CreditDetail::YES_NO, {prompt: ""},  class: "form-control" %>
+  </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <div class="modal-footer">
+		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
+		<%= form.submit class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+	</div>
+  
 <% end %>

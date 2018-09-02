@@ -1,0 +1,13 @@
+<% if @credit_details.present? %>
+<% @credit_details.each do |credit_detail| %>
+  <tr>
+    <td><%= credit_detail.installment_payment %></td>
+    <td><%= credit_detail.installment_date %></td>
+    <td><%= credit_detail.commission %></td>
+    <td><%= credit_detail.cumulative_amount %></td>
+    <td><%= credit_detail.paid_by_bank %></td>
+    <td><%= credit_detail.paid_to_contributor_or_producer %></td>
+    <td><%= link_to 'Modifier', edit_credit_detail_path(credit_detail),  remote: true %></td>
+  </tr>
+<% end %>
+<% end %>

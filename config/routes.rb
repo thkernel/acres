@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
 
   resources :config_options
-  #resources :credit_details
+  resources :credit_details
   resources :notaries do
     get 'delete'
   end
@@ -73,9 +73,9 @@ Rails.application.routes.draw do
   get "/commissions/banks" => "commissions#banks", as: :banks_commissions
   get "/profile/settings" => "profiles#settings", as: :profile_settings
 
-  get "/commissions/resume/:producer_name" => "commissions#resume_producer", as: :producer_resume
-  get "/commissions/resume/:contributor_name" => "commissions#resume_contributor", as: :contributor_resume
-  get "/commissions/resume/:bank_name" => "commissions#resume_bank", as: :bank_resume
+  get "/commissions/resume/producer/:producer_name" => "commissions#resume_producer", as: :producer_resume
+  get "/commissions/resume/contributor/:contributor_name" => "commissions#resume_contributor", as: :contributor_resume
+  get "/commissions/resume/bank/:bank_name" => "commissions#resume_bank", as: :bank_resume
 
   #get "/notaries/index" => "notaries#index", as: :notaries
   #get "/nataries/new" => "notaries#new", as: :new_notary
@@ -83,8 +83,10 @@ Rails.application.routes.draw do
   get 'search' => 'search#search', as: :search
   get 'export/excel' => 'search#search', as: :export_to_excel
 
-  get 'credit/details/:id' => 'credit_details#index', as: :credit_details
-  get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
+  get 'show/producer/credit/details/:id' => 'credit_details#producer_credit_details', as: :show_producer_credit_details
+  get 'show/contributor/credit/details/:id' => 'credit_details#contributor_credit_details', as: :show_contributor_credit_details
+
+  #get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
   #get 'config/options' => 'config_options#new', as: :new_config_option
 
 

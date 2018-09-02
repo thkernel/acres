@@ -7,19 +7,19 @@ class CreateCommissions < ActiveRecord::Migration[5.1]
       t.string   :producer_name
       t.string   :company_name
 
-      t.integer  :contributor_commission_percentage
-      t.float    :contributor_commission 
+      t.float  :contributor_commission_percentage, default: 0.0
+      t.float    :contributor_commission , default: 0.0
 
-      t.integer  :producer_commission_percentage
-      t.float    :producer_commission 
+      t.float  :producer_commission_percentage, default: 0.0
+      t.float    :producer_commission , default: 0.0
 
-      t.integer  :bank_commission_percentage
-      t.float    :bank_commission
+      t.float  :bank_commission_percentage, default: 0.0
+      t.float    :bank_commission, default: 0.0
 
-      t.integer  :company_commission_percentage 
-      t.float    :company_commission 
+      t.float  :company_commission_percentage , default: 0.0
+      t.float    :company_commission , default: 0.0
 
-      t.float    :amount_credit
+      t.float    :amount_credit, default: 0.0
 
       t.references :user, foreign_key: true, null: false, index:  true
 

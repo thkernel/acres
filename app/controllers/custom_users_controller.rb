@@ -22,7 +22,7 @@ class CustomUsersController < ApplicationController
           format.json { render :show, status: :created, location: @contributor }
           format.js
 
-        	url = unauthenticated_root_path
+        	url = user_session_url
           UserMailer.new_user_mail(@user.email, @user.password, url).deliver_now
 
         else
@@ -100,7 +100,7 @@ class CustomUsersController < ApplicationController
 		  format.js
 		  
 		  # Send mail to user.
-		  url = unauthenticated_root_path
+		  url = user_session_url
           UserMailer.edit_user_mail(@user.email, @user.password, url).deliver_now
         else
           format.html { render :edit }

@@ -1,4 +1,4 @@
-<%= form_with(model: commission_setting,  local: false) do |form| %>
+<%= form_with(model: commission_setting,  local: true) do |form| %>
 	<div class="modal-body">
 		<ul class="errors">
 			<% commission_setting.errors.full_messages.each do |message| %>
@@ -6,11 +6,11 @@
 			<% end %>
 		</ul>
 		<div class="form-group">
-			<%= form.label "Pourcentage commission" %>
+			<%= form.label "Pourcentage commission (%)" %>
 			<%= form.number_field :commission_percentage, id: :commission_setting_commission_percentage, class: "form-control" %>
 		</div>
 		<div class="form-group">
-			<%= form.label "Pourcentage commission hypoplus" %>
+			<%= form.label "Pourcentage commission hypoplus (%)" %>
 			<%= form.number_field :hypoplus_commission_percentage, id: :commission_setting_hypoplus_commission_percentage, class: "form-control" %>
 		</div>
 		<div class="form-group">
@@ -18,7 +18,7 @@
 			<%= form.number_field :number_of_dates, id: :commission_setting_number_of_dates, class: "form-control" %>
 		</div>
 		<div class="form-group">
-			<%= form.label "Première tranche" %>
+			<%= form.label "Première tranche (%)" %>
 			<%= form.number_field :first_installment, id: :commission_setting_first_installment, class: "form-control" %>
 		</div>
 		

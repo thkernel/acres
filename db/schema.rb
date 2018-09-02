@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 20180812150934) do
   create_table "banks", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "commission_percentage"
-    t.integer "hypoplus_commission_percentage"
-    t.integer "first_installment"
-    t.integer "number_of_dates"
+    t.float "commission_percentage", default: 0.0
+    t.float "hypoplus_commission_percentage", default: 0.0
+    t.float "first_installment", default: 0.0
+    t.integer "number_of_dates", default: 0
     t.string "phone"
     t.string "address"
     t.string "slug"
@@ -33,10 +33,10 @@ ActiveRecord::Schema.define(version: 20180812150934) do
   end
 
   create_table "commission_settings", force: :cascade do |t|
-    t.integer "commission_percentage"
-    t.integer "hypoplus_commission_percentage"
-    t.integer "first_installment"
-    t.integer "number_of_dates"
+    t.float "commission_percentage", default: 0.0
+    t.float "hypoplus_commission_percentage", default: 0.0
+    t.float "first_installment", default: 0.0
+    t.integer "number_of_dates", default: 0
     t.string "slug"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -50,15 +50,15 @@ ActiveRecord::Schema.define(version: 20180812150934) do
     t.string "contributor_name"
     t.string "producer_name"
     t.string "company_name"
-    t.integer "contributor_commission_percentage"
-    t.float "contributor_commission"
-    t.integer "producer_commission_percentage"
-    t.float "producer_commission"
-    t.integer "bank_commission_percentage"
-    t.float "bank_commission"
-    t.integer "company_commission_percentage"
-    t.float "company_commission"
-    t.float "amount_credit"
+    t.float "contributor_commission_percentage", default: 0.0
+    t.float "contributor_commission", default: 0.0
+    t.float "producer_commission_percentage", default: 0.0
+    t.float "producer_commission", default: 0.0
+    t.float "bank_commission_percentage", default: 0.0
+    t.float "bank_commission", default: 0.0
+    t.float "company_commission_percentage", default: 0.0
+    t.float "company_commission", default: 0.0
+    t.float "amount_credit", default: 0.0
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -100,16 +100,15 @@ ActiveRecord::Schema.define(version: 20180812150934) do
   create_table "credit_details", force: :cascade do |t|
     t.string "installment_payment"
     t.date "installment_date"
-    t.float "commission"
-    t.float "cumulative_amount"
+    t.float "commission", default: 0.0
+    t.float "cumulative_amount", default: 0.0
     t.string "paid_by_bank", default: "Non"
     t.string "paid_to_contributor_or_producer", default: "Non"
+    t.bigint "creditUid", null: false
     t.bigint "credit_id", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["credit_id"], name: "index_credit_details_on_credit_id"
-    t.index ["user_id"], name: "index_credit_details_on_user_id"
   end
 
   create_table "credits", force: :cascade do |t|
@@ -259,7 +258,6 @@ ActiveRecord::Schema.define(version: 20180812150934) do
   add_foreign_key "commissions", "users"
   add_foreign_key "companies", "users"
   add_foreign_key "credit_details", "credits"
-  add_foreign_key "credit_details", "users"
   add_foreign_key "credits", "users"
   add_foreign_key "customers", "users"
   add_foreign_key "logs", "users"

@@ -1,7 +1,10 @@
-$(document).on('turbolinks:load',function() {
-    $('#bank_first_installment').change(function(){
-       alert('test');
-      
-        }
-    );
-})
+
+$(document).on('turbolinks:load', function(){
+
+    
+  $(".first_installment").click(function( event ){
+    event.preventDefault();
+      alert("je suis une banque");
+  });
+   
+  });

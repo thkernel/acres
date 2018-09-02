@@ -1,0 +1,22 @@
+<tr>
+<td class="uppercase">Nom</td>
+<td ><%= current_user.company.name if current_user.company.present? %></td>
+</tr>
+
+<tr>
+<td class="uppercase">Adresse</td>
+<td><%= current_user.company.address if current_user.company.present? %></td>
+</tr>
+<tr>
+<td class="uppercase">Ville</td>
+<td><%= current_user.company.city if current_user.company.present? %></td>
+</tr>
+<tr>
+<td class="uppercase">Pays</td>
+<td><%= current_user.company.country if current_user.company.present? %></td>
+</tr>
+
+<tr>
+<td class="uppercase">Téléphone</td>
+<td><%= current_user.company.phone if current_user.company.present? %></td>
+</tr>

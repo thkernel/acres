@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card ">
                 <div class="card-header align-items-center">
                     <div class="card-header-title-text">
                         <h1 class="uppercase">Société</h1>
@@ -25,9 +25,7 @@
                                         </div>
                                         <div class="pull-right">
                                             <span>
-                                                
-                                                    <%= link_to "Mettre à jour", edit_company_path(current_user.company.id), title: "Modifier", remote: true %>
-                                               
+                                                <%= link_to "Mettre à jour", edit_company_path(current_user.company.id), title: "Modifier", remote: true %>
                                             </span>
                                         </div>
                                     </div><!-- end section title -->
@@ -37,35 +35,9 @@
                                 <div class="col-md-12">
                                     <div class="profile-section-body">
                                         <table class="table table-striped">
-                                            <tr>
-                                                <td class="uppercase">Nom</td>
-                                                <td ><%= current_user.company.name if current_user.company.present? %></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="uppercase">Adresse</td>
-                                                <td><%= current_user.company.address if current_user.company.present? %></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="uppercase">Ville</td>
-                                                <td><%= current_user.company.city if current_user.company.present? %></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="uppercase">Pays</td>
-                                                <td><%= current_user.company.country if current_user.company.present? %></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="uppercase">Téléphone</td>
-                                                <td><%= current_user.company.phone if current_user.company.present? %></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="uppercase">Pourcentage commission</td>
-                                                <td><%= current_user.company.percentage_commission if current_user.company.present? %></td>
-                                            </tr>
-
-                                            
+                                            <tbody>
+                                                <%= render('index') %>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
