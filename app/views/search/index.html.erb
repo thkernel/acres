@@ -28,7 +28,12 @@
 								<div class="col-xs-2">
 									<div class="form-group">
 										<%= f.text_field :bank, id: :bank, placeholder: "Banque ", class: "form-control " %>
-									</div>
+										<%= f.select :bank,
+										User.all.map { |u| [u.name, u.id] },
+													 { include_blank: true },
+													 { class: 'chosen-select' }
+									  %>
+										</div>
 								</div>
 								<div class="col-xs-2">
 									<div class="form-group">

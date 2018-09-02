@@ -40,42 +40,9 @@
                                 <div class="col-md-12">
                                     <div class="profile-section-body">
                                         <table class="table table-striped">
-                                            <tr>
-                                                <td class="uppercase">Serveur</td>
-                                                <td ><%= current_user.mail_configuration.host if current_user.mail_configuration.present? %></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="uppercase">Nom d'utilisateur</td>
-                                                <td><%= current_user.mail_configuration.user_name if current_user.mail_configuration.present? %></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="uppercase">Domain</td>
-                                                <td><%= current_user.mail_configuration.domain if current_user.mail_configuration.present? %></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="uppercase">Adresse</td>
-                                                <td><%= current_user.mail_configuration.address if current_user.mail_configuration.present? %></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="uppercase">Port</td>
-                                                <td><%= current_user.mail_configuration.port if current_user.mail_configuration.present? %></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="uppercase">Authentification</td>
-                                                <td><%= current_user.mail_configuration.authentication if current_user.mail_configuration.present? %></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="uppercase">Enable starttls auto </td>
-                                                <td><%= current_user.mail_configuration.enable_starttls_auto if current_user.mail_configuration.present? %></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="uppercase"> Ssl </td>
-                                                <td><%= current_user.mail_configuration.ssl if current_user.mail_configuration.present? %></td>
-                                            </tr>
+                                            <tbody class="smtp">
+                                                <%= render('index') %>
+                                            </tbody>
                                             
                                         </table>
                                     </div>

@@ -23,6 +23,7 @@
 // require "dataTablesFrench"
 //= require toastr
 //= require rails.validations
+//= require chosen-jquery
 //= require custom
 //= require banks
 
@@ -57,7 +58,18 @@ $(document).on('turbolinks:load', function() {
         },
         responsive: true
     });
-})
+});
+
+// Enable chosen js for turbolinks
+$(document).on('turbolinks:load', function() {
+	$('.chosen-select').chosen({
+	allow_single_deselect: true,
+	max_selected_options: 10,
+    no_results_text: 'Aucun resultat',
+    width: '100%'
+
+	});
+});
 /*$(document).on('turbolinks:load', function() {
     $('#table-list').DataTable( {
         dom: 'Bfrtip',

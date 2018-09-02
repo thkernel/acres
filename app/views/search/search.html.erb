@@ -29,25 +29,26 @@
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <%= f.label "Banque" %>
-                                        <%= f.collection_select(:bank, @banks, :name, :name , {prompt: "Banque"}, class: "form-control") %>
-                                    </div>
+                                        <%= f.collection_select(:bank, @banks, :name, :name , {prompt: "Banque"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Vélectionner une option'}) %>
+
+                                        </div>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <%= f.label "Apporteur" %>
-                                        <%= f.collection_select(:contributor, @contributors, :full_name, :full_name, {prompt: "Apporteurs"}, class: "form-control") %>
+                                        <%= f.collection_select(:contributor, @contributors, :full_name, :full_name, {prompt: "Apporteurs"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Vélectionner une option'}) %>
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <%= f.label "Producteur" %>
-                                        <%= f.collection_select(:producer, @producers, :full_name, :full_name, {prompt: "Producteurs"}, class: "form-control") %>
+                                        <%= f.collection_select(:producer, @producers, :full_name, :full_name, {prompt: "Producteurs"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Vélectionner une option'}) %>
                                     </div>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <%= f.label "Notaire" %>
-                                        <%= f.collection_select(:notary, @notaries, :full_name, :full_name, {prompt: "Notaire"}, class: "form-control") %>
+                                        <%= f.collection_select(:notary, @notaries, :full_name, :full_name, {include_blank: true }, class: "form-control") %>
                                     </div>
                                 </div>
                             </div>
