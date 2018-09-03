@@ -8,11 +8,11 @@
 
 
 # Add initial users in database.
-User.create(full_name: "ACRES",  role: "Admin", email: "phn@acres.be", password: "root2018",
-    password_confirmation: "root2018")
+#User.create(full_name: "ACRES",  role: "Admin", email: "phn@acres.be", password: "root2018",
+    #password_confirmation: "root2018")
 
-    User.create(full_name: "Yves LEULIER",  role: "Superadmin", email: "yves.leulier@cosmopol.be", password: "root2018",
-        password_confirmation: "root2018")
+    #User.create(full_name: "Yves LEULIER",  role: "Superadmin", email: "yves.leulier@cosmopol.be", password: "root2018",
+        #password_confirmation: "root2018")
 
         
 # Add initial role in database.
