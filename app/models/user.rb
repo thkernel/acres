@@ -19,10 +19,11 @@ class User < ApplicationRecord
 
 	# User relationships.
 	has_many :logs, dependent: :destroy
-	has_one :company, dependent: :destroy
+	#has_one :company, dependent: :destroy
 	has_one :mail_configuration, dependent: :destroy
 	has_one :commission_setting, dependent: :destroy
 	has_one :profile, dependent: :destroy
+	has_one :app_config, dependent: :destroy
 	has_many :commissions, dependent: :destroy
 	has_many  :banks, dependent: :destroy
 	has_many :customers, dependent: :destroy

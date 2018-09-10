@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Login:</strong>
+  <%= @super_admin_config.login %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @super_admin_config.email %>
+</p>
+
+<%= link_to 'Edit', edit_super_admin_config_path(@super_admin_config) %> |
+<%= link_to 'Back', super_admin_configs_path %>

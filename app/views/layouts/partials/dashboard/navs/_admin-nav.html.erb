@@ -50,9 +50,9 @@ Crédits'), credits_path %>
 									<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
 								</li>
 							<% end %>
-						<% if is_admin? && current_user.company.present? %>
+						<% if is_admin? && current_user.app_config.company.present? %>
 							<li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
-									Société'), show_company_path(current_user.company) %>
+									Société'), show_company_path(get_admin_company(current_user)) %>
 							</li>
                             <li>
                                 <%= link_to raw('<i class="fa fa-envelope" aria-hidden="true"></i>Config. messagerie'), mail_settings_path %>

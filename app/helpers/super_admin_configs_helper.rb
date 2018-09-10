@@ -1,0 +1,2 @@
+module SuperAdminConfigsHelper
+end

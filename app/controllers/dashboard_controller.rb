@@ -1,12 +1,13 @@
 class DashboardController < ApplicationController
 	
 	before_action :authenticate_user!
-	before_action :configure_options
-	before_action :has_company
+	#before_action :configure_options
+	#before_action :has_company
+	before_action :app_config
 	layout 'dashboard'
 	
 	def index
-
+		
 		if current_user.present? && is_producer?(current_user)
 			@commissions = Commission.where(producer_name: current_user.full_name)
 		elsif current_user.present? && is_contributor?(current_user)
@@ -43,6 +44,12 @@ class DashboardController < ApplicationController
 		end
 	end
 
+	def app_config
+		if current_user.role == "Admin"  && current_user.app_config.blank?
+			redirect_to app_setup_path
+		end
+	end
+
 	def configure_options
 		config_options = ConfigOption.all
 
@@ -50,6 +57,8 @@ class DashboardController < ApplicationController
 			redirect_to new_config_option_path
 		end
 	end
+
+	
 
 	
 	#private

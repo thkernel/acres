@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180812150934) do
+ActiveRecord::Schema.define(version: 20180906060311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "app_configs", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "icon"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_app_configs_on_user_id", unique: true
+  end
 
   create_table "banks", force: :cascade do |t|
     t.string "name"
@@ -76,15 +86,14 @@ ActiveRecord::Schema.define(version: 20180812150934) do
     t.string "country"
     t.string "phone"
     t.string "slug"
-    t.integer "percentage_commission"
     t.string "brand_file_name"
     t.string "brand_content_type"
     t.integer "brand_file_size"
     t.datetime "brand_updated_at"
-    t.bigint "user_id", null: false
+    t.bigint "app_config_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_companies_on_user_id", unique: true
+    t.index ["app_config_id"], name: "index_companies_on_app_config_id", unique: true
   end
 
   create_table "config_options", force: :cascade do |t|
@@ -229,6 +238,14 @@ ActiveRecord::Schema.define(version: 20180812150934) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "super_admin_configs", force: :cascade do |t|
+    t.string "login"
+    t.string "email"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "full_name"
     t.string "avatar_file_name"
@@ -253,10 +270,11 @@ ActiveRecord::Schema.define(version: 20180812150934) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "app_configs", "users"
   add_foreign_key "banks", "users"
   add_foreign_key "commission_settings", "users"
   add_foreign_key "commissions", "users"
-  add_foreign_key "companies", "users"
+  add_foreign_key "companies", "app_configs"
   add_foreign_key "credit_details", "credits"
   add_foreign_key "credits", "users"
   add_foreign_key "customers", "users"

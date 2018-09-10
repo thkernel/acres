@@ -82,9 +82,9 @@
                                     <th>Producteur</th>
                                     <th>Pourcentage commission producteur</th>
                                     <th>Commission producteur</th>
-                                    <th>Pourcentage commission <%= current_user.company.name if current_user.company.present? %></th>
+                                    <th>Pourcentage commission <%= get_admin_company(current_user).name  %></th>
                                     <th>Commission totale banque</th>
-                                    <th>Commission nette <%= current_user.company.name if current_user.company.present? %></th>
+                                    <th>Commission nette <%= get_admin_company(current_user).name  %></th>
                                    
                                 </tr>
                             </thead>

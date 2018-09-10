@@ -6,17 +6,13 @@
 			<!-- User Info-->
 			<div class="sidenav-header-inner text-center">
             	 <%  if is_admin?  %>
-				 	<% if current_user.company.present? %>
 						<div class="brand">
-							<%= image_tag current_user.company.brand.url(:medium) ,  alt: "Logo" %>
+							<%= image_tag get_app_logo(current_user).url(:medium) ,  alt: "Logo" %>
 						</div>
-					<% end %>
 				 <% elsif not_admin_or_superadmin? %>
-				 	<% if !current_user.company.present? %>
 						<div class="brand">
-							<%= image_tag admin_company_logo(current_user).brand.url(:medium) ,  alt: "Logo" %>
+							<%= image_tag get_app_logo(current_user).url(:medium) ,  alt: "Logo" %>
 						</div>
-					<% end %>
 				 <% elsif is_superadmin? %>
 				   <h1>ACRES</h1>  
 				 <% end %>
