@@ -4,8 +4,9 @@ class Company < ApplicationRecord
 	extend FriendlyId
 	friendly_id :name, use: :slugged
 	
-	belongs_to :user
-    validates_presence_of :name, :phone
+	#belongs_to :user
+	belongs_to :app_config 
+    validates_presence_of :name
 
     # For Paperclip usage
 	has_attached_file :brand, styles: { medium: "300x300>", thumb: "200x200>" }, default_url: "/images/brands/:style/missing.png",  validate_media_type: false

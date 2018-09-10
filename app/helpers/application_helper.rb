@@ -48,10 +48,6 @@ module ApplicationHelper
 
 	end
 
-	def admin_company_logo(user)
-		admin = User.find_by(id: user.created_by)
-		admin.company
-	end
 
 	def have_commission_settings?(user)
 		if user.commission_setting.present?
@@ -99,8 +95,7 @@ module ApplicationHelper
 		end
 	end
 
-	def is_main_admin?(user)
-	end
+	
 
 	def credit_acte_date(credit_id)
 		credit = Credit.find_by(credit_id: credit_id)
@@ -129,5 +124,61 @@ module ApplicationHelper
 
 		return status
 
+	end
+
+	def is_main_admin?(user)
+		
+		super_admin = User.find_by(role: 'Superadmin')
+
+		if user.created_by == super_admin.id
+			return true
+		else
+			return false
+		end
+	end
+
+	def get_app_name(user)
+		if is_main_admin?(user)
+			user_app_config = user.app_config  
+			if user_app_config.present?
+				app_name = user_app_config.name
+			end
+		else
+			main_admin = User.find_by(id: user.created_by)
+			user_app_config = main_admin.app_config 
+			if user_app_config.present?
+				app_name = user_app_config.name
+			end
+		end
+	end
+
+	def get_app_logo(user)
+		if is_main_admin?(user)
+			user_app_company = user.app_config.company 
+			if user_app_company.present?
+				app_logo = user_app_company.brand
+			end
+		else
+			main_admin = User.find_by(id: user.created_by)
+			user_app_company = main_admin.app_config.company 
+			if user_app_company.present?
+				app_logo = user_app_company.brand
+			end
+		end
+	end
+
+	def get_admin_company(user)
+		if is_main_admin?(user)
+			user_app_company = user.app_config.company 
+			if user_app_company.present?
+				company = user_app_company
+			end
+		else
+			main_admin = User.find_by(id: user.created_by)
+			user_app_company = main_admin.app_config.company if main_admin.app_config.present?
+			if user_app_company.present?
+				company = user_app_company
+			end
+		end
 	end
 end

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Super Admin Configs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Login</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @super_admin_configs.each do |super_admin_config| %>
+      <tr>
+        <td><%= super_admin_config.login %></td>
+        <td><%= super_admin_config.email %></td>
+        <td><%= link_to 'Show', super_admin_config %></td>
+        <td><%= link_to 'Edit', edit_super_admin_config_path(super_admin_config) %></td>
+        <td><%= link_to 'Destroy', super_admin_config, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Super Admin Config', new_super_admin_config_path %>

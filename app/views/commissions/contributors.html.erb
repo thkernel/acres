@@ -26,13 +26,14 @@
       <th>Commission apporteur</th>
       <th>Commission producteur</th>
       <th>Commission banque</th>
-      <th>Commission nette <%= current_user.company.name if current_user.company.present? %></th>
+      <th>Commission nette <%= get_admin_company(current_user).name unless is_superadmin? %></th>
       <th>Montant empruntés</th>
      
     </tr>
   </thead>
 
   <tbody>
+    <% if @commissions.present? %>
     <% @commissions.each do |commission| %>
       <tr>
         <td><%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %></td>
@@ -53,6 +54,7 @@
         <td><%= commission.amount_credit %></td>
         
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>

@@ -1,0 +1,39 @@
+<%= form_with(model: app_config, local: true) do |form| %>
+  <% if app_config.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(app_config.errors.count, "error") %> prohibited this app_config from being saved:</h2>
+
+      <ul>
+      <% app_config.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.text_field :name, id: :app_config_name, class: "form-control", placeholder: "Nom de l'application" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :url, id: :app_config_url, class: "form-control", placeholder: "URL de l'application" %>
+  </div>
+  <div>
+    <%= form.fields_for :company do |f| %>
+		<div class="form-group">
+			<%= f.text_field :name, class: "form-control", placeholder: "Nom de votre entreprise" %>
+
+    </div>
+    <div class="form-group">
+		<%= f.label "Votre logo" %>
+    	<%= f.file_field :brand, id: :company_brand,  placeholder: "Logo" %>
+  </div>
+    <% end %>
+  </div>
+
+ 
+
+  <div class="form-group">
+    <%= form.submit class: "btn btn-primary btn-lg btn-block" %>
+  </div>
+<% end %>

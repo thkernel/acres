@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
 
+  resources :app_configs
+  resources :super_admin_configs
   resources :config_options
   resources :credit_details
   resources :notaries do
@@ -87,7 +89,9 @@ Rails.application.routes.draw do
   get 'show/contributor/credit/details/:id' => 'credit_details#contributor_credit_details', as: :show_contributor_credit_details
 
   #get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
-  #get 'config/options' => 'config_options#new', as: :new_config_option
+  get '/account/superadmin' => 'super_admin_configs#new', as: :super_admin_setup
+  get '/app/config' => 'app_configs#new', as: :app_setup
+
 
 
   
@@ -108,16 +112,16 @@ Rails.application.routes.draw do
             sign_up: '' 
         }
 
-		root 'config_options#new'
-        #devise_scope :user do
- 		    #authenticated :user do
-    		    #root 'dashboard#index', as: :authenticated_root
-  		    #end
+		#root 'config_options#new'
+        devise_scope :user do
+ 		    authenticated :user do
+    		    root 'dashboard#index', as: :authenticated_root
+  		    end
 
-  		    #unauthenticated do
-    		    #root 'users/sessions#new', as: :unauthenticated_root
-  		    #end
-	    #end
+  		    unauthenticated do
+    		    root 'users/sessions#new', as: :unauthenticated_root
+  		    end
+	    end
 	
 		%w( 404 422 500 ).each do |code|
 			get code, :to => "errors#show", :code => code
