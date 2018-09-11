@@ -37,13 +37,10 @@
                                         <table class="table table-striped">
                                             <tr>
                                                 <td class="uppercase">Nom</td>
-                                                <td class="uppercase"></td>
+                                                <td class="uppercase"><%= current_user.full_name %></td>
                                             </tr>
 
-                                            <tr>
-                                                <td class="uppercase">Prénom</td>
-                                                <td></td>
-                                            </tr>
+                                           
                                             <tr>
                                                 <td class="uppercase">Profil</td>
                                                 <td><%= current_user.role %></td>

@@ -8,6 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
 	  #t.string 	:login, null: false, unique: true
 	  t.attachment	:avatar
     t.string  :role,   null: false
+    t.string  :status, null: false, default: 'enable'
     #t.boolean :superadmin_role,  default: false
     #t.boolean :admin_role, default: false
     #t.boolean :producer_role,  default: false

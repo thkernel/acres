@@ -5,8 +5,8 @@
 <div class="row">
 <div class="col-md-12">
 <div class="index-heading pull-left">
-<p>
-    <h3>Résumé des commissions: <%= contributor_name %></h3>
+	<p>
+    	<h3>Résumé des commissions: <%= @contributor_name %></h3>
     </p>
     </div>
 <div class="pull-right">
@@ -34,20 +34,22 @@
   </thead>
 
   <tbody>
-    <% @commissions.each do |commission| %>
-      <tr>
-        <td><%= commission.acte_date %></td>
-        <td><%= commission.credit_id %></td>
-        <td><%= commission.bank_name %></td>
-        <td><%= credit_customer_name(commission.credit_id) %></td>
-        <td><%= commission.amount_credit %></td>
-        <td><%= commission.producer_commission %></td>
-        <td>
-        <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
-'), show_contributor_credit_details_path(commission.credit_id) %>
-        </td>
-      </tr>
-    <% end %>
+    <% if @commissions.present? %>
+      <% @commissions.each do |commission| %>
+        <tr>
+          <td><%= commission.acte_date %></td>
+          <td><%= commission.credit_id %></td>
+          <td><%= commission.bank_name %></td>
+          <td><%= credit_customer_name(commission.credit_id) %></td>
+          <td><%= commission.amount_credit %></td>
+          <td><%= commission.producer_commission %></td>
+          <td>
+          <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
+  '), show_contributor_credit_details_path(commission.credit_id) %>
+          </td>
+        </tr>
+	  <% end %>
+	<% end %>
   </tbody>
 </table>
 

@@ -26,7 +26,7 @@
                                         <div class="pull-right">
                                             <span>
                                                 
-                                                    <%= link_to "Mettre à jour", edit_company_path(current_user.company.id), title: "Modifier", remote: true %>
+                                            <%= link_to "Mettre à jour", edit_company_path(get_admin_company(current_user)), title: "Modifier", remote: true %>
                                                
                                             </span>
                                         </div>
@@ -39,26 +39,26 @@
                                         <table class="table table-striped">
                                             <tr>
                                                 <td class="uppercase">Nom</td>
-                                                <td ><%= current_user.company.name if current_user.company.present? %></td>
-                                            </tr>
+                                                <td ><%= get_admin_company(current_user).name  %></td>
+                                                </tr>
 
                                             <tr>
                                                 <td class="uppercase">Adresse</td>
-                                                <td><%= current_user.company.address if current_user.company.present? %></td>
-                                            </tr>
+                                                <td><%= get_admin_company(current_user).address  %></td>
+                                                </tr>
                                             <tr>
                                                 <td class="uppercase">Ville</td>
-                                                <td><%= current_user.company.city if current_user.company.present? %></td>
-                                            </tr>
+                                                <td><%= get_admin_company(current_user).city %></td>
+                                                </tr>
                                             <tr>
                                                 <td class="uppercase">Pays</td>
-                                                <td><%= current_user.company.country if current_user.company.present? %></td>
-                                            </tr>
+                                                <td><%= get_admin_company(current_user).country  %></td>
+                                                </tr>
 
                                             <tr>
                                                 <td class="uppercase">Téléphone</td>
-                                                <td><%= current_user.company.phone if current_user.company.present? %></td>
-                                            </tr>
+                                                <td><%= get_admin_company(current_user).phone  %></td>
+                                                </tr>
 
                                            
 

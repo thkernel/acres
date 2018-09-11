@@ -1,0 +1,21 @@
+<!-- Modal -->
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Activation</h4>
+      </div>
+      	<div class="modal-body">
+  <ul class="errors"></ul>
+  Etes-vous sûr de vouloir activer le compte de cet utilisateur?
+  <p>
+  E-mail: <b> <%= @user.email %></b>
+  </p>
+  </div>
+  <div class="modal-footer">
+    <%= link_to "Annuler", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
+    <%= link_to "Oui, activer", post_enable_user_account_path(@user), method: :post, remote: true, class: "btn btn-danger" %>
+  </div>
+  </div>
+</div>

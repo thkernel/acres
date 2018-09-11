@@ -14,7 +14,7 @@ class SuperAdminConfigsController < ApplicationController
     unless super_admin_config.present?
       @super_admin_config = SuperAdminConfig.new			
     else
-      redirect_to super_admin_configs_path
+      redirect_to dashboard_path
     end
 
   end
@@ -26,7 +26,14 @@ class SuperAdminConfigsController < ApplicationController
 
   # GET /super_admin_configs/new
   def new
-    @super_admin_config = SuperAdminConfig.new
+    super_admin_config = SuperAdminConfig.all
+
+    unless super_admin_config.present?
+      @super_admin_config = SuperAdminConfig.new			
+    else
+      redirect_to dashboard_path
+    end
+
   end
 
   # GET /super_admin_configs/1/edit

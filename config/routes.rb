@@ -50,6 +50,13 @@ Rails.application.routes.draw do
   get "/credits/delete/:id" => "credits#delete", as: :delete_credit
   delete "/credits/destroy/:id" => "credits#destroy", as: :destroy_credit
   get "/user/delete/:id" => "custom_users#delete", as: :delete_user
+  
+  get "/user/enable/:id" => "custom_users#get_enable", as: :get_enable_user_account
+  post "/user/enable/:id" => "custom_users#post_enable", as: :post_enable_user_account
+
+  get "/user/disable/:id" => "custom_users#get_disable", as: :get_disable_user_account
+  post "/user/disable/:id" => "custom_users#post_disable", as: :post_disable_user_account
+
   get "/user/update/:id" => "custom_users#update", as: :update_user
 
   get "/settings/mail" => "mail_configurations#settings", as: :mail_settings
@@ -89,8 +96,10 @@ Rails.application.routes.draw do
   get 'show/contributor/credit/details/:id' => 'credit_details#contributor_credit_details', as: :show_contributor_credit_details
 
   #get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
-  get '/account/superadmin' => 'super_admin_configs#new', as: :super_admin_setup
+  get '/superadmin/config' => 'super_admin_configs#new', as: :super_admin_setup
   get '/app/config' => 'app_configs#new', as: :app_setup
+  get '/unauthorize' => 'dashboard#unauthorize', as: :unauthorize
+
 
 
 

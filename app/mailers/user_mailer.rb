@@ -22,7 +22,28 @@ class UserMailer < ApplicationMailer
         @password = password
 		mail(to: @email, subject: "Modification d'informations de connexion")
 	end
+	def enable_user_mail(email, password, url)
+		
+		@url  = url
+        @email = email
+        @password = password
+		mail(to: @email, subject: "Compte activé")
+	end
+	def disable_user_mail(email, password, url)
+		
+		@url  = url
+        @email = email
+        @password = password
+		mail(to: @email, subject: "Compte désactivé")
+	end
 
+	def delete_user_mail(email, password, url)
+		
+		@url  = url
+        @email = email
+        @password = password
+		mail(to: @email, subject: "Suppression de votre compte")
+	end
 
 	
 end

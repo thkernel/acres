@@ -2,9 +2,13 @@
     <div class="container-fluid">
         
         <div class="copyright pull-right">
-            &copy;
-2018 <%= @app_name %> - Tout droits réservés
-        </div>
+            <% if is_app_name_exist?(current_user) %>
+                &copy;2018 <%= get_app_name(current_user) %> - Tout droits réservés
+            <% else %>
+            &copy;2018 COSMOPOL - Tout droits réservés
+
+            <% end %>
+            </div>
     </div>
 </footer>
 </div>
