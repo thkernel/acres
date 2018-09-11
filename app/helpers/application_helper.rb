@@ -143,6 +143,8 @@ module ApplicationHelper
 			if user_app_config.present?
 				app_name = user_app_config.name
 			end
+		elsif is_superadmin?
+			app_name = "COSMOPOL"
 		else
 			main_admin = User.find_by(id: user.created_by)
 			user_app_config = main_admin.app_config 
@@ -179,6 +181,23 @@ module ApplicationHelper
 			if user_app_company.present?
 				company = user_app_company
 			end
+		end
+	end
+
+	def is_account_locked?(user)
+		if user.status == 'enable'
+			false
+		else
+			true
+		end
+	end
+
+	def is_app_name_exist?(user)
+		app_name = get_app_name(user)
+		if app_name.present?
+			true
+		else
+			false
 		end
 	end
 end

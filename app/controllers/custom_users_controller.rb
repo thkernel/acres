@@ -72,18 +72,77 @@ class CustomUsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def get_disable
+        @user = User.find(params[:id]) if params[:id].present?
+     
+    end
+    def post_disable
+      @user = User.find(params[:id]) if params[:id].present?
+      respond_to do |format|
+        if @user.update_attributes(status: 'disable')
+         @users = User.find_by_created_by(current_user).where.not(id: current_user)
+        
+            format.html { redirect_to @user, notice: 'User was successfully updated.' }
+            format.json { render :show, status: :ok, location: @user }
+        format.js
+        
+        # Send mail to user.
+        url = user_session_url
+            UserMailer.disable_user_mail(@user.email, @user.password, url).deliver_now
+          else
+            format.html { render :edit }
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+            format.js
+          end
+        end
+   
+    end
+
+    def get_enable
+      @user = User.find(params[:id]) if params[:id].present?
+   
+    end
+  def post_enable
+    @user = User.find(params[:id]) if params[:id].present?
+    respond_to do |format|
+      if @user.update_attributes(status: 'enable')
+       @users = User.find_by_created_by(current_user).where.not(id: current_user)
+      
+          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+          format.json { render :show, status: :ok, location: @user }
+          format.js
+      
+      # Send mail to user.
+      url = user_session_url
+          UserMailer.enable_user_mail(@user.email, @user.password, url).deliver_now
+        else
+          format.html { render :edit }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.js
+        end
+      end
+ 
+  end
+
     
 
 	def destroy
-    @users = User.all
+    	@users = User.all
     
-    @user.destroy
-    @users = User.find_by_created_by(current_user).where.not(id: current_user)
-		respond_to do |format|
-			format.html { redirect_to users_path, notice: 'User skill was successfully destroyed.' }
-			format.json { head :no_content }
-			format.js
+    	if @user.destroy
+    		@users = User.find_by_created_by(current_user).where.not(id: current_user)
+			respond_to do |format|
+				format.html { redirect_to users_path, notice: 'User skill was successfully destroyed.' }
+				format.json { head :no_content }
+				format.js
+		
+				# Send mail to user.
+				url = user_session_url
+				UserMailer.delete_user_mail(@user.email, @user.password, url).deliver_now
+		
+			end
 		end
+
  	end
 
    	
@@ -91,23 +150,26 @@ class CustomUsersController < ApplicationController
     # # PATCH/PUT /users/1
     # # PATCH/PUT /users/1.json
     def update
-      respond_to do |format|
-		if @user.update(user_params)
-       @users = User.find_by_created_by(current_user).where.not(id: current_user)
+    	respond_to do |format|
+			if @user.update(user_params)
+				@users = User.find_by_created_by(current_user).where.not(id: current_user)
+				
+				format.html { redirect_to @user, notice: 'User was successfully updated.' }
+				format.json { render :show, status: :ok, location: @user }
+				format.js
 			
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-          format.json { render :show, status: :ok, location: @user }
-		  format.js
-		  
-		  # Send mail to user.
-		  url = user_session_url
-          UserMailer.edit_user_mail(@user.email, @user.password, url).deliver_now
-        else
-          format.html { render :edit }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-          format.js
-        end
-      end
+				# Send mail to user.
+				url = user_session_url
+			
+				if @user.status == 'enable'
+					UserMailer.edit_user_mail(@user.email, @user.password, url).deliver_now
+				end
+			else
+				format.html { render :edit }
+				format.json { render json: @user.errors, status: :unprocessable_entity }
+				format.js
+			end
+      	end
     end
 
     private

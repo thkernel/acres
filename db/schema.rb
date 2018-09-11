@@ -253,6 +253,7 @@ ActiveRecord::Schema.define(version: 20180910231531) do
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string "role", null: false
+    t.string "status", default: "enable", null: false
     t.bigint "created_by"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

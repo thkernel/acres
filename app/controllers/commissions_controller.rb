@@ -221,8 +221,8 @@ class CommissionsController < ApplicationController
 			end
 			
 			# Get company infos required infos for the compute.
-			if  current_user.company.present?
-				company_name = current_user.company.name 
+			if  current_user.app_config.company.present?
+				company_name = current_user.app_config.company.name 
 				company_commission_net = 0.0
 			end
 
