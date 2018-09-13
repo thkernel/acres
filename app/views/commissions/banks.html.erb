@@ -23,7 +23,7 @@
       <th>Banque</th>
       <th>Commission banque</th>
       <th>Montant empruntés</th>
-      <th>Actions</th>
+      <!--<th>Actions</th>-->
     </tr>
   </thead>
 
@@ -39,10 +39,7 @@
           	<td><%= commission.bank_commission %></td>
            
         	<td><%= commission.amount_credit %></td>
-        	<td>
-        		<%= link_to raw('<i class="fa fa-eye" aria-hidden="true"></i>
-'), dashboard_path, class: "text-center" %>
-        </td>
+        	
       </tr>
     <% end %>
   </tbody>
