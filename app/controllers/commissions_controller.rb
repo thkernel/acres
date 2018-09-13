@@ -6,7 +6,7 @@ class CommissionsController < ApplicationController
 	before_action :set_commission, only: [:show, :edit, :update, :destroy]
 	
 	# Calling compute_commissions methode on after action to compute the commission.
-	after_action  :compute_commissions
+	#after_action  :compute_commissions
 
 	
 

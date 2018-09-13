@@ -5,6 +5,11 @@
 				<li><%= message %></li>
 			<% end %>
 		</ul>
+
+		<div class="warning alert alert-danger">
+			ATTENTION, le pourcentage de commission, est fixé annuellement. <br />
+			Aucun rétro calcul ne sera effectué lorsque vous modifier ce pourcentage.
+		</div>
 		<div class="form-group">
 			<%= form.label "Pourcentage commission (%)" %>
 			<%= form.number_field :commission_percentage, id: :commission_setting_commission_percentage, class: "form-control" %>
@@ -27,10 +32,7 @@
 			<%= form.hidden_field :user_id, id: :commission_setting_user_id, value: params[:user] if params[:user].present? %>
 		</div>
 
-		<div class="warning alert alert-danger">
-			ATTENTION, le pourcentage de commission, est fixé annuellement. <br />
-			Aucun rétro calcul ne sera effectué lorsque vous modifier ce pourcentage.
-		</div>
+		
 		
 	</div><!-- modal body -->
 	<div class="modal-footer">
