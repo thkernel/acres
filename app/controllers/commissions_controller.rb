@@ -185,6 +185,12 @@ class CommissionsController < ApplicationController
 			# Instance of Commission.
 			commission = Commission.new
 
+			# Get company infos required infos for the compute.
+			if  current_user.app_config.company.present?
+				company_name = current_user.app_config.company.name 
+				company_commission_net = 0.0
+			end
+			
 			# Get contributor required infos for the compute.
 			if credit.contributor_name.present?
 				contributor_name = credit.contributor_name 
