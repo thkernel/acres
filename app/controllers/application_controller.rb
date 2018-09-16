@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 	include ApplicationHelper
  
 	
-
 	#add_flash_types :success, :danger, :info
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:role, :full_name, :login])
@@ -26,9 +25,6 @@ class ApplicationController < ActionController::Base
 
 
 	private
-
-	
-
 	def set_mailer_settings
 		if  current_user.present?
 			smtp_settings = current_user.mail_configuration 

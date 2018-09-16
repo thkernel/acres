@@ -36,6 +36,9 @@ class LogsController < ApplicationController
 		# Now we are sure that the importation was succefull.
 		#compute_commissions
 
+		# Populate commissions.
+		populate_commission
+
 		# We refresh page.
         format.html { redirect_to @log, notice: 'Log was successfully created.' }
         format.json { render :show, status: :created, location: @log }
@@ -85,6 +88,44 @@ class LogsController < ApplicationController
       params.require(:log).permit(:file_name, :no_record, :error, :status)
 	end
 	
+
+	# Populate commission
+	def populate_commission
+		# Load the current admin user old comissions and we delete there after.
+		commission = current_user.commissions
+
+		# Deleting the olds commissions before compute the news
+		commission.delete_all if commission.present?
+		
+		# Load all credits.
+		@credits = current_user.credits 
+
+		# Explore credits.
+		@credits.each do |credit|
+			# Instance of Commission.
+			commission = Commission.new
+
+			commission.credit_id = credit.credit_id
+			commission.production_date = credit.production_date
+			commission.acte_date = credit.acte_date
+			commission.customer_id = credit.customer_id
+			commission.contributor_name = credit.contributor_name
+			#commission.contributor_commission = credit.contributor_commission
+			#comission.contributor_commission_percentage = contributor_commission_percentage
+			commission.producer_name = credit.producer_name
+			#commission.producer_commission = producer_commission
+			#comission.producer_commission_percentage = producer_commission_percentage
+			commission.bank_name = credit.bank_name
+			#commission.bank_commission = bank_amount_commission
+			#commission.bank_commission_percentage = bank_commission_percentage
+			#commission.company_comission = company_commission_net
+			commission.notary_name = credit.notary_name
+			commission.amount_credit = credit.amount
+			commission.user_id = current_user.id
+			commission.save
+		end
+
+	end
 
 	# Computing all commissions.
 	def compute_commissions
