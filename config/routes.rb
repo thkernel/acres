@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 
+  resources :commission_percentage_edits
   resources :app_configs
   resources :super_admin_configs
   resources :config_options

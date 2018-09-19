@@ -1,43 +1,42 @@
 
 <div class="page login-page d-flex" >
-<div class="container">
-    <div class="form-outer   align-items-center">
-        <div class="logo text-uppercase text-center " >
-            <span> Configuration </strong>
-        </div>
-        <div class="form-inner">
-        <h2 class= "form-title text-center">Création du compte Super Administrateur</h2>
+	<div class="container">
+    	<div class="form-outer   align-items-center">
+			<div class="logo text-uppercase text-center " >
+				<span> Configuration </strong>
+			</div>
+			<div class="form-inner">
+				<h2 class= "form-title text-center">Création du compte Super Administrateur</h2>
 
-        <%= form_with(model: super_admin_config, local: true) do |form| %>
-          <% if super_admin_config.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(super_admin_config.errors.count, "error") %> prohibited this super_admin_config from being saved:</h2>
+				<%= form_with(model: super_admin_config, local: true) do |form| %>
+					<% if super_admin_config.errors.any? %>
+						<div id="error_explanation">
+							<h2><%= pluralize(super_admin_config.errors.count, "error") %> prohibited this super_admin_config from being saved:</h2>
+							<ul>
+							<% super_admin_config.errors.full_messages.each do |message| %>
+								<li><%= message %></li>
+							<% end %>
+							</ul>
+						</div>
+					<% end %>
 
-              <ul>
-              <% super_admin_config.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
+					<div class="form-group">
+						<%= form.text_field :login, id: :super_admin_config_login, class: "form-control", placeholder: "Nom", required: true %>
+					</div>
 
-          <div class="form-group">
-            <%= form.text_field :login, id: :super_admin_config_login, class: "form-control", placeholder: "Nom", required: true %>
-          </div>
+					<div class="form-group">
+						<%= form.text_field :email, id: :super_admin_config_email, class: "form-control",  placeholder: "E-mail", required: true %>
+					</div>
 
-          <div class="form-group">
-            <%= form.text_field :email, id: :super_admin_config_email, class: "form-control",  placeholder: "E-mail", required: true %>
-          </div>
+					<div class="form-group">
+						<%= form.password_field :password, autocomplete: "off", class: "form-control" ,  placeholder: "Mot de passe", required: true %>
+					</div>
 
-          <div class="form-group">
-                <%= form.password_field :password, autocomplete: "off", class: "form-control" ,  placeholder: "Mot de passe", required: true %>
-              </div>
-
-          <div class="form-group">
-            <%= form.submit class: "btn btn-primary btn-block" %>
-          </div>
-        <% end %>
-        </div>
-        </div>
-        </div>
-        </div>
+					<div class="form-group">
+						<%= form.submit class: "btn btn-primary btn-block" %>
+					</div>
+				<% end %>
+			</div>
+    	</div>
+	</div>
+</div>

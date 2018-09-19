@@ -1,0 +1,22 @@
+<%= form_with(model: commission_percentage_edit, local: true) do |form| %>
+  <% if commission_percentage_edit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(commission_percentage_edit.errors.count, "error") %> prohibited this commission_percentage_edit from being saved:</h2>
+
+      <ul>
+      <% commission_percentage_edit.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date_effet %>
+    <%= form.text_field :date_effet, id: :commission_percentage_edit_date_effet %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

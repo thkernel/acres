@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180910231531) do
+ActiveRecord::Schema.define(version: 20180916214536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 20180910231531) do
     t.datetime "updated_at", null: false
     t.integer "number_of_remaining_days", default: 0
     t.index ["user_id"], name: "index_banks_on_user_id"
+  end
+
+  create_table "commission_percentage_edits", force: :cascade do |t|
+    t.date "date_effet"
+    t.float "old_value"
+    t.float "new_value"
+    t.string "is_completed", default: "no"
+    t.bigint "bank_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_commission_percentage_edits_on_bank_id"
   end
 
   create_table "commission_settings", force: :cascade do |t|
@@ -273,6 +284,7 @@ ActiveRecord::Schema.define(version: 20180910231531) do
 
   add_foreign_key "app_configs", "users"
   add_foreign_key "banks", "users"
+  add_foreign_key "commission_percentage_edits", "banks"
   add_foreign_key "commission_settings", "users"
   add_foreign_key "commissions", "users"
   add_foreign_key "companies", "app_configs"

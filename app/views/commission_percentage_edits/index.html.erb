@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Commission Percentage Edits</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date effet</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @commission_percentage_edits.each do |commission_percentage_edit| %>
+      <tr>
+        <td><%= commission_percentage_edit.date_effet %></td>
+        <td><%= link_to 'Show', commission_percentage_edit %></td>
+        <td><%= link_to 'Edit', edit_commission_percentage_edit_path(commission_percentage_edit) %></td>
+        <td><%= link_to 'Destroy', commission_percentage_edit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Commission Percentage Edit', new_commission_percentage_edit_path %>

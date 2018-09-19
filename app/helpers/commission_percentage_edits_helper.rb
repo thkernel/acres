@@ -1,0 +1,2 @@
+module CommissionPercentageEditsHelper
+end

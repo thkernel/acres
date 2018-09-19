@@ -1,0 +1,1 @@
+json.partial! "commission_percentage_edits/commission_percentage_edit", commission_percentage_edit: @commission_percentage_edit
