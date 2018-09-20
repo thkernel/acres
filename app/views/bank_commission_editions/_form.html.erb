@@ -1,0 +1,27 @@
+<%= form_with(model: bank_commission_edition, local: true) do |form| %>
+  <% if bank_commission_edition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bank_commission_edition.errors.count, "error") %> prohibited this bank_commission_edition from being saved:</h2>
+
+      <ul>
+      <% bank_commission_edition.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date_effet %>
+    <%= form.date_select :date_effet, id: :bank_commission_edition_date_effet %>
+  </div>
+
+  <div class="field">
+    <%= form.label :completed %>
+    <%= form.text_field :completed, id: :bank_commission_edition_completed %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

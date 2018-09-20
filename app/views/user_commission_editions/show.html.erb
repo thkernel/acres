@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date effet:</strong>
+  <%= @user_commission_edition.date_effet %>
+</p>
+
+<p>
+  <strong>Completed:</strong>
+  <%= @user_commission_edition.completed %>
+</p>
+
+<%= link_to 'Edit', edit_user_commission_edition_path(@user_commission_edition) %> |
+<%= link_to 'Back', user_commission_editions_path %>

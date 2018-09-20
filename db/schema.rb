@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180916214536) do
+ActiveRecord::Schema.define(version: 20180920180417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,19 @@ ActiveRecord::Schema.define(version: 20180916214536) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_app_configs_on_user_id", unique: true
+  end
+
+  create_table "bank_commission_editions", force: :cascade do |t|
+    t.date "date_effet"
+    t.string "completed", default: "no"
+    t.float "old_value"
+    t.float "new_value"
+    t.bigint "bank_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_bank_commission_editions_on_bank_id"
+    t.index ["user_id"], name: "index_bank_commission_editions_on_user_id"
   end
 
   create_table "banks", force: :cascade do |t|
@@ -40,17 +53,6 @@ ActiveRecord::Schema.define(version: 20180916214536) do
     t.datetime "updated_at", null: false
     t.integer "number_of_remaining_days", default: 0
     t.index ["user_id"], name: "index_banks_on_user_id"
-  end
-
-  create_table "commission_percentage_edits", force: :cascade do |t|
-    t.date "date_effet"
-    t.float "old_value"
-    t.float "new_value"
-    t.string "is_completed", default: "no"
-    t.bigint "bank_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bank_id"], name: "index_commission_percentage_edits_on_bank_id"
   end
 
   create_table "commission_settings", force: :cascade do |t|
@@ -257,6 +259,19 @@ ActiveRecord::Schema.define(version: 20180916214536) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_commission_editions", force: :cascade do |t|
+    t.date "date_effet"
+    t.string "completed", default: "no"
+    t.float "old_value"
+    t.float "new_value"
+    t.bigint "commission_setting_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commission_setting_id"], name: "index_user_commission_editions_on_commission_setting_id"
+    t.index ["user_id"], name: "index_user_commission_editions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "full_name"
     t.string "avatar_file_name"
@@ -265,6 +280,7 @@ ActiveRecord::Schema.define(version: 20180916214536) do
     t.datetime "avatar_updated_at"
     t.string "role", null: false
     t.string "status", default: "enable", null: false
+    t.boolean "receives_notifications", default: true
     t.bigint "created_by"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -283,8 +299,9 @@ ActiveRecord::Schema.define(version: 20180916214536) do
   end
 
   add_foreign_key "app_configs", "users"
+  add_foreign_key "bank_commission_editions", "banks"
+  add_foreign_key "bank_commission_editions", "users"
   add_foreign_key "banks", "users"
-  add_foreign_key "commission_percentage_edits", "banks"
   add_foreign_key "commission_settings", "users"
   add_foreign_key "commissions", "users"
   add_foreign_key "companies", "app_configs"
@@ -295,4 +312,6 @@ ActiveRecord::Schema.define(version: 20180916214536) do
   add_foreign_key "mail_configurations", "users"
   add_foreign_key "notaries", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "user_commission_editions", "commission_settings"
+  add_foreign_key "user_commission_editions", "users"
 end
