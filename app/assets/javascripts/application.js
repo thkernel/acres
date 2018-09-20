@@ -78,3 +78,26 @@ $(document).on('turbolinks:load', function() {
         ]
     } );
 } );*/
+
+
+
+  // Enable chosen js for turbolinks
+$(document).on('turbolinks:load', function() {
+	$('#bank-modal').on('shown.bs.modal', function() {
+        $("#bank_commission_percentage").on('focusout', function(){
+            $("#bank_date_effet").css("visibility", "visible");
+            $("#bank_date_effet").css("display", "block");
+        });
+
+        $("#bank_first_installment").on('focusout', function(){
+            bank_first_installment = $('#bank_first_installment').val();
+            if (bank_first_installment >= 1 && bank_first_installment <= 100){
+                bank_number_of_remaining_days = 100 - bank_first_installment ;
+                $("#bank_number_of_remaining_days").val(bank_number_of_remaining_days);
+            }
+            
+        });
+
+      
+    })
+});
