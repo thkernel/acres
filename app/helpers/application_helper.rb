@@ -104,7 +104,7 @@ module ApplicationHelper
 
 	def credit_customer_name(credit_id)
 		credit = Credit.find_by(credit_id: credit_id)
-		credit.customer_name
+		credit.customer_name if credit.present?
 	end
 
 	def unregistered_commission_percentage?
@@ -134,6 +134,15 @@ module ApplicationHelper
 			return true
 		else
 			return false
+		end
+	end
+
+	def get_main_admin(user)
+		
+		if is_main_admin?(user)
+			return user
+		else
+			main_admin = User.find_by(id: user.created_by)
 		end
 	end
 

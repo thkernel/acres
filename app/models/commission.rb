@@ -6,6 +6,7 @@ class Commission < ApplicationRecord
 
     # Search
     def self.search(production_date, acte_date, bank_name, producer_name, contributor_name, notary_name)
+        
         if  notary_name.present?
             query = Commission.order(:production_date)
             query = query.where("production_date = ? AND acte_date = ? AND notary_name =  ?", production_date, acte_date, notary_name) if notary_name.present?

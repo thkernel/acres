@@ -2,6 +2,7 @@ class CommissionSetting < ApplicationRecord
     # Set the default Status value
 	#after_initialize :set_defaults
     belongs_to :user
+    has_many :user_commission_editions, dependent: :destroy
 
     validates_presence_of :commission_percentage
     validates_presence_of :hypoplus_commission_percentage
