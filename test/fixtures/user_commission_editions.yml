@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_effet: 2018-09-20
+  completed: MyString
+
+two:
+  date_effet: 2018-09-20
+  completed: MyString

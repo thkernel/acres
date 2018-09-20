@@ -6,18 +6,19 @@ class SearchController < ApplicationController
 
   def index
   
-    @credits = Credit.all
-    @banks = Bank.all
+
+    @credits = Credit.where(user_id: get_main_admin(current_user))
+    @banks = Bank.where(user_id: get_main_admin(current_user))
     @contributors = User.find_by_role_and_creator('Apporteur', current_user)
     @producers = User.find_by_role_and_creator('Producteur', current_user)
-    @notaries = Notary.all
+    @notaries = Notary.where(user_id: get_main_admin(current_user))
   end
 
   def search
-    @banks = Bank.all
+    @banks = Bank.where(user_id: get_main_admin(current_user))
     @contributors = User.find_by_role_and_creator('Apporteur', current_user)
     @producers = User.find_by_role_and_creator('Producteur', current_user)
-    @notaries = Notary.all
+    @notaries = Notary.where(user_id: get_main_admin(current_user))
 
     bank_name = params[:bank] if params[:bank].present?
     producer_name = params[:producer] if params[:producer].present?

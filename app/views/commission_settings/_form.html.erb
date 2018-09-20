@@ -15,10 +15,6 @@
 			<%= form.number_field :commission_percentage, id: :commission_setting_commission_percentage, class: "form-control" %>
 		</div>
 		<div class="form-group">
-			<%= form.label "Pourcentage commission hypoplus (%)" %>
-			<%= form.number_field :hypoplus_commission_percentage, id: :commission_setting_hypoplus_commission_percentage, class: "form-control" %>
-		</div>
-		<div class="form-group">
 			<%= form.label "Nombre d'écheance" %>
 			<%= form.number_field :number_of_dates, id: :commission_setting_number_of_dates, class: "form-control" %>
 		</div>
@@ -26,6 +22,12 @@
 			<%= form.label "Première tranche (%)" %>
 			<%= form.number_field :first_installment, id: :commission_setting_first_installment, class: "form-control" %>
 		</div>
+		<div class="form-group">
+			<%= form.label "Pourcentage commission hypoplus (%)" %>
+			<%= form.number_field :hypoplus_commission_percentage, id: :commission_setting_hypoplus_commission_percentage, class: "form-control" %>
+		</div>
+		
+		
 		
 		<div class="form-group">
 			

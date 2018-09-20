@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
 
+  resources :user_commission_editions
+  resources :bank_commission_editions
   resources :app_configs
   resources :super_admin_configs
   resources :config_options
