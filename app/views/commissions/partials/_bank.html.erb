@@ -6,7 +6,7 @@
 <div class="col-md-12">
 <div class="index-heading pull-left">
 <p>
-    <h3>Résumé des commissions: <%= bank_name %></h3>
+    <h3>Résumé banque: <%= bank_name %></h3>
     </p>
     </div>
 <div class="pull-right">
@@ -22,30 +22,38 @@
 <table  id="table-list" class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
-    
+      <th>N°Dossier</th>
+      <th>Date prod.</th>
       <th>Date acte</th>
-      <th>Numéro dossier</th>
-      <th>Banque</th>
-      <th>Client</th>
       <th>Montant empruntés</th>
-      <th>Montant commission</th>
-      <th>Actions</th>
+      <th>Pourcentage comm. appo.</th>
+      <th>Comm. appo.</th>
+      <th>Pourcentage comm. prod.</th>
+      <th>Comm. prod.</th>
+      <th>Pourcentage comm. banque</th>
+      <th>Comm. brute Acres</th>
+      <th>Pourcentage net Acres</th>
+      <th>Comm. nette Acres</th>
     </tr>
   </thead>
 
   <tbody>
     <% @commissions.each do |commission| %>
       <tr>
-        <td><%= commission.acte_date %></td>
         <td><%= commission.credit_id %></td>
-        <td><%= commission.bank_name %></td>
-        <td><%= credit_customer_name(commission.credit_id) %></td>
+        <td><%= commission.production_date %></td>
+        <td><%= commission.acte_date %></td>
         <td><%= commission.amount_credit %></td>
+        <td><%= commission.contributor_commission_percentage %></td>
+        <td><%= commission.contributor_commission %></td>
+        <td><%= commission.producer_commission_percentage %></td>
         <td><%= commission.producer_commission %></td>
-        <td>
-        <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
-'), dashboard_path %>
-        </td>
+        <td><%= commission.bank_commission_percentage %></td>
+        <td><%= commission.bank_commission %></td>
+        <td><%= "#{commission.company_commission_percentage}%" %></td>
+        <td><%= commission.company_commission %></td>
+
+        
       </tr>
     <% end %>
   </tbody>

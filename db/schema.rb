@@ -69,6 +69,10 @@ ActiveRecord::Schema.define(version: 20180920180417) do
 
   create_table "commissions", force: :cascade do |t|
     t.bigint "credit_id"
+    t.date "production_date"
+    t.date "acte_date"
+    t.integer "customer_id"
+    t.string "notary_name"
     t.string "bank_name"
     t.string "contributor_name"
     t.string "producer_name"
@@ -82,13 +86,10 @@ ActiveRecord::Schema.define(version: 20180920180417) do
     t.float "company_commission_percentage", default: 0.0
     t.float "company_commission", default: 0.0
     t.float "amount_credit", default: 0.0
+    t.float "total_amount", default: 0.0
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "production_date"
-    t.date "acte_date"
-    t.integer "customer_id"
-    t.string "notary_name"
     t.index ["user_id"], name: "index_commissions_on_user_id"
   end
 

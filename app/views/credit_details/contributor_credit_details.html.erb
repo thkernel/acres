@@ -1,7 +1,7 @@
 <div class="container">
 
 <div class="title">
-<h1>Détails (Echéancier et paiements effectués)</h1>
+<h1>Echéancier et paiements effectués</h1>
 
 <h3>Date de l'acte: <%= @credit.acte_date %></h3>
 <h3>Numéro du dossier: <%= @credit.credit_id %></h3>
@@ -14,9 +14,11 @@
       <th>Date</th>
       <th>Commission</th>
       <th>Montant cumulé</th>
-      <th>Payé par la banque</th>
-      <th>Payé à l'apport. ou au product.</th>
-      <th> Actions</th>
+      <% if is_admin? %>
+        <th>Payé par la banque</th>
+        <th>Payé à l'apport. ou au product.</th>
+        <th> Actions</th>
+      <% end %>
     </tr>
   </thead>
 
