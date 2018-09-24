@@ -209,4 +209,17 @@ module ApplicationHelper
 			false
 		end
 	end
+
+	def bank_name(id)
+		bank = Bank.find(id)
+		bank.name
+	end
+
+	def completed?(status)
+		if status == 'yes'
+			true
+		else
+			false
+		end
+	end
 end

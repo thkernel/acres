@@ -49,7 +49,14 @@ class BanksController < ApplicationController
   # PATCH/PUT /banks/1.json
   def update
     respond_to do |format|
-      if @bank.update(bank_params)
+	  if @bank.update(bank_params)
+		bank_commission_edition = BankCommissionEdition.new
+		bank_commission_edition.date_effet = params[:date_effet]
+		bank_commission_edition.new_value = @bank.commission_percentage
+		bank_commission_edition.bank_id = @bank.id
+		bank_commission_edition.user_id = current_user.id
+		bank_commission_edition.save
+
         @banks = current_user.banks
 
         format.html { redirect_to @bank, notice: 'Bank was successfully updated.' }
