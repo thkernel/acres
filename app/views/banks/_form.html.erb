@@ -9,7 +9,7 @@
 
 		<div class="warning alert alert-danger">
 			ATTENTION, le pourcentage de commission, est fixé annuellement. <br />
-			Aucun rétro calcul ne sera effectué lorsque vous modifier ce pourcentage.
+			Aucun rétrocalcul ne sera effectué lorsque vous modifier ce pourcentage.
 		</div>
 
 		<div class="col-md-6">
@@ -24,7 +24,7 @@
 			</div>
 			<div id="bank_date_effet" class="form-group">
 				<%= form.label "Date d'effet" %>
-				<%= form.date_field :date_effet,  class:"form-control", required: true %>
+				<%= form.date_field :date_effet,  class:"form-control" %>
 			</div>
 
 
@@ -53,6 +53,6 @@
 	</div><!-- modal body -->
 	<div class="modal-footer">
 		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
-		<%= form.submit class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+		<%= form.submit "Modifier cette banque", class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
 	</div>
 <% end %>
