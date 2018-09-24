@@ -22,10 +22,9 @@
       <th>Date modification</th>
       <th>Date d'effet</th>
       <th>Banque</th>
-      <th>Ancienne valeur</th>
       <th>Nouvelle valeur</th>
       <th>Completé</th>
-      <th>Actions</th> 
+      
     </tr>
   </thead>
 
@@ -33,12 +32,19 @@
     <% @bank_commission_editions.each do |bank_commission_edition| %>
       <tr>
 		<td><%= bank_commission_edition.created_at %></td>
-		<td><%= bank_commission_edition.bank_id %></td>
-        <td><%= bank_commission_edition.date_effet %></td>
-        <td><%= bank_commission_edition.completed %></td>
-        <td><%= link_to 'Show', bank_commission_edition %></td>
-        <td><%= link_to 'Edit', edit_bank_commission_edition_path(bank_commission_edition) %></td>
-        <td><%= link_to 'Destroy', bank_commission_edition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		<td><%= bank_commission_edition.created_at %></td>
+		<td><%= bank_name(bank_commission_edition.bank_id) %></td>		
+        <td><%= bank_commission_edition.new_value %></td>
+        <td>
+		
+			<% if completed?(bank_commission_edition.completed) %>
+                <span class="green-check"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+            <% else %>
+                <span class="import-failed"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+            <% end %>
+
+		</td>
+       
       </tr>
     <% end %>
   </tbody>
