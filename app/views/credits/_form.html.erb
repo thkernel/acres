@@ -10,24 +10,24 @@
 			</div>
 			<div class="col-xs-5">
 				<div class="form-group">
-					<%= form.label :credit_id %>
+					<%= form.label "N°Dossier" %>
 					<%= form.number_field :credit_id, id: :credit_id, class: "form-control" %>
 				</div>
 
 				<div class="form-group">
-					<%= form.label :production_date %>
+					<%= form.label "Date production" %>
 					<%= form.date_field :production_date, id: :credit_production_date, class: "form-control" %>
           		</div>
 				<div class="form-group">
-					<%= form.label :acte_date %>
+					<%= form.label "Date acte" %>
 					<%= form.date_field :acte_date, id: :credit_acte_date, class: "form-control" %>
 				</div>
 				 <div class="form-group">
-					<%= form.label :customer_name %>
+					<%= form.label "Client" %>
 					<%= form.text_field :customer_name, id: :credit_customer_name , class: "form-control" %>
 				</div>
 				<div class="form-group">
-					<%= form.label :producer_name %>
+					<%= form.label "Producteur" %>
 					<%= form.text_field :producer_name, id: :credit_producer_name , class: "form-control" %>
 				</div>
 			</div>
@@ -35,20 +35,20 @@
 			<div class="col-xs-5">
 			
 				<div class="form-group">
-					<%= form.label :contributor_name %>
+					<%= form.label "Apporteur" %>
 					<%= form.text_field :contributor_name, id: :credit_contributor_name , class: "form-control" %>
 				</div>
 
 				<div class="form-group">
-					<%= form.label :notary_name %>
+					<%= form.label "Notaire" %>
 					<%= form.text_field :notary_name, id: :credit_notary_name , class: "form-control" %>
 				</div>
 				<div class="form-group">
-					<%= form.label :bank_name %>
+					<%= form.label "Banque" %>
 					<%= form.text_field :bank_name, id: :credit_bank_name, class: "form-control" %>
 				</div>
 				<div class="form-group">
-					<%= form.label :amount %>
+					<%= form.label "Montant emprunt" %>
 					<%= form.text_field :amount, id: :credit_amount, class: "form-control"  %>
 				</div>
 			</div>
@@ -56,6 +56,6 @@
 	</div><!-- modal body -->
 	<div class="modal-footer">
 		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
-		<%= form.submit "Modifier ce crédit", class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+		<%= form.submit "Enregistrer", class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
 	</div>
 <% end %>
