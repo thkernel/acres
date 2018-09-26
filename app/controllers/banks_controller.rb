@@ -59,6 +59,8 @@ class BanksController < ApplicationController
 
         @banks = current_user.banks
 
+        compute_commission(@bank.name, current_user.id)
+
         format.html { redirect_to @bank, notice: 'Bank was successfully updated.' }
         format.json { render :show, status: :ok, location: @bank }
         format.js
@@ -97,5 +99,47 @@ class BanksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def bank_params
       params.require(:bank).permit(:name, :description, :commission_percentage, :hypoplus_commission_percentage, :first_installment, :number_of_dates, :number_of_remaining_days)
+    end
+
+
+    def compute_commission(bank_name,user_id)
+		bank = Bank.search(bank_name,user_id)
+
+		puts "Bank name: " + bank.name
+
+		# Get company infos required infos for the compute.
+		if  current_user.app_config.company.present?
+			company_name = current_user.app_config.company.name 
+			company_commission_net = 0.0
+			company_commission_percentage = 0.0
+
+		end
+
+		# Get contributor required infos for the compute.
+		@bank_commissions = Commission.search_by_bank_and_user(bank_name, user_id)
+
+		# Get bank infos required infos for the compute.
+		
+		if bank.present? && bank.commission_percentage.present?
+			bank_commission_percentage = bank.commission_percentage 
+			bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+			bank_amount_commission = 0.0
+		end
+	  
+    
+		# Loop all commissions.
+		@bank_commissions.each do |commission|
+		
+			if commission.amount_credit.present?
+				credit_amount = commission.amount_credit 
+			end
+
+			bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+			# Saving.
+			commission.bank_commission = bank_amount_commission
+			commission.bank_commission_percentage = bank_commission_percentage
+			commission.user_id = current_user.id
+			commission.save
+		end
     end
 end

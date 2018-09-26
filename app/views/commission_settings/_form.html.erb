@@ -8,7 +8,7 @@
 
 		<div class="warning alert alert-danger">
 			ATTENTION, le pourcentage de commission, est fixé annuellement. <br />
-			Aucun rétro calcul ne sera effectué lorsque vous modifier ce pourcentage.
+			Aucun rétrocalcul ne sera effectué lorsque vous modifier ce pourcentage.
 		</div>
 		<div class="form-group">
 			<%= form.label "Pourcentage commission (%)" %>
@@ -20,11 +20,11 @@
 		</div>
 		<div class="form-group">
 			<%= form.label "Première tranche (%)" %>
-			<%= form.number_field :first_installment, id: :commission_setting_first_installment, class: "form-control" %>
+			<%= form.text_field :first_installment, id: :commission_setting_first_installment, class: "form-control" %>
 		</div>
 		<div class="form-group">
 			<%= form.label "Pourcentage commission hypoplus (%)" %>
-			<%= form.number_field :hypoplus_commission_percentage, id: :commission_setting_hypoplus_commission_percentage, class: "form-control" %>
+			<%= form.text_field :hypoplus_commission_percentage, id: :commission_setting_hypoplus_commission_percentage, class: "form-control" %>
 		</div>
 		
 		
