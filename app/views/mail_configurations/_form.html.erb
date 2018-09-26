@@ -11,11 +11,11 @@
             <div class="col-md-12">
 
   <div class="form-group">
-    <%= form.text_field :host, id: :mail_configuration_host, class: "form-control", placeholder: "Host" %>
+    <%= form.text_field :host, id: :mail_configuration_host, class: "form-control", placeholder: "URL du site. Ex: votredomaine.com" %>
   </div>
 
   <div class="form-group">
-    <%= form.text_field :user_name, id: :mail_configuration_user_name, class: "form-control", placeholder: "Nom d'utilisateur" %>
+    <%= form.text_field :user_name, id: :mail_configuration_user_name, class: "form-control", placeholder: "Nom d'utilisateur. Ex: identifiant@domaine.com" %>
   </div>
 
   <div class="form-group">
@@ -23,16 +23,16 @@
   </div>
 
   <div class="form-group">
-    <%= form.text_field :domain, id: :mail_configuration_domain, class: "form-control", placeholder: "Domain" %>
+    <%= form.text_field :domain, id: :mail_configuration_domain, class: "form-control", placeholder: "Domain. Ex: votredomaine.com" %>
   </div>
 
   <div class="form-group">
-    <%= form.text_field :address, id: :mail_configuration_address, class: "form-control", placeholder: "Adresse" %>
+    <%= form.text_field :address, id: :mail_configuration_address, class: "form-control", placeholder: "Adresse. Ex: smtp.votredomaine.com" %>
   </div>
 
   <div class="form-group">
     <%= form.label :port %>
-    <%= form.number_field :port, id: :mail_configuration_port, class: "form-control", placeholder: "Port" %>
+    <%= form.number_field :port, id: :mail_configuration_port, class: "form-control", placeholder: "Port. Ex: 465" %>
   </div>
 
   <div class="form-group">
@@ -58,6 +58,6 @@
         </div><!-- end row -->
         <div class="modal-footer">
               <%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
-              <%= form.submit class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+              <%= form.submit "Enregistrer", class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
         </div>
 <% end %>

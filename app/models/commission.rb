@@ -31,6 +31,9 @@ class Commission < ApplicationRecord
         
     end
 
+    def self.search_by_bank_and_user(bank_name, user)
+        where('bank_name = ? AND user_id = ?', bank_name, user)
+    end
     
 
     def self.to_csv(options = {})
