@@ -31,19 +31,21 @@ class User < ApplicationRecord
 	has_many :notaries, dependent: :destroy
 
 
+	
+	
 	# Find users by roles and authors.
 	def self.find_by_role_and_creator(role, user)
 		where("role = ? AND created_by = ?", "#{role}", user)
 	end
 
 	# Find users by roles and authors.
-	def self.is_contributor(full_name)
-		where("full_name = ?  ",  full_name)
+	def self.is_contributor(full_name, user)
+		where("full_name = ? AND created_by = ? ",  full_name, user)
 	end
 
 	# Find users by roles and authors.
-	def self.is_producer(full_name)
-		where("full_name = ? ",  full_name)
+	def self.is_producer(full_name, user)
+		where("full_name = ? AND created_by = ? ",  full_name, user)
 	end
 
 	# Find users by authors.

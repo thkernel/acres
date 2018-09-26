@@ -28,18 +28,30 @@ class Log < ApplicationRecord
 
            # Begin insert a bank, before to insert bank we check if bank exist
            if row[cell[3]].present?
-            unless Customer.exists(row[cell[3]]).present?
-                customer = Customer.new
-                customer.full_name = row[cell[3]]
-                customer.user_id = user.id
-                customer.save
+                unless Customer.exists(row[cell[3]]).present?
+                    customer = Customer.new
+                    customer.full_name = row[cell[3]]
+                    customer.user_id = user.id
+                    customer.save
+                end
             end
-        end
 
 
            # Begin insert a bank, before to insert bank we check if bank exist
             if row[cell[4]].present?
-                unless Bank.exists(row[cell[4]]).present?
+                current_bank = Bank.exists(row[cell[4]])
+                
+                # If bank exist.
+                if  current_bank.present? && current_bank.user_id != user.id
+                    bank = Bank.new
+                    bank.name = row[cell[4]]
+                    bank.commission_percentage = 0
+                    bank.hypoplus_commission_percentage = 0
+                    bank.user_id = user.id
+                    bank.save
+
+                elsif !current_bank.present?
+
                     bank = Bank.new
                     bank.name = row[cell[4]]
                     bank.commission_percentage = 0
@@ -51,7 +63,10 @@ class Log < ApplicationRecord
 
             # Begin insert a user, before to insert user we check if user exist
             if row[cell[6]].present?
-                unless User.is_contributor(row[cell[6]]).present?
+               
+
+                unless User.is_contributor(row[cell[6]], user.id).present?
+
                     contributor = User.new
                     contributor.full_name = row[cell[6]]
                     contributor.email =  record_count.to_s + "a@exemple.com"
@@ -61,11 +76,15 @@ class Log < ApplicationRecord
                     contributor.role = "Apporteur"
                     contributor.created_by = user.id
                     contributor.save
+
                 end
             end
 
             if row[cell[7]].present?
-                unless User.is_producer(row[cell[7]]).present?
+               
+
+                unless  User.is_producer(row[cell[7]], user.id).present?
+
                     producer = User.new
                     producer.full_name = row[cell[7]]
                     producer.email = record_count.to_s + "p@exemple.com"
@@ -75,15 +94,19 @@ class Log < ApplicationRecord
                     producer.role = "Producteur"
                     producer.created_by = user.id
                     producer.save
+
                 end
             end
 
             if row[cell[8]].present?
-                unless Notary.is_notary(row[cell[8]]).present?
+                
+
+                unless  Notary.is_notary(row[cell[8]], user.id).present?
                     notary = Notary.new
                     notary.full_name = row[cell[8]]
                     notary.user_id = user.id
                     notary.save
+
                 end
             end
 
