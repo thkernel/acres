@@ -20,6 +20,7 @@
 <table  id="table-list" class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
+    <th>N°Dossier</th>
       <th>Banque</th>
       <th>Commission banque</th>
       <th>Montant empruntés</th>
@@ -29,7 +30,10 @@
 
   <tbody>
     <% @commissions.each do |commission| %>
-    	<tr>
+      <tr>
+      <td>
+        <%= commission.credit_id %>
+      </td>
       		<td>
 				<% if commission.bank_name.present? %>
 					<%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %>
