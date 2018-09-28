@@ -24,6 +24,7 @@
       <!-- <th>Banque</th> -->
       <!-- <th>Apporteur</th> -->
       <th>Producteur</th>
+      <th>Pourcentage commission prod.</th>
       <!-- <th>Commission apporteur</th> -->
       <th>Commission producteur</th>
       <!-- <th>Commission banque</th> -->
@@ -44,7 +45,9 @@
 			<% if commission.producer_name.present? %>
 				<%= link_to "#{commission.producer_name}", producer_resume_path(producer_name: commission.producer_name) %>
 			<% end %>
-		</td>
+    </td>
+    <td><%= "#{commission.producer_commission_percentage}%" %></td>
+
         <td><%= commission.producer_commission %></td>
         <td><%= commission.company_commission %></td>
         <td><%= commission.amount_credit %></td>
