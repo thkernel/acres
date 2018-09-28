@@ -54,15 +54,21 @@ class CommissionsController < ApplicationController
 
 	def banks
 		@commissions = Commission.all
+		@commissions = @commissions.where(user_id: get_main_admin(current_user))
+
 	end
 
 	def company 
 		@commissions = Commission.all
+		@commissions = @commissions.where(user_id: get_main_admin(current_user))
+
 	end
 	# GET /commissions
 	# GET /commissions.json
 	def index
 		@commissions = Commission.all
+		@commissions = @commissions.where(user_id: get_main_admin(current_user))
+
 	end
 
 	def resume_producer
@@ -71,11 +77,15 @@ class CommissionsController < ApplicationController
 			@producer = User.find_by(full_name: @producer_name)
 			@producer_commission_percentage = @producer.commission_setting.commission_percentage if @producer.commission_setting.present?
 			@commissions = Commission.where(producer_name: @producer_name)
+			@commissions = @commissions.where(user_id: get_main_admin(current_user))
+
 		elsif params[:producer_name].blank?
 			@producer_name = current_user.full_name 
 			@producer = User.find_by(full_name: @producer_name)
 			@producer_commission_percentage = @producer.commission_setting.commission_percentage if @producer.commission_setting.present?
 			@commissions = Commission.where(producer_name: @producer_name)
+			@commissions = @commissions.where(user_id: get_main_admin(current_user))
+
 		end
 		
 	end
@@ -86,12 +96,15 @@ class CommissionsController < ApplicationController
 			@contributor = User.find_by(full_name: @contributor_name)
 			@contributor_commission_percentage = @contributor.commission_setting.commission_percentage if @contributor.commission_setting.present?
 			@commissions = Commission.where(contributor_name: @contributor_name)
+			@commissions = @commissions.where(user_id: get_main_admin(current_user))
 			
 		elsif params[:contributor_name].blank?
 			@contributor_name = current_user.full_name 
 			@contributor = User.find_by(full_name: @contributor_name)
 			@contributor_commission_percentage = @contributor.commission_setting.commission_percentage if @contributor.commission_setting.present?
 			@commissions = Commission.where(contributor_name: @contributor_name)
+			@commissions = @commissions.where(user_id: get_main_admin(current_user))
+
 		end
 		
 	end
@@ -99,6 +112,8 @@ class CommissionsController < ApplicationController
 	def resume_bank
 		@bank_name = params[:bank_name] if params[:bank_name].present?
 		@commissions = Commission.where(bank_name: @bank_name)
+		@commissions = @commissions.where(user_id: get_main_admin(current_user))
+
 		
 	end
 

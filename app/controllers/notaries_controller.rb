@@ -6,7 +6,7 @@ class NotariesController < ApplicationController
   # GET /notaries
   # GET /notaries.json
   def index
-    @notaries = current_user.notaries
+    @notaries = get_main_admin(current_user).notaries
   end
 
   # GET /notaries/1
@@ -66,7 +66,7 @@ class NotariesController < ApplicationController
   # DELETE /notaries/1.json
   def destroy
     @notary.destroy
-    @notaries = current_user.notaries
+    @notaries = get_main_admin(current_user).notaries
     respond_to do |format|
       format.html { redirect_to notaries_url, notice: 'Notary was successfully destroyed.' }
       format.json { head :no_content }

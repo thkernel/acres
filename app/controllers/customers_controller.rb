@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = current_user.customers
+    @customers = get_main_admin(current_user).customers
   end
 
   # GET /customers/1

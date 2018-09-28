@@ -67,7 +67,7 @@ Crédits'), credits_path %>
 									<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
 								</li>
 							<% end %>
-						<% if is_admin? && current_user.app_config.company.present? %>
+						<% if is_admin?  %>
 							<li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
 									Société'), show_company_path(get_admin_company(current_user)) %>
 							</li>
