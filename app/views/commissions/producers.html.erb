@@ -37,7 +37,9 @@
   <% if @commissions.present? %>
     <% @commissions.each do |commission| %>
       <tr>
-		
+      <td>
+      <%= commission.credit_id %>
+    </td>
 		<td>
 			<% if commission.producer_name.present? %>
 				<%= link_to "#{commission.producer_name}", producer_resume_path(producer_name: commission.producer_name) %>

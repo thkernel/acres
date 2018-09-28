@@ -8,7 +8,7 @@ class LogsController < ApplicationController
   # GET /logs
   # GET /logs.json
   def index
-    @logs = current_user.logs
+    @logs = get_main_admin(current_user).logs
   end
 
   # GET /logs/1
@@ -49,7 +49,7 @@ class LogsController < ApplicationController
         format.js
       end
     end
-    @logs = current_user.logs
+    @logs = get_main_admin(current_user).logs
 
   end
 
