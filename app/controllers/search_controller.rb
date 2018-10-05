@@ -39,7 +39,7 @@ class SearchController < ApplicationController
     contributor_name = contributor_name.reject{ |e| e.to_s.empty? } if contributor_name.present?
 
 
-    @commissions = Commission.search(production_date,acte_date,  bank_name, producer_name, contributor_name, notary)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
+    @commissions = Commission.search(production_date,acte_date,  bank_name, producer_name, contributor_name, notary, current_user.id)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
 
     respond_to do |format|
       format.html { }
