@@ -2,17 +2,20 @@
 		<div class="modal-body">
 				<div class="row">
 							<div class="col-md-12">
-								 <ul class="errors">
+								
+									<ul class="errors">
 
-          							<% user.errors.full_messages.each do |message| %>
-                        				<li><%= message %></li>
-                      				<% end %>
-        						</ul>
+										<% user.errors.full_messages.each do |message| %>
+											<li><%= message %></li>
+										<% end %>
+									</ul>
+								
+								
 
 								<div class="col-xs-12">
 									<div class="form-group">
 										<%= f.label "Nom complet" %><br />
-										<%= f.text_field :full_name, autofocus: true, autocomplete: "full_name", class: "form-control", placeholder: "Nom complet", readonly: true  %>
+										<%= f.text_field :full_name, autofocus: true, autocomplete: "full_name", class: "form-control", placeholder: "Nom complet", required: true  %>
 									</div>
 								</div>
 
@@ -41,7 +44,7 @@
 									</div>
 									<div class="form-group">
 										<%= f.label "Profil" %>
-										<%= f.collection_select :role, @roles,  :name, :name , {prompt: "Sélectionner un profil"}, class: "form-control", required: true , disabled: true  %>
+										<%= f.collection_select :role, @roles,  :name, :name , {prompt: "Sélectionner un profil"}, class: "form-control", required: true  %>
 																
 									</div>
 								</div>
