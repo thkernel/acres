@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Tableau de bord - <%= @app_name %></title>
+	<head>
+
+		<% if is_superadmin? %>
+			<title><%= "Tableau de bord - #{@app_name}" %></title>
+		<% else %>
+			<title><%= "Tableau de bord - #{get_app_name(current_user)}" %></title>
+		<% end %>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>

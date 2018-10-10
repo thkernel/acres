@@ -38,7 +38,15 @@ class CustomUsersController < ApplicationController
     end
 
     def index
-      @users = User.find_by_created_by(current_user).where.not(id: current_user)
+      if is_admin?
+       
+        @users = User.find_by_created_by(get_main_admin(current_user)).where.not(id: get_main_admin(current_user))
+        @users = @users.where.not(id: current_user)
+      end
+      if is_superadmin?
+        @users = User.find_by_created_by(current_user)
+        @users = @users.where(role: "Admin")
+      end
       #puts "Mon host: " + host.to_s
       #@users = User.where.not(id: current_user)
     end

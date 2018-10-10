@@ -9,7 +9,7 @@ class BanksController < ApplicationController
   # GET /banks
   # GET /banks.json
   def index
-    @banks = current_user.banks
+    @banks = get_main_admin(current_user).banks
   end
 
   # GET /banks/1
@@ -29,7 +29,7 @@ class BanksController < ApplicationController
   # POST /banks
   # POST /banks.json
   def create
-    @banks = current_user.banks
+    @banks = get_main_admin(current_user).banks
     @bank = current_user.banks.build(bank_params)
 
     respond_to do |format|
@@ -57,7 +57,7 @@ class BanksController < ApplicationController
 		bank_commission_edition.user_id = current_user.id
 		bank_commission_edition.save
 
-        @banks = current_user.banks
+        @banks = get_main_admin(current_user).banks
 
         compute_commission(@bank.name, current_user.id)
 
@@ -79,7 +79,7 @@ class BanksController < ApplicationController
   # DELETE /banks/1
   # DELETE /banks/1.json
   def destroy
-    @banks = current_user.banks
+    @banks = get_main_admin(current_user).banks
     @bank.destroy
     
 

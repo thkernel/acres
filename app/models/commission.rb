@@ -10,8 +10,7 @@ class Commission < ApplicationRecord
         if  notary_name.present?
             query = Commission.order(:production_date)
             query = query.where("production_date = ? AND acte_date = ? AND notary_name =  ?", production_date, acte_date, notary_name) if notary_name.present?
-            query = query.where("user_id = ? ", user_id) 
-
+            query = query.where("user_id = ?", user_id) 
             query
         
         else 
@@ -21,7 +20,8 @@ class Commission < ApplicationRecord
             query = query.where("bank_name IN (?) ", bank_name) if bank_name.present?
             query = query.where("producer_name IN (?) ", producer_name) if producer_name.present?
             query = query.where("contributor_name IN (?) ", contributor_name) if contributor_name.present?
-            query = query.where("user_id = ? ", user_id)
+            query = query.where("user_id = ?", user_id) 
+
             query
         
         end
