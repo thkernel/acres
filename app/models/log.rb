@@ -39,10 +39,10 @@ class Log < ApplicationRecord
 
            # Begin insert a bank, before to insert bank we check if bank exist
             if row[cell[4]].present?
-                current_bank = Bank.exists(row[cell[4]])
+                current_bank = Bank.exists(row[cell[4]], user.id)
                 
                 # If bank exist.
-                if  current_bank.present? && current_bank.user_id != user.id
+                unless  current_bank.present? 
                     bank = Bank.new
                     bank.name = row[cell[4]]
                     bank.commission_percentage = 0
@@ -50,14 +50,6 @@ class Log < ApplicationRecord
                     bank.user_id = user.id
                     bank.save
 
-                elsif !current_bank.present?
-
-                    bank = Bank.new
-                    bank.name = row[cell[4]]
-                    bank.commission_percentage = 0
-                    bank.hypoplus_commission_percentage = 0
-                    bank.user_id = user.id
-                    bank.save
                 end
             end
 
