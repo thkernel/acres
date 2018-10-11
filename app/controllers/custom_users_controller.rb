@@ -148,9 +148,11 @@ class CustomUsersController < ApplicationController
 				format.json { head :no_content }
 				format.js
 		
-				# Send mail to user.
-				url = user_session_url
-				UserMailer.delete_user_mail(@user.email, @user.password, url).deliver_now
+        # Send mail to user.
+        if @user.receives_notifications == true || @user.status =='enable'
+          #url = user_session_url
+          #UserMailer.delete_user_mail(@user.email, @user.password, url).deliver_now
+        end
 		
 			end
 		end
