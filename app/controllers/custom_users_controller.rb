@@ -22,12 +22,12 @@ class CustomUsersController < ApplicationController
           format.json { render :show, status: :created, location: @contributor }
 		  format.js
 		  
-		  first_admin = User.where(role: "Admin")
-		  if @user.receives_notifications == true || @user.status =='enable'
-			unless first_admin.count <= 1
+		  #first_admin = User.where(role: "Admin")
+		  if @user.receives_notifications == true && @user.status =='enable'
+		
 				url = user_session_url
 				UserMailer.new_user_mail(@user.email, @user.password, url).deliver_now
-			end
+			
 		end
         else
           format.html { render :new }
