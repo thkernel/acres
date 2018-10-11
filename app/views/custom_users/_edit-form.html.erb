@@ -12,7 +12,7 @@
 								<div class="col-xs-12">
 									<div class="form-group">
 										<%= f.label "Nom complet" %><br />
-										<%= f.text_field :full_name, autofocus: true, autocomplete: "full_name", class: "form-control", placeholder: "Nom complet", readonly: true  %>
+										<%= f.text_field :full_name, autofocus: true, autocomplete: "full_name", class: "form-control", placeholder: "Nom complet"  %>
 									</div>
 								</div>
 
@@ -41,8 +41,14 @@
 									</div>
 									<div class="form-group">
 										<%= f.label "Profil" %>
-										<%= f.collection_select :role, @roles,  :name, :name , {prompt: "Sélectionner un profil"}, class: "form-control", required: true , disabled: true  %>
+										<%= f.collection_select :role, @roles,  :name, :name , {prompt: "Sélectionner un profil"}, class: "form-control", required: true   %>
 																
+									</div>
+
+									<div class="form-group">
+										<%= f.check_box :receives_notifications %>
+										<%= f.label "Recevoir des notifications" %>
+
 									</div>
 								</div>
 						</div>
