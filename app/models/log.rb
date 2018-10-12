@@ -28,7 +28,8 @@ class Log < ApplicationRecord
 
            # Begin insert a bank, before to insert bank we check if bank exist
            if row[cell[3]].present?
-                unless Customer.exists(row[cell[3]]).present?
+                current_customer = Customer.exists(row[cell[3]], user.id)
+                unless current_customer.present?
                     customer = Customer.new
                     customer.full_name = row[cell[3]]
                     customer.user_id = user.id
@@ -39,10 +40,10 @@ class Log < ApplicationRecord
 
            # Begin insert a bank, before to insert bank we check if bank exist
             if row[cell[4]].present?
-                current_bank = Bank.exists(row[cell[4]])
+                current_bank = Bank.exists(row[cell[4]], user.id)
                 
                 # If bank exist.
-                if  current_bank.present? && current_bank.user_id != user.id
+                unless  current_bank.present? 
                     bank = Bank.new
                     bank.name = row[cell[4]]
                     bank.commission_percentage = 0
@@ -50,22 +51,14 @@ class Log < ApplicationRecord
                     bank.user_id = user.id
                     bank.save
 
-                elsif !current_bank.present?
-
-                    bank = Bank.new
-                    bank.name = row[cell[4]]
-                    bank.commission_percentage = 0
-                    bank.hypoplus_commission_percentage = 0
-                    bank.user_id = user.id
-                    bank.save
                 end
             end
 
             # Begin insert a user, before to insert user we check if user exist
             if row[cell[6]].present?
-               
+               current_contributor = User.is_contributor(row[cell[6]], user.id).present?
 
-                unless User.is_contributor(row[cell[6]], user.id).present?
+                unless current_contributor.present?
 
                     contributor = User.new
                     contributor.full_name = row[cell[6]]
@@ -82,8 +75,8 @@ class Log < ApplicationRecord
 
             if row[cell[7]].present?
                
-
-                unless  User.is_producer(row[cell[7]], user.id).present?
+                current_producer = User.is_producer(row[cell[7]], user.id)
+                unless  current_producer.present?
 
                     producer = User.new
                     producer.full_name = row[cell[7]]
@@ -100,8 +93,8 @@ class Log < ApplicationRecord
 
             if row[cell[8]].present?
                 
-
-                unless  Notary.is_notary(row[cell[8]], user.id).present?
+                current_notary = Notary.is_notary(row[cell[8]], user.id).present?
+                unless  current_notary.present?
                     notary = Notary.new
                     notary.full_name = row[cell[8]]
                     notary.user_id = user.id
