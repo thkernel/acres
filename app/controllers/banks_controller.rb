@@ -9,7 +9,9 @@ class BanksController < ApplicationController
   # GET /banks
   # GET /banks.json
   def index
-    @banks = get_main_admin(current_user).banks
+   
+      @banks = current_user.banks 
+    
   end
 
   # GET /banks/1
@@ -29,7 +31,10 @@ class BanksController < ApplicationController
   # POST /banks
   # POST /banks.json
   def create
-    @banks = get_main_admin(current_user).banks
+   
+      @banks = current_user.banks 
+   
+
     @bank = current_user.banks.build(bank_params)
 
     respond_to do |format|
@@ -79,7 +84,10 @@ class BanksController < ApplicationController
   # DELETE /banks/1
   # DELETE /banks/1.json
   def destroy
-    @banks = get_main_admin(current_user).banks
+    main_user = get_main_admin(current_user)
+    if main_user.present? 
+      @banks = main_user.banks 
+    end
     @bank.destroy
     
 
