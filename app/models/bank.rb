@@ -2,7 +2,7 @@ class Bank < ApplicationRecord
     belongs_to :user
     has_many :bank_commission_editions, dependent: :destroy
 
-    validates_presence_of :name, :commission_percentage
+    validates_presence_of :name
 
     # Find bank by name.
 
