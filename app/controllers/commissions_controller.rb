@@ -17,7 +17,7 @@ class CommissionsController < ApplicationController
 	def contributors
 
 		if current_user.present? && is_contributor?(current_user)
-			@commissions = Commission.where(contributor_name: current_user.full_name).where(created_by: get_main_admin(current_user))
+			@commissions = Commission.where(contributor_name: current_user.full_name).where(user_id: get_main_admin(current_user))
 		elsif is_admin?
 			#@commissions = current_user.commissions 
 			users = User.where(role: 'Apporteur').where(created_by: get_main_admin(current_user))
@@ -25,7 +25,7 @@ class CommissionsController < ApplicationController
 			if users.present?
 				@commissions = []
 				users.each {|user|
-					commissions = Commission.where(contributor_name: user.full_name).where(created_by: get_main_admin(current_user))
+					commissions = Commission.where(contributor_name: user.full_name).where(user_id: get_main_admin(current_user))
 
 					if commissions.present?
 						commissions.each{|commission|
@@ -42,7 +42,7 @@ class CommissionsController < ApplicationController
 
 	def producers
 		if current_user.present? && is_producer?(current_user)
-			@commissions = Commission.where(producer_name: current_user.full_name).where(created_by: get_main_admin(current_user))
+			@commissions = Commission.where(producer_name: current_user.full_name).where(user_id: get_main_admin(current_user))
 		elsif is_admin?
 
 			#@commissions = current_user.commissions 
@@ -51,8 +51,8 @@ class CommissionsController < ApplicationController
 			if users.present?
 				@commissions = []
 				users.each do |user|
-					commissions = Commission.where(producer_name: user.full_name).where(created_by: get_main_admin(current_user))
-					if comissions.present?
+					commissions = Commission.where(producer_name: user.full_name).where(user_id: get_main_admin(current_user))
+					if commissions.present?
 						commissions.each do |commission|
 							@commissions.push(commission)
 						end
