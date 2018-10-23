@@ -9,7 +9,11 @@ class BanksController < ApplicationController
   # GET /banks
   # GET /banks.json
   def index
-    @banks = get_main_admin(current_user).banks
+    if is_superadmin?
+      @banks = Bank.all
+    else
+      @banks = get_main_admin(current_user).banks
+    end
   end
 
   # GET /banks/1

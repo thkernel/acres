@@ -14,49 +14,84 @@
               		<div class="panel-body">
                         <%= form_with url: search_path, method: :get, local: false , class: "form-inlinee" do |f| %>
                             <div class="row lr-margin">	
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <%= f.label "Date production" %>
-                                        <%= f.date_field :production_date, id: :production_date, class: "form-control " %>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <%= f.label "Date acte" %>
-                                        <%= f.date_field :acte_date, id: :acte_date, class: "form-control " %>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <%= f.label "Banque" %>
-                                        <%= f.collection_select(:bank, @banks, :name, :name , {prompt: "Banque"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Vélectionner une option'}) %>
 
+                                <div class="row"><!-- date row -->
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <legend>Date production:</legend>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <%= f.label "De:" %>
+                                                    <%= f.date_field :production_date, id: :production_date, class: "form-control " %>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <%= f.label "A:" %>
+                                                    <%= f.date_field :production_date, id: :production_date, class: "form-control " %>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <fieldset>
+                                            <legend>Date acte:</legend>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <%= f.label "De:" %>
+                                                    <%= f.date_field :acte_date, id: :acte_date, class: "form-control " %>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <%= f.label "A:" %>
+
+                                                    <%= f.date_field :acte_date, id: :acte_date, class: "form-control " %>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                     </div>
+                                </div><!-- end row -->
+                               
+                                <div class="row">
+                                    
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <%= f.label "Banque" %>
+                                                <%= f.collection_select(:bank, @banks, :name, :name , {prompt: "Banque"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %>
+
+                                            </div>
                                         </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <%= f.label "Apporteur" %>
-                                        <%= f.collection_select(:contributor, @contributors, :full_name, :full_name, {prompt: "Apporteurs"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Vélectionner une option'}) %>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <%= f.label "Apporteur" %>
+                                                <%= f.collection_select(:contributor, @contributors, :full_name, :full_name, {prompt: "Apporteurs"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %>
+                                            </div>
+                                        </div>
+                                
+                                
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <%= f.label "Producteur" %>
+                                            <%= f.collection_select(:producer, @producers, :full_name, :full_name, {prompt: "Producteurs"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <%= f.label "Producteur" %>
-                                        <%= f.collection_select(:producer, @producers, :full_name, :full_name, {prompt: "Producteurs"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Vélectionner une option'}) %>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <%= f.label "Notaire" %>
+                                            <%= f.collection_select(:notary, @notaries, :full_name, :full_name, {include_blank: true }, class: "form-control") %>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <%= f.label "Notaire" %>
-                                        <%= f.collection_select(:notary, @notaries, :full_name, :full_name, {include_blank: true }, class: "form-control") %>
-                                    </div>
-                                </div>
+                                </div> 
                             </div>
 
                             <div class="row lr-margin">
                                 <div class="col-md-12">
                                     <div class="form-group search-btn">
-                                        <%= f.submit "Rechercher", class: "btn btn-sm btn-primary" %>
+                                        <%= f.submit "Rechercher", class: "btn btn-primary btn-block" %>
                                     </div>
                                 </div>
                             </div>
@@ -76,15 +111,15 @@
                         
                                     <th>Montant empruntés</th>
                                     <th>Banque</th>
-                                    <th>Apporteur</th>
-                                    <th>Pourcentage commission apporteur</th>
-                                    <th>Commission apporteur</th>
-                                    <th>Producteur</th>
-                                    <th>Pourcentage commission producteur</th>
-                                    <th>Commission producteur</th>
-                                    <th>Pourcentage commission <%= get_admin_company(current_user).name  %></th>
-                                    <th>Commission totale banque</th>
-                                    <th>Commission nette <%= get_admin_company(current_user).name  %></th>
+                                    <th>Appo</th>
+                                    <th>% com appo</th>
+                                    <th>Com appo</th>
+                                    <th>Prod</th>
+                                    <th>% com prod</th>
+                                    <th>Com prod</th>
+                                    <th>% com <%= get_admin_company(current_user).name  %></th>
+                                    <th>Com totale banque</th>
+                                    <th>Com nette <%= get_admin_company(current_user).name  %></th>
                                    
                                 </tr>
                             </thead>
