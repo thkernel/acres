@@ -6,8 +6,14 @@ class SearchController < ApplicationController
 
   def index
   
-
+    
     @credits = Credit.where(user_id: get_main_admin(current_user))
+
+    @total_montant_credit = Commission.where(user_id: get_main_admin(current_user)).sum(:amount_credit)
+    @total_commission_apporteur = Commission.where(user_id: get_main_admin(current_user)).sum(:contributor_commission)
+    @total_commission_nette_company = Commission.where(user_id: get_main_admin(current_user)).sum(:producer_commission)
+    @total_commission_producteur = Commission.where(user_id: get_main_admin(current_user)).sum(:company_commission)
+
     @banks = Bank.where(user_id: get_main_admin(current_user))
     @contributors = User.find_by_role_and_creator('Apporteur', get_main_admin(current_user))
     @producers = User.find_by_role_and_creator('Producteur', get_main_admin(current_user))
@@ -15,6 +21,11 @@ class SearchController < ApplicationController
   end
 
   def search
+    @total_montant_credit = Commission.where(user_id: get_main_admin(current_user)).sum(:amount_credit)
+    @total_commission_apporteur = Commission.where(user_id: get_main_admin(current_user)).sum(:contributor_commission)
+    @total_commission_nette_company = Commission.where(user_id: get_main_admin(current_user)).sum(:producer_commission)
+    @total_commission_producteur = Commission.where(user_id: get_main_admin(current_user)).sum(:company_commission)
+
     @banks = Bank.where(user_id: get_main_admin(current_user))
     @contributors = User.find_by_role_and_creator('Apporteur', get_main_admin(current_user))
     @producers = User.find_by_role_and_creator('Producteur', get_main_admin(current_user))
