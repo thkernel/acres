@@ -7,7 +7,7 @@ class Bank < ApplicationRecord
     # Find bank by name.
 
     def self.exists(bank_name, user_id)
-        where('name = ? AND user_id = ?', bank_name, user_id)
+        where('name = ? AND user_id = ?', bank_name,user_id)
     end
 
     def self.search(bank_name, user_id)

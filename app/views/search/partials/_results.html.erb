@@ -1,4 +1,23 @@
 <% if @commissions.present? %>
+
+
+         <tr>
+                        
+            <td><strong><%= @total_montant_credit %></strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><strong><%= @total_commission_apporteur %></strong></td>
+            <td></td>
+            <td></td>
+
+            <td><strong><%= @total_commission_producteur %></strong></td>
+            <td></td>
+            <td></td>
+            <td><strong><%= @total_commission_nette_company %></strong></td>
+            
+        </tr>
+
     <% @commissions.each do |commission| %>
         <tr>
         

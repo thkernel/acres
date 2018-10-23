@@ -1,5 +1,4 @@
 <div class="container">
-
     <section class="content-header">
         <h1>
             Rechercher         
@@ -22,13 +21,13 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <%= f.label "De:" %>
-                                                    <%= f.date_field :production_date, id: :production_date, class: "form-control " %>
+                                                    <%= f.date_field :production_date_debut, id: :production_date_debut, class: "form-control " %>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <%= f.label "A:" %>
-                                                    <%= f.date_field :production_date, id: :production_date, class: "form-control " %>
+                                                    <%= f.date_field :production_date_fin, id: :production_date_debut, class: "form-control " %>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -39,7 +38,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <%= f.label "De:" %>
-                                                    <%= f.date_field :acte_date, id: :acte_date, class: "form-control " %>
+                                                    <%= f.date_field :acte_date_debut, id: :acte_date_debut, class: "form-control " %>
                                                 </div>
 
                                             </div>
@@ -47,7 +46,7 @@
                                                 <div class="form-group">
                                                     <%= f.label "A:" %>
 
-                                                    <%= f.date_field :acte_date, id: :acte_date, class: "form-control " %>
+                                                    <%= f.date_field :acte_date_debut, id: :acte_date_debut, class: "form-control " %>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -124,6 +123,7 @@
                                 </tr>
                             </thead>
                             <tbody class="search-result">
+                            
                                 <%= render("search/partials/results") %>
                             </tbody>
                            

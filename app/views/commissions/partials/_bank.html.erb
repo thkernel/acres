@@ -38,7 +38,30 @@
   </thead>
 
   <tbody>
+  	<tr>
+                        
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><strong><%= @total_montant_credit %></strong></td>
+            <td></td>
+            <td><strong><%= @total_commission_apporteur %></strong></td>
+            <td></td>
+
+            <td><strong><%= @total_commission_producteur %></strong></td>
+            <td></td>
+            <td></td>
+			            <td></td>
+
+            <td><strong><%= @total_commission_nette_company %></strong></td>
+            
+        </tr>
+
     <% @commissions.each do |commission| %>
+
+       
+
+
       <tr>
         <td><%= commission.credit_id %></td>
         <td><%= commission.production_date %></td>
