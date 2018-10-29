@@ -97,7 +97,14 @@ class CommissionsController < ApplicationController
 			@commissions = Commission.where(producer_name: @producer_name)
 			@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
+			
+
 		end
+
+		@total_montant_credit = @commissions.sum(:amount_credit)
+    	@total_commission_apporteur = @commissions.sum(:contributor_commission)
+    	@total_commission_nette_company = @commissions.sum(:producer_commission)
+    	@total_commission_producteur = @commissions.sum(:company_commission)
 		
 	end
 
@@ -108,6 +115,8 @@ class CommissionsController < ApplicationController
 			@contributor_commission_percentage = @contributor.commission_setting.commission_percentage if @contributor.commission_setting.present?
 			@commissions = Commission.where(contributor_name: @contributor_name)
 			@commissions = @commissions.where(user_id: get_main_admin(current_user))
+
+			
 			
 		elsif params[:contributor_name].blank?
 			@contributor_name = current_user.full_name 
@@ -116,7 +125,14 @@ class CommissionsController < ApplicationController
 			@commissions = Commission.where(contributor_name: @contributor_name)
 			@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
+			
+
 		end
+
+		@total_montant_credit = @commissions.sum(:amount_credit)
+    	@total_commission_apporteur = @commissions.sum(:contributor_commission)
+    	@total_commission_nette_company = @commissions.sum(:producer_commission)
+    	@total_commission_producteur = @commissions.sum(:company_commission)
 		
 	end
 
@@ -124,6 +140,12 @@ class CommissionsController < ApplicationController
 		@bank_name = params[:bank_name] if params[:bank_name].present?
 		@commissions = Commission.where(bank_name: @bank_name)
 		@commissions = @commissions.where(user_id: get_main_admin(current_user))
+
+		@total_montant_credit = @commissions.sum(:amount_credit)
+    	@total_commission_apporteur = @commissions.sum(:contributor_commission)
+    	@total_commission_nette_company = @commissions.sum(:producer_commission)
+    	@total_commission_producteur = @commissions.sum(:company_commission)
+
 
 		
 	end

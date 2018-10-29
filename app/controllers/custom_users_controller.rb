@@ -6,49 +6,51 @@ class CustomUsersController < ApplicationController
 
     
     def new
-      @roles = Role.where.not(name: "Superadmin")
-      @user = User.new
-
-    end
+		@roles = Role.where.not(name: "Superadmin")
+		@user = User.new
+	end
+	
     def create
-      @user = User.new(user_params)
-      @user.created_by = current_user.id
+		@user = User.new(user_params)
+		@user.created_by = current_user.id
 
-      respond_to do |format|
-        if @user.save
-          @users = User.find_by_created_by(current_user).where.not(id: current_user)
+      	respond_to do |format|
+        	if @user.save
+          		@users = User.find_by_created_by(current_user).where.not(id: current_user)
 
-          format.html { redirect_to users_path, notice: 'User was successfully created.' }
-          format.json { render :show, status: :created, location: @contributor }
-		  format.js
+				format.html { redirect_to users_path, notice: 'User was successfully created.' }
+				format.json { render :show, status: :created, location: @contributor }
+				format.js
 		  
-		  #first_admin = User.where(role: "Admin")
-		  if @user.receives_notifications == true && @user.status =='enable'
-		
-				url = user_session_url
-				UserMailer.new_user_mail(@user.email, @user.password, url).deliver_now
-			
-		end
-        else
-          format.html { render :new }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-          format.js
-        end
-      end
+
+			  	#first_admin = User.where(role: "Admin")
+			  
+				# Sending mail based on receive notifications status.
+				if @user.receives_notifications == true && @user.status =='enable'
+					
+					url = user_session_url
+					UserMailer.new_user_mail(@user.email, @user.password, url).deliver_now
+					
+				end
+        	else
+				format.html { render :new }
+				format.json { render json: @user.errors, status: :unprocessable_entity }
+				format.js
+        	end
+      	end
     end
 
+	# Index
     def index
-      if is_admin?
-       
-        @users = User.find_by_created_by(get_main_admin(current_user)).where.not(id: get_main_admin(current_user))
-        @users = @users.where.not(id: current_user)
-      end
-      if is_superadmin?
-        @users = User.find_by_created_by(current_user)
-        @users = @users.where(role: "Admin")
-      end
-      #puts "Mon host: " + host.to_s
-      #@users = User.where.not(id: current_user)
+    	if is_admin?
+			@users = User.find_by_created_by(get_main_admin(current_user)).where.not(id: get_main_admin(current_user))
+			@users = @users.where.not(id: current_user)
+      	end
+		if is_superadmin?
+			@users = User.find_by_created_by(current_user)
+			@users = @users.where(role: "Admin")
+		end
+      
     end
     
     def unregistered
@@ -72,69 +74,77 @@ class CustomUsersController < ApplicationController
 	
     # GET /users/1
     # GET /users/1.json
-    def show
+	def show
+		
     end
 
     # GET /users/1/edit
     def edit
-      @roles = Role.where.not(name: "Superadmin")
+    	@roles = Role.where.not(name: "Superadmin")
     end
 
     def delete
-      @user = User.find(params[:id])
+    	@user = User.find(params[:id])
     end
 
     def get_disable
         @user = User.find(params[:id]) if params[:id].present?
      
-    end
+	end
+	
     def post_disable
-      @user = User.find(params[:id]) if params[:id].present?
-      respond_to do |format|
-        if @user.update_attributes(status: 'disable')
-         @users = User.find_by_created_by(current_user).where.not(id: current_user)
+	  	@user = User.find(params[:id]) if params[:id].present?
+	  
+      	respond_to do |format|
+        	if @user.update_attributes(status: 'disable')
+         		@users = User.find_by_created_by(current_user).where.not(id: current_user)
         
-            format.html { redirect_to @user, notice: 'User was successfully updated.' }
-            format.json { render :show, status: :ok, location: @user }
-        format.js
+				format.html { redirect_to @user, notice: 'User was successfully updated.' }
+				format.json { render :show, status: :ok, location: @user }
+				format.js
         
-        # Send mail to user.
-        url = user_session_url
-            UserMailer.disable_user_mail(@user.email, @user.password, url).deliver_now
-          else
-            format.html { render :edit }
-            format.json { render json: @user.errors, status: :unprocessable_entity }
-            format.js
-          end
-        end
+				# Send mail to user.
+				#url = user_session_url
+				#UserMailer.disable_user_mail(@user.email, @user.password, url).deliver_now
+			else
+				format.html { render :edit }
+				format.json { render json: @user.errors, status: :unprocessable_entity }
+				format.js
+			end
+		end
    
     end
 
     def get_enable
-      @user = User.find(params[:id]) if params[:id].present?
+    	@user = User.find(params[:id]) if params[:id].present?
    
-    end
-  def post_enable
-    @user = User.find(params[:id]) if params[:id].present?
-    respond_to do |format|
-      if @user.update_attributes(status: 'enable')
-       @users = User.find_by_created_by(current_user).where.not(id: current_user)
+	end
+	
+	# Enable user account.
+  	def post_enable
+		@user = User.find(params[:id]) if params[:id].present?
+		respond_to do |format|
+      		if @user.update_attributes(status: 'enable')
+				@users = User.find_by_created_by(current_user).where.not(id: current_user)
+			
+				format.html { redirect_to @user, notice: 'User was successfully updated.' }
+				format.json { render :show, status: :ok, location: @user }
+				format.js
       
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-          format.json { render :show, status: :ok, location: @user }
-          format.js
-      
-      # Send mail to user.
-      url = user_session_url
-          UserMailer.enable_user_mail(@user.email, @user.password, url).deliver_now
-        else
-          format.html { render :edit }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-          format.js
-        end
-      end
+				# Send mail to user.
+				if @user.receives_notifications == true && @user.status =='enable'
+					url = user_session_url
+					UserMailer.enable_user_mail(@user.email, @user.password, url).deliver_now
+				end
+			  
+			else
+				format.html { render :edit }
+				format.json { render json: @user.errors, status: :unprocessable_entity }
+				format.js
+			end
+      	end
  
-  end
+  	end
 
     
 
@@ -148,11 +158,11 @@ class CustomUsersController < ApplicationController
 				format.json { head :no_content }
 				format.js
 		
-        # Send mail to user.
-        if @user.receives_notifications == true || @user.status =='enable'
-          #url = user_session_url
-          #UserMailer.delete_user_mail(@user.email, @user.password, url).deliver_now
-        end
+				# Send mail to user.
+				if @user.receives_notifications == true && @user.status =='enable'
+					url = user_session_url
+					UserMailer.delete_user_mail(@user.email, @user.password, url).deliver_now
+				end
 		
 			end
 		end
@@ -173,10 +183,8 @@ class CustomUsersController < ApplicationController
 				format.js
 			
 				# Send mail to user.
-				url = user_session_url
-			
-				if @user.receives_notifications == true || @user.status =='enable'
-
+				if @user.receives_notifications == true && @user.status =='enable'
+					url = user_session_url
 					UserMailer.edit_user_mail(@user.email, @user.password, url).deliver_now
 				end
 			else
