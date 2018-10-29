@@ -18,16 +18,16 @@
                                 <div class="row"><!-- date row -->
                                     <div class="col-md-6">
                                         <fieldset>
-                                            <legend>Date production:</legend>
+                                            <legend>Date production</legend>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <%= f.label "De:" %>
+                                                    <%= f.label "Date départ" %>
                                                     <%= f.date_field :production_date, id: :production_date, class: "form-control " %>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <%= f.label "A:" %>
+                                                    <%= f.label "Date fin" %>
                                                     <%= f.date_field :production_date, id: :production_date, class: "form-control " %>
                                                 </div>
                                             </div>
@@ -35,17 +35,17 @@
                                     </div>
                                     <div class="col-md-6">
                                         <fieldset>
-                                            <legend>Date acte:</legend>
+                                            <legend>Date acte</legend>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <%= f.label "De:" %>
+                                                    <%= f.label "Date départ" %>
                                                     <%= f.date_field :acte_date, id: :acte_date, class: "form-control " %>
                                                 </div>
 
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <%= f.label "A:" %>
+                                                    <%= f.label "Date fin" %>
 
                                                     <%= f.date_field :acte_date, id: :acte_date, class: "form-control " %>
                                                 </div>
@@ -57,9 +57,11 @@
                                 <div class="row">
                                     
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <%= f.label "Banque" %>
-                                                <%= f.collection_select(:bank, @banks, :name, :name , {prompt: "Banque"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %>
+                                            <div class="form-group collection-check-boxes">
+                                                <%= f.label "Banque(s)" %><br />
+                                                <%= f.collection_check_boxes(:bank, @banks, :id, :name) %>
+                                               
+                                                <!-- <%= f.collection_select(:bank, @banks, :name, :name , {prompt: "Banque"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %> -->
 
                                             </div>
                                         </div>
