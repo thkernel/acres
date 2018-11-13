@@ -81,7 +81,7 @@ class CommissionSettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def commission_setting_params
-      params.require(:commission_setting).permit(:commission_percentage, :hypoplus_commission_percentage, :first_installment, :number_of_dates, :user_id)
+      params.require(:commission_setting).permit(:commission_percentage, :hypoplus_commission_percentage, :user_id)
     end
 
     def compute_commission(user_id)
