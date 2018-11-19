@@ -178,6 +178,7 @@ module ApplicationHelper
 		end
 	end
 
+
 	def get_admin_company(user)
 		if is_main_admin?(user)
 			user_app_company = user.app_config.company 
@@ -185,10 +186,12 @@ module ApplicationHelper
 				company = user_app_company
 			end
 		else
-			main_admin = User.find_by(id: user.created_by)
-			user_app_company = main_admin.app_config.company if main_admin.app_config.present?
-			if user_app_company.present?
-				company = user_app_company
+			if false
+				main_admin = User.find_by(id: user.created_by)
+				user_app_company = main_admin.app_config.company if main_admin.app_config.present?
+				if user_app_company.present?
+					company = user_app_company
+				end
 			end
 		end
 	end
