@@ -104,10 +104,8 @@ ActiveRecord::Schema.define(version: 20180920180417) do
     t.string "brand_content_type"
     t.integer "brand_file_size"
     t.datetime "brand_updated_at"
-    t.bigint "app_config_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["app_config_id"], name: "index_companies_on_app_config_id", unique: true
   end
 
   create_table "config_options", force: :cascade do |t|
@@ -305,7 +303,6 @@ ActiveRecord::Schema.define(version: 20180920180417) do
   add_foreign_key "banks", "users"
   add_foreign_key "commission_settings", "users"
   add_foreign_key "commissions", "users"
-  add_foreign_key "companies", "app_configs"
   add_foreign_key "credit_details", "credits"
   add_foreign_key "credits", "users"
   add_foreign_key "customers", "users"

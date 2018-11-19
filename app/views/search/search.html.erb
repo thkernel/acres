@@ -17,7 +17,11 @@
                                 <div class="row"><!-- date row -->
                                     <div class="col-md-6">
                                         <fieldset>
-                                            <legend>Date production</legend>
+                                            <legend>
+                                                <strong>
+                                                    Date production
+                                                </strong>
+                                            </legend>
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
@@ -38,7 +42,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <fieldset>
-                                            <legend>Date acte</legend>
+                                            <legend><strong>Date acte</strong></legend>
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
@@ -63,7 +67,7 @@
                                     
                                         <div class="col-md-6">
                                             <div class="form-group collection-check-boxes">
-                                                <%= f.label "Banque(s)" %><br />
+                                                <strong><%= f.label "Banque(s)" %></strong><br />
                                                 <%= f.collection_check_boxes(:bank, @banks, :name, :name) %>
                                                
                                                 <!-- <%= f.collection_select(:bank, @banks, :name, :name , {prompt: "Banque"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %> -->
@@ -73,7 +77,7 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group  collection-check-boxes">
-                                                <%= f.label "Apporteur" %><br />
+                                                <strong><%= f.label "Apporteur(s)" %></strong><br />
                                                 
                                                 <%= f.collection_check_boxes(:contributor, @contributors, :full_name, :full_name) %>
 
@@ -84,8 +88,8 @@
                                 
                                     <div class="col-md-6">
                                         <div class="form-group  collection-check-boxes">
-                                            <%= f.label "Producteur" %><br />
-                                                <%= f.collection_check_boxes(:producer,@producers, :full_name, :full_name) %>
+                                            <strong><%= f.label "Producteur(s)" %></strong><br />
+                                            <%= f.collection_check_boxes(:producer,@producers, :full_name, :full_name) %>
 
                                             <!-- <%= f.collection_select(:producer, @producers, :full_name, :full_name, {prompt: "Producteurs"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %> -->
                                         </div>

@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_company, only: [:show, :edit, :update, :destroy]
-  layout 'dashboard', only: [:edit, :show, :update, :destroy]
+  layout 'dashboard' #, only: [:edit, :show, :update, :destroy]
 
   # GET /companies
   # GET /companies.json
@@ -27,15 +27,18 @@ class CompaniesController < ApplicationController
   # POST /companies
   # POST /companies.json
   def create
-    @company = current_user.build_company(company_params)
+    @company = Company.new(company_params)
 
     respond_to do |format|
       if @company.save
         format.html { redirect_to dashboard_path, notice: 'Company was successfully created.' }
         format.json { render :show, status: :created, location: @company }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @company.errors, status: :unprocessable_entity }
+        format.js
+
       end
     end
   end
@@ -63,6 +66,8 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to companies_url, notice: 'Company was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
+
     end
   end
 
