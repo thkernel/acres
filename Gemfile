@@ -94,3 +94,5 @@ gem 'chosen-rails', '~> 1.8', '>= 1.8.7'
 #gem 'rubyzip', '~> 1.2', '>= 1.2.1'
 #gem 'axlsx', '~> 2.0', '>= 2.0.1'
 #gem 'axlsx_rails', '~> 0.5.2'
+
+gem 'apartment', '~> 2.2'

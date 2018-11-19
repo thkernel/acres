@@ -1,7 +1,7 @@
 <%= form_with(model: company, url: create_company_path, local: true) do |form| %>
-  <ul class="errors">
-
-          							<% company.errors.full_messages.each do |message| %>
+  <div class="modal-body">
+    <ul class="errors">
+          		<% company.errors.full_messages.each do |message| %>
                         				<li><%= message %></li>
                       				<% end %>
         		</ul>
@@ -30,8 +30,9 @@
 		<%= form.label "Votre logo" %>
     	<%= form.file_field :brand, id: :company_brand,  placeholder: "Logo" %>
   </div>
-
-  <div class="form-group">
-    <%= form.submit "Enregistrer", class: "btn btn-primary" %>
-  </div>
+</div><!-- modal body -->
+	<div class="modal-footer">
+		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
+		<%= form.submit "Enregistrer", class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+	</div>
 <% end %>

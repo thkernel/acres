@@ -1,5 +1,15 @@
+# For subdmain.
+class SubdomainConstraint   
+  def self.matches?(request)     
+    request.subdomain.present? && request.subdomain != 'www'   
+  end 
+end 
+
+
 Rails.application.routes.draw do
-  
+  constraints SubdomainConstraint do     
+    resources :banks
+  end 
 
   resources :user_commission_editions
   resources :bank_commission_editions
@@ -36,7 +46,12 @@ Rails.application.routes.draw do
 
   get "/dashboard" => "dashboard#index" , as: :dashboard
   get "/customers" => "customers#index", as: :customers_index
+
+  get "/companies"     => "companies#index", as: :all_companies 
+
+
   get "/users"     => "custom_users#index", as: :all_users 
+
   get "/users/unregistered"     => "custom_users#unregistered", as: :unregistered_commission_percentage 
   
   post "/users/new"     => "custom_users#create", as: :create_user
@@ -139,5 +154,7 @@ Rails.application.routes.draw do
 		end
 	
 
+    
 
 end
+
