@@ -9,10 +9,6 @@ end
 Rails.application.routes.draw do
   constraints SubdomainConstraint do     
     resources :banks
-<<<<<<< HEAD
-
-=======
->>>>>>> 9fa3e4e92465ff80fe9d592d57a16fc03af8ec11
   end 
 
   resources :user_commission_editions
@@ -32,7 +28,12 @@ Rails.application.routes.draw do
   resources :credits
   resources :banks
   resources :profiles
-  #resources :companies
+
+  resources :companies
+
+  resources :companies do
+    get 'delete'
+  end
   resources :customers
 
   resources :customers do
@@ -51,7 +52,7 @@ Rails.application.routes.draw do
   get "/dashboard" => "dashboard#index" , as: :dashboard
   get "/customers" => "customers#index", as: :customers_index
 
-  get "/companies"     => "companies#index", as: :all_companies 
+  #get "/companies"     => "companies#index", as: :all_companies 
 
 
   get "/users"     => "custom_users#index", as: :all_users 
@@ -88,12 +89,12 @@ Rails.application.routes.draw do
 
 
   
-  get "/companies/index" => "companies#index" , as: :companies
-  post "/companies/new/" => "companies#create", as: :create_company
-  get "/companies/new/" => "companies#new", as: :new_company
-  get "/companies/:id" => "companies#show", as: :show_company
-  get "/companies/edit/:id" => "companies#edit", as: :edit_company
-  patch "/companies/:id"  => "companies#update", as: :company
+  #get "/companies/index" => "companies#index" , as: :companies
+  #post "/companies/new/" => "companies#create", as: :create_company
+  #get "/companies/new/" => "companies#new", as: :new_company
+  #get "/companies/:id" => "companies#show", as: :show_company
+  #get "/companies/edit/:id" => "companies#edit", as: :edit_company
+  #patch "/companies/:id"  => "companies#update", as: :company
 
 
 

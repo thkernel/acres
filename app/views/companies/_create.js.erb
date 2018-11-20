@@ -4,7 +4,7 @@ $("ul.errors").html("");
     $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
   <% end %>
 <% else %>
-  $(".company").html("<%= escape_javascript(render 'show') %>");
+  $(".companies").html("<%= escape_javascript(render 'index') %>");
   $("#company-modal").modal("hide");
  
 <% end %>

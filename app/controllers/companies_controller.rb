@@ -31,6 +31,8 @@ class CompaniesController < ApplicationController
 
     respond_to do |format|
       if @company.save
+        @companies = Company.all
+
         format.html { redirect_to dashboard_path, notice: 'Company was successfully created.' }
         format.json { render :show, status: :created, location: @company }
         format.js
@@ -48,6 +50,8 @@ class CompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @company.update(company_params)
+        @companies = Company.all
+
         format.html { redirect_to @company, notice: 'Company was successfully updated.' }
         format.json { render :show, status: :ok, location: @company }
         format.js
@@ -58,12 +62,18 @@ class CompaniesController < ApplicationController
       end
     end
   end
+  def delete
+    #@company = Company.find(params[:company_id])
+    @company = Company.friendly.find(params[:company_id])
+  end
 
   # DELETE /companies/1
   # DELETE /companies/1.json
   def destroy
     @company.destroy
     respond_to do |format|
+      @companies = Company.all
+
       format.html { redirect_to companies_url, notice: 'Company was successfully destroyed.' }
       format.json { head :no_content }
       format.js
