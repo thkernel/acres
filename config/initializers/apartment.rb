@@ -17,7 +17,7 @@ Apartment.configure do |config|
   # A typical example would be a Customer or Tenant model that stores each Tenant's information.
   #
   # config.excluded_models = %w{ Tenant }
-  config.excluded_models = %w{ Company User }
+  config.excluded_models = %w{ Role }
 
   
 
@@ -51,8 +51,8 @@ Apartment.configure do |config|
   #   end
   # end
   #
-  #config.tenant_names = lambda { ToDo_Tenant_Or_User_Model.pluck :database }
-  config.tenant_names = lambda { Company.all.map(&:tenant_name) }
+  config.tenant_names = lambda { Company.pluck :name }
+  #config.tenant_names = lambda { Company.all.map(&:tenant_name) }
 
 
   # PostgreSQL:

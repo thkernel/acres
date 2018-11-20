@@ -9,7 +9,10 @@ end
 Rails.application.routes.draw do
   constraints SubdomainConstraint do     
     resources :banks
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9fa3e4e92465ff80fe9d592d57a16fc03af8ec11
   end 
 
   resources :user_commission_editions

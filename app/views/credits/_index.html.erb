@@ -10,11 +10,13 @@
         <td><%= credit.producer_name %></td>
         <td><%= credit.notary_name %></td>
         <td>
-			<div class="action-buttons">
-				<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_credit_path(credit), title: "Modifier", remote: true %>
-				<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>'), delete_credit_path(credit), remote: true, title: "Supprimer", class: "delete" %>
+          <% if  controller_name == 'credits' %>
+            <div class="action-buttons">
+              <%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_credit_path(credit), title: "Modifier", remote: true %>
+              <%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>'), delete_credit_path(credit), remote: true, title: "Supprimer", class: "delete" %>
 
-			</div>
+            </div>
+          <% end %>
         </td>
         
       </tr>

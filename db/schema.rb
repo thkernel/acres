@@ -279,7 +279,7 @@ ActiveRecord::Schema.define(version: 20180920180417) do
     t.datetime "avatar_updated_at"
     t.string "role", null: false
     t.string "status", default: "enable", null: false
-    t.boolean "receives_notifications", default: true
+    t.boolean "receives_notifications", default: false
     t.bigint "created_by"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
