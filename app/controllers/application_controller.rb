@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
 	
 	  protect_from_forgery with: :exception
 	
-	before_action :configure_permitted_parameters, if: :devise_controller?
-	before_action :set_global
+	#before_action :configure_permitted_parameters, if: :devise_controller?
+	#before_action :set_global
 	
 	after_action :set_mailer_settings
 	# Include Application helper.
@@ -47,17 +47,22 @@ class ApplicationController < ActionController::Base
 
   end
 
+ 
+
   def set_global
 	config_option = ConfigOption.first
 	@app_name = config_option.app_name if config_option.present?
   end
 
-  def configure_super_admin
-	super_admin = SuperAdminConfig.all
+  #def configure_super_admin
+	#super_admin = SuperAdminConfig.all
 
-	unless super_admin.present?
-		redirect_to super_admin_config_path
-	end
-  end
+	#unless super_admin.present?
+		#redirect_to super_admin_config_path
+	#end
+  #end
+
+  #
+	
 	
 end
