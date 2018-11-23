@@ -3,7 +3,8 @@ class DashboardController < ApplicationController
 	before_action :authenticate_user!
 	#before_action :configure_options
 	#before_action :has_company
-	before_action :app_config
+
+	#before_action :app_config
 	layout 'dashboard'
 	
 	def index

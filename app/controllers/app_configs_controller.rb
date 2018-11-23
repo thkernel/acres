@@ -18,8 +18,8 @@ class AppConfigsController < ApplicationController
     if current_user.app_config.present?
       redirect_to dashboard_path
     else
-      @app_config = AppConfig.new
-      @app_config.build_company
+      #@app_config = AppConfig.new
+      #@app_config.build_company
     end
     
   end
