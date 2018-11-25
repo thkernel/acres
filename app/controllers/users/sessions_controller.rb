@@ -51,31 +51,24 @@ class Users::SessionsController < Devise::SessionsController
 
     	# If subdomain.
 		if request.subdomain.present? && request.subdomain != 'www'   
-			
-			  user = User.all
-
-			# If user
-			if user.present?
+		
+			  
 				super_admin = User.find_by_role(ROLE_SUPER_ADMIN)
 
 				unless super_admin.present?
 					redirect_to new_superadmin_path
 				end
-			end
+			
 
 		else
 			
-			# If not subdomain, it's the manager
-			user = User.all
-
-			# If user
-			unless user.present?
+		
 				manager = User.find_by_role(ROLE_MANAGER)
 
 				unless manager.present?
 					redirect_to new_manager_path
 				end
-			end
+			
 		end
     end
     
