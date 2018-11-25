@@ -2,8 +2,8 @@
 <html>
 	<head>
 
-		<% if is_superadmin? %>
-			<title><%= "Tableau de bord - #{@app_name}" %></title>
+		<% if is_superadmin? || is_manager? %>
+			<title><%= "Tableau de bord " %></title>
 		<% else %>
 			<title><%= "Tableau de bord - #{get_app_name(current_user)}" %></title>
 		<% end %>

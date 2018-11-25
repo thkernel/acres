@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company: MyString
+  subdomain: MyString
+  status: false
+
+two:
+  company: MyString
+  subdomain: MyString
+  status: false

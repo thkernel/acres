@@ -6,6 +6,9 @@
 		<%= render "dashboard/partials/contributor-dashboard" %>
 	<% elsif is_producer?(current_user) %>
 		<%= render "dashboard/partials/producer-dashboard" %>
+	<% elsif is_manager? %>
+		<%= render "dashboard/partials/manager-dashboard" %>
+
 <% end %>
 
 

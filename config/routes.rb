@@ -32,9 +32,7 @@ Rails.application.routes.draw do
 
 	resources :companies
 
-	resources :companies do
-		get 'delete'
-	end
+	
 	resources :customers
 
 	resources :customers do
@@ -46,6 +44,10 @@ Rails.application.routes.draw do
 	end
 
 	resources :credits do
+		get 'delete'
+	end
+
+	resources :accounts do
 		get 'delete'
 	end
 
@@ -73,8 +75,12 @@ Rails.application.routes.draw do
 
 	delete "/user/destroy/:id" => "custom_users#destroy", as: :destroy_user
 	get "/credits/delete/:id" => "credits#delete", as: :delete_credit
+	
 	delete "/credits/destroy/:id" => "credits#destroy", as: :destroy_credit
 	get "/user/delete/:id" => "custom_users#delete", as: :delete_user
+
+	get "/accounts/delete/:id" => "accounts#delete", as: :delete_account
+	delete "/accounts/destroy/:id" => "accounts#destroy", as: :destroy_account
 
 	get "/user/enable/:id" => "custom_users#get_enable", as: :get_enable_user_account
 	post "/user/enable/:id" => "custom_users#post_enable", as: :post_enable_user_account
@@ -95,9 +101,10 @@ Rails.application.routes.draw do
 	#get "/companies/index" => "companies#index" , as: :companies
 	#post "/companies/new/" => "companies#create", as: :create_company
 	#get "/companies/new/" => "companies#new", as: :new_company
-	#get "/companies/:id" => "companies#show", as: :show_company
+	get "/companies/:id" => "companies#show", as: :show_company
 	#get "/companies/edit/:id" => "companies#edit", as: :edit_company
 	#patch "/companies/:id"  => "companies#update", as: :company
+
 
 
 
@@ -121,34 +128,19 @@ Rails.application.routes.draw do
 	get 'show/contributor/credit/details/:id' => 'credit_details#contributor_credit_details', as: :show_contributor_credit_details
 
 	#get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
-	get '/superadmin/config' => 'super_admin_configs#new', as: :super_admin_setup
+	get '/manager/new' => 'managers#new', as: :new_manager
+	post "/manager/create"     => "managers#create", as: :create_manager
 
-	get '/app/manager' => 'admins/registrations#new', as: :app_manager_admin
+	get 'superamdin/new'	=>	"superadmins#new", as: :new_superadmin
+	post "/superadmin/create"     => "superadmins#create", as: :create_superadmin
 
-	get '/admin' => 'admins/sessions#new'
 
 	get '/app/config' => 'app_configs#new', as: :app_setup
 	get '/unauthorize' => 'dashboard#unauthorize', as: :unauthorize
 
 
-	devise_for :admins, path: 'admin', controllers: { 
-		sessions: "admins/sessions" ,
-		registrations: "admins/registrations",
-        confirmations: 'admins/confirmations',
-        passwords: "admins/passwords",
-	}, 
-	path_names: {
-		sign_in: 'login', 
-		sign_out: 'logout', 
-		password: 'secret', 
-		confirmation: 'verification', 
-		unlock: 'unblock', 
-		registration: 'signup', 
-		sign_up: '' 
-	}
 
-
-	devise_for :users, path: 'user', controllers: { 
+	devise_for :users, path: '', controllers: { 
         registrations: "users/registrations",
         confirmations: 'users/confirmations',
         passwords: "users/passwords",

@@ -9,11 +9,11 @@
 						<div class="brand">
 							<%= image_tag get_app_logo(current_user).url(:medium) ,  alt: "Logo" %>
 						</div>
-				 <% elsif not_admin_or_superadmin? %>
+				 <% elsif is_contributor?(current_user) || is_producer?(current_user) %>
 						<div class="brand">
 							<%= image_tag get_app_logo(current_user).url(:medium) ,  alt: "Logo" %>
 						</div>
-				 <% elsif is_superadmin? %>
+				 <% elsif is_superadmin? || is_manager? %>
 				   <h1>ACRES</h1>  
 				 <% end %>
 				
@@ -32,6 +32,9 @@
 				<% elsif is_superadmin? %>
 					<!-- Show Superadmin menu -->
 					<%= render 'layouts/partials/dashboard/navs/superadmin-nav' %>
+				<% elsif is_manager? %>
+					<!-- Show Superadmin menu -->
+					<%= render 'layouts/partials/dashboard/navs/manager-nav' %>
 				<% elsif is_producer?(current_user) %>
 					<!-- Show Producer menu -->
 					<%= render 'layouts/partials/dashboard/navs/producer-nav' %>

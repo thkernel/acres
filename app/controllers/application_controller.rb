@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	#before_action :configure_permitted_parameters, if: :devise_controller?
 	#before_action :set_global
 	
-	after_action :set_mailer_settings
+	#after_action :set_mailer_settings
 	# Include Application helper.
 	include ApplicationHelper
  
