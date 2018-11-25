@@ -37,14 +37,9 @@ Crédits'), credits_path %>
 								<li>
 									<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
 								</li>
-								<li>
-									<%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i> Sociétés'), companies_path %>
-								</li>
-							<% end %>
-						<% if is_admin? && current_user.company.present? %>
-							<li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
-									Société'), show_company_path(current_user.company) %>
-							</li>
+								
+							
+						
                             <li>
                                 <%= link_to raw('<i class="fa fa-envelope" aria-hidden="true"></i>Config. messagerie'), mail_settings_path %>
                             </li>

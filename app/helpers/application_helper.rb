@@ -34,6 +34,15 @@ module ApplicationHelper
 
 	end
 
+	def is_manager?
+		if  current_user.role == 'Manager'
+			true
+		else
+			false
+		end
+
+	end
+
 	def not_admin_or_superadmin?
 		if  current_user.role != 'Admin' && current_user.role != 'Superadmin'
 			true
@@ -169,13 +178,13 @@ module ApplicationHelper
 
 	def get_app_logo(user)
 		if is_main_admin?(user)
-			user_app_company = user.app_config.company 
+			user_app_company = user.company 
 			if user_app_company.present?
 				app_logo = user_app_company.brand
 			end
 		else
 			main_admin = User.find_by(id: user.created_by)
-			user_app_company = main_admin.app_config.company 
+			user_app_company = main_admin.company 
 			if user_app_company.present?
 				app_logo = user_app_company.brand
 			end
@@ -185,14 +194,14 @@ module ApplicationHelper
 
 	def get_admin_company(user)
 		if is_main_admin?(user)
-			user_app_company = user.app_config.company 
+			user_app_company = user.company 
 			if user_app_company.present?
 				company = user_app_company
 			end
 		else
 			if false
 				main_admin = User.find_by(id: user.created_by)
-				user_app_company = main_admin.app_config.company if main_admin.app_config.present?
+				user_app_company = main_admin.company if main_admin.present?
 				if user_app_company.present?
 					company = user_app_company
 				end

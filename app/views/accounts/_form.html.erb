@@ -1,0 +1,26 @@
+<%= form_with(model: account, local: false) do |form| %>
+
+<div class="modal-body">
+		
+
+    <ul class="errors">
+			<% @account.errors.full_messages.each do |message| %>
+				<li><%= message %></li>
+			<% end %>
+		</ul>
+
+  <div class="form-group">
+    <%= form.label :company %>
+    <%= form.text_field :company, id: :account_company, class: "form-control", placeholder: "Exemple: COSMOPOL" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :subdomain %>
+    <%= form.text_field :subdomain, id: :account_subdomain , class: "form-control", placeholder: "Exemple: cosmopol"%>
+  </div>
+</div><!-- modal body -->
+	<div class="modal-footer">
+		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
+		<%= form.submit "Enregistrer", class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+	</div>
+<% end %>

@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
 	# User relationships.
 	has_many :logs, dependent: :destroy
-	#has_one :company, dependent: :destroy
+	has_one :company, dependent: :destroy
 	has_one :mail_configuration, dependent: :destroy
 	has_one :commission_setting, dependent: :destroy
 	has_one :profile, dependent: :destroy
@@ -29,6 +29,7 @@ class User < ApplicationRecord
 	has_many :customers, dependent: :destroy
 	has_many :credits, dependent: :destroy
 	has_many :notaries, dependent: :destroy
+	has_many :accounts, dependent: :destroy
 
 
 	

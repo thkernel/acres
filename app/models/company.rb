@@ -1,20 +1,17 @@
 class Company < ApplicationRecord
 	
 
-	after_create :create_tenant 
 
 
 	# FriendlyID, to have nice permalink.
 	extend FriendlyId
 	friendly_id :name, use: :slugged
 	
-	#belongs_to :user
+	belongs_to :user
 	#belongs_to :app_config 
 
-	#has_many :organization_users
-	#has_many :users, through: :organization_users
-
-    validates_presence_of :name
+	
+    validates_presence_of :name, presence: true
 
     # For Paperclip usage
 	has_attached_file :brand, styles: { medium: "300x300>", thumb: "200x200>" }, default_url: "/images/brands/:style/missing.png",  validate_media_type: false
@@ -33,11 +30,5 @@ class Company < ApplicationRecord
 		end
     end
 	
-	def tenant_name
-		self.name
-	end
-
-	def create_tenant 
-		Apartment::Tenant.create(self.tenant_name) 
-	end
+	
 end

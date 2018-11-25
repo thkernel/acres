@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
 
-  before_action :configure_super_admin
+  before_action :app_setup
+  #before_action :superadmin_setup
 
   # GET /resource/sign_in
   # def new
@@ -27,12 +27,49 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
-  def configure_super_admin
-    super_admin = SuperAdminConfig.all
   
-    unless super_admin.present?
-      redirect_to super_admin_setup_path
-    end
+  private
+
+
+  def superadmin_setup 
+
+    user = User.all
+
+	# If user
+	if user.present?
+		super_admin = User.find_by_role(ROLE_SUPER_ADMIN)
+
+		unless super_admin.present?
+			redirect_to new_superadmin_path
+		end
+	end
+
+  end
+
+	# Application setup.
+    def app_setup
+
+    	# If subdomain.
+		if request.subdomain.present? && request.subdomain != 'www'   
+		
+			  
+				super_admin = User.find_by_role(ROLE_SUPER_ADMIN)
+
+				unless super_admin.present?
+					redirect_to new_superadmin_path
+				end
+			
+
+		else
+			
+		
+				manager = User.find_by_role(ROLE_MANAGER)
+
+				unless manager.present?
+					redirect_to new_manager_path
+				end
+			
+		end
     end
     
 end

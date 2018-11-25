@@ -1,13 +1,15 @@
 class DashboardController < ApplicationController
 	
 	before_action :authenticate_user!
-	#before_action :configure_options
-	#before_action :has_company
+	before_action :create_company
 
-	#before_action :app_config
 	layout 'dashboard'
 	
 	def index
+		if is_manager?
+			@accounts = Account.all
+		end
+
 		if current_user.status == 'enable'
 			if current_user.present? && is_producer?(current_user)
 				@producer_name = current_user.full_name
@@ -42,13 +44,15 @@ class DashboardController < ApplicationController
 		else
 			redirect_to unauthorize_path
 		end
+
+		
 	end
 
 	def unauthorize
 		render layout: 'unauthorize'
 	end
 
-	def has_company
+	def create_company
 		if current_user.role == "Admin"  && current_user.company.blank?
 			redirect_to new_company_path
 		end
@@ -75,11 +79,6 @@ class DashboardController < ApplicationController
 	
 
 	
-	#private
-	#def complete_company
-		#if current_user.superadmin? and current_user.company.blank?
-			#redirect_to complete_company_path(current_user)
-		#end
-	#end
+	
 
 end

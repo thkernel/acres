@@ -1,0 +1,10 @@
+$("ul.errors").html("");
+<% if @account.errors.any? %>
+  <% @account.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
+  <% end %>
+<% else %>
+  $(".accounts").html("<%= escape_javascript(render 'index') %>");
+  $("#account-modal").modal("hide");
+ 
+<% end %>

@@ -1,21 +1,22 @@
-<% if @companies %>
-    <% @companies.each do |company| %>
-        <tr>
-            <td><%= company.name %></td>
-            <td><%= company.address %></td>
-            <td><%= company.city %></td>
-            <td><%= company.country %></td>
-            <td><%= company.phone %></td>
+<tr>
+<td class="uppercase">Nom</td>
+<td ><%= get_admin_company(current_user).name  %></td>
+</tr>
 
-            <td>
-                <div class="action-buttons">
-					<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>
-'), edit_company_path(company), title: "Modifier", remote: true %>
-					<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
-'), company_delete_path(company), remote: true, title: "Supprimer", class: "delete" %>
-</div>
-            </td>
-        
-        </tr>
-    <% end %>
-<% end %>
+<tr>
+<td class="uppercase">Adresse</td>
+<td><%= get_admin_company(current_user).address  %></td>
+</tr>
+<tr>
+<td class="uppercase">Ville</td>
+<td><%= get_admin_company(current_user).city %></td>
+</tr>
+<tr>
+<td class="uppercase">Pays</td>
+<td><%= get_admin_company(current_user).country  %></td>
+</tr>
+
+<tr>
+<td class="uppercase">Téléphone</td>
+<td><%= get_admin_company(current_user).phone  %></td>
+</tr>
