@@ -3,6 +3,7 @@
 class Users::SessionsController < Devise::SessionsController
 
   before_action :app_setup
+  before_action :setup_initial_data
   #before_action :superadmin_setup
 
   # GET /resource/sign_in
@@ -70,6 +71,16 @@ class Users::SessionsController < Devise::SessionsController
 				end
 			
 		end
+    end
+
+
+    def setup_initial_data
+
+      roles = Role.all 
+
+      unless roles.present?
+         Role.create([{ name: 'Admin' }, { name: 'Producteur' }, { name: 'Apporteur' }])
+      end
     end
     
 end
