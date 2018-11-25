@@ -11,7 +11,7 @@ set :deploy_to, "/home/ubuntu/acres-app"   # the path to your new deployment dir
 set :rails_env, "production"
 
 #server "51.38.235.131", user: "root", roles: %w{app db web}, ssh_options: {forward_agent: true}
-server "http://gescomph.be", user: "root", roles: %w{app db web}, ssh_options: {forward_agent: true}
+server "gescomph.be", user: "root", roles: %w{app db web}, ssh_options: {forward_agent: true}
 
 
 
