@@ -16,109 +16,113 @@ class Log < ApplicationRecord
 
         record_count = 0
         # Loop all sheet rows
-        sheet.rows.each do |row|
-            # The row return a hash, we save all Hash key in a new Array
-           cell = row.keys
+        puts "Je compte: #{sheet.rows.count}"
+        sheet.rows.each_with_index do |row, index|
 
-           # Insert the line in database,
-           #user = User.new
-           
-           credit = Credit.new 
+            unless index == 0
+                    # The row return a hash, we save all Hash key in a new Array
+                cell = row.keys
 
-
-           # Begin insert a bank, before to insert bank we check if bank exist
-           if row[cell[3]].present?
-                current_customer = Customer.exists(row[cell[3]], user.id)
-                unless current_customer.present?
-                    customer = Customer.new
-                    customer.full_name = row[cell[3]]
-                    customer.user_id = user.id
-                    customer.save
-                end
-            end
-
-
-           # Begin insert a bank, before to insert bank we check if bank exist
-            if row[cell[4]].present?
-                current_bank = Bank.exists(row[cell[4]], user.id)
+                # Insert the line in database,
+                #user = User.new
                 
-                # If bank exist.
-                unless  current_bank.present? 
-                    bank = Bank.new
-                    bank.name = row[cell[4]]
-                    bank.commission_percentage = 0
-                    bank.hypoplus_commission_percentage = 0
-                    bank.user_id = user.id
-                    bank.save
+                credit = Credit.new 
 
+
+                # Begin insert a bank, before to insert bank we check if bank exist
+                if row[cell[3]].present?
+                    current_customer = Customer.exists(row[cell[3]], user.id)
+                    unless current_customer.present?
+                        customer = Customer.new
+                        customer.full_name = row[cell[3]]
+                        customer.user_id = user.id
+                        customer.save
+                    end
                 end
-            end
 
-            # Begin insert a user, before to insert user we check if user exist
-            if row[cell[6]].present?
-               current_contributor = User.is_contributor(row[cell[6]], user.id).present?
 
-                unless current_contributor.present?
+                # Begin insert a bank, before to insert bank we check if bank exist
+                if row[cell[4]].present?
+                    current_bank = Bank.exists(row[cell[4]], user.id)
+                    
+                    # If bank exist.
+                    unless  current_bank.present? 
+                        bank = Bank.new
+                        bank.name = row[cell[4]]
+                        bank.commission_percentage = 0
+                        bank.hypoplus_commission_percentage = 0
+                        bank.user_id = user.id
+                        bank.save
 
-                    contributor = User.new
-                    contributor.full_name = row[cell[6]]
-                    contributor.email =  record_count.to_s + "a@exemple.com"
-                    contributor.password = '12345678'
-                    contributor.password_confirmation = '12345678'
-                    #contributor.login = row[cell[6]].delete('').downcase
-                    contributor.role = "Apporteur"
-                    contributor.created_by = user.id
-                    contributor.save
-
+                    end
                 end
-            end
 
-            if row[cell[7]].present?
-               
-                current_producer = User.is_producer(row[cell[7]], user.id)
-                unless  current_producer.present?
+                # Begin insert a user, before to insert user we check if user exist
+                if row[cell[6]].present?
+                current_contributor = User.is_contributor(row[cell[6]], user.id).present?
 
-                    producer = User.new
-                    producer.full_name = row[cell[7]]
-                    producer.email = record_count.to_s + "p@exemple.com"
-                    producer.password = '12345678'
-                    producer.password_confirmation = '12345678'
-                    #producer.login = row[cell[7]].delete(' ').downcase
-                    producer.role = "Producteur"
-                    producer.created_by = user.id
-                    producer.save
+                    unless current_contributor.present?
 
+                        contributor = User.new
+                        contributor.full_name = row[cell[6]]
+                        contributor.email =  record_count.to_s + "a@exemple.com"
+                        contributor.password = '12345678'
+                        contributor.password_confirmation = '12345678'
+                        #contributor.login = row[cell[6]].delete('').downcase
+                        contributor.role = "Apporteur"
+                        contributor.created_by = user.id
+                        contributor.save
+
+                    end
                 end
-            end
 
-            if row[cell[8]].present?
+                if row[cell[7]].present?
                 
-                current_notary = Notary.is_notary(row[cell[8]], user.id).present?
-                unless  current_notary.present?
-                    notary = Notary.new
-                    notary.full_name = row[cell[8]]
-                    notary.user_id = user.id
-                    notary.save
+                    current_producer = User.is_producer(row[cell[7]], user.id)
+                    unless  current_producer.present?
 
+                        producer = User.new
+                        producer.full_name = row[cell[7]]
+                        producer.email = record_count.to_s + "p@exemple.com"
+                        producer.password = '12345678'
+                        producer.password_confirmation = '12345678'
+                        #producer.login = row[cell[7]].delete(' ').downcase
+                        producer.role = "Producteur"
+                        producer.created_by = user.id
+                        producer.save
+
+                    end
                 end
-            end
+
+                if row[cell[8]].present?
+                    
+                    current_notary = Notary.is_notary(row[cell[8]], user.id).present?
+                    unless  current_notary.present?
+                        notary = Notary.new
+                        notary.full_name = row[cell[8]]
+                        notary.user_id = user.id
+                        notary.save
+
+                    end
+                end
 
 
-           credit.credit_id = row[cell[0]]
-           credit.production_date = row[cell[1]]
-           credit.acte_date = row[cell[2]]
-           credit.customer_name = row[cell[3]]
-           credit.bank_name = row[cell[4]]
-           credit.amount = row[cell[5]]
-           credit.contributor_name = row[cell[6]]
-           credit.producer_name = row[cell[7]]
-           credit.notary_name = row[cell[8]]
-           credit.hypoplus = row[cell[9]]
-           credit.user_id = user.id 
-           credit.save
-           # End saving
-           record_count += 1
-        end   
+                credit.credit_id = row[cell[0]]
+                credit.production_date = row[cell[1]]
+                credit.acte_date = row[cell[2]]
+                credit.customer_name = row[cell[3]]
+                credit.bank_name = row[cell[4]]
+                credit.amount = row[cell[5]]
+                credit.contributor_name = row[cell[6]]
+                credit.producer_name = row[cell[7]]
+                credit.notary_name = row[cell[8]]
+                credit.hypoplus = row[cell[9]]
+                credit.user_id = user.id 
+                credit.save
+                # End saving
+                record_count += 1
+                end
+            end   
 
         log = Log.new
         log.file_name = file.original_filename
