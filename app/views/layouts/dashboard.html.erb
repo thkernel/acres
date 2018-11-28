@@ -30,8 +30,11 @@
 			  <%= render('layouts/partials/dashboard/navbar') %>
 			   <!-- End Left sidebar -->
 				<!-- Left Sidebar -->
+			<% if is_superadmin? %>
+				<%= render('layouts/partials/smtp_alert') %>
+			<% end %>
 		<% if is_admin? %>
-			<%= render('layouts/partials/smtp_alert') %>
+			
 			<%= render('layouts/partials/unregistered_alert') %>
 		<% end %>
 

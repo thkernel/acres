@@ -78,34 +78,23 @@
                       </a>
                 </li>-->
 
-                <!-- User Account Menu -->
-          <li class="dropdown user user-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- The user image in the navbar-->
-              <%= image_tag   current_user.avatar.url(:medium),  alt: "Avatar",  class: "img-fluid rounded-circle" %> 
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-               <span class="hidden-xs"><%= current_user.full_name %></span> 
-            </a>
-            <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-              <li class="user-header">
-               
-              </li>
-              <!-- Menu Body -->
+                
+                  <li class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <%= image_tag current_user.avatar.url(:thumb),  alt: "Avatar",  class: "img-fluid rounded-circle" %> 
+                      <span class="hidden-xss"><%= current_user.full_name %></span>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <%= link_to "Mon compte" , profile_settings_path, class: "dropdown-item" %>
+                    <div class="dropdown-divider"></div>
+                    <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete,  class: "dropdown-item"  %>
+
+                  </div>
+                </li>
               
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                 
-                   <%= link_to "Mon compte" , profile_settings_path, class: "btn btn-primary" %>
-                </div>
-                <div class="pull-right">
-                 <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-danger"  %>
-                </div>
-              </li>
-            </ul>
-          </li>
+
+                <!-- User Account Menu -->
+          
 
 
           
