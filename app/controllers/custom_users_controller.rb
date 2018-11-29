@@ -18,9 +18,9 @@ class CustomUsersController < ApplicationController
         	if @user.save
           		@users = User.find_by_created_by(current_user).where.not(id: current_user)
 
-				format.html { redirect_to users_path, notice: 'User was successfully created.' }
+				format.html { redirect_to all_users_path, notice: 'User was successfully created.' }
 				format.json { render :show, status: :created, location: @contributor }
-				format.js
+				#format.js
 		  
 
 			  	#first_admin = User.where(role: "Admin")
@@ -164,14 +164,18 @@ class CustomUsersController < ApplicationController
     	if @user.destroy
     		@users = User.find_by_created_by(current_user).where.not(id: current_user)
 			respond_to do |format|
-				format.html { redirect_to users_path, notice: 'User skill was successfully destroyed.' }
+				format.html { redirect_to all_users_path, notice: 'User skill was successfully destroyed.' }
 				format.json { head :no_content }
 				format.js
 		
 				# Send mail to user.
 				if @user.receives_notifications == true && @user.status =='enable'
 					url = user_session_url
-					UserMailer.delete_user_mail(@user.email, @user.password, url).deliver_now
+					Thread.new do
+						Rails.application.executor.wrap do
+							UserMailer.delete_user_mail(@user.email, @user.password, url).deliver_now
+						end 
+					end
 				end
 		
 			end
@@ -188,9 +192,9 @@ class CustomUsersController < ApplicationController
 			if @user.update(user_params)
 				@users = User.find_by_created_by(current_user).where.not(id: current_user)
 				
-				format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+				format.html { redirect_to all_users_path, notice: 'User was successfully updated.' }
 				format.json { render :show, status: :ok, location: @user }
-				format.js
+				#format.js
 			
 
 			
