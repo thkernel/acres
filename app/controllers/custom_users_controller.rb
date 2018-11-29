@@ -136,6 +136,12 @@ class CustomUsersController < ApplicationController
 					url = user_session_url
 					UserMailer.enable_user_mail(@user.email, @user.password, url).deliver_now
 				end
+
+				Thread.new do
+					Rails.application.executor.wrap do
+					  # your code here
+					end
+				  end
 			  
 			else
 				format.html { render :edit }
@@ -180,15 +186,24 @@ class CustomUsersController < ApplicationController
 				
 				format.html { redirect_to users_path, notice: 'User was successfully updated.' }
 				format.json { render :show, status: :ok, location: @user }
-				#format.js
+				format.js
 			
-				# Send mail to user.
-				if @user.receives_notifications == true && @user.status =='enable'
-					url = user_session_url
-					UserMailer.edit_user_mail(@user.email, @user.password, url).deliver_now
-				end
+
+			
+
+				  Thread.new do
+					Rails.application.executor.wrap do
+					 # Send mail to user.
+						if @user.receives_notifications == true && @user.status =='enable'
+							url = user_session_url
+							UserMailer.edit_user_mail(@user.email, @user.password, url).deliver_now
+						end
+					end
+				  end
+				  
+				
 			else
-				format.html { redirect_to users_path }
+				format.html { render :edit }
 				format.json { render json: @user.errors, status: :unprocessable_entity }
 				format.js
 			end
