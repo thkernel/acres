@@ -62,7 +62,13 @@ GEM
     autoprefixer-rails (8.5.0)
       execjs
     bcrypt (3.1.11)
+    better_errors (2.5.0)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bindex (0.5.0)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -101,6 +107,7 @@ GEM
       js_regex (~> 2.2)
       rails (>= 5.0.0.1, <= 6.0)
     climate_control (0.2.0)
+    coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -116,6 +123,7 @@ GEM
       rubyzip (>= 1.0.0)
     css_parser (1.6.0)
       addressable
+    debug_inspector (0.0.3)
     devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -308,6 +316,8 @@ PLATFORMS
 DEPENDENCIES
   action_mailer_auto_url_options (~> 1.0, >= 1.0.2)
   apartment (~> 2.2)
+  better_errors
+  binding_of_caller
   bootstrap-sass (~> 3.3.7)
   byebug
   cancancan (~> 2.2)

@@ -96,3 +96,8 @@ gem 'chosen-rails', '~> 1.8', '>= 1.8.7'
 #gem 'axlsx_rails', '~> 0.5.2'
 
 gem 'apartment', '~> 2.2'
+
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
