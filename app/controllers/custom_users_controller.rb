@@ -188,7 +188,7 @@ class CustomUsersController < ApplicationController
 					UserMailer.edit_user_mail(@user.email, @user.password, url).deliver_now
 				end
 			else
-				format.html { render :edit }
+				format.html { redirect_to users_path }
 				format.json { render json: @user.errors, status: :unprocessable_entity }
 				format.js
 			end
