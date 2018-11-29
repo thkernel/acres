@@ -29,7 +29,11 @@ class CustomUsersController < ApplicationController
 				if @user.receives_notifications == true && @user.status =='enable'
 					
 					url = user_session_url
-					UserMailer.new_user_mail(@user.email, @user.password, url).deliver_now
+					Thread.new do
+						Rails.application.executor.wrap do
+							UserMailer.new_user_mail(@user.email, @user.password, url).deliver_now
+						end 
+					end
 					
 				end
         	else
@@ -191,15 +195,17 @@ class CustomUsersController < ApplicationController
 
 			
 
-				  Thread.new do
-					Rails.application.executor.wrap do
-					 # Send mail to user.
-						if @user.receives_notifications == true && @user.status =='enable'
-							url = user_session_url
+				  
+				# Send mail to user.
+				if @user.receives_notifications == true && @user.status =='enable'
+
+					url = user_session_url
+					Thread.new do
+						Rails.application.executor.wrap do
 							UserMailer.edit_user_mail(@user.email, @user.password, url).deliver_now
 						end
 					end
-				  end
+				end
 				  
 				
 			else
