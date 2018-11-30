@@ -164,7 +164,7 @@ class CustomUsersController < ApplicationController
     	if @user.destroy
     		@users = User.find_by_created_by(current_user).where.not(id: current_user)
 			respond_to do |format|
-				format.html { redirect_to all_users_path, notice: 'User skill was successfully destroyed.' }
+				format.html { redirect_to all_users_path, notice: "L'utilisateur a été supprimer avec succès!" }
 				format.json { head :no_content }
 				#format.js
 		
