@@ -166,7 +166,7 @@ class CustomUsersController < ApplicationController
 			respond_to do |format|
 				format.html { redirect_to all_users_path, notice: 'User skill was successfully destroyed.' }
 				format.json { head :no_content }
-				format.js
+				#format.js
 		
 				# Send mail to user.
 				if @user.receives_notifications == true && @user.status =='enable'
