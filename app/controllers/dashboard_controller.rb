@@ -53,7 +53,7 @@ class DashboardController < ApplicationController
 	end
 
 	def create_company
-		if current_user.role == "Admin"  && current_user.company.blank?
+		if current_user.role == "Admin"  && current_user.company.blank? && is_main_admin?(current_user)
 			redirect_to new_company_path
 		end
 	end

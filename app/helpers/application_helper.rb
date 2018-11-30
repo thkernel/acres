@@ -199,13 +199,17 @@ module ApplicationHelper
 				company = user_app_company
 			end
 		else
-			if false
-				main_admin = User.find_by(id: user.created_by)
-				user_app_company = main_admin.company if main_admin.present?
+			
+			main_admin = User.find_by(id: user.created_by)
+
+			if main_admin.present?
+				user_app_company = main_admin.company
+				 
 				if user_app_company.present?
 					company = user_app_company
 				end
 			end
+			
 		end
 	end
 

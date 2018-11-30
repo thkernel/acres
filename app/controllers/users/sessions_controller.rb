@@ -82,5 +82,7 @@ class Users::SessionsController < Devise::SessionsController
          Role.create([{ name: 'Admin' }, { name: 'Producteur' }, { name: 'Apporteur' }])
       end
     end
+
+    
     
 end
