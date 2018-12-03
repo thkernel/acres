@@ -28,13 +28,15 @@
       <!-- <th>Commission apporteur</th> -->
       <th>Com prod</th>
       <!-- <th>Commission banque</th> -->
-      <th>Com nette <%= get_admin_company(current_user).name  unless is_superadmin?%> </th>
+      <th>Com nette <%= current_company.name %> </th>
       <th>Montant empruntés</th>
       
     </tr>
   </thead>
 
   <tbody>
+ 
+
   <% if @commissions.present? %>
     <% @commissions.each do |commission| %>
       <tr>

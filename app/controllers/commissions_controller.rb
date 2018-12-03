@@ -15,6 +15,10 @@ class CommissionsController < ApplicationController
 
 
 	def contributors
+		@total_montant_credit = Commission.all.sum(:amount_credit)
+		@total_commission_apporteur = Commission.all.sum(:contributor_commission)
+		@total_commission_nette_company = Commission.all.sum(:producer_commission)
+		#@total_commission_producteur = Commission.all.sum(:company_commission)
 
 		if current_user.present? && is_contributor?(current_user)
 			@commissions = Commission.where(contributor_name: current_user.full_name)
@@ -41,6 +45,11 @@ class CommissionsController < ApplicationController
 	end
 
 	def producers
+		@total_montant_credit = Commission.all.sum(:amount_credit)
+		#@total_commission_apporteur = Commission.all.sum(:contributor_commission)
+		@total_commission_nette_company = Commission.all.sum(:producer_commission)
+		@total_commission_producteur = Commission.all.sum(:company_commission)
+
 		if current_user.present? && is_producer?(current_user)
 			@commissions = Commission.where(producer_name: current_user.full_name)
 		elsif is_admin?

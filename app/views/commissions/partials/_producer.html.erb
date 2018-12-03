@@ -34,6 +34,18 @@
   </thead>
 
   <tbody>
+
+  <tr>
+                        
+    <td colspan="4" class="text-center"><strong>TOTAUX</strong></td>
+    
+    <td><strong><%= @total_montant_credit %></strong></td>
+    <td colspan="3" class="text-center">
+    <strong><%= @total_commission_producteur %></strong></td>
+    
+          
+    </tr>
+
     <% commissions.each do |commission| %>
       <tr>
         <td><%= commission.acte_date %></td>
