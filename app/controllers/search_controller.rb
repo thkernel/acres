@@ -7,29 +7,29 @@ class SearchController < ApplicationController
   def index
   
     
-    @credits = Credit.where(user_id: get_main_admin(current_user))
+    @credits = Credit.all
 
-    @total_montant_credit = Commission.where(user_id: get_main_admin(current_user)).sum(:amount_credit)
-    @total_commission_apporteur = Commission.where(user_id: get_main_admin(current_user)).sum(:contributor_commission)
-    @total_commission_nette_company = Commission.where(user_id: get_main_admin(current_user)).sum(:producer_commission)
-    @total_commission_producteur = Commission.where(user_id: get_main_admin(current_user)).sum(:company_commission)
+    @total_montant_credit = Commission.all.sum(:amount_credit)
+    @total_commission_apporteur = Commission.all.sum(:contributor_commission)
+    @total_commission_nette_company = Commission.all.sum(:producer_commission)
+    @total_commission_producteur = Commission.all.sum(:company_commission)
 
-    @banks = Bank.where(user_id: get_main_admin(current_user))
-    @contributors = User.find_by_role_and_creator('Apporteur', get_main_admin(current_user))
-    @producers = User.find_by_role_and_creator('Producteur', get_main_admin(current_user))
-    @notaries = Notary.where(user_id: get_main_admin(current_user))
+    @banks = Bank.all
+    @contributors = User.find_by(role: 'Apporteur')
+    @producers = User.find_by(role: 'Producteur')
+    @notaries = Notary.all
   end
 
   def search
-    @total_montant_credit = Commission.where(user_id: get_main_admin(current_user)).sum(:amount_credit)
-    @total_commission_apporteur = Commission.where(user_id: get_main_admin(current_user)).sum(:contributor_commission)
-    @total_commission_nette_company = Commission.where(user_id: get_main_admin(current_user)).sum(:producer_commission)
-    @total_commission_producteur = Commission.where(user_id: get_main_admin(current_user)).sum(:company_commission)
+    @total_montant_credit = Commission.all.sum(:amount_credit)
+    @total_commission_apporteur = Commission.all.sum(:contributor_commission)
+    @total_commission_nette_company = Commission.all.sum(:producer_commission)
+    @total_commission_producteur = Commission.all.sum(:company_commission)
 
-    @banks = Bank.where(user_id: get_main_admin(current_user))
-    @contributors = User.find_by_role_and_creator('Apporteur', get_main_admin(current_user))
-    @producers = User.find_by_role_and_creator('Producteur', get_main_admin(current_user))
-    @notaries = Notary.where(user_id: get_main_admin(current_user))
+    @banks = Bank.all
+    @contributors = User.find_by_role('Apporteur')
+    @producers = User.find_by_role('Producteur')
+    @notaries = Notary.all
 
     bank_name = params[:bank] if params[:bank].present?
     producer_name = params[:producer] if params[:producer].present?

@@ -133,11 +133,27 @@
                                     <th>Prod</th>
                                     <th>% com prod</th>
                                     <th>Com prod</th>
-                                    <th>% com <%= get_admin_company(current_user).name  %></th>
+                                    <th>% com <%= current_company.name  %></th>
                                     <th>Com totale banque</th>
-                                    <th>Com nette <%= get_admin_company(current_user).name  %></th>
+                                    <th>Com nette <%= current_company.name  %></th>
                                    
                                 </tr>
+                                <tr>
+                        
+            <td><strong><%= @total_montant_credit %></strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><strong><%= @total_commission_apporteur %></strong></td>
+            <td></td>
+            <td></td>
+
+            <td><strong><%= @total_commission_producteur %></strong></td>
+            <td></td>
+            <td></td>
+            <td><strong><%= @total_commission_nette_company %></strong></td>
+            
+        </tr>
                             </thead>
                             <tbody class="search-result">
                             

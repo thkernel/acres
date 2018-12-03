@@ -4,7 +4,7 @@ class Customer < ApplicationRecord
 
     # Find bank by name.
 
-    def self.exists(full_name, user_id)
-        where('full_name = ? AND user_id = ?', full_name, user_id)
+    def self.exists(full_name)
+        where('full_name = ?', full_name)
     end
 end
