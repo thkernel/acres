@@ -90,8 +90,8 @@ class CommissionSettingsController < ApplicationController
 		#puts "Profile: " + profile
 
 		# Get company infos required infos for the compute.
-		if  current_user.app_config.company.present?
-			company_name = current_user.app_config.company.name 
+		if  current_company.present?
+			company_name = current_company.name 
 			company_commission_net = 0.0
 			company_commission_percentage = 0.0
 

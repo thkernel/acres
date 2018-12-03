@@ -40,13 +40,13 @@ class User < ApplicationRecord
 	end
 
 	# Find users by roles and authors.
-	def self.is_contributor(full_name, user)
-		where("full_name = ? AND created_by = ? ",  full_name, user)
+	def self.is_contributor(full_name)
+		where("full_name = ? ",  full_name)
 	end
 
 	# Find users by roles and authors.
-	def self.is_producer(full_name, user)
-		where("full_name = ? AND created_by = ? ",  full_name, user)
+	def self.is_producer(full_name)
+		where("full_name = ? ",  full_name)
 	end
 
 	# Find users by authors.
@@ -69,7 +69,9 @@ class User < ApplicationRecord
 	def self.find_user_by_role(role1, role2)
 		where("role = ? OR role = ?", "#{role1}", "#{role2}")
 	end
-
+	def self.find_by_role(role)
+		where("role = ?", "#{role}")
+	end
 
 	# For Paperclip usage
 	has_attached_file :avatar, styles: { medium: "300x300>", thumb: "200x200>" }, default_url: "/images/avatar/:style/missing.png",  validate_media_type: false

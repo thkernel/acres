@@ -38,8 +38,8 @@ class Commission < ApplicationRecord
         
     end
 
-    def self.search_by_bank_and_user(bank_name, user)
-        where('bank_name = ? AND user_id = ?', bank_name, user)
+    def self.search_by_bank(bank_name)
+        where('bank_name = ?', bank_name)
     end
     
 

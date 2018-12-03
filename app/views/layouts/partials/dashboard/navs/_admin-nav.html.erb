@@ -54,23 +54,23 @@ Crédits'), credits_path %>
                 </ul>
 			</li>
 			
-				<% if is_main_admin?(current_user) %>
+				<% if is_admin? %>
 					<li>
 						<a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs" aria-hidden="true"></i>
 						Paramètres</a>
 						<ul id="exampledropdownDropdown" class="collapse list-unstyled">
-							<% if is_admin? %>
+							
 								<li>
 									<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
 								</li>
-							<% end %>
-						<% if is_main_admin?(current_user)  %>
+							
+					
 							<li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
-									Société'), show_company_path(get_admin_company(current_user)) %>
+									Société'), show_company_path(current_company) %>
 							</li>
                             
 							
-					<% end %>
+					
 				</ul>
 			</li>
 		<% end %>

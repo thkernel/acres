@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = get_main_admin(current_user).customers
+    @customers = Customer.all
   end
 
   # GET /customers/1
@@ -30,7 +30,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        @customers = current_user.customers
+        @customers = Customer.all
 
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
@@ -48,7 +48,7 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
-        @customers = current_user.customers
+        @customers = Customer.all
 
         format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }
         format.json { render :show, status: :ok, location: @customer }
@@ -66,7 +66,7 @@ class CustomersController < ApplicationController
   def destroy
     @customer.destroy
     respond_to do |format|
-      @customers = current_user.customers
+      @customers = Customer.all
 
       format.html { redirect_to customers_url, notice: 'Customer was successfully destroyed.' }
       format.json { head :no_content }
