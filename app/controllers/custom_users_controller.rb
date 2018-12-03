@@ -51,8 +51,8 @@ class CustomUsersController < ApplicationController
 			@users = @users.where.not(id: current_user)
       	end
 		if is_superadmin?
-			@users = User.find_by_created_by(current_user)
-			@users = @users.where(role: "Admin")
+			@users = User.all
+			#@users = @users.where(role: "Admin")
 		end
       
     end

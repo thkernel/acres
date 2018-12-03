@@ -6,7 +6,9 @@ class CreditsController < ApplicationController
   # GET /credits
   # GET /credits.json
   def index
-    @credits = current_user.credits
+    if get_main_admin(current_user).credits.present?
+      @credits = get_main_admin(current_user).credits
+    end
   end
 
   # GET /credits/1
