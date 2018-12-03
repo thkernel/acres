@@ -47,12 +47,12 @@ class CustomUsersController < ApplicationController
 	# Index
     def index
     	if is_admin?
-			@users = User.find_by_created_by(get_main_admin(current_user)).where.not(id: get_main_admin(current_user))
+			@users = User.all
 			@users = @users.where.not(id: current_user)
       	end
 		if is_superadmin?
-			@users = User.find_by_created_by(current_user)
-			@users = @users.where(role: "Admin")
+			@users = User.all
+			@users = @users.where.not(id: current_user)
 		end
       
     end

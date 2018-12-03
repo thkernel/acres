@@ -28,14 +28,24 @@
       <th>Banque</th>
       <th>Client</th>
       <th>Montant empruntés</th>
-      <th>% commission</th>
-      <th>Montant commission</th>
+      <th>% com</th>
+      <th>Montant com</th>
       <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
-  
+   <tr>
+                        
+    <td colspan="5" class="text-center"><strong>TOTAUX</strong></td>
+    
+    <td><strong><%= @total_montant_credit %></strong></td>
+    <td colspan="3" class="text-center">
+    <strong><%= @total_commission_apporteur %></strong></td>
+    
+          
+    </tr>
+
     <% if @commissions.present? %>
       <% @commissions.each do |commission| %>
         <tr>
