@@ -22,7 +22,7 @@ class CommissionsController < ApplicationController
 
 		if current_user.present? && is_contributor?(current_user)
 			@commissions = Commission.where(contributor_name: current_user.full_name)
-		elsif is_admin?
+		else
 			#@commissions = current_user.commissions 
 			users = User.where(role: 'Apporteur')
 			
@@ -52,7 +52,7 @@ class CommissionsController < ApplicationController
 
 		if current_user.present? && is_producer?(current_user)
 			@commissions = Commission.where(producer_name: current_user.full_name)
-		elsif is_admin?
+		else
 
 			#@commissions = current_user.commissions 
 			users = User.where(role: 'Producteur')
@@ -74,7 +74,7 @@ class CommissionsController < ApplicationController
 
 	def banks
 		@commissions = Commission.all
-		@commissions = @commissions.where(user_id: get_main_admin(current_user))
+		#@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
 	end
 
