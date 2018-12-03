@@ -242,4 +242,7 @@ module ApplicationHelper
 			false
 		end
 	end
+	def current_company
+		company = Company.first
+	end
 end

@@ -9,11 +9,9 @@ class BanksController < ApplicationController
   # GET /banks
   # GET /banks.json
   def index
-    if is_superadmin?
+   
       @banks = Bank.all
-    else
-      @banks = get_main_admin(current_user).banks
-    end
+    
   end
 
   # GET /banks/1
@@ -33,7 +31,7 @@ class BanksController < ApplicationController
   # POST /banks
   # POST /banks.json
   def create
-    @banks = get_main_admin(current_user).banks
+    @banks = Bank.all
     @bank = current_user.banks.build(bank_params)
 
     respond_to do |format|
@@ -61,9 +59,8 @@ class BanksController < ApplicationController
 		bank_commission_edition.user_id = current_user.id
 		bank_commission_edition.save
 
-        @banks = get_main_admin(current_user).banks
-
-        compute_commission(@bank.name, current_user.id)
+        @banks = Bank.all
+        compute_commission(@bank.name)
 
         format.html { redirect_to @bank, notice: 'Bank was successfully updated.' }
         format.json { render :show, status: :ok, location: @bank }
@@ -83,7 +80,7 @@ class BanksController < ApplicationController
   # DELETE /banks/1
   # DELETE /banks/1.json
   def destroy
-    @banks = get_main_admin(current_user).banks
+    @banks = Bank.all
     @bank.destroy
     
 
@@ -106,21 +103,21 @@ class BanksController < ApplicationController
     end
 
 
-    def compute_commission(bank_name,user_id)
-		bank = Bank.search(bank_name,user_id)
+    def compute_commission(bank_name)
+		bank = Bank.search(bank_name)
 
 		puts "Bank name: " + bank.name
 
 		# Get company infos required infos for the compute.
-		if  current_user.app_config.company.present?
-			company_name = current_user.app_config.company.name 
+		if  current_company.present?
+			company_name = current_company.name 
 			company_commission_net = 0.0
 			company_commission_percentage = 0.0
 
 		end
 
 		# Get contributor required infos for the compute.
-		@bank_commissions = Commission.search_by_bank_and_user(bank_name, user_id)
+		@bank_commissions = Commission.search_by_bank(bank_name)
 
 		# Get bank infos required infos for the compute.
 		
