@@ -39,9 +39,9 @@
                         
     <td colspan="4" class="text-center"><strong>TOTAUX</strong></td>
     
-    <td><strong><%= @total_montant_credit %></strong></td>
+    <td><strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong></td>
     <td colspan="3" class="text-center">
-    <strong><%= @total_commission_producteur %></strong></td>
+    <strong><%= number_to_currency @total_commission_producteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
     
           
     </tr>
@@ -52,8 +52,8 @@
         <td><%= commission.credit_id %></td>
         <td><%= commission.bank_name %></td>
         <td><%= credit_customer_name(commission.credit_id) %></td>
-        <td><%= commission.amount_credit %></td>
-        <td><%= commission.producer_commission %></td>
+        <td><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+        <td><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
         <td>
         <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
 '), show_producer_credit_details_path(commission.credit_id) %>

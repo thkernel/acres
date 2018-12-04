@@ -47,7 +47,7 @@ class CustomUsersController < ApplicationController
 	# Index
     def index
     	if is_admin?
-			@users = User.all
+			@users = User.where.not(role: 'Superadmin')
 			@users = @users.where.not(id: current_user)
       	end
 		if is_superadmin?
@@ -197,8 +197,7 @@ class CustomUsersController < ApplicationController
 				#format.js
 			
 
-			
-
+		
 				  
 				# Send mail to user.
 				if @user.receives_notifications == true && @user.status =='enable'
