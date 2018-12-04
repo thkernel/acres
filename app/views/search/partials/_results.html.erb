@@ -19,8 +19,8 @@
                 <td></td>
                 <% end %>
 
-            <td><%= commission.contributor_commission_percentage %></td>
-            <td><%= commission.contributor_commission %></td>
+            <td><%= number_to_currency commission.contributor_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+            <td><%= number_to_currency commission.contributor_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
             <% if commission.producer_name.present? %>
                     <td><%= link_to "#{commission.producer_name}", producer_resume_path(producer_name: commission.producer_name) %></td>
@@ -28,12 +28,12 @@
                     <td></td>
             <% end %>
 
-            <td><%= commission.producer_commission_percentage %></td>
-            <td><%= commission.producer_commission %></td>
+            <td><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+            <td><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
-            <td><%= commission.company_commission_percentage %></td>
-            <td><%= commission.company_commission %></td>
-            <td><%= commission.bank_commission %></td>
+            <td><%= number_to_currency commission.company_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+            <td><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>
+            <td><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
 
             

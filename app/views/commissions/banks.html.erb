@@ -40,11 +40,11 @@
 					<%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %>
 				<% end %>
 			</td>
-      <td><%= "#{commission.bank_commission_percentage}%" %></td>
+      <td><%= "#{number_to_currency commission.bank_commission_percentage, unit: "", seperator: ",", delimiter: "."}%" %></td>
 
-          	<td><%= commission.bank_commission %></td>
+          	<td><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
            
-        	<td><%= commission.amount_credit %></td>
+        	<td><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
         	
       </tr>
     <% end %>

@@ -140,18 +140,18 @@
                                 </tr>
                                 <tr>
                         
-            <td><strong><%= @total_montant_credit %></strong></td>
+            <td><strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong></td>
             <td></td>
             <td></td>
             <td></td>
-            <td><strong><%= @total_commission_apporteur %></strong></td>
+            <td><strong><%= number_to_currency @total_commission_apporteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
             <td></td>
             <td></td>
 
-            <td><strong><%= @total_commission_producteur %></strong></td>
+            <td><strong><%= number_to_currency @total_commission_producteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
             <td></td>
             <td></td>
-            <td><strong><%= @total_commission_nette_company %></strong></td>
+            <td><strong><%= number_to_currency @total_commission_nette_company, unit: "", seperator: ",", delimiter: "." %></strong></td>
             
         </tr>
                             </thead>
