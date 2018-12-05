@@ -194,7 +194,7 @@ class CustomUsersController < ApplicationController
 				
 				format.html { redirect_to all_users_path, notice: 'User was successfully updated.' }
 				format.json { render :show, status: :ok, location: @user }
-				#format.js
+				format.js
 			
 
 		

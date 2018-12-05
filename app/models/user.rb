@@ -16,7 +16,7 @@ class User < ApplicationRecord
 	validates :full_name, presence: true
 	#validates :login, presence: true
 	#validates :password_confirmation, presence: true, on: :create
-	validates_presence_of :password_confirmation, :if => :password
+	#validates_presence_of :password_confirmation, :if => :password
 	
 
 	# User relationships.
