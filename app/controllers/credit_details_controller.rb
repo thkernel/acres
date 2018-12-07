@@ -74,6 +74,8 @@ class CreditDetailsController < ApplicationController
 		end
 	end
 	@credit_details = CreditDetail.where(creditUid: query).reorder('id ASC')
+	#@credit_details = CreditDetail.where(creditUid: query).reorder('installment_date ASC')
+
   end
 
   def contributor_credit_details
@@ -143,6 +145,8 @@ class CreditDetailsController < ApplicationController
 		end
 	end
 	@credit_details = CreditDetail.where(creditUid: query).reorder('id ASC')
+	#@credit_details = CreditDetail.where(creditUid: query).reorder('installment_date ASC')
+
   end
 
   # GET /credit_details/1
