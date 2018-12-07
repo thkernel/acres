@@ -34,7 +34,7 @@
 		<td><%= bank_commission_edition.created_at %></td>
 		<td><%= bank_commission_edition.created_at %></td>
 		<td><%= bank_name(bank_commission_edition.bank_id) %></td>		
-        <td><%= bank_commission_edition.new_value %></td>
+    <td><%= "#{number_to_currency bank_commission_edition.new_value , unit: "", seperator: ",", delimiter: "." } %"  %></td>
         <td>
 		
 			<% if completed?(bank_commission_edition.completed) %>

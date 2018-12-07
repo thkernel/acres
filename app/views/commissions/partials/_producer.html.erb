@@ -27,7 +27,8 @@
       <th>Numéro dossier</th>
       <th>Banque</th>
       <th>Client</th>
-      <th>Montant empruntés</th>
+      <th>Montant emprunté</th>
+      <th>% com</th>
       <th>Montant commission</th>
       <th>Actions</th>
     </tr>
@@ -35,24 +36,39 @@
 
   <tbody>
 
-  <tr>
+  
+
+    <% commissions.each_with_index do |commission, index| %>
+
+  <% if index == 0 %>
+    <tr>
                         
-    <td colspan="4" class="text-center"><strong>TOTAUX</strong></td>
+    <td  class="text-center"><strong></strong></td>
+    <td></td>
+        <td></td>
+    <td></td>
     
+
     <td><strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong></td>
-    <td colspan="3" class="text-center">
+        <td></td>
+
+    <td  class="text-center">
     <strong><%= number_to_currency @total_commission_producteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
     
-          
+              <td></td>
+
     </tr>
 
-    <% commissions.each do |commission| %>
+<% end %>
+
       <tr>
         <td><%= commission.acte_date %></td>
         <td><%= commission.credit_id %></td>
         <td><%= commission.bank_name %></td>
         <td><%= credit_customer_name(commission.credit_id) %></td>
         <td><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+        <td><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+
         <td><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
         <td>
         <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>

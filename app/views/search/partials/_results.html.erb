@@ -6,7 +6,7 @@
     <% @commissions.each do |commission| %>
         <tr>
         
-            <td><%= commission.amount_credit %></td>
+            <td><%= number_to_currency commission.amount_credit , unit: "", seperator: ",", delimiter: "."  %></td>
             <% if commission.bank_name.present? %>
                 <td><%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %></td>
                 <% else %>
@@ -32,7 +32,7 @@
             <td><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
             <td><%= number_to_currency commission.company_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
-                        <td><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
+            <td><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
             <td><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>
 

@@ -188,7 +188,13 @@ class CustomUsersController < ApplicationController
     # # PATCH/PUT /users/1
     # # PATCH/PUT /users/1.json
     def update
-    	respond_to do |format|
+		respond_to do |format|
+			
+			if params[:user][:password].blank? #&& params[:user][:password_confirmation].blank?
+				params[:user].delete(:password)
+				params[:user].delete(:password_confirmation)
+			end
+
 			if @user.update(user_params)
 				@users = User.find_by_created_by(current_user).where.not(id: current_user)
 				
@@ -231,7 +237,7 @@ class CustomUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:full_name,  :email, :password, :password_confirmation, :role, :receives_notifications)
+      params.require(:user).permit(:full_name,  :email, :password,:password_confirmation, :role, :receives_notifications)
     end
 
 end

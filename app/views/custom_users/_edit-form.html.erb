@@ -37,6 +37,10 @@
 										<% end %><br />
 										<%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Mot de passe" %>
 									</div>
+									<div class="form-group">
+										<%= f.label :password_confirmation %><br />
+										<%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirmation du mot de passe" %>
+									</div>
 								
 									
 									<div class="form-group">

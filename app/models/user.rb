@@ -7,7 +7,7 @@ class User < ApplicationRecord
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
 	devise :database_authenticatable, :registerable,
-	:recoverable, :rememberable, :trackable #, :validatable
+	:recoverable, :rememberable, :trackable , :validatable
 
 
 	# Fields validations.
@@ -39,6 +39,10 @@ class User < ApplicationRecord
 	# Find users by roles and authors.
 	def self.find_by_role_and_creator(role, user)
 		where("role = ? AND created_by = ?", "#{role}", user)
+	end
+
+	def self.find_user_by_name_and_role(name, role)
+		where("full_name = ? AND role = ?", "#{name}", role)
 	end
 
 	# Find users by roles and authors.
