@@ -38,24 +38,7 @@
   </thead>
 
   <tbody>
-  	<tr>
-                        
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong></td>
-            <td></td>
-            <td><strong><%= number_to_currency @total_commission_apporteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
-            <td></td>
-
-            <td><strong><%= number_to_currency @total_commission_producteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
-            <td></td>
-            <td></td>
-			      <td></td>
-
-            <td><strong><%= number_to_currency @total_commission_nette_company, unit: "", seperator: ",", delimiter: "." %></strong></td>
-            
-        </tr>
+  	
 
     <% @commissions.each do |commission| %>
 
@@ -80,6 +63,27 @@
       </tr>
     <% end %>
   </tbody>
+
+  <tfoot class="tfooter">
+		<tr>
+                        
+            <th>TOTAUX</th>
+            <th></th>
+            <th></th>
+            <th><strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong></th>
+            <th></th>
+            <th><strong><%= number_to_currency @total_commission_apporteur, unit: "", seperator: ",", delimiter: "." %></strong></th>
+            <th></th>
+
+            <th><strong><%= number_to_currency @total_commission_producteur, unit: "", seperator: ",", delimiter: "." %></strong></th>
+            <th></th>
+            <th></th>
+			      <th></th>
+
+            <th><strong><%= number_to_currency @total_commission_nette_company, unit: "", seperator: ",", delimiter: "." %></strong></th>
+            
+        </tr>
+	</tfoot>
 </table>
 
 </div>
