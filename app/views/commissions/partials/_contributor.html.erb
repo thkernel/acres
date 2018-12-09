@@ -35,16 +35,7 @@
   </thead>
 
   <tbody>
-   <tr>
-                        
-    <td colspan="5" class="text-center"><strong>TOTAUX</strong></td>
-    
-    <td><strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong></td>
-    <td colspan="3" class="text-center">
-    <strong><%= number_to_currency @total_commission_apporteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
-    
-          
-    </tr>
+   
 
     <% if @commissions.present? %>
       <% @commissions.each do |commission| %>
@@ -65,6 +56,27 @@
 	  <% end %>
 	<% end %>
   </tbody>
+  <tfoot class="tfooter">
+		<tr>
+      <th>TOTAUX</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>
+
+      </th>
+      <th>
+        <strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong>
+
+      </th>
+    <th></th>
+    <th>
+        <strong><%= number_to_currency @total_commission_apporteur, unit: "", seperator: ",", delimiter: "." %></strong>
+
+    </th>
+    <th></th>
+    </tr>
+	</tfoot>
 </table>
 
 </div>

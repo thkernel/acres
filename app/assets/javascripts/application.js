@@ -32,7 +32,10 @@ $(document).on('turbolinks:load', function() {
     $('#table-list').DataTable({
         dom: 'Bfrtip',
         buttons: [
-            'csv', 'excel', 'pdf', 'print'
+            { extend: 'copyHtml5', footer: true },
+            { extend: 'excelHtml5', footer: true },
+            { extend: 'csvHtml5', footer: true },
+            { extend: 'pdfHtml5', footer: true }
         ],
         language: {
             processing: "Traitement en cours...",

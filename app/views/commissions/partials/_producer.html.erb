@@ -38,28 +38,9 @@
 
   
 
-    <% commissions.each_with_index do |commission, index| %>
+    <% commissions.each do |commission| %>
 
-  <% if index == 0 %>
-    <tr>
-                        
-    <td  class="text-center"><strong></strong></td>
-    <td></td>
-        <td></td>
-    <td></td>
-    
-
-    <td><strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong></td>
-        <td></td>
-
-    <td  class="text-center">
-    <strong><%= number_to_currency @total_commission_producteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
-    
-              <td></td>
-
-    </tr>
-
-<% end %>
+  
 
       <tr>
         <td><%= commission.acte_date %></td>
@@ -77,6 +58,25 @@
       </tr>
     <% end %>
   </tbody>
+  <tfoot class="tfooter">
+		<tr>
+      <th>TOTAUX</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      
+      <th>
+        <strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong>
+
+      </th>
+    <th></th>
+    <th>
+        <strong><%= number_to_currency @total_commission_producteur, unit: "", seperator: ",", delimiter: "." %></strong>
+
+    </th>
+    <th></th>
+    </tr>
+	</tfoot>
 </table>
 
 </div>
