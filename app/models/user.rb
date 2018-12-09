@@ -15,7 +15,7 @@ class User < ApplicationRecord
 	validates :role, presence: true
 	validates :full_name, presence: true
 	#validates :login, presence: true
-	validates :password_confirmation, presence: true, on: :create
+	#validates :password_confirmation, presence: true, on: :create
 	#validates_presence_of :password_confirmation, :if => :password
 	
 
@@ -39,6 +39,10 @@ class User < ApplicationRecord
 	# Find users by roles and authors.
 	def self.find_by_role_and_creator(role, user)
 		where("role = ? AND created_by = ?", "#{role}", user)
+	end
+
+	def self.find_user_by_name_and_role(name, role)
+		where("full_name = ? AND role = ?", "#{name}", role)
 	end
 
 	# Find users by roles and authors.
