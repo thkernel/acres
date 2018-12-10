@@ -33,7 +33,6 @@ $(document).on('turbolinks:load', function() {
         dom: 'Bfrtip',
         buttons: [
             { extend: 'copyHtml5', footer: true },
-            { extend: 'excelHtml5', footer: true },
             { extend: 'csvHtml5', footer: true },
             { extend: 'pdfHtml5', footer: true }
         ],
