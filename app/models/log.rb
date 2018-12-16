@@ -76,7 +76,7 @@ class Log < ApplicationRecord
                         #Add conritbutor config.
                         commission_setting = CommissionSetting.new
                         commission_setting.commission_percentage = 0.3
-                        commission_setting.user_id = conritbutor.id
+                        commission_setting.user_id = contributor.id
                         commission_setting.save
 
                     end
