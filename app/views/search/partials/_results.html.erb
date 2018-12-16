@@ -7,11 +7,18 @@
         <tr>
         
             <td><%= number_to_currency commission.amount_credit , unit: "", seperator: ",", delimiter: "."  %></td>
+            <td>
+                <%= commission.production_date %>
+            </td>
+            <td>
+                <%= commission.acte_date %>
+            </td>
             <% if commission.bank_name.present? %>
                 <td><%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %></td>
                 <% else %>
-                <td></td>
-                <% end %>
+                    <td></td>
+            <% end %>
+            
 
             <% if commission.contributor_name.present? %>
                 <td><%= link_to "#{commission.contributor_name}", contributor_resume_path(contributor_name: commission.contributor_name) %></td>

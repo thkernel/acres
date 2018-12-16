@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container-fluid">
     <section class="content-header">
         <h1>
-            Rechercher         
+            Statistiques
                     
         </h1>
 	</section>
@@ -126,6 +126,8 @@
                                 <tr>
                         
                                     <th>Montant emprunté</th>
+                                    <th>Date pro</th>
+                                    <th>Date acte</th>
                                     <th>Banque</th>
                                     <th>Appo</th>
                                     <th>% com appo</th>
@@ -145,22 +147,8 @@
                                 <%= render("search/partials/results") %>
                             </tbody>
                            <tfoot class="tfooter">
-                                <tr>
-                        
-                                    <td><strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong><%= number_to_currency @total_commission_apporteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
-                                    <td></td>
-                                    <td></td>
+                                <%= render("search/partials/tfooter") %>
 
-                                    <td><strong><%= number_to_currency @total_commission_producteur, unit: "", seperator: ",", delimiter: "." %></strong></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong><%= number_to_currency @total_commission_nette_company, unit: "", seperator: ",", delimiter: "." %></strong></td>
-                                    
-                                </tr>
                             </tfoot>
                         </table>
             	    <div>

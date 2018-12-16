@@ -21,10 +21,7 @@ class SearchController < ApplicationController
   end
 
   def search
-    @total_montant_credit = Commission.all.sum(:amount_credit)
-    @total_commission_apporteur = Commission.all.sum(:contributor_commission)
-    @total_commission_nette_company = Commission.all.sum(:producer_commission)
-    @total_commission_producteur = Commission.all.sum(:company_commission)
+   
 
     @banks = Bank.all
     @contributors = User.find_by_role('Apporteur')
@@ -55,9 +52,16 @@ class SearchController < ApplicationController
 
     @commissions = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary, get_main_admin(current_user))#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
 
+
+    @total_montant_credit = @commissions.sum(:amount_credit)
+    @total_commission_apporteur = @commissions.sum(:contributor_commission)
+    @total_commission_nette_company = @commissions.sum(:producer_commission)
+    @total_commission_producteur = @commissions.sum(:company_commission)
+
+
     respond_to do |format|
       format.html { }
-      format.xls
+     
       format.json {  }
       format.js
     end

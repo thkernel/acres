@@ -153,7 +153,7 @@ class BanksController < ApplicationController
   
       # Get company infos required infos for the compute.
       if  current_company.present?
-        company_name = current_company.name 
+        company_name = current_company.name.upcase 
         company_commission_net = 0.0
         company_commission_percentage = 0.0
   
@@ -172,8 +172,8 @@ class BanksController < ApplicationController
       
         # Loop all commissions.
         @bank_commissions.each do |commission|
-          contributor_name = commission.contributor_name 
-          producer_name = commission.producer_name
+          contributor_name = commission.contributor_name.upcase
+          producer_name = commission.producer_name.upcase
   
           if contributor_name.present?
 

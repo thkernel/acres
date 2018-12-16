@@ -16,6 +16,7 @@ module ApplicationHelper
 	    @devise_mapping ||= Devise.mappings[:user]
 	end
 	
+	
 	def is_admin?
 		if  current_user.role == 'Admin'
 			true
@@ -176,19 +177,13 @@ module ApplicationHelper
 		end
 	end
 
-	def get_app_logo(user)
-		if is_main_admin?(user)
-			user_app_company = user.company 
-			if user_app_company.present?
-				app_logo = user_app_company.brand
-			end
-		else
-			main_admin = User.find_by(id: user.created_by)
-			user_app_company = main_admin.company 
-			if user_app_company.present?
-				app_logo = user_app_company.brand
-			end
+	def current_company
+	
+		company = Company.take
+		if company.present?
+			company
 		end
+		
 	end
 
 
