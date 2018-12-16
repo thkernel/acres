@@ -131,7 +131,7 @@ Rails.application.routes.draw do
 	get '/manager/new' => 'managers#new', as: :new_manager
 	post "/manager/create"     => "managers#create", as: :create_manager
 
-	get 'superamdin/new'	=>	"superadmins#new", as: :new_superadmin
+	get 'superadmin/new'	=>	"superadmins#new", as: :new_superadmin
 	post "/superadmin/create"     => "superadmins#create", as: :create_superadmin
 
 

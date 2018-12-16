@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 	
 	#before_action :configure_permitted_parameters, if: :devise_controller?
 	#before_action :set_global
+	#before_action :app_setup
 	
 	#after_action :set_mailer_settings
 	# Include Application helper.
@@ -62,7 +63,35 @@ class ApplicationController < ActionController::Base
 	#end
   #end
 
-  #
+	#
 	
+
+	
+
+	# Application setup.
+    def app_setup
+
+    	# If subdomain.
+      if request.subdomain.present? && request.subdomain != 'www'   
+          super_admin = User.find_by_superadmin("Superadmin")
+
+          #puts "Users:  #{super_admin}"
+        puts "Current sub: #{Apartment::Tenant.current}"
+
+          unless super_admin.present?
+            redirect_to new_superadmin_path
+          end
+        
+
+      else
+        
+          manager = User.find_by_role(ROLE_MANAGER)
+
+          unless manager.present?
+            redirect_to new_manager_path
+          end
+        
+      end
+    end
 	
 end
