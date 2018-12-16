@@ -79,6 +79,10 @@ class User < ApplicationRecord
 		where("role = ?", "#{role}")
 	end
 
+	def self.find_by_superadmin(role)
+		where("role = ?", "#{role}").take
+	end
+
 	# For Paperclip usage
 	has_attached_file :avatar, styles: { medium: "300x300>", thumb: "200x200>" }, default_url: "/images/avatar/:style/missing.png",  validate_media_type: false
 	validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/

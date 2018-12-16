@@ -18,6 +18,7 @@ Apartment.configure do |config|
   #
   # config.excluded_models = %w{ Tenant }
   config.excluded_models = %w{ Account }
+  
 
   
 
@@ -109,6 +110,7 @@ end
 # }
 
 # Rails.application.config.middleware.use Apartment::Elevators::Domain
-Rails.application.config.middleware.use Apartment::Elevators::Subdomain
+Rails.application.config.middleware.insert_before Warden::Manager, Apartment::Elevators::Subdomain
+#Rails.application.config.middleware.use Apartment::Elevators::Subdomain
 # Rails.application.config.middleware.use Apartment::Elevators::FirstSubdomain
 # Rails.application.config.middleware.use Apartment::Elevators::Host

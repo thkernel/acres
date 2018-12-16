@@ -3,6 +3,8 @@
 class Users::SessionsController < Devise::SessionsController
 
   before_action :app_setup
+  
+  #after_action :app_setup
   before_action :setup_initial_data
   #before_action :superadmin_setup
 
@@ -51,26 +53,26 @@ class Users::SessionsController < Devise::SessionsController
     def app_setup
 
     	# If subdomain.
-		if request.subdomain.present? && request.subdomain != 'www'   
-		
-			  
-				super_admin = User.find_by_role(ROLE_SUPER_ADMIN)
+      if request.subdomain.present? && request.subdomain != 'www'   
+          super_admin = User.find_by_superadmin("Superadmin")
 
-				unless super_admin.present?
-					redirect_to new_superadmin_path
-				end
-			
+          puts "Users:  #{super_admin}"
+        puts "Current sub: #{Apartment::Tenant.current}"
 
-		else
-			
-		
-				manager = User.find_by_role(ROLE_MANAGER)
+          unless super_admin.present?
+            redirect_to new_superadmin_path
+          end
+        
 
-				unless manager.present?
-					redirect_to new_manager_path
-				end
-			
-		end
+      else
+        
+          manager = User.find_by_role(ROLE_MANAGER)
+
+          unless manager.present?
+            redirect_to new_manager_path
+          end
+        
+      end
     end
 
 
