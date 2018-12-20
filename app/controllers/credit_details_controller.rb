@@ -102,6 +102,7 @@ class CreditDetailsController < ApplicationController
 					contributor_commission = @commission.contributor_commission 
 					remaining_installment = 100 - bank_first_installment
 
+					if bank_number_of_dates.present? && bank_first_installment.present? && contributor_commission.present?
 					if bank_number_of_dates > 0 && bank_first_installment > 0 && contributor_commission > 0.0
 						
 						first_installment_commission = (contributor_commission  * bank_first_installment)/100
@@ -140,6 +141,7 @@ class CreditDetailsController < ApplicationController
 
 						end
 					end
+				end
 				end
 			end	
 		end
