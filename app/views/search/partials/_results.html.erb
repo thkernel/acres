@@ -18,7 +18,8 @@
                 <% else %>
                     <td></td>
             <% end %>
-            
+            <td><%= credit_customer_name(commission.credit_id) %></td>
+
 
             <% if commission.contributor_name.present? %>
                 <td><%= link_to "#{commission.contributor_name}", contributor_resume_path(contributor_name: commission.contributor_name) %></td>
@@ -26,8 +27,8 @@
                 <td></td>
                 <% end %>
 
-            <td><%= number_to_currency commission.contributor_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
-            <td><%= number_to_currency commission.contributor_commission, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="hidable"><%= number_to_currency commission.contributor_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="hidable"><%= number_to_currency commission.contributor_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
             <% if commission.producer_name.present? %>
                     <td><%= link_to "#{commission.producer_name}", producer_resume_path(producer_name: commission.producer_name) %></td>
@@ -35,8 +36,8 @@
                     <td></td>
             <% end %>
 
-            <td><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
-            <td><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="hidable"><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="hidable"><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
             <td><%= number_to_currency commission.company_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
             <td><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
