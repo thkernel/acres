@@ -103,49 +103,8 @@ class BanksController < ApplicationController
     end
 
 
-    def compute_commissionsss(bank_name)
-      bank = Bank.search(bank_name)
-
-      puts "Bank name: " + bank.name
-
-      # Get company infos required infos for the compute.
-      if  current_company.present?
-        company_name = current_company.name 
-        company_commission_net = 0.0
-        company_commission_percentage = 0.0
-
-      end
-
-      # Get contributor required infos for the compute.
-      @bank_commissions = Commission.search_by_bank(bank_name)
-
-      # Get bank infos required infos for the compute.
-      
-      if bank.present? && bank.commission_percentage.present?
-        bank_commission_percentage = bank.commission_percentage 
-        bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
-        bank_amount_commission = 0.0
-      end
-      
-      
-      # Loop all commissions.
-      @bank_commissions.each do |commission|
-      
-        if commission.amount_credit.present?
-          credit_amount = commission.amount_credit 
-        end
-
-        bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-        # Saving.
-        commission.bank_commission = bank_amount_commission
-        commission.bank_commission_percentage = bank_commission_percentage
-        commission.user_id = current_user.id
-        commission.save
-      end
-    end
-
-
-
+  
+  
 
     def compute_commission(bank_id)
       bank = Bank.find(bank_id)
@@ -203,8 +162,39 @@ class BanksController < ApplicationController
         if commission.amount_credit.present?
           credit_amount = commission.amount_credit 
         end
+<<<<<<< HEAD
+        
+        if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
+          #
+          if producer_name.present? && producer_hypoplus_commission_percentage.present? && producer_name == company_name || company_name.blank?
+            contributor_commission_percentage = 0.0 
+            contributor_commission = 0.0
+
+            
+            bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
+            producer_commission = (bank_amount_commission) / 2
+
+            company_commission_net = (bank_amount_commission) / 2
+            company_commission_percentage = (company_commission_net / credit_amount) * 100
+      
+
+          else
+            contributor_commission_percentage = 0.0 
+            contributor_commission = 0.0
+
+            
+            bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
+            producer_commission = 0.0
+
+            company_commission_net = bank_amount_commission
+            company_commission_percentage = (company_commission_net / credit_amount) * 100
+      
+          end
+
+=======
   
         if bank_hypoplus_commission_percentage.presente? && bank_hypoplus_commission_percentage > 0.0
+>>>>>>> 84fa6a7ef644579e46e0b79bc0f7a6b16c3263e9
 
         else
             # Rule 1
@@ -224,6 +214,11 @@ class BanksController < ApplicationController
               if contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
       
                 contributor_commission = 0.0
+<<<<<<< HEAD
+                contributor_commission_percentage = 0.0
+
+=======
+>>>>>>> 84fa6a7ef644579e46e0b79bc0f7a6b16c3263e9
                 producer_commission = (credit_amount * producer_commission_percentage) / 100
                 bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                 company_commission_net = bank_amount_commission - producer_commission - contributor_commission
@@ -236,6 +231,20 @@ class BanksController < ApplicationController
             # Rule 3 
             if contributor_name.present? && contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
               if contributor_name != producer_name  && contributor_name != company_name 
+<<<<<<< HEAD
+                if producer_name == company_name || producer_name.blank?
+                  producer_commission = (credit_amount * producer_commission_percentage) / 100
+                  bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                  company_commission_net = bank_amount_commission - producer_commission 
+                  contributor_commission = (company_commission_net / 2 )+ (producer_commission / 2)
+                  company_commission_percentage = (company_commission_net / credit_amount) * 100
+                end
+      
+              end
+            end
+      
+          end
+=======
                 
                 producer_commission = (credit_amount * producer_commission_percentage) / 100
                 bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
@@ -255,7 +264,9 @@ class BanksController < ApplicationController
   
         
   
+>>>>>>> 84fa6a7ef644579e46e0b79bc0f7a6b16c3263e9
         # Saving.
+        commission.customer_id = contributor_commission
         commission.contributor_commission = contributor_commission
         commission.contributor_commission_percentage = contributor_commission_percentage
         commission.producer_commission = producer_commission

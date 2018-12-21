@@ -118,7 +118,9 @@ module ApplicationHelper
 
 	def credit_customer_name(credit_id)
 		credit = Credit.find_by(credit_id: credit_id)
-		credit.customer_name if credit.present?
+		if credit.present?
+			credit.customer_name 
+		end
 	end
 
 	def unregistered_commission_percentage?
