@@ -162,6 +162,7 @@ class BanksController < ApplicationController
         if commission.amount_credit.present?
           credit_amount = commission.amount_credit 
         end
+<<<<<<< HEAD
         
         if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
           #
@@ -190,6 +191,10 @@ class BanksController < ApplicationController
       
           end
 
+=======
+  
+        if bank_hypoplus_commission_percentage.presente? && bank_hypoplus_commission_percentage > 0.0
+>>>>>>> 84fa6a7ef644579e46e0b79bc0f7a6b16c3263e9
 
         else
             # Rule 1
@@ -209,8 +214,11 @@ class BanksController < ApplicationController
               if contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
       
                 contributor_commission = 0.0
+<<<<<<< HEAD
                 contributor_commission_percentage = 0.0
 
+=======
+>>>>>>> 84fa6a7ef644579e46e0b79bc0f7a6b16c3263e9
                 producer_commission = (credit_amount * producer_commission_percentage) / 100
                 bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                 company_commission_net = bank_amount_commission - producer_commission - contributor_commission
@@ -223,6 +231,7 @@ class BanksController < ApplicationController
             # Rule 3 
             if contributor_name.present? && contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
               if contributor_name != producer_name  && contributor_name != company_name 
+<<<<<<< HEAD
                 if producer_name == company_name || producer_name.blank?
                   producer_commission = (credit_amount * producer_commission_percentage) / 100
                   bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
@@ -235,6 +244,27 @@ class BanksController < ApplicationController
             end
       
           end
+=======
+                
+                producer_commission = (credit_amount * producer_commission_percentage) / 100
+                bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                company_commission_net = bank_amount_commission - producer_commission 
+                contributor_commission = (company_commission_net / 2 )+ (producer_commission / 2)
+                company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+              else
+                
+      
+              end
+      
+             
+            end
+        end
+        
+  
+        
+  
+>>>>>>> 84fa6a7ef644579e46e0b79bc0f7a6b16c3263e9
         # Saving.
         commission.customer_id = contributor_commission
         commission.contributor_commission = contributor_commission
