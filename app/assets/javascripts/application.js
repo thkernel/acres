@@ -141,3 +141,14 @@ $(document).on('turbolinks:load',function() {
        // oTable.ajax.reload(null, true);
     });
 });
+
+$(document).on("turbolinks:before-cache", function() {
+    var dataTable = $('#table-list').DataTable();
+
+
+  if (dataTable !== null) {
+   dataTable.destroy();
+   dataTable = null;
+   
+  }
+});
