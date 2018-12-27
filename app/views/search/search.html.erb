@@ -5,6 +5,12 @@
                     
         </h1>
 	</section>
+    <section>
+        <label for="chkHiddable">
+            <input type="checkbox" id="chkHiddable" />
+            Masquer?
+        </label>
+    </section>
 	
     <section class="content">
         <div class="row">
@@ -107,7 +113,7 @@
                             <div class="row lr-margin">
                                 <div class="col-md-12">
                                     <div class="form-group search-btn">
-                                        <%= f.submit "Rechercher", class: "btn btn-primary btn-block" %>
+                                        <%= f.submit "Rechercher", class: "btn btn-primary btn-block", :id => "search-button" %>
                                     </div>
                                 </div>
                             </div>
@@ -119,39 +125,11 @@
                     <p>
                     </p>
                     </div>
-                <div class="panel panel-default">
+                <div class="panel panel-default ">
               	    <div class="panel-body">
-                        <table id="table-list" class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                        
-                                    <th>Montant emprunté</th>
-                                    <th>Date pro</th>
-                                    <th>Date acte</th>
-                                    <th>Banque</th>
-                                    <th>Client</th>
-                                    <th >Appo</th>
-                                    <th class="hidable">% com appo</th>
-                                    <th class="hidable">Com appo</th>
-                                    <th>Prod</th>
-                                    <th class="hidable">% com prod</th>
-                                    <th class="hidable">Com prod</th>
-                                    <th>% com <%= current_company.name  %></th>
-                                    <th>Com totale banque</th>
-                                    <th>Com nette <%= current_company.name  %></th>
-                                   
-                                </tr>
-                               
-                            </thead>
-                            <tbody class="search-result">
-                            
-                                <%= render("search/partials/results") %>
-                            </tbody>
-                           <tfoot class="tfooter">
-                                <%= render("search/partials/tfooter") %>
-
-                            </tfoot>
-                        </table>
+                      <div class="search-result">
+                        <%= render("search/partials/table") %>
+                        </div>
             	    <div>
       		    </div>    
     	    </div>

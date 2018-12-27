@@ -30,6 +30,7 @@
 $(document).on('turbolinks:load', function() {
     // For fixed width containers
     $('#table-list').DataTable({
+       
         dom: 'Bfrtip',
         buttons: [
             { extend: 'copyHtml5', footer: true },
@@ -60,6 +61,19 @@ $(document).on('turbolinks:load', function() {
         },
         responsive: true
     });
+
+
+
+    $("#search-button").click(function() {
+        //$("#table-list").DataTable().fnReloadAjax();
+        //oTable.fnReloadAjax();
+        //$('#table-list').DataTable().ajax.reload();
+        //alert("Humm, search");
+        //var oTable = $('#table-list').dataTable();   //pay attention to capital D, which is mandatory to retrieve "api" datatables' object, as @Lionel said
+        //oTable.search(this.value).draw() 
+        //oTable.reload();
+    });
+
 });
 
 // Enable chosen js for turbolinks
@@ -102,4 +116,39 @@ $(document).on('turbolinks:load', function() {
 
       
     })
+});
+
+$(document).on('turbolinks:load', function(){
+  
+    $("#chkHiddable").click(function () {
+        if ($(this).is(":checked")) {
+            $(".hiddable").show();
+        } else {
+            $(".hiddable").hide();
+        }
+        //alert("hello clickable");
+    });
+   
+})
+
+$(document).on('turbolinks:load',function() {
+    $("#search-button").click(function() {
+        //$("#table-list").DataTable().fnReloadAjax();
+        //$('#table-list').DataTable().ajax.reload();
+        //alert("Humm, search");
+        //var oTable = $('#table-list').dataTable();   //pay attention to capital D, which is mandatory to retrieve "api" datatables' object, as @Lionel said
+        //oTable.search($(this).val()).draw() 
+       // oTable.ajax.reload(null, true);
+    });
+});
+
+$(document).on("turbolinks:before-cache", function() {
+    var dataTable = $('#table-list').DataTable();
+
+
+  if (dataTable !== null) {
+   dataTable.destroy();
+   dataTable = null;
+   
+  }
 });
