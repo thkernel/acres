@@ -1,0 +1,29 @@
+<div class="">
+    <div class="row">
+        <!-- Stats par banques -->
+        <div class="col-md-6">
+            <div class="content">
+                <div class="content-title">
+                    <h3>Com total par banque</h3>
+                </div>
+                <div class="content-body">
+                    <%= pie_chart @commissions_chart_pie, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: ",", library: { plotOptions: { pie: { dataLabels: {enabled: false },showInLegend: true}}} %>
+                </div>
+
+            </div>
+        </div>
+        <!-- Stats par acres -->
+        <div class="col-md-6">
+             <div class="content">
+                <div class="content-title">
+                    <h3>Com nette <%= current_company.name %></h3>
+                </div>
+                <div class="content-body">
+                    <%= pie_chart @commissions_chart_pie, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: "," %>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

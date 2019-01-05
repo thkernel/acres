@@ -124,6 +124,8 @@ Rails.application.routes.draw do
 	get 'search' => 'search#search', as: :search
 	get 'export/excel' => 'search#search', as: :export_to_excel
 
+	get 'ajaxsearch' => 'search#ajaxsearch', as: :ajaxsearch
+
 	get 'show/producer/credit/details/:id' => 'credit_details#producer_credit_details', as: :show_producer_credit_details
 	get 'show/contributor/credit/details/:id' => 'credit_details#contributor_credit_details', as: :show_contributor_credit_details
 
