@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <section class="content-header">
         <h1>
-            Rechercher
+            Recherches & Statistiques
                     
         </h1>
 	</section>
@@ -16,120 +16,34 @@
         <div class="row">
             <div class="col-md-12">
             	<div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Recherches</h2>
+                    </div>
               		<div class="panel-body">
-                        <%= form_with url: search_path, method: :get, local: false , class: "form-inlinee" do |f| %>
-                            <div class="row lr-margin">	
-
-                                <div class="row"><!-- date row -->
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <legend>
-                                                <strong>
-                                                    Date production
-                                                </strong>
-                                            </legend>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-
-                                                    <%= f.label "Date départ" %>
-                                                    <%= f.date_field :production_date_debut, id: :production_date_debut, class: "form-control " %>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-
-                                                    <%= f.label "Date fin" %>
-                                                    <%= f.date_field :production_date_fin, id: :production_date_debut, class: "form-control " %>
-
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <legend><strong>Date acte</strong></legend>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-
-                                                    <%= f.label "Date départ" %>
-                                                    <%= f.date_field :acte_date_debut, id: :acte_date_debut, class: "form-control " %>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <%= f.label "Date fin" %>
-
-                                                    <%= f.date_field :acte_date_debut, id: :acte_date_debut, class: "form-control " %>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                     </div>
-                                </div><!-- end row -->
-                               
-                                <div class="row">
-                                    
-                                        <div class="col-md-6">
-                                            <div class="form-group collection-check-boxes">
-                                                <strong><%= f.label "Banque(s)" %></strong><br />
-                                                <%= f.collection_check_boxes(:bank, @banks, :name, :name) %>
-                                               
-                                                <!-- <%= f.collection_select(:bank, @banks, :name, :name , {prompt: "Banque"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %> -->
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group  collection-check-boxes">
-                                                <strong><%= f.label "Apporteur(s)" %></strong><br />
-                                                
-                                                <!-- <%= f.collection_check_boxes(:contributor, @contributors, :full_name, :full_name) %> -->
-
-                                                <%= f.collection_select(:contributor, @contributors, :full_name, :full_name, {prompt: "Apporteurs"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %> 
-                                            </div>
-                                        </div>
-                                
-                                
-                                    <div class="col-md-6">
-                                        <div class="form-group  collection-check-boxes">
-                                            <strong><%= f.label "Producteur(s)" %></strong><br />
-                                            <!-- <%= f.collection_check_boxes(:producer,@producers, :full_name, :full_name) %> -->
-
-                                            <%= f.collection_select(:producer, @producers, :full_name, :full_name, {prompt: "Producteurs"}, {class: "form-control chosen-select", multiple: true, "data-placeholder": 'Sélectionner une option'}) %> 
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <%= f.label "Notaire" %>
-                                            <%= f.collection_select(:notary, @notaries, :full_name, :full_name, {include_blank: true }, class: "form-control") %>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div>
-
-                            <div class="row lr-margin">
-                                <div class="col-md-12">
-                                    <div class="form-group search-btn">
-                                        <%= f.submit "Rechercher", class: "btn btn-primary btn-block", :id => "search-button" %>
-                                    </div>
-                                </div>
-                            </div>
-                        <% end %>
+                        <%= render "search/partials/search-form" %>
                     </div>
                 </div>
-
-                <div class="export ">
-                    <p>
-                    </p>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Statistiques</h2>
                     </div>
-                <div class="panel panel-default ">
+              		<div class="panel-body">
+                      <%= render "search/partials/tabs" %>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
               	    <div class="panel-body">
-                      <div class="search-result">
-                        <%= render("search/partials/table") %>
-                        </div>
+                        <%= render "search/partials/results"%>
             	    <div>
       		    </div>    
     	    </div>

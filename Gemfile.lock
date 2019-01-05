@@ -101,6 +101,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (>= 2.0, < 4.0)
     character_set (1.1.2)
+    chartkick (3.0.2)
     chosen-rails (1.8.7)
       coffee-rails (>= 3.2)
       railties (>= 3.0)
@@ -334,6 +335,7 @@ DEPENDENCIES
   capistrano-rvm (~> 0.1.2)
   capistrano3-puma!
   capybara (~> 2.13)
+  chartkick (~> 3.0, >= 3.0.2)
   chosen-rails (~> 1.8, >= 1.8.7)
   client_side_validations (~> 11.1, >= 11.1.2)
   coffee-rails (~> 4.2)

@@ -5,7 +5,7 @@ class Commission < ApplicationRecord
     belongs_to :user
 
     # Search
-    def self.search(production_date_debut, production_date_fin,  acte_date_debut,acte_date_fin, bank_name, producer_name, contributor_name, notary_name, user_id)
+    def self.search(production_date_debut, production_date_fin,  acte_date_debut,acte_date_fin, bank_name, producer_name, contributor_name, notary_name)
         
         if  notary_name.present?
             query = Commission.order(:production_date)
@@ -14,7 +14,7 @@ class Commission < ApplicationRecord
             query = query.where("notary_name =  ?", notary_name) if notary_name.present?
            
 
-            query = query.where("user_id = ?", user_id) 
+            
             query
         
         else 
@@ -26,7 +26,7 @@ class Commission < ApplicationRecord
             query = query.where("bank_name IN (?) ", bank_name) if bank_name.present?
             query = query.where("producer_name IN (?) ", producer_name) if producer_name.present?
             query = query.where("contributor_name IN (?) ", contributor_name) if contributor_name.present?
-            query = query.where("user_id = ?", user_id) 
+            
 
             query
         
