@@ -1,0 +1,20 @@
+<div class="tabs">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="tarte-tab" data-toggle="tab" href="#tarte" role="tab" aria-controls="tarte" aria-selected="true">TARTE</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="mensuel-tab" data-toggle="tab" href="#mensuel" role="tab" aria-controls="mensuel" aria-selected="false">MENSUEL</a>
+  </li>
+ 
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="tarte" role="tabpanel" aria-labelledby="tarte-tab">
+      <%= render "search/partials/subpartials/tarte" %>
+
+  </div>
+  <div class="tab-pane fade" id="mensuel" role="tabpanel" aria-labelledby="mensuel-tab">
+    <%= render "search/partials/subpartials/mensuel" %>
+  </div>
+</div>
+</div>

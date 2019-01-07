@@ -1,4 +1,29 @@
-<% if @commissions.present? %>
+<table id="table-list" class="table table-striped table-bordered table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>Montant emprunté</th>
+                                    <th>Date pro</th>
+                                    <th>Date acte</th>
+                                    <th>Banque</th>
+                                    <th>Client</th>
+                                    <th >Appo</th>
+                                    <th class="hiddable">% com appo</th>
+                                    <th class="hiddable">Com appo</th>
+                                    <th>Prod</th>
+                                    <th class="hiddable">% com prod</th>
+                                    <th class="hiddable">Com prod</th>
+                                    <th>% com <%= current_company.name  %></th>
+                                    <th>Com totale banque</th>
+                                    <th>Com nette <%= current_company.name  %></th>
+                                   
+                                </tr>
+                               
+                            </thead>
+                            <tbody >
+                            
+                               
+
+                                <% if @commissions.present? %>
 
 
          
@@ -49,3 +74,9 @@
         </tr>
     <% end %>
 <% end %>
+                            </tbody>
+                           <tfoot class="tfooter">
+                                <%= render("search/partials/tfooter") %> 
+
+                            </tfoot>
+                        </table>

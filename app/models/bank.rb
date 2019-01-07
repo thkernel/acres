@@ -4,6 +4,10 @@ class Bank < ApplicationRecord
 
     validates_presence_of :name
 
+
+    def self.find_by_array_of_names(names)
+        where("name IN (?) ", names)
+    end
     # Find bank by name.
 
     def self.exists(bank_name)
