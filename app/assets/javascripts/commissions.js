@@ -9,7 +9,9 @@ $(document).on('turbolinks:load', function(){
         dom: 'Bfrtip',
             buttons: [
                 { extend: 'copyHtml5', footer: true },
-                { extend: 'csvHtml5', footer: true },
+                { extend: 'csvHtml5', footer: true , exportOptions: {
+                    "columns": ':visible'
+                }},
                 { extend: 'pdfHtml5', footer: true }
             ],
             language: {
@@ -33,31 +35,7 @@ $(document).on('turbolinks:load', function(){
                     sortAscending: ": activer pour trier la colonne par ordre croissant",
                     sortDescending: ": activer pour trier la colonne par ordre décroissant"
                 }
-            },
-     
-        "processing": true,
-        "serverSide": true,
-        "dataType": "json",
-        "ajax": $('#commissions-datatable').data('source'),
-        "columns": [
-           
-            {"data": 'amount_credit'},
-            {"data": "production_date"},
-            {"data": "acte_date"},
-            {"data": "bank_name"},
-            {"data": 'credit_id'},
-            {"data": "contributor_name"},
-            {"data": "contributor_commission_percentage"},
-            {"data": "contributor_commission"},
-            {"data": "producer_name"},
-            {"data": "producer_commission_percentage"},
-            {"data": "producer_commission"},
-            {"data": "company_commission_percentage"},
-            {"data": "bank_commission"},
-            {"data": "company_commission"}
-                
-                
-            ]
+            }
         
 
         ,
