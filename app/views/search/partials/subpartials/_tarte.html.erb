@@ -19,7 +19,7 @@
                     <h3>Com nette <%= current_company.name %></h3>
                 </div>
                 <div class="content-body">
-                    <%= pie_chart @commissions_chart_pie, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: "," %>
+                    <%= pie_chart @commissions_chart_pie_by_company_commission, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: "," %>
 
                 </div>
 

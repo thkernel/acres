@@ -17,7 +17,9 @@
 //= require bootstrap-sprockets
 //= require bootstrap
 //= require DataTables/datatables.min
-//= require DataTables/Buttons-1.5.1/js/dataTables.buttons.min
+// require DataTables/Buttons-1.5.1/js/dataTables.buttons.min
+//= require DataTables/Buttons-1.5.1/js/buttons.html5.js
+
 //= require DataTables/JSZip-2.5.0/jszip.min
 //= require Chart.bundle
 //= require chartkick
@@ -158,9 +160,11 @@ $(document).on('turbolinks:load', function(){
   
     $("#chkHiddable").click(function () {
         if ($(this).is(":checked")) {
-            $(".hiddable").show();
-        } else {
             $(".hiddable").hide();
+        } else {
+          
+
+            $(".hiddable").show();
         }
         //alert("hello clickable");
     });
