@@ -19,6 +19,8 @@
 //= require DataTables/datatables.min
 //= require DataTables/Buttons-1.5.1/js/dataTables.buttons.min
 //= require DataTables/JSZip-2.5.0/jszip.min
+//= require Chart.bundle
+//= require chartkick
 
 // require "dataTablesFrench"
 //= require toastr
