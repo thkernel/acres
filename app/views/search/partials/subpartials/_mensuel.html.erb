@@ -1,6 +1,35 @@
 <div class="mensuel">
+
+    <div class="check-boxes">
+        <label for="chkCreditAmount">
+                <input type="checkbox" id="chkCreditAmount" />
+                Le montant emprunté total
+        </label>
+
+        <label for="chkAmountCommissions">
+                <input type="checkbox" id="chkAmountCommissions" />
+                Le montant total des com
+        </label>
+
+        <label for="chkAmountCompany">
+                <input type="checkbox" id="chkAmountCompany" />
+                Le montant net acres des com
+        </label>
+
+        <label for="chkAmountProducer">
+                <input type="checkbox" id="chkAmountProducer" />
+               Le montant producteur
+        </label>
+
+        <label for="chkAmountContributor">
+                <input type="checkbox" id="chkAmountContributor" />
+                Le montant apporteur
+        </label>
+    </div>
+
     <table id="stat-mensuel" class="table table-striped table-bordered table-hover">
         <thead>
+            <th></th>
             <th>Janvier</th>
             <th>Février</th>
             <th>Mars</th>
@@ -13,8 +42,38 @@
             <th>Octobre</th>
             <th>Novembre</th>
             <th>Decembre</th>
+
+            <th class="table-credit-amount">Total emprunt</th>
+            <th class="table-amount-commissions">Total com</th>
+            <th class="table-amount-company">Net acres com</th>
+            <th class="table-amount-producer">Montant prod</th>
+            <th class="table-amount-contributor">Montant appo</th>
         </thead>
         <tbody>
+        <% @monthly.each do |monthly| %>
+            <tr>
+                <td><%= monthly.bank_name %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="table-credit-amount"><%= monthly.amount_credit %></td>
+                <td class="table-amount-commissions"><%= monthly.bank_commission %></td>
+                <td class="table-amount-company"><%= monthly.company_commission %></td>
+                <td class="table-amount-producer"><%= monthly.producer_commission %></td>
+               <td class="table-amount-contributor"><%= monthly.contributor_commission %></td>
+               
+
+            </tr>
+        <% end %>
         </tbody>
     </table>
 </div>

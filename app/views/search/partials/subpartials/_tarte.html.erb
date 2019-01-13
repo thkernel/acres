@@ -7,7 +7,8 @@
                     <h3>Com total par banque</h3>
                 </div>
                 <div class="content-body">
-                    <%= pie_chart @commissions_chart_pie, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: ",", library: { plotOptions: { pie: { dataLabels: {enabled: false },showInLegend: true}}} %>
+                    <%= pie_chart @commissions_chart_pie, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: ",", library: { plotOptions: { pie: { dataLabels: {enabled: true,
+                format: '<b>{point.y:,.1f}</b><br>{point.percentage:.1f}%'},showInLegend: true}}}, :id => "bank", adapter: "highcharts" %>
                 </div>
 
             </div>
@@ -19,7 +20,8 @@
                     <h3>Com nette <%= current_company.name %></h3>
                 </div>
                 <div class="content-body">
-                    <%= pie_chart @commissions_chart_pie_by_company_commission, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: "," %>
+                    <%= pie_chart @commissions_chart_pie_by_company_commission, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: ",", library: { plotOptions: { pie: { dataLabels: {enabled: true,
+                format: '<b>{point.y:,.1f}</b><br>{point.percentage:.1f}%'},showInLegend: true}}},  adapter: "highcharts" %>
 
                 </div>
 
