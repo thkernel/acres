@@ -42,6 +42,7 @@ class Commission < ApplicationRecord
         where('bank_name = ?', bank_name)
     end
     
+    
 
     def self.to_csv(options = {})
     CSV.generate(options) do |csv|

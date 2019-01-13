@@ -43,16 +43,35 @@
             <th>Novembre</th>
             <th>Decembre</th>
 
-            <th id="table-credit-amount">Total emprunt</th>
-            <th id="table-amount-commissions">Total com</th>
-            <th id="table-amount-company">Net acres com</th>
-            <th id="table-amount-producer">Montant prod</th>
-            <th id="table-amount-contributor">Montant appo</th>
+            <th class="table-credit-amount">Total emprunt</th>
+            <th class="table-amount-commissions">Total com</th>
+            <th class="table-amount-company">Net acres com</th>
+            <th class="table-amount-producer">Montant prod</th>
+            <th class="table-amount-contributor">Montant appo</th>
         </thead>
         <tbody>
-        <% @monthl.each do |monthly| %>
+        <% @monthly.each do |monthly| %>
             <tr>
                 <td><%= monthly.bank_name %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="table-credit-amount"><%= monthly.amount_credit %></td>
+                <td class="table-amount-commissions"><%= monthly.bank_commission %></td>
+                <td class="table-amount-company"><%= monthly.company_commission %></td>
+                <td class="table-amount-producer"><%= monthly.producer_commission %></td>
+               <td class="table-amount-contributor"><%= monthly.contributor_commission %></td>
+               
+
             </tr>
         <% end %>
         </tbody>

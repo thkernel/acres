@@ -22,6 +22,7 @@
 
 //= require DataTables/JSZip-2.5.0/jszip.min
 //= require Chart.bundle
+//= require highcharts
 //= require chartkick
 
 // require "dataTablesFrench"
@@ -171,40 +172,40 @@ $(document).on('turbolinks:load', function(){
 
     $("#chkCreditAmount").click(function () {
         if ($(this).is(":checked")) {
-            $("#table-credit-amount").hide();
+            $(".table-credit-amount").hide();
         } else {
           
 
-            $("#table-credit-amount").show();
+            $(".table-credit-amount").show();
         }
         //alert("hello clickable");
     });
 
     $("#chkAmountCommissions").click(function () {
         if ($(this).is(":checked")) {
-            $("#table-amount-commissions").hide();
+            $(".table-amount-commissions").hide();
         } else {
           
 
-            $("#table-amount-commissions").show();
+            $(".table-amount-commissions").show();
         }
         //alert("hello clickable");
     });
 
     $("#chkAmountCompany").click(function () {
         if ($(this).is(":checked")) {
-            $("#table-amount-company").hide();
+            $(".table-amount-company").hide();
         } else {
           
 
-            $("#table-amount-company").show();
+            $(".table-amount-company").show();
         }
         //alert("hello clickable");
     });
 
     $("#chkAmountProducer").click(function () {
         if ($(this).is(":checked")) {
-            $("#table-amount-producer").hide();
+            $(".table-amount-producer").hide();
         } else {
           
 
@@ -215,11 +216,11 @@ $(document).on('turbolinks:load', function(){
     
     $("#chkAmountContributor").click(function () {
         if ($(this).is(":checked")) {
-            $("#table-amount-contributor").hide();
+            $(".table-amount-contributor").hide();
         } else {
           
 
-            $("#table-amount-contributor").show();
+            $(".table-amount-contributor").show();
         }
         //alert("hello clickable");
     });

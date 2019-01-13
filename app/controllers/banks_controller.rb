@@ -194,11 +194,13 @@ class BanksController < ApplicationController
         else
             # Rule 1
             if contributor_name == company_name || producer_name == company_name || contributor_name.blank?
+              
               contributor_commission_percentage = 0.0 
               producer_commission_percentage = 0.0
               
               contributor_commission = 0.0
               producer_commission = 0.0
+
               bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
               company_commission_net = bank_amount_commission
               company_commission_percentage = (company_commission_net / credit_amount) * 100
@@ -223,13 +225,13 @@ class BanksController < ApplicationController
             # Rule 3 
             if contributor_name.present? && contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
               if contributor_name != producer_name  && contributor_name != company_name 
-                if producer_name == company_name || producer_name.blank?
+                #if producer_name == company_name || producer_name.blank?
                   producer_commission = (credit_amount * producer_commission_percentage) / 100
                   bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                   company_commission_net = bank_amount_commission - producer_commission 
                   contributor_commission = (company_commission_net / 2 )+ (producer_commission / 2)
                   company_commission_percentage = (company_commission_net / credit_amount) * 100
-                end
+                #end
       
               end
             end
