@@ -52,15 +52,8 @@ class SearchController < ApplicationController
  
      contributors = User.find_by_fullname_and_role(contributor_name, 'Apporteur') if contributor_name.present?
      @selected_contributors =  contributors unless contributors.blank?
-<<<<<<< HEAD
 
      
-
-    @commissions = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
-=======
-
-     
->>>>>>> f5fcca3dac9757c756a7cfd0ccf7d9caab3bd58c
 
     @commissions = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
 
@@ -73,10 +66,26 @@ class SearchController < ApplicationController
     @total_commission_producteur = @commissions.sum(:company_commission)
 
 
+    # Handle monthly tarte
+    @monthly = MonthlyTarte.new
+    @monthly.bank_name = "BNDA"
+    @monthl = []
+    @monthl << @monthly
+
+
+    puts "Le mois: #{acte_date_debut.month}" if acte_date_debut
     
    
   end
 
   
+  
 
+end
+
+class MonthlyTarte 
+  attr_accessor :bank_name
+
+  def initializer
+  end
 end

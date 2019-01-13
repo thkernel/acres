@@ -1,6 +1,35 @@
 <div class="mensuel">
+
+    <div class="check-boxes">
+        <label for="chkCreditAmount">
+                <input type="checkbox" id="chkCreditAmount" />
+                Le montant emprunté total
+        </label>
+
+        <label for="chkAmountCommissions">
+                <input type="checkbox" id="chkAmountCommissions" />
+                Le montant total des com
+        </label>
+
+        <label for="chkAmountCompany">
+                <input type="checkbox" id="chkAmountCompany" />
+                Le montant net acres des com
+        </label>
+
+        <label for="chkAmountProducer">
+                <input type="checkbox" id="chkAmountProducer" />
+               Le montant producteur
+        </label>
+
+        <label for="chkAmountContributor">
+                <input type="checkbox" id="chkAmountContributor" />
+                Le montant apporteur
+        </label>
+    </div>
+
     <table id="stat-mensuel" class="table table-striped table-bordered table-hover">
         <thead>
+            <th></th>
             <th>Janvier</th>
             <th>Février</th>
             <th>Mars</th>
@@ -13,8 +42,19 @@
             <th>Octobre</th>
             <th>Novembre</th>
             <th>Decembre</th>
+
+            <th id="table-credit-amount">Total emprunt</th>
+            <th id="table-amount-commissions">Total com</th>
+            <th id="table-amount-company">Net acres com</th>
+            <th id="table-amount-producer">Montant prod</th>
+            <th id="table-amount-contributor">Montant appo</th>
         </thead>
         <tbody>
+        <% @monthl.each do |monthly| %>
+            <tr>
+                <td><%= monthly.bank_name %></td>
+            </tr>
+        <% end %>
         </tbody>
     </table>
 </div>

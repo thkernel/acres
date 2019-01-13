@@ -168,6 +168,64 @@ $(document).on('turbolinks:load', function(){
         }
         //alert("hello clickable");
     });
+
+    $("#chkCreditAmount").click(function () {
+        if ($(this).is(":checked")) {
+            $("#table-credit-amount").hide();
+        } else {
+          
+
+            $("#table-credit-amount").show();
+        }
+        //alert("hello clickable");
+    });
+
+    $("#chkAmountCommissions").click(function () {
+        if ($(this).is(":checked")) {
+            $("#table-amount-commissions").hide();
+        } else {
+          
+
+            $("#table-amount-commissions").show();
+        }
+        //alert("hello clickable");
+    });
+
+    $("#chkAmountCompany").click(function () {
+        if ($(this).is(":checked")) {
+            $("#table-amount-company").hide();
+        } else {
+          
+
+            $("#table-amount-company").show();
+        }
+        //alert("hello clickable");
+    });
+
+    $("#chkAmountProducer").click(function () {
+        if ($(this).is(":checked")) {
+            $("#table-amount-producer").hide();
+        } else {
+          
+
+            $("#table-amount-producer").show();
+        }
+        //alert("hello clickable");
+    });
+    
+    $("#chkAmountContributor").click(function () {
+        if ($(this).is(":checked")) {
+            $("#table-amount-contributor").hide();
+        } else {
+          
+
+            $("#table-amount-contributor").show();
+        }
+        //alert("hello clickable");
+    });
+
+
+
    
 })
 
