@@ -92,10 +92,10 @@ class LogsController < ApplicationController
 	# Populate commission
 	def populate_commission
 		# Load the current admin user old comissions and we delete there after.
-		commission = current_user.commissions
+		#commission = current_user.commissions
 
 		# Deleting the olds commissions before compute the news
-		commission.delete_all if commission.present?
+		Commission.destroy_all #if commission.present?
 		
 		# Load all credits.
 		@credits = current_user.credits 
@@ -131,10 +131,10 @@ class LogsController < ApplicationController
 	def compute_commissions
 
 		# Load the current admin user old comissions and we delete there after.
-		commission = current_user.commissions
+		#commission = current_user.commissions
 
 		# Deleting the olds commissions before compute the news
-		commission.delete_all if commission.present?
+		Commission.delete_all #if commission.present?
 		
 		# Load all credits.
 		@credits = current_user.credits 
