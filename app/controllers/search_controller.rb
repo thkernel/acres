@@ -66,10 +66,26 @@ class SearchController < ApplicationController
     @total_commission_producteur = @commissions.sum(:company_commission)
 
 
+    # Handle monthly tarte
+    @monthly = MonthlyTarte.new
+    @monthly.bank_name = "BNDA"
+    @monthl = []
+    @monthl << @monthly
+
+
+    puts "Le mois: #{acte_date_debut.month}" if acte_date_debut
     
    
   end
 
   
+  
 
+end
+
+class MonthlyTarte 
+  attr_accessor :bank_name
+
+  def initializer
+  end
 end

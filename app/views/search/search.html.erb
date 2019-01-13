@@ -5,16 +5,11 @@
                     
         </h1>
 	</section>
-    <section>
-        <label for="chkHiddable">
-            <input type="checkbox" id="chkHiddable" />
-            Masquer?
-        </label>
-    </section>
+   
 	
     <section class="content">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-7">
             	<div class="panel panel-default">
                     <div class="panel-heading">
                         <h2 class="panel-title">Recherches</h2>
@@ -43,6 +38,12 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
               	    <div class="panel-body">
+                       <section>
+                            <label for="chkHiddable">
+                                <input type="checkbox" id="chkHiddable" />
+                                Masquer?
+                            </label>
+                        </section>
                         <%= render "search/partials/results"%>
             	    <div>
       		    </div>    
