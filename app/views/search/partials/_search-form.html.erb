@@ -14,7 +14,7 @@
                             <div class="form-group">
 
                                 <%= f.label "Date départ" %>
-                                <%= f.date_field :production_date_debut, id: :production_date_debut, class: "form-control " %>
+                                <%= f.date_field :production_date_debut, id: :production_date_debut, class: "form-control ", value: @selected_production_date_debut  %>
 
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                             <div class="form-group">
 
                                 <%= f.label "Date fin" %>
-                                <%= f.date_field :production_date_fin, id: :production_date_debut, class: "form-control " %>
+                                <%= f.date_field :production_date_fin, id: :production_date_debut, class: "form-control ", value: @selected_production_date_fin  %>
 
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                             <div class="form-group">
 
                                 <%= f.label "Date départ" %>
-                                <%= f.date_field :acte_date_debut, id: :acte_date_debut, class: "form-control " %>
+                                <%= f.date_field :acte_date_debut, id: :acte_date_debut, class: "form-control ", value: @selected_acte_date_debut  %>
 
                             </div>
 
@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 <%= f.label "Date fin" %>
 
-                                <%= f.date_field :acte_date_debut, id: :acte_date_debut, class: "form-control " %>
+                                <%= f.date_field :acte_date_fin, id: :acte_date_fin, class: "form-control ", value: @selected_acte_date_fin  %>
                             </div>
                         </div>
                     </fieldset>
@@ -88,7 +88,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <%= f.label "Notaire" %>
-                        <%= f.collection_select(:notary, @notaries, :full_name, :full_name, {include_blank: true }, class: "form-control") %>
+                        <%= f.collection_select(:notary, @notaries, :full_name, :full_name, {prompt:"Selectionner" }, class: "form-control", value: @selected_notary ) %>
                     </div>
                 </div>
             </div> 
