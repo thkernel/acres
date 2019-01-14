@@ -225,13 +225,24 @@ class BanksController < ApplicationController
               
             end
       
-            # Rule 3 
-              if contributor_name.present? && contributor_name != producer_name  && contributor_name != company_name 
-                if contributor_name.present? && contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
-                  
-                  #contributor_commission_percentage = 0.0 
-                  #producer_commission_percentage = 0.0
-                  
+
+
+            if contributor_name.present? && contributor_name != company_name && contributor_name != producer_name  
+                if producer_name.blank? || producer_name == company_name
+                   #contributor_commission_percentage = 0.0 
+                  producer_commission_percentage = 0.0
+                
+                  contributor_commission = 0.0
+                  producer_commission = 0.0
+
+                  bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                  #producer_commission = (credit_amount * producer_commission_percentage) / 100
+                  contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+                  company_commission_net = bank_amount_commission - contributor_commission 
+                  company_commission_percentage = (company_commission_net / credit_amount) * 100
+                   
+                else 
                   contributor_commission = 0.0
                   producer_commission = 0.0
 
@@ -242,32 +253,10 @@ class BanksController < ApplicationController
                   company_commission_net = bank_amount_commission - producer_commission 
                   contributor_commission = (company_commission_net / 2 )+ (producer_commission / 2)
                   company_commission_percentage = (company_commission_net / credit_amount) * 100
-                #end
-      
-              end
+                end
             end
-            # Suite regle 3
-            if contributor_name.present? && contributor_name != producer_name  && producer_name == company_name || producer_name.blank?
-              if contributor_name.present? && contributor_commission_percentage.present? && producer_commission_percentage.present? && bank_commission_percentage.present?
-                
-                #contributor_commission_percentage = 0.0 
-                producer_commission_percentage = 0.0
-                
-                contributor_commission = 0.0
-                producer_commission = 0.0
 
-             
-                bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-
-                #producer_commission = (credit_amount * producer_commission_percentage) / 100
-                contributor_commission = (credit_amount * contributor_commission_percentage) / 100
-                company_commission_net = bank_amount_commission - contributor_commission 
-               
-                company_commission_percentage = (company_commission_net / credit_amount) * 100
-              #end
-    
-            end
-          end
+            
       
           end
         # Saving.
