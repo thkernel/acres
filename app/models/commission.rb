@@ -39,7 +39,7 @@ class Commission < ApplicationRecord
     end
 
     def self.search_by_bank(bank_name)
-        where('bank_name = ?', bank_name)
+        where('bank_name = ?', "#{bank_name}")
     end
     
     
