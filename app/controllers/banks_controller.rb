@@ -234,7 +234,7 @@ puts "BANQUE NAME: #{bank.name} et #{bank.commission_percentage}"
                 contributor_commission = 0.0
                 #contributor_commission_percentage = 0.0
 
-                producer_commission = (credit_amount * 0) / 100
+                producer_commission = (credit_amount * producer_commission_percentage) / 100
                 bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                 company_commission_net = bank_amount_commission - producer_commission - contributor_commission
                 company_commission_percentage = (company_commission_net / credit_amount) * 100
