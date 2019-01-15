@@ -68,8 +68,8 @@ class SearchController < ApplicationController
 
     @total_montant_credit = @commissions.sum(:amount_credit)
     @total_commission_apporteur = @commissions.sum(:contributor_commission)
-    @total_commission_nette_company = @commissions.sum(:producer_commission)
-    @total_commission_producteur = @commissions.sum(:company_commission)
+    @total_commission_nette_company = @commissions.sum(:company_commission)
+    @total_commission_producteur = @commissions.sum( :producer_commission)
 
 
 
@@ -90,10 +90,6 @@ class SearchController < ApplicationController
     end
    
    
-    
-    
-
-
     puts "Le mois: #{acte_date_debut.month}" if acte_date_debut
     
    
