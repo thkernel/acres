@@ -181,9 +181,9 @@ class BanksController < ApplicationController
 					credit_amount = commission.amount_credit 
 				end
         
-        		if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
+        if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
          
-          			if producer_name.present? && producer_hypoplus_commission_percentage.present? && producer_name == company_name || company_name.blank?
+          	if producer_name.present? && producer_hypoplus_commission_percentage.present? && producer_name != company_name 
 						contributor_commission_percentage = 0.0 
 						contributor_commission = 0.0
 
@@ -212,7 +212,7 @@ class BanksController < ApplicationController
 				else
 				
 					# Rule 1
-					if contributor_name == company_name || producer_name == company_name || contributor_name.blank?
+					if contributor_name == company_name && producer_name == company_name 
 					
 						contributor_commission_percentage = 0.0 
 						producer_commission_percentage = 0.0
@@ -227,8 +227,8 @@ class BanksController < ApplicationController
 						puts "REGLE 1"
 					end
       
-					# Rule 2 
-					if contributor_name.present? &&  producer_name.blank? || producer_name == company_name
+          # Rule 2 - new regle
+					if contributor_name.present? &&  contributor_name != company_name && producer_name == company_name
 						
 						producer_commission = 0.0
 						producer_commission_percentage = 0.0
@@ -241,10 +241,26 @@ class BanksController < ApplicationController
 			
 					#end
 					
-					end
+          end
+          
+					# Rule 2 - Previous
+					#if contributor_name.present? &&  producer_name.blank? || producer_name == company_name
+						
+						#producer_commission = 0.0
+						#producer_commission_percentage = 0.0
+
+						#bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+						#contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+						#company_commission_net = (bank_amount_commission) - (contributor_commission)
+						#company_commission_percentage = (company_commission_net / credit_amount) * 100
+						#puts "REGLE 2"
+			
+					#end
+					
+					#end
       
-					# Regle 3
-					if contributor_name.present? && contributor_name == producer_name
+          	# Regle 3 - new
+					if contributor_name.present? && contributor_name == producer_name && producer_name != company_name
 						contributor_commission = 0.0
 						contributor_commission_percentage = 0.0 
 
@@ -254,18 +270,56 @@ class BanksController < ApplicationController
 						company_commission_percentage = (company_commission_net / credit_amount) * 100
 						puts "REGLE 3"
 
-					end
+          end
+          
+					# Regle 3 - Previous
+					#if contributor_name.present? && contributor_name == producer_name
+						#contributor_commission = 0.0
+						#contributor_commission_percentage = 0.0 
 
-					# Regle 4
-					if contributor_name.present? && contributor_name != producer_name && contributor_name != company_name 
+						#producer_commission = (credit_amount * producer_commission_percentage) / 100
+						#bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+						#company_commission_net = (bank_amount_commission) - (producer_commission)
+						#company_commission_percentage = (company_commission_net / credit_amount) * 100
+						#puts "REGLE 3"
+
+					#end
+
+          # Regle 4 - New
+					if contributor_name.present? && contributor_name != producer_name && contributor_name != company_name && producer_name != company_name
 						bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 						contributor_commission = (credit_amount * contributor_commission_percentage) / 100
-						producer_commission = ((credit_amount * contributor_commission_percentage) / 100) - ((contributor_commission * 50)/100)
+						producer_commission = ((credit_amount * producer_commission_percentage) / 100) - ((contributor_commission * 50)/100)
 						company_commission_net = (bank_amount_commission) - (producer_commission) - (contributor_commission)
 						company_commission_percentage = (company_commission_net / credit_amount) * 100
 
 						puts "REGLE 4"
-					end
+          end
+          
+					# Regle 4 - Previous
+					#if contributor_name.present? && contributor_name != producer_name && contributor_name != company_name 
+						#bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+						#contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+						#producer_commission = ((credit_amount * contributor_commission_percentage) / 100) - ((contributor_commission * 50)/100)
+						#company_commission_net = (bank_amount_commission) - (producer_commission) - (contributor_commission)
+						#company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+						#puts "REGLE 4"
+          #end
+          
+          # Regle 5
+          if contributor_name.present? && contributor_name == company_name && producer_name != company_name 
+            contributor_commission = 0.0
+            contributor_commission_percentage = 0.0
+
+            bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+			
+						producer_commission = ((credit_amount * producer_commission_percentage) / 100) 
+						company_commission_net = (bank_amount_commission) - (producer_commission) 
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+						puts "REGLE 5"
+          end
 			  end
 			  
 			# Saving.
