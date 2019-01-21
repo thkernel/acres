@@ -29,7 +29,7 @@ class CommissionSettingsController < ApplicationController
     respond_to do |format|
       if @commission_setting.save
 
-        compute_commission(@commission_setting.user_id)
+        #compute_commission(@commission_setting.user_id)
 
         #format.html { redirect_to @commission_setting, notice: 'Commission setting was successfully created.' }
         format.html { redirect_to all_users_path, notice: 'Commission setting was successfully updated.' }
