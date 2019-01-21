@@ -52,13 +52,13 @@ class User < ApplicationRecord
 	end
 
 	# Find users by roles and authors.
-	def self.is_contributor(full_name)
-		where("full_name = ? ",  full_name)
+	def self.is_contributor(full_name, role)
+		where("full_name = ? AND role = ?",  full_name, role)
 	end
 
 	# Find users by roles and authors.
-	def self.is_producer(full_name)
-		where("full_name = ? ",  full_name)
+	def self.is_producer(full_name, role)
+		where("full_name = ? AND role = ?" ,  full_name, role)
 	end
 
 	# Find users by authors.

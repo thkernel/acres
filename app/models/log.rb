@@ -60,7 +60,7 @@ class Log < ApplicationRecord
 
                 # Begin insert a user, before to insert user we check if user exist
                 if row[cell[6]].present?
-                current_contributor = User.is_contributor(row[cell[6]]).present?
+                current_contributor = User.is_contributor(row[cell[6]], 'Apporteur').present?
 
                     unless current_contributor.present?
 
@@ -85,7 +85,7 @@ class Log < ApplicationRecord
 
                 if row[cell[7]].present?
                 
-                    current_producer = User.is_producer(row[cell[7]])
+                    current_producer = User.is_producer(row[cell[7]], 'Producteur')
                     unless  current_producer.present?
 
                         producer = User.new
