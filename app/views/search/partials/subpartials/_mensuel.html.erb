@@ -30,18 +30,42 @@
     <table id="stat-mensuel" class="table table-striped table-bordered table-hover">
         <thead>
             <th></th>
-            <th>Janvier</th>
-            <th>Février</th>
-            <th>Mars</th>
-            <th>Avril</th>
-            <th>Mai</th>
-            <th>Juin</th>
-            <th>Juillet</th>
-            <th>Aôut</th>
-            <th>Septembre</th>
-            <th>Octobre</th>
+            <% if @janvier %>
+                <th>Janvier</th>
+            <% end %>
+            <% if @fevrier %>
+                <th>Février</th>
+            <% end %>
+            <% if @mars %>
+                <th>Mars</th>
+            <% end %>
+            <% if @avril %>
+                <th>Avril</th>
+            <% end %>
+            <% if @mai %>
+                <th>Mai</th>
+            <% end %>
+            <% if @juin %>
+                <th>Juin</th>
+            <% end %>
+            <% if @juillet %>
+                <th>Juillet</th>
+            <% end %>
+            <% if @aout %>
+                <th>Aôut</th>
+            <% end %>
+            <% if @septembre %>
+                <th>Septembre</th>
+            <% end %>
+            <% if @octobre %>
+                <th>Octobre</th>
+            <% end %>
+                <% if @novembre %>
             <th>Novembre</th>
-            <th>Decembre</th>
+            <% end %>
+            <% if @decembre %>
+                <th>Décembre</th>
+            <% end %>
 
             <th class="table-credit-amount">Total emprunt</th>
             <th class="table-amount-commissions">Total com</th>
@@ -53,18 +77,42 @@
         <% @monthly.each do |monthly| %>
             <tr>
                 <td><%= monthly.bank_name %></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <% if @janvier %>
+                    <td><%= monthly.janvier %></td>
+                <% end %>
+                <% if @fevrier %>
+                    <td><%= monthly.fevrier %></td>
+                <% end %>
+                <% if @mars %>
+                    <td><%= monthly.mars %></td>
+                <% end %>
+                <% if @avril %>
+                    <td><%= monthly.avril %></td>
+                <% end %>
+                <% if @mai %>
+                    <td><%= monthly.mai %></td>
+                <% end %>
+                <% if @juin %>
+                    <td><%= monthly.juin %></td>
+                <% end %>
+                <% if @juillet %>
+                    <td><%= monthly.juillet %></td>
+                <% end %>
+                <% if @aout %>
+                    <td><%= monthly.aout %></td>
+                <% end %>
+                <% if @septembre %>
+                    <td><%= monthly.septembre %></td>
+                <% end %>
+                <% if @octobre %>
+                    <td><%= monthly.octobre %></td>
+                <% end %>
+                <% if @novembre %>
+                    <td><%= monthly.novembre %></td>
+                <% end %>
+                <% if @decembre %>
+                    <td><%= monthly.decembre %></td>
+                <% end %>
                 <td class="table-credit-amount"><%= monthly.amount_credit %></td>
                 <td class="table-amount-commissions"><%= monthly.bank_commission %></td>
                 <td class="table-amount-company"><%= monthly.company_commission %></td>
