@@ -97,7 +97,7 @@ class SearchController < ApplicationController
 
           monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ?', month, item.name)
         
-          current_month = months[month+1]
+          current_month = months[month-1]
          
           #bank_commission.months[month+1] = month
           case current_month
