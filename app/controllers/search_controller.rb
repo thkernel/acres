@@ -95,8 +95,11 @@ class SearchController < ApplicationController
         (start_month..end_month).each do |month|
 
 
-          monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ? AND producer_name = ? AND contributor_name = ? AND notary_name = ?', month, item.name, producer_name, contributor_name, notary)
-        
+          monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ?', month, item.name)
+          monthly_commission = monthly_commission.where('producer_name IN (?)', producer_name) if producer_name.present?
+          monthly_commission = monthly_commission.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
+          monthly_commission = monthly_commission.where('notary_name = ?', notary) if notary.present?
+
           current_month = months[month-1]
          
           #bank_commission.months[month+1] = month
