@@ -67,12 +67,12 @@ class SearchController < ApplicationController
     @total_commission_apporteur = @commissions.sum(:contributor_commission)
     @total_commission_nette_company = @commissions.sum(:company_commission)
     @total_commission_producteur = @commissions.sum( :producer_commission)
-    monthly_tarte(acte_date_debut, acte_date_fin)
+    monthly_tarte(acte_date_debut, acte_date_fin, producer_name, contributor_name, notary)
   end
 
   # Handle monthly tarte
-  def monthly_tarte(acte_date_debut, acte_date_fin)
-    @javier, @fevrier, @mars, @avril, @mai, @juin, @juillet, @aout, @septembre, @octobre, @novembre, @decembre = false
+  def monthly_tarte(acte_date_debut, acte_date_fin,producer_name, contributor_name, notary)
+    @janvier, @fevrier, @mars, @avril, @mai, @juin, @juillet, @aout, @septembre, @octobre, @novembre, @decembre = false
     @monthly = []
     
     banks = Bank.all
@@ -84,7 +84,7 @@ class SearchController < ApplicationController
     puts "Le mois date debut: #{acte_date_debut.month}" if acte_date_debut
     puts "Le mois date fin: #{acte_date_fin.month}" if acte_date_fin
     monthly_amount = []
-    months = ['javier','fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre']
+    months = ['janvier','fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre']
    
 
     banks.each do |item|
@@ -95,7 +95,7 @@ class SearchController < ApplicationController
         (start_month..end_month).each do |month|
 
 
-          monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ?', month, item.name)
+          monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ? AND producer_name = ? AND contributor_name = ? AND notary_name = ?', month, item.name, producer_name, contributor_name, notary)
         
           current_month = months[month-1]
          
@@ -103,7 +103,7 @@ class SearchController < ApplicationController
           case current_month
             when 'janvier'
               bank_commission.janvier = monthly_commission.sum(:amount_credit)
-              @javier = true
+              @janvier = true
             when 'fevrier'
               bank_commission.fevrier = monthly_commission.sum(:amount_credit)
               @fevrier = true
