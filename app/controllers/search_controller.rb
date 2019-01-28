@@ -142,14 +142,19 @@ class SearchController < ApplicationController
               bank_commission.decembre = monthly_commission.sum(:amount_credit)
               @decembre = true
           end
-          bank_commission.amount_credit = monthly_commission.sum(:amount_credit)
-          bank_commission.bank_commission = monthly_commission.sum(:bank_commission)
-          bank_commission.contributor_commission = monthly_commission.sum(:contributor_commission)
-          bank_commission.producer_commission = monthly_commission.sum(:producer_commission)
-          bank_commission.company_commission = monthly_commission.sum(:company_commission)
+          
             
         end 
+        
       end
+      comm = Commission.where("acte_date BETWEEN ? AND ? ", acte_date_debut, acte_date_fin)
+      comm = Commission.where("bank_name = ? ", item.name)
+      bank_commission.amount_credit = comm.sum(:amount_credit)
+      bank_commission.bank_commission = comm.sum(:bank_commission)
+      bank_commission.contributor_commission = comm.sum(:contributor_commission)
+      bank_commission.producer_commission = comm.sum(:producer_commission)
+      bank_commission.company_commission = comm.sum(:company_commission)
+
       @monthly << bank_commission
     
     end
