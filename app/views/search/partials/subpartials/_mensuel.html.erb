@@ -78,46 +78,46 @@
             <tr>
                 <td><%= monthly.bank_name %></td>
                 <% if @janvier %>
-                    <td><%= monthly.janvier %></td>
+                    <td><%= number_to_currency monthly.janvier, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @fevrier %>
-                    <td><%= monthly.fevrier %></td>
+                    <td><%= number_to_currency monthly.fevrier,  unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @mars %>
-                    <td><%= monthly.mars %></td>
+                    <td><%= number_to_currency monthly.mars, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @avril %>
-                    <td><%= monthly.avril %></td>
+                    <td><%= number_to_currency monthly.avril, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @mai %>
-                    <td><%= monthly.mai %></td>
+                    <td><%= number_to_currency monthly.mai, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @juin %>
-                    <td><%= monthly.juin %></td>
+                    <td><%= number_to_currency monthly.juin, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @juillet %>
-                    <td><%= monthly.juillet %></td>
+                    <td><%= number_to_currency monthly.juillet, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @aout %>
-                    <td><%= monthly.aout %></td>
+                    <td><%= number_to_currency monthly.aout , unit: "", seperator: ",", delimiter: "."%></td>
                 <% end %>
                 <% if @septembre %>
-                    <td><%= monthly.septembre %></td>
+                    <td><%= number_to_currency monthly.septembre, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @octobre %>
-                    <td><%= monthly.octobre %></td>
+                    <td><%= number_to_currency monthly.octobre , unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @novembre %>
-                    <td><%= monthly.novembre %></td>
+                    <td><%= number_to_currency monthly.novembre, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
                 <% if @decembre %>
-                    <td><%= monthly.decembre %></td>
+                    <td><%= number_to_currency monthly.decembre, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>
-                <td class="table-credit-amount"><%= monthly.amount_credit %></td>
-                <td class="table-amount-commissions"><%= monthly.bank_commission %></td>
-                <td class="table-amount-company"><%= monthly.company_commission %></td>
-                <td class="table-amount-producer"><%= monthly.producer_commission %></td>
-               <td class="table-amount-contributor"><%= monthly.contributor_commission %></td>
+                <td class="table-credit-amount"><%= number_to_currency monthly.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <td class="table-amount-commissions"><%= number_to_currency monthly.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
+                <td class="table-amount-company"><%= number_to_currency monthly.company_commission, unit: "", seperator: ",", delimiter: "." %></td>
+                <td class="table-amount-producer"><%= number_to_currency monthly.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
+               <td class="table-amount-contributor"><%= number_to_currency monthly.contributor_commission, unit: "", seperator: ",", delimiter: "." %></td>
                
 
             </tr>
