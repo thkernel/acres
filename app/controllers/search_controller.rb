@@ -105,41 +105,41 @@ class SearchController < ApplicationController
           #bank_commission.months[month+1] = month
           case current_month
             when 'janvier'
-              bank_commission.janvier = monthly_commission.sum(:amount_credit)
+              bank_commission.janvier = monthly_commission.sum(:bank_commission)
               @janvier = true
             when 'fevrier'
-              bank_commission.fevrier = monthly_commission.sum(:amount_credit)
+              bank_commission.fevrier = monthly_commission.sum(:bank_commission)
               @fevrier = true
             when 'mars'
-              bank_commission.mars = monthly_commission.sum(:amount_credit)
+              bank_commission.mars = monthly_commission.sum(:bank_commission)
               @mars = true
             when 'avril'
-              bank_commission.avril = monthly_commission.sum(:amount_credit)
+              bank_commission.avril = monthly_commission.sum(:bank_commission)
               @avril = true
             when 'mai'
-              bank_commission.mai = monthly_commission.sum(:amount_credit)
+              bank_commission.mai = monthly_commission.sum(:bank_commission)
               @mai = true
             when 'juin'
-              bank_commission.juin = monthly_commission.sum(:amount_credit)
+              bank_commission.juin = monthly_commission.sum(:bank_commission)
               @juin = true
             when 'juillet'
-              bank_commission.juillet = monthly_commission.sum(:amount_credit)
+              bank_commission.juillet = monthly_commission.sum(:bank_commission)
               @juillet = true
             when 'aout'
-              bank_commission.aout = monthly_commission.sum(:amount_credit)
+              bank_commission.aout = monthly_commission.sum(:bank_commission)
               @aout = true
             when 'septembre'
-              bank_commission.septembre = monthly_commission.sum(:amount_credit)
+              bank_commission.septembre = monthly_commission.sum(:bank_commission)
               @septembre = true
             when 'octobre'
 
-              bank_commission.octobre = monthly_commission.sum(:amount_credit)
+              bank_commission.octobre = monthly_commission.sum(:bank_commission)
               @octobre = true
             when 'novembre'
-              bank_commission.novembre = monthly_commission.sum(:amount_credit)
+              bank_commission.novembre = monthly_commission.sum(:bank_commission)
               @novembre = true
             when 'decembre'
-              bank_commission.decembre = monthly_commission.sum(:amount_credit)
+              bank_commission.decembre = monthly_commission.sum(:bank_commission)
               @decembre = true
           end
           
