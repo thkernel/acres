@@ -142,11 +142,11 @@ class SearchController < ApplicationController
               bank_commission.decembre = monthly_commission.sum(:amount_credit)
               @decembre = true
           end
-          bank_commission.amount_credit = Commission.search_by_bank(item.name).sum(:amount_credit)
-          bank_commission.bank_commission = Commission.search_by_bank(item.name).sum(:bank_commission)
-          bank_commission.contributor_commission = Commission.search_by_bank(item.name).sum(:contributor_commission)
-          bank_commission.producer_commission = Commission.search_by_bank(item.name).sum(:producer_commission)
-          bank_commission.company_commission = Commission.search_by_bank(item.name).sum(:company_commission)
+          bank_commission.amount_credit = monthly_commission.sum(:amount_credit)
+          bank_commission.bank_commission = monthly_commission.sum(:bank_commission)
+          bank_commission.contributor_commission = monthly_commission.sum(:contributor_commission)
+          bank_commission.producer_commission = monthly_commission.sum(:producer_commission)
+          bank_commission.company_commission = monthly_commission.sum(:company_commission)
             
         end 
       end
