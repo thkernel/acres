@@ -11,17 +11,20 @@ class Log < ApplicationRecord
         
         # Opening file
         creek = Creek::Book.new(file.path)
-
+        puts "File path: #{file.path}"
         # Getting the first sheet
         sheet = creek.sheets[0]
+
 
         record_count = 0
         # Loop all sheet rows
         puts "Je compte: #{sheet.rows.count}"
+        puts "Feuille: #{sheet}"
         sheet.rows.each_with_index do |row, index|
-
+            puts "L'index avant condition: #{index}"
             unless index == 0
-                    # The row return a hash, we save all Hash key in a new Array
+                puts "Entrer dans la boucle à l'index: #{index}"
+                # The row return a hash, we save all Hash key in a new Array
                 cell = row.keys
 
                 # Insert the line in database,

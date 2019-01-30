@@ -42,9 +42,9 @@
 			</td>
       <td><%= "#{number_to_currency commission.bank_commission_percentage, unit: "", seperator: ",", delimiter: "."}%" %></td>
 
-          	<td><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
+          	<td class="blue-amount"><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
            
-        	<td><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+        	<td class="blue-amount"><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
         	
       </tr>
     <% end %>
