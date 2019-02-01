@@ -11,17 +11,20 @@ class Log < ApplicationRecord
         
         # Opening file
         creek = Creek::Book.new(file.path)
-
+        puts "File path: #{file.path}"
         # Getting the first sheet
         sheet = creek.sheets[0]
+
 
         record_count = 0
         # Loop all sheet rows
         puts "Je compte: #{sheet.rows.count}"
+        puts "Feuille: #{sheet}"
         sheet.rows.each_with_index do |row, index|
-
+            puts "L'index avant condition: #{index}"
             unless index == 0
-                    # The row return a hash, we save all Hash key in a new Array
+                puts "Entrer dans la boucle à l'index: #{index}"
+                # The row return a hash, we save all Hash key in a new Array
                 cell = row.keys
 
                 # Insert the line in database,
@@ -117,12 +120,12 @@ class Log < ApplicationRecord
                 credit.credit_id = row[cell[0]]
                 credit.production_date = row[cell[1]]
                 credit.acte_date = row[cell[2]]
-                credit.customer_name = row[cell[3]]
-                credit.bank_name = row[cell[4]]
+                credit.customer_name = row[cell[3]].downcase
+                credit.bank_name = row[cell[4]].downcase
                 credit.amount = row[cell[5]]
-                credit.contributor_name = row[cell[6]]
-                credit.producer_name = row[cell[7]]
-                credit.notary_name = row[cell[8]]
+                credit.contributor_name = row[cell[6]].downcase
+                credit.producer_name = row[cell[7]].downcase
+                credit.notary_name = row[cell[8]].downcase
                 credit.hypoplus = row[cell[9]]
                 credit.user_id = user.id 
                 credit.save

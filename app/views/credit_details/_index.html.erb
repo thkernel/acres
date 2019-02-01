@@ -5,8 +5,8 @@
 
     <td><%= credit_detail.installment_payment %></td>
     <td><%= credit_detail.installment_date %></td>
-    <td><%= number_to_currency credit_detail.commission, unit: "", seperator: ",", delimiter: "." %></td>
-    <td><%= number_to_currency credit_detail.cumulative_amount, unit: "", seperator: ",", delimiter: "." %></td>
+    <td class="blue-amount"><%= number_to_currency credit_detail.commission, unit: "", seperator: ",", delimiter: "." %></td>
+    <td class="blue-amount"><%= number_to_currency credit_detail.cumulative_amount, unit: "", seperator: ",", delimiter: "." %></td>
     <% if is_admin? %>
 		<td><%= credit_detail.paid_by_bank %></td>
 		<td><%= credit_detail.paid_to_contributor_or_producer %></td>

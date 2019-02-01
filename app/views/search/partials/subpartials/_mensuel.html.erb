@@ -121,7 +121,22 @@
                
 
             </tr>
+            
         <% end %>
+
+
+        <!-- Total emprunt -->
+
+            <tr>
+                <td><strong>Total emprunt</strong></td>
+                 <% if @janvier %>
+                    <td><%= number_to_currency @janvier_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @fevrier %>
+                    <td><%= number_to_currency @fevrier_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                
+            </tr>
         </tbody>
     </table>
 </div>

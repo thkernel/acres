@@ -25,8 +25,9 @@
     
       <th>Date acte</th>
       <th>Numéro dossier</th>
-      <th>Banque</th>
       <th>Client</th>
+      <th>Banque</th>
+  
       <th>Montant emprunté</th>
       <th>% com</th>
       <th>Montant commission</th>
@@ -43,14 +44,16 @@
   
 
       <tr>
-        <td><%= commission.acte_date %></td>
+        <td><%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %></td>
         <td><%= commission.credit_id %></td>
-        <td><%= commission.bank_name %></td>
         <td><%= credit_customer_name(commission.credit_id) %></td>
-        <td><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+
+        <td><%= commission.bank_name %></td>
+       
+        <td class="blue-amount"><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
         <td><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
 
-        <td><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
+        <td class="blue-amount"><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
         <td>
         <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
 '), show_producer_credit_details_path(commission.credit_id) %>
@@ -62,15 +65,16 @@
 		<tr>
       <th>TOTAUX</th>
       <th></th>
+     
       <th></th>
       <th></th>
       
-      <th>
+      <th class="blue-amount">
         <strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong>
 
       </th>
     <th></th>
-    <th>
+    <th class="blue-amount">
         <strong><%= number_to_currency @total_commission_producteur, unit: "", seperator: ",", delimiter: "." %></strong>
 
     </th>

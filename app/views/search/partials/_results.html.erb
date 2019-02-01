@@ -36,12 +36,12 @@
     <% @commissions.each do |commission| %>
         <tr>
         
-            <td><%= number_to_currency commission.amount_credit , unit: "", seperator: ",", delimiter: "."  %></td>
+            <td class="blue-amount"><%= number_to_currency commission.amount_credit , unit: "", seperator: ",", delimiter: "."  %></td>
             <td>
-                <%= commission.production_date %>
+                <%= commission.production_date.strftime("%d/%m/%Y") if commission.production_date %>
             </td>
             <td>
-                <%= commission.acte_date %>
+                <%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %>
             </td>
             <% if commission.bank_name.present? %>
                 <td><%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %></td>
@@ -57,8 +57,8 @@
                 <td></td>
                 <% end %>
 
-            <td class="hiddable"><%= number_to_currency commission.contributor_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
-            <td class="hiddable"><%= number_to_currency commission.contributor_commission, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="hiddable "><%= number_to_currency commission.contributor_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="hiddable blue-amount"><%= number_to_currency commission.contributor_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
             <% if commission.producer_name.present? %>
                     <td><%= link_to "#{commission.producer_name}", producer_resume_path(producer_name: commission.producer_name) %></td>
@@ -67,12 +67,12 @@
             <% end %>
 
             <td class="hiddable"><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
-            <td class="hiddable"><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="hiddable blue-amount"><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
-            <td><%= number_to_currency commission.company_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
-            <td><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="blue-amount"><%= number_to_currency commission.company_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="blue-amount"><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
-            <td><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class="blue-amount"><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
 
             
