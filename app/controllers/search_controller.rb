@@ -76,7 +76,18 @@ class SearchController < ApplicationController
     @monthly = []
     
     # Amount.
-    @janvier_amount_credit, @fevrier_amount_credit, @mars_amount_credit, @avril_amount_credit , @mai_amount_credit, @juin_amount_credit , @juillet_amount_credit , @aout_amount_credit, @septembre_amount_credit, @octobre_amount_credit, @novembre_amount_credit, @decembre_amount_credit = 0.0
+    @janvier_amount_credit = 0.0 
+    @fevrier_amount_credit = 0.0
+    @mars_amount_credit = 0.0
+    @avril_amount_credit = 0.0 
+    @mai_amount_credit = 0.0
+    @juin_amount_credit = 0.0
+    @juillet_amount_credit = 0.0
+    @aout_amount_credit = 0.0
+    @septembre_amount_credit = 0.0
+    @octobre_amount_credit = 0.0
+    @novembre_amount_credit = 0.0
+     @decembre_amount_credit = 0.0
 
     banks = Bank.all
 
