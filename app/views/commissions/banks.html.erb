@@ -1,6 +1,6 @@
 
 
-<div class="container">
+<div class="container-fluid">
 
 <div class="row">
 <div class="col-md-12">
@@ -21,6 +21,7 @@
   <thead>
     <tr>
     <th>N°Dossier</th>
+    <th>Client</th>
       <th>Banque</th>
       <th>% com banque</th>
       <th>Com banque</th>
@@ -35,6 +36,8 @@
       <td>
         <%= commission.credit_id %>
       </td>
+               <td><%= credit_customer_name(commission.credit_id) %></td>
+
       		<td>
 				<% if commission.bank_name.present? %>
 					<%= link_to "#{commission.bank_name}", bank_resume_path(bank_name: commission.bank_name) %>

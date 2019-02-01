@@ -21,7 +21,7 @@
   <thead>
     <tr>
     <th>N°Dossier</th>
-      <!-- <th>Banque</th> -->
+      <th>Client</th> 
       <!-- <th>Apporteur</th> -->
       <th>Prod</th>
       <th>% com prod</th>
@@ -43,6 +43,8 @@
       <td>
       <%= commission.credit_id %>
     </td>
+             <td><%= credit_customer_name(commission.credit_id) %></td>
+
 		<td>
 			<% if commission.producer_name.present? %>
 				<%= link_to "#{commission.producer_name}", producer_resume_path(producer_name: commission.producer_name) %>

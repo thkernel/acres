@@ -120,12 +120,12 @@ class Log < ApplicationRecord
                 credit.credit_id = row[cell[0]]
                 credit.production_date = row[cell[1]]
                 credit.acte_date = row[cell[2]]
-                credit.customer_name = row[cell[3]]
-                credit.bank_name = row[cell[4]]
+                credit.customer_name = row[cell[3]].downcase
+                credit.bank_name = row[cell[4]].downcase
                 credit.amount = row[cell[5]]
-                credit.contributor_name = row[cell[6]]
-                credit.producer_name = row[cell[7]]
-                credit.notary_name = row[cell[8]]
+                credit.contributor_name = row[cell[6]].downcase
+                credit.producer_name = row[cell[7]].downcase
+                credit.notary_name = row[cell[8]].downcase
                 credit.hypoplus = row[cell[9]]
                 credit.user_id = user.id 
                 credit.save

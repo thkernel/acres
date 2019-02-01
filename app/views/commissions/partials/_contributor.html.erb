@@ -1,6 +1,6 @@
 
 
-<div class="container">
+<div class="container-fluid">
 
 <div class="row">
 <div class="col-md-12">
@@ -23,6 +23,7 @@
   <thead>
     <tr>
       <th>N°Dossier</th>
+      <th>Client</th>
       <th>Date prod.</th>
       <th>Date acte</th>
       <th>Banque</th>
@@ -41,8 +42,10 @@
       <% @commissions.each do |commission| %>
         <tr>
           <td><%= commission.credit_id %></td>
-          <td><%= commission.production_date %></td>
-          <td><%= commission.acte_date %></td>
+          <td><%= credit_customer_name(commission.credit_id) %></td>
+
+          <td><%= commission.production_date.strftime("%d/%m/%Y") if commission.production_date %></td>
+          <td><%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %></td>
           <td><%= commission.bank_name %></td>
           <td><%= credit_customer_name(commission.credit_id) %></td>
           <td><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
@@ -62,15 +65,16 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
       <th>
 
       </th>
-      <th>
+      <th class="blue-amount">
         <strong><%= number_to_currency @total_montant_credit, unit: "", seperator: ",", delimiter: "." %></strong>
 
       </th>
     <th></th>
-    <th>
+    <th class="blue-amount">
         <strong><%= number_to_currency @total_commission_apporteur, unit: "", seperator: ",", delimiter: "." %></strong>
 
     </th>
