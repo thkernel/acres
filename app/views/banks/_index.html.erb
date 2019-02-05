@@ -2,7 +2,7 @@
 
 <% @banks.each do |bank| %>
       <tr>
-        <td><%= bank.name %></td>
+        <td><%= bank.name.humanize %></td>
         <td><%= bank.commission_percentage %></td>
         <td><%= bank.number_of_dates %></td>
         <td><%= bank.first_installment %></td>
