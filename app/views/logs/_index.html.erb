@@ -1,6 +1,6 @@
 <% @logs.each do |log| %>
     <tr>
-        <td><%= log.created_at %></td>
+        <td><%= log.created_at.strftime("%d/%m/%Y") if log.created_at %></td>
         <td><%= log.file_name %></td>
         <td><%= log.no_record %></td>
         <td><%= log.error %></td>
