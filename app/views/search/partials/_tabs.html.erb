@@ -6,6 +6,9 @@
   <li class="nav-item">
     <a class="nav-link" id="mensuel-tab" data-toggle="tab" href="#mensuel" role="tab" aria-controls="mensuel" aria-selected="false">MENSUEL</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" id="actees-produites-tab" data-toggle="tab" href="#actees-produites" role="tab" aria-controls="actees-produites" aria-selected="false">ACTEES & PRODUITES</a>
+  </li>
  
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -15,6 +18,9 @@
   </div>
   <div class="tab-pane fade" id="mensuel" role="tabpanel" aria-labelledby="mensuel-tab">
     <%= render "search/partials/subpartials/mensuel" %>
+  </div>
+  <div class="tab-pane fade" id="actees-produites" role="tabpanel" aria-labelledby="actees-produites-tab">
+   <%= render "search/partials/subpartials/tarte" %>
   </div>
 </div>
 </div>
