@@ -38,7 +38,7 @@ class Log < ApplicationRecord
                     current_customer = Customer.exists(row[cell[3]])
                     unless current_customer.present?
                         customer = Customer.new
-                        customer.full_name = row[cell[3]]
+                        customer.full_name = row[cell[3]].downcase
                         customer.user_id = user.id
                         customer.save
                     end
@@ -52,7 +52,7 @@ class Log < ApplicationRecord
                     # If bank exist.
                     unless  current_bank.present? 
                         bank = Bank.new
-                        bank.name = row[cell[4]]
+                        bank.name = row[cell[4]].downcase
                         bank.commission_percentage = 0
                         bank.hypoplus_commission_percentage = 0
                         bank.user_id = user.id
@@ -68,7 +68,7 @@ class Log < ApplicationRecord
                     unless current_contributor.present?
 
                         contributor = User.new
-                        contributor.full_name = row[cell[6]]
+                        contributor.full_name = row[cell[6]].downcase
                         contributor.email =  record_count.to_s + "a@exemple.com"
                         contributor.password = '12345678'
                         contributor.password_confirmation = '12345678'
@@ -92,7 +92,7 @@ class Log < ApplicationRecord
                     unless  current_producer.present?
 
                         producer = User.new
-                        producer.full_name = row[cell[7]]
+                        producer.full_name = row[cell[7]].downcase
                         producer.email = record_count.to_s + "p@exemple.com"
                         producer.password = '12345678'
                         producer.password_confirmation = '12345678'
@@ -109,7 +109,7 @@ class Log < ApplicationRecord
                     current_notary = Notary.is_notary(row[cell[8]]).present?
                     unless  current_notary.present?
                         notary = Notary.new
-                        notary.full_name = row[cell[8]]
+                        notary.full_name = row[cell[8]].downcase
                         notary.user_id = user.id
                         notary.save
 
