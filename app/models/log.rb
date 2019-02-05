@@ -35,7 +35,7 @@ class Log < ApplicationRecord
 
                 # Begin insert a bank, before to insert bank we check if bank exist
                 if row[cell[3]].present?
-                    current_customer = Customer.exists(row[cell[3]])
+                    current_customer = Customer.exists(row[cell[3]].downcase)
                     unless current_customer.present?
                         customer = Customer.new
                         customer.full_name = row[cell[3]].downcase
@@ -47,7 +47,7 @@ class Log < ApplicationRecord
 
                 # Begin insert a bank, before to insert bank we check if bank exist
                 if row[cell[4]].present?
-                    current_bank = Bank.exists(row[cell[4]])
+                    current_bank = Bank.exists(row[cell[4]].downcase)
                     
                     # If bank exist.
                     unless  current_bank.present? 
@@ -63,7 +63,7 @@ class Log < ApplicationRecord
 
                 # Begin insert a user, before to insert user we check if user exist
                 if row[cell[6]].present?
-                current_contributor = User.is_contributor(row[cell[6]], 'Apporteur').present?
+                current_contributor = User.is_contributor(row[cell[6]].downcase, 'Apporteur').present?
 
                     unless current_contributor.present?
 
@@ -88,7 +88,7 @@ class Log < ApplicationRecord
 
                 if row[cell[7]].present?
                 
-                    current_producer = User.is_producer(row[cell[7]], 'Producteur')
+                    current_producer = User.is_producer(row[cell[7]].downcase, 'Producteur')
                     unless  current_producer.present?
 
                         producer = User.new
@@ -106,7 +106,7 @@ class Log < ApplicationRecord
 
                 if row[cell[8]].present?
                     
-                    current_notary = Notary.is_notary(row[cell[8]]).present?
+                    current_notary = Notary.is_notary(row[cell[8]].downcase).present?
                     unless  current_notary.present?
                         notary = Notary.new
                         notary.full_name = row[cell[8]].downcase
