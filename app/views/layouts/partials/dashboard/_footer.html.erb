@@ -2,14 +2,10 @@
     <div class="container-fluid">
         
         <div class="copyright pull-right">
-            <% if is_admin? || is_producer?(current_user) || is_contributor?(current_user) %>
-                <% if is_app_name_exist?(current_user) %>
-                &copy;2018 <%= get_app_name(current_user) %> - Tout droits réservés
-                <% end %>
-            <% else %>
-                &copy;2018 COSMOPOL - Tout droits réservés
+           
+                &copy;2019 - Développé par <a href="http://www.informatique-courtiers.be" target="_blank">http://www.informatique-courtiers.be</a>
 
-            <% end %>
+            
             </div>
     </div>
 </footer>
