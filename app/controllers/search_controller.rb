@@ -58,6 +58,10 @@ class SearchController < ApplicationController
     @commissions_chart_pie_by_company_commission = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary).unscope(:order).group(:bank_name).sum(:company_commission)
     monthly_commissions = Commission.group(:bank_name).select(:bank_name)#.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary)
 
+
+    @commissions_acted = Commission.where("acte_date is not null").unscope(:order).group(:bank_name).sum(:bank_commission)
+    @commissions_products = Commission.where("production_date is not null").unscope(:order).group(:bank_name).sum(:bank_commission)
+
     puts "PAR BANQUE: #{@commissions_chart_pie}"
     puts "PAR ACRES: #{@commissions_chart_pie_by_company_commission}"
 
