@@ -8,7 +8,7 @@ class LogsController < ApplicationController
   # GET /logs
   # GET /logs.json
   def index
-    @logs = Log.order(created_at: :asc)
+    @logs = Log.order('created_at DESC')
   end
 
   # GET /logs/1
