@@ -1,0 +1,31 @@
+<div class="">
+    <div class="row">
+        <!-- Stats par banques -->
+        <div class="col-md-6">
+            <div class="content">
+                <div class="content-title">
+                    <h3>Actées</h3>
+                </div>
+                <div class="content-body">
+                    <%= pie_chart @commissions_acted, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: ",", library: { plotOptions: { pie: { dataLabels: {enabled: true,
+                format: '<b>{point.y:,.0f}</b><br>{point.percentage:.1f}%'},showInLegend: true}}}, :id => "bankk", adapter: "highcharts" %>
+                </div>
+
+            </div>
+        </div>
+        <!-- Stats par acres -->
+        <div class="col-md-6">
+             <div class="content">
+                <div class="content-title">
+                    <h3>Produites </h3>
+                </div>
+                <div class="content-body">
+                    <%= pie_chart @commissions_products, messages: {empty: "Pas de données"}, legend: "left", thousands: ".", decimal: ",", library: { plotOptions: { pie: { dataLabels: {enabled: true,
+                format: '<b>{point.y:,.0f}</b><br>{point.percentage:.1f}%'},showInLegend: true}}},  adapter: "highcharts" %>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

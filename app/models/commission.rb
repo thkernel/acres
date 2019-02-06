@@ -38,6 +38,27 @@ class Commission < ApplicationRecord
         
     end
 
+
+    def self.acted
+        
+       
+            query = Commission.order(:production_date)
+            #query = query.where("production_date = ? AND acte_date = ? AND bank_name = ? AND contributor_name = ? AND producer_name = ?", production_date, acte_date, bank_name, contributor_name, producer_name) if production_date.present?
+            query = query.where("acte_date <> ''")
+           
+            
+
+            query
+        
+       
+       
+
+        
+
+        
+    end
+
+
     def self.search_by_bank(bank_name)
         where('bank_name = ?', "#{bank_name}")
     end
