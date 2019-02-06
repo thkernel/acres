@@ -46,9 +46,9 @@
       <tr>
         <td><%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %></td>
         <td><%= commission.credit_id %></td>
-        <td><%= credit_customer_name(commission.credit_id) %></td>
+        <td><%= credit_customer_name(commission.credit_id).humanize %></td>
 
-        <td><%= commission.bank_name %></td>
+        <td><%= commission.bank_name.humanize %></td>
        
         <td class="blue-amount"><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
         <td><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>

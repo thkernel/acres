@@ -43,11 +43,11 @@
       <td>
       <%= commission.credit_id %>
     </td>
-             <td><%= credit_customer_name(commission.credit_id) %></td>
+             <td><%= credit_customer_name(commission.credit_id).humanize %></td>
 
 		<td>
 			<% if commission.producer_name.present? %>
-				<%= link_to "#{commission.producer_name}", producer_resume_path(producer_name: commission.producer_name) %>
+				<%= link_to "#{commission.producer_name.humanize}", producer_resume_path(producer_name: commission.producer_name) %>
 			<% end %>
     </td>
     <td><%= "#{number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "."}%" %></td>

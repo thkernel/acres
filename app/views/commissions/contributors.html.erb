@@ -21,7 +21,7 @@
   <thead>
     <tr>
     <th>N°Dossier</th>
-      <!-- <th>Banque</th> -->
+      <th>Client</th> 
       <th>Apporteur</th>
       <th>% com appo</th>
       <!-- <th>Producteur</th> -->
@@ -45,9 +45,12 @@
       <td>
       <%= commission.credit_id %>
       </td>
+      
+       <td><%= credit_customer_name(commission.credit_id).humanize %></td>
+      
 		<td>
 			<% if commission.contributor_name.present? %>
-				<%= link_to "#{commission.contributor_name}", contributor_resume_path(contributor_name: commission.contributor_name) %>
+				<%= link_to "#{commission.contributor_name.humanize}", contributor_resume_path(contributor_name: commission.contributor_name) %>
 			<% end %>
 		</td>
     <td><%= "#{ number_to_currency commission.contributor_commission_percentage, unit: "", seperator: ",", delimiter: "."}%" %></td>
