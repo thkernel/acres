@@ -1,7 +1,7 @@
 <% if @users.present? %>
 <% @users.each do |user| %>
 			  <tr>
-			  		<td><%= user.full_name %></td>
+			  		<td><%= user.full_name.humanize %></td>
 					<td><%= user.email %></td>
 					<td><%= user.role %></td>
 					<td><%= user.status %></td>

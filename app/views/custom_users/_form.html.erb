@@ -1,4 +1,4 @@
-<%= form_with(model: user, url: create_user_path, local: true) do |f| %>
+<%= form_with(model: user, url: create_user_path, local: false) do |f| %>
 		<div class="modal-body">
 				<div class="row">
 							<div class="col-md-12">
@@ -12,7 +12,7 @@
 								<div class="col-xs-12">
 									<div class="form-group">
 										<%= f.label "Nom complet" %><br />
-										<%= f.text_field :full_name, autofocus: true, autocomplete: "full_name", class: "form-control", placeholder: "Nom complet"   %>
+										<%= f.text_field :full_name, autofocus: true, autocomplete: "full_name", class: "form-control", placeholder: "Nom complet", required: true   %>
 									</div>
 								</div>
 
@@ -22,7 +22,7 @@
 
 									<div class="form-group">
 										<%= f.label :email %><br />
-										<%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "E-mail" %>
+										<%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "E-mail", required: true %>
 									</div>
 									
 
@@ -31,12 +31,12 @@
 										<% if @minimum_password_length %>
 										<em>(<%= @minimum_password_length %> characters minimum)</em>
 										<% end %><br />
-										<%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Mot de passe" %>
+										<%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Mot de passe", required: true %>
 									</div>
 								
 									<div class="form-group">
 										<%= f.label :password_confirmation %><br />
-										<%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirmation du mot de passe" %>
+										<%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirmation du mot de passe", required: true %>
 									</div>
 									<div class="form-group">
 										<%= f.label "Profil" %>
@@ -54,6 +54,6 @@
 		</div><!-- modal body -->
 		<div class="modal-footer">
 				<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
-				<%= f.submit "Enregistrer", class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+				<%= f.submit "Enregistrer", class: "btn btn-warning",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
 		</div>
 <% end %>

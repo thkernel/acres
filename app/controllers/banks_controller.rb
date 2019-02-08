@@ -120,7 +120,7 @@ class BanksController < ApplicationController
   
 		# Get company infos required infos for the compute.
 		if  current_company.present?
-			company_name = current_company.name
+			company_name = current_company.name.downcase
 			company_commission_net = 0.0
 			company_commission_percentage = 0.0
 		end
