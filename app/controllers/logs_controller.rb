@@ -114,7 +114,7 @@ class LogsController < ApplicationController
 
 		# Getting company infos.
 		if  current_company.present?
-			company_name = current_company.name.downcase!
+			company_name = current_company.name.downcase
 		end
 		# Load all commissions.
 		commissions = Commission.all
@@ -142,8 +142,8 @@ class LogsController < ApplicationController
 			end
 
 			# We get the producer infos.
-			contributor_name = commission.contributor_name.downcase!
-			producer_name = commission.producer_name.downcase!
+			contributor_name = commission.contributor_name.downcase
+			producer_name = commission.producer_name.downcase
 		
 			# Get contributor.
 			if contributor_name.present?
