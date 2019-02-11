@@ -1,22 +1,22 @@
 <tr>
 <td class="uppercase">Nom</td>
-<td ><%= get_admin_company(current_user).name  %></td>
+<td ><%= current_company().name  %></td>
 </tr>
 
 <tr>
 <td class="uppercase">Adresse</td>
-<td><%= get_admin_company(current_user).address  %></td>
+<td><%= current_company().address  %></td>
 </tr>
 <tr>
 <td class="uppercase">Ville</td>
-<td><%= get_admin_company(current_user).city %></td>
+<td><%= current_company().city %></td>
 </tr>
 <tr>
 <td class="uppercase">Pays</td>
-<td><%= get_admin_company(current_user).country  %></td>
+<td><%= current_company().country  %></td>
 </tr>
 
 <tr>
 <td class="uppercase">Téléphone</td>
-<td><%= get_admin_company(current_user).phone  %></td>
+<td><%= current_company().phone  %></td>
 </tr>
