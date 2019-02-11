@@ -38,7 +38,7 @@ class Log < ApplicationRecord
                     current_customer = Customer.exists(row[cell[3]].downcase)
                     unless current_customer.present?
                         customer = Customer.new
-                        customer.full_name = row[cell[3]].downcase
+                        customer.full_name = row[cell[3]].downcase if row[cell[3]].present?
                         customer.user_id = user.id
                         customer.save
                     end
@@ -52,7 +52,7 @@ class Log < ApplicationRecord
                     # If bank exist.
                     unless  current_bank.present? 
                         bank = Bank.new
-                        bank.name = row[cell[4]].downcase
+                        bank.name = row[cell[4]].downcase if row[cell[4]].present?
                         bank.commission_percentage = 0
                         bank.hypoplus_commission_percentage = 0
                         bank.user_id = user.id
@@ -68,7 +68,7 @@ class Log < ApplicationRecord
                     unless current_contributor.present?
 
                         contributor = User.new
-                        contributor.full_name = row[cell[6]].downcase
+                        contributor.full_name = row[cell[6]].downcase if row[cell[6]].present?
                         contributor.email =  record_count.to_s + "a@exemple.com"
                         contributor.password = '12345678'
                         contributor.password_confirmation = '12345678'
@@ -92,7 +92,7 @@ class Log < ApplicationRecord
                     unless  current_producer.present?
 
                         producer = User.new
-                        producer.full_name = row[cell[7]].downcase
+                        producer.full_name = row[cell[7]].downcase if row[cell[7]].present?
                         producer.email = record_count.to_s + "p@exemple.com"
                         producer.password = '12345678'
                         producer.password_confirmation = '12345678'
@@ -109,7 +109,7 @@ class Log < ApplicationRecord
                     current_notary = Notary.is_notary(row[cell[8]].downcase).present?
                     unless  current_notary.present?
                         notary = Notary.new
-                        notary.full_name = row[cell[8]].downcase
+                        notary.full_name = row[cell[8]].downcase if row[cell[8]].present?
                         notary.user_id = user.id
                         notary.save
 
@@ -117,16 +117,16 @@ class Log < ApplicationRecord
                 end
 
 
-                credit.credit_id = row[cell[0]]
-                credit.production_date = row[cell[1]]
-                credit.acte_date = row[cell[2]]
-                credit.customer_name = row[cell[3]].downcase
-                credit.bank_name = row[cell[4]].downcase
-                credit.amount = row[cell[5]]
-                credit.contributor_name = row[cell[6]].downcase
-                credit.producer_name = row[cell[7]].downcase
-                credit.notary_name = row[cell[8]].downcase
-                credit.hypoplus = row[cell[9]]
+                credit.credit_id = row[cell[0]] if row[cell[0]].present?
+                credit.production_date = row[cell[1]] if row[cell[1]].present?
+                credit.acte_date = row[cell[2]] if row[cell[2]].present?
+                credit.customer_name = row[cell[3]].downcase if row[cell[3]].present?
+                credit.bank_name = row[cell[4]].downcase if row[cell[4]].present?
+                credit.amount = row[cell[5]] if row[cell[5]].present?
+                credit.contributor_name = row[cell[6]].downcase if row[cell[6]].present?
+                credit.producer_name = row[cell[7]].downcase if row[cell[7]].present?
+                credit.notary_name = row[cell[8]].downcase if row[cell[8]].present?
+                credit.hypoplus = row[cell[9]] if row[cell[9]].present?
                 credit.user_id = user.id 
                 credit.save
                 # End saving
