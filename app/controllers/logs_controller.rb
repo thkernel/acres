@@ -320,9 +320,11 @@ class LogsController < ApplicationController
 
 		# Deleting the olds commissions before compute the news
 		Commission.destroy_all #if commission.present?
+		#Credit.destroy_all
 		
 		# Load all credits.
-		@credits = current_user.credits 
+		#@credits = Credit.all
+		@credits = current_user.credits
 
 		# Explore credits.
 		@credits.each do |credit|
@@ -332,7 +334,7 @@ class LogsController < ApplicationController
 			commission.credit_id = credit.credit_id
 			commission.production_date = credit.production_date
 			commission.acte_date = credit.acte_date
-			commission.customer_id = credit.customer_id
+			commission.customer_id = credit.customer_id if credit.customer_id
 			commission.contributor_name = credit.contributor_name
 			#commission.contributor_commission = credit.contributor_commission
 			#comission.contributor_commission_percentage = contributor_commission_percentage
@@ -441,7 +443,7 @@ class LogsController < ApplicationController
 			commission.credit_id = credit.credit_id
 			commission.production_date = credit.production_date
 			commission.acte_date = credit.acte_date
-			commission.customer_id = credit.customer_id
+			commission.customer_id = credit.customer_id if credit.customer_id
 			commission.contributor_name = credit_contributor_name
 			commission.contributor_commission = contributor_commission
 			comission.contributor_commission_percentage = contributor_commission_percentage
