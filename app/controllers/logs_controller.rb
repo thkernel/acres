@@ -323,8 +323,8 @@ class LogsController < ApplicationController
 		#Credit.destroy_all
 		
 		# Load all credits.
-		#@credits = Credit.all
-		@credits = current_user.credits
+		@credits = Credit.all
+		#@credits = current_user.credits
 
 		# Explore credits.
 		@credits.each do |credit|
