@@ -13,7 +13,6 @@
                                     <th>Prod</th>
                                     <th class="hiddable">% com prod</th>
                                     <th class="hiddable">Com prod</th>
-                                    <th>% com <%= current_company.name  %></th>
                                     <th>Com totale banque</th>
                                     <th>Com nette <%= current_company.name  %></th>
                                    
@@ -69,7 +68,6 @@
             <td class="hiddable"><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
             <td class="hiddable blue-amount"><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
-            <td class="blue-amount"><%= number_to_currency commission.company_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
             <td class="blue-amount"><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
 
             <td class="blue-amount"><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>

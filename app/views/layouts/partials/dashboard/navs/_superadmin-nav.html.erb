@@ -25,9 +25,7 @@ Crédits'), credits_path %>
             </li>
 				
            
-            <li>
-                <%= link_to raw('<i class="fa fa-building-o" aria-hidden="true"></i>Banques'), banks_path %>
-            </li>
+           
 				<% if is_admin? || is_superadmin? %>
 					<li>
 						<a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs" aria-hidden="true"></i>
@@ -37,7 +35,9 @@ Crédits'), credits_path %>
 								<li>
 									<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
 								</li>
-								
+								 <li>
+                <%= link_to raw('<i class="fa fa-building-o" aria-hidden="true"></i>Banques'), banks_path %>
+            </li>
 							
 						
                             <li>
