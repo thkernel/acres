@@ -2,8 +2,8 @@
       <tr>
         <td><%= credit.credit_id %></td>
          <td><%= credit.customer_name.humanize if credit.customer_name  %></td>
-        <td><%= credit.production_date.strftime("%d/%m/%Y") if credit.production_date %></td>
-        <td><%= credit.acte_date.strftime("%d/%m/%Y") if credit.acte_date %></td>
+        <td data-sort="<%= credit.production_date.strftime("%Y%m%d%H%M%s") if credit.production_date %>"><%= credit.production_date.strftime("%d/%m/%Y") if credit.production_date %></td>
+        <td data-sort="<%= credit.acte_date.strftime("%Y%m%d%H%M%s") if credit.acte_date %>"><%= credit.acte_date.strftime("%d/%m/%Y") if credit.acte_date %></td>
        
         <td><%= credit.bank_name.humanize if credit.bank_name  %></td>
         <td class="blue-amount"><%= number_to_currency credit.amount, unit: "", seperator: ",", delimiter: "." %></td>

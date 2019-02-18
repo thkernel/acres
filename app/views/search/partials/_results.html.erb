@@ -36,10 +36,10 @@
         <tr>
         
             <td class="blue-amount"><%= number_to_currency commission.amount_credit , unit: "", seperator: ",", delimiter: "."  %></td>
-            <td>
+            <td data-sort="<%= commission.production_date.strftime("%Y%m%d%H%M%s") if commission.production_date %>">
                 <%= commission.production_date.strftime("%d/%m/%Y") if commission.production_date %>
             </td>
-            <td>
+            <td data-sort="<%= commission.acte_date.strftime("%Y%m%d%H%M%s") if commission.acte_date %>">
                 <%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %>
             </td>
             <% if commission.bank_name.present? %>
