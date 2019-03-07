@@ -122,6 +122,7 @@ class LogsController < ApplicationController
 		# For each commissions
 		commissions.each do |commission|
 
+			credit_hypoplus = get_credit_hypoplus(commission.credit_id).hypoplus
 			# Credit amount.
 			if commission.amount_credit.present?
 				credit_amount = commission.amount_credit 
@@ -169,34 +170,35 @@ class LogsController < ApplicationController
 			end
 
 			# Handle 
-			if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
+			if credit_hypoplus.present? 
+				if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
+						
+					if producer_name.present? && producer_hypoplus_commission_percentage.present? && producer_name != company_name 
+					contributor_commission_percentage = 0.0 
+					contributor_commission = 0.0
+
+			
+					bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
+					producer_commission = (bank_amount_commission) / 2
+
+					company_commission_net = (bank_amount_commission) / 2
+					company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+
+				else
+					contributor_commission_percentage = 0.0 
+					contributor_commission = 0.0
+
 					
-				if producer_name.present? && producer_hypoplus_commission_percentage.present? && producer_name != company_name 
-				contributor_commission_percentage = 0.0 
-				contributor_commission = 0.0
+					bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
+					producer_commission = 0.0
 
-		
-				bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
-				producer_commission = (bank_amount_commission) / 2
+					company_commission_net = bank_amount_commission
+					company_commission_percentage = (company_commission_net / credit_amount) * 100
+			
+				end
 
-				company_commission_net = (bank_amount_commission) / 2
-				company_commission_percentage = (company_commission_net / credit_amount) * 100
-
-
-			else
-				contributor_commission_percentage = 0.0 
-				contributor_commission = 0.0
-
-				
-				bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
-				producer_commission = 0.0
-
-				company_commission_net = bank_amount_commission
-				company_commission_percentage = (company_commission_net / credit_amount) * 100
-		
 			end
-
-
 		else
 		
 			# Rule 1

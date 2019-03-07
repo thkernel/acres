@@ -239,7 +239,15 @@ module ApplicationHelper
 			false
 		end
 	end
+
 	def current_company
 		company = Company.first
+	end
+
+	def get_credit_hypoplus(credit_id)
+		
+		credit = Credit.find_by(credit_id: credit_id)
+		return credit
+		
 	end
 end
