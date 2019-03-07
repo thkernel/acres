@@ -349,7 +349,6 @@ class BanksController < ApplicationController
 
       bank = Bank.find(bank_id)
       
-  
       # Get company infos required infos for the compute.
       if  current_company.present?
         company_name = current_company.name
@@ -366,7 +365,7 @@ class BanksController < ApplicationController
         puts "NO BANK COMMISIONSSS"
       end
 
-puts "BANQUE NAME: #{bank.name} et #{bank.commission_percentage}"
+      puts "BANQUE NAME: #{bank.name} et #{bank.commission_percentage}"
       # Get bank infos required infos for the compute.
       
       if bank.present? && bank.commission_percentage.present?
@@ -375,11 +374,17 @@ puts "BANQUE NAME: #{bank.name} et #{bank.commission_percentage}"
         bank_amount_commission = 0.0
       
         puts "avant boucle"
+
+
         # Loop all commissions.
         @bank_commissions.each do |commission|
 
           contributor_name = commission.contributor_name
           producer_name = commission.producer_name
+          credit_hypoplus = get_credit_hypoplus(commission.credit_id).hypoplus
+
+          puts "============GETTING CREDIT HYPOPLUS=========== (#{credit_hypoplus})"
+          
   
           puts "La boucle: oui"
           # Get contributor.
@@ -401,13 +406,10 @@ puts "BANQUE NAME: #{bank.name} et #{bank.commission_percentage}"
           if producer_name.present?
             producer = User.find_user_by_name_and_role(producer_name, 'Producteur').first
 
-      
             if producer.present? && producer.commission_setting.present? 
               
               producer_commission_percentage = producer.commission_setting.commission_percentage 
               
-                
-            
               producer_hypoplus_commission_percentage = producer.commission_setting.hypoplus_commission_percentage 
               producer_commission = 0.0
             end
@@ -419,34 +421,36 @@ puts "BANQUE NAME: #{bank.name} et #{bank.commission_percentage}"
           credit_amount = commission.amount_credit 
         end
         
-        if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 10.0 
-          #
-          if producer_name.present? && producer_hypoplus_commission_percentage.present? && producer_name == company_name || company_name.blank?
-            contributor_commission_percentage = 0.0 
-            contributor_commission = 0.0
 
-            
-            bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
-            producer_commission = (bank_amount_commission) / 2
+        if credit_hypoplus.present? 
+          if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 10.0 
+            #
+            if producer_name.present? && producer_hypoplus_commission_percentage.present? && producer_name == company_name || company_name.blank?
+              contributor_commission_percentage = 0.0 
+              contributor_commission = 0.0
 
-            company_commission_net = (bank_amount_commission) / 2
-            company_commission_percentage = (company_commission_net / credit_amount) * 100
-      
+              
+              bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
+              producer_commission = (bank_amount_commission) / 2
 
-          else
-            contributor_commission_percentage = 0.0 
-            contributor_commission = 0.0
+              company_commission_net = (bank_amount_commission) / 2
+              company_commission_percentage = (company_commission_net / credit_amount) * 100
+        
 
-            
-            bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
-            producer_commission = 0.0
+            else
+              contributor_commission_percentage = 0.0 
+              contributor_commission = 0.0
 
-            company_commission_net = bank_amount_commission
-            company_commission_percentage = (company_commission_net / credit_amount) * 100
-      
+              
+              bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
+              producer_commission = 0.0
+
+              company_commission_net = bank_amount_commission
+              company_commission_percentage = (company_commission_net / credit_amount) * 100
+        
+            end
+
           end
-
-
         else
             # Rule 1
             if contributor_name == company_name || producer_name == company_name || contributor_name.blank?

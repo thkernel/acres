@@ -71,6 +71,7 @@ class SearchController < ApplicationController
     @total_commission_apporteur = @commissions.sum(:contributor_commission)
     @total_commission_nette_company = @commissions.sum(:company_commission)
     @total_commission_producteur = @commissions.sum( :producer_commission)
+    @total_commission_bank = @commissions.sum( :bank_commission)
     monthly_tarte(acte_date_debut, acte_date_fin, producer_name, contributor_name, notary)
   end
 
