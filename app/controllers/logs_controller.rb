@@ -25,6 +25,20 @@ class LogsController < ApplicationController
   def edit
   end
 
+  def reset 
+  end
+
+  def reset_all 
+	# Delete all bank.
+	Bank.destroy_all
+	producers = User.find_by_role("Producteur")
+	producers.destroy_all
+	
+	contributors = User.find_by_role("Apporteur")
+	contributors.destroy_all
+
+  end
+
   # POST /logs
   # POST /logs.json
   def create

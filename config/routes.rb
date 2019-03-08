@@ -140,6 +140,10 @@ Rails.application.routes.draw do
 	get '/app/config' => 'app_configs#new', as: :app_setup
 	get '/unauthorize' => 'dashboard#unauthorize', as: :unauthorize
 
+	get '/reset/get' => 'logs#reset', as: :get_reset_configuration
+	post '/reset/post' => 'logs#reset_all', as: :post_reset_configuration
+
+
 
 
 	devise_for :users, path: '', controllers: { 
