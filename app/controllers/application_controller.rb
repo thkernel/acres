@@ -51,21 +51,11 @@ class ApplicationController < ActionController::Base
  
 
   def set_global
-	config_option = ConfigOption.first
-	@app_name = config_option.app_name if config_option.present?
+		config_option = ConfigOption.first
+		@app_name = config_option.app_name if config_option.present?
   end
 
-  #def configure_super_admin
-	#super_admin = SuperAdminConfig.all
-
-	#unless super_admin.present?
-		#redirect_to super_admin_config_path
-	#end
-  #end
-
-	#
-	
-
+  
 	
 
 	# Application setup.
@@ -75,13 +65,17 @@ class ApplicationController < ActionController::Base
       if request.subdomain.present? && request.subdomain != 'www'   
           super_admin = User.find_by_superadmin("Superadmin")
 
+					
           #puts "Users:  #{super_admin}"
-        puts "Current sub: #{Apartment::Tenant.current}"
+        	puts "Current sub: #{Apartment::Tenant.current}"
+					if get_account_status?(request.subdomain)
+						unless super_admin.present?
+							redirect_to new_superadmin_path
+						end
 
-          unless super_admin.present?
-            redirect_to new_superadmin_path
-          end
-        
+					else
+						redirect_to unauthorize_path
+					end
 
       else
         

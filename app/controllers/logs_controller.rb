@@ -36,6 +36,15 @@ class LogsController < ApplicationController
 	
 	contributors = User.find_by_role("Apporteur")
 	contributors.destroy_all
+	Credit.destroy_all
+	Commission.destroy_all
+	Customer.destroy_all
+
+	respond_to do |format|
+		format.html { redirect_to dashboard_path, notice: 'Données supprimées avec succès!' }
+		format.json { head :no_content }
+		format.js
+	  end
 
   end
 
