@@ -69,6 +69,10 @@ Crédits'), credits_path %>
 							<li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
 									Société'), show_company_path(current_company) %>
 							</li>
+
+							<li><%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
+									Réinitialisation'), get_reset_configuration_path, remote: true %>
+							</li>
                             
 							
 					
