@@ -15,8 +15,8 @@
   </div>
   <div class="modal-footer">
     <%= link_to "Non", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
-    <%= link_to "Oui, Tous supprimer", post_reset_configuration_path,  remote: true, class: "btn btn-danger" %>
-    
+    <%= button_to "Oui, Tous supprimer",  post_reset_configuration_path,  class: "btn btn-danger",  data: {disable_with: "Suppression en cours..."}, autocomplete: "off" %>
+
   </div>
   </div>
 </div>

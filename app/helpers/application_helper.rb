@@ -250,4 +250,14 @@ module ApplicationHelper
 		return credit
 		
 	end
+
+	def get_account_status?(subdomain)
+		account = Account.find_by(subdomain: subdomain)
+
+		if account.present? && account.status == true
+			true 
+		else
+			false
+		end
+	end
 end
