@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		
+			<title>Accueil</title>
+		
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+	
+		<%= render :partial => 'layouts/partials/flash_messages', :flash => flash %>
+		<!-- Left Sidebar -->
+	  <%= render('layouts/partials/home/header') %>
+	   <!-- End Left sidebar -->
+
+
+	 
+
+	  <!-- Content Wrapper. Contains page content -->
+	  <div class="main-panel">
+	  		
+	   <!-- End Left sidebar -->
+				
+	    <%= yield %>
+	 
+
+	  <!-- Main Footer -->
+	  <%= render('layouts/partials/home/footer') %>
+	   <!-- End Main Footer -->
+ 	</div><!-- /.content-wrapper -->
+
+	</div><!-- ./wrapper -->
+  </body>
+</html>

@@ -163,7 +163,7 @@ Rails.application.routes.draw do
             sign_up: '' 
         }
 
-	#root 'config_options#new'
+	root 'home#index'
 	devise_scope :user do
 		authenticated :user do
 			root 'dashboard#index', as: :authenticated_root

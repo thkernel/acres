@@ -293,3 +293,116 @@ nav.navbar .dropdown-menu a {
   .statistics .number{
     color: #fbb37f !important;
   }
+
+  .navbar > .container {
+      display: inline-block !important
+  }
+
+  .navbar {
+  
+    margin-bottom: 0px !important;
+  }
+  nav.navbar {
+    background: #393836;
+    /*padding:  0px !important;*/
+}
+.navbar-default {
+    background-color: #f8f8f8;
+    border: 0px solid !important;
+}
+
+.jumbotron {
+   
+    background-image: url("hero/hero.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: calc(70vh);
+    border-radius: 0px !important;
+}
+
+.jumbotron {
+	/*background-image: url("hero/hero-bamako.jpg");*/
+	background-size: cover;
+	background-position: center;
+       min-height: 350px;
+    height: 500px;
+    background-color: #673AB7 !important;
+    padding-top: 150px;
+ 
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+    border-radius: 0px !important;
+    position: relative;
+        background-color: #3b5170 !important;
+            margin-bottom: 0px !important; 
+}
+.jumbotron:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 5;
+}
+
+.navbar-brand{
+    font-size: 30px !important;
+font-weight: bold !important;
+}
+
+.footer-one{
+    padding-top: 30px;
+    /*margin-top: 3em;*/
+    /*background: #f5f8fa;*/
+    background-color: #161e2c;
+    border-top: 4px solid #e5e9ee;
+    padding-bottom: 1em;
+}
+.footer-widget-title{
+    text-transform: uppercase;
+    color: white;
+}
+.footer-widget-content ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.footer-widget-content ul li a{
+    text-decoration: none;
+    color: #BEC0C2;
+    border: none;
+    outline: 0;
+}
+.footer-widget-content{
+    color:#BEC0C2;
+    border: none;
+    outline: 0;
+}
+
+.social-link {
+    float: right;
+    margin-top: 40px;
+    color: white;
+}
+
+.section_title{
+    float: left;
+    text-transform: uppercase;
+    color: #7a8f9f;;
+}
+.copyright{
+    color: white;
+    margin-top: 40px;
+}
+
+
+
+
+
+.social-link {
+    float: right;
+    margin-top: 40px;
+    color: white;
+}
