@@ -464,7 +464,7 @@ nav.navbar {
 }
 
 .hero-subtitle {
-    font-size: 17pt;
+    font-size: 15pt;
 }
 
 .hero-title {
@@ -473,4 +473,12 @@ nav.navbar {
 
 .home .navbar {
     border: 2px solid red
+}
+
+.features-item-icon .fa {
+    font-size: 30pt;
+}
+
+.features-item-icon {
+    margin: 15px;
 }
