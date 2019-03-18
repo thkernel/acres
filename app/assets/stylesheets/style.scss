@@ -319,11 +319,11 @@ nav.navbar {
     border: 0px solid !important;
 }
 
-.jumbotron {
+.hero {
     background-image: url("hero/hero.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
-    height: calc(70vh);
+    height: calc(60vh);
     border-radius: 0px !important;
 }
 
@@ -452,4 +452,33 @@ nav.navbar {
 
 .widget-icon {
     margin-right: 10px;
+}
+
+.about_image {
+    text-align: center;
+}
+
+.hero-body {
+    color: white;
+    margin-top: 50px;
+}
+
+.hero-subtitle {
+    font-size: 15pt;
+}
+
+.hero-title {
+    font-size: 50pt;
+}
+
+.home .navbar {
+    border: 2px solid red
+}
+
+.features-item-icon .fa {
+    font-size: 30pt;
+}
+
+.features-item-icon {
+    margin: 15px;
 }
