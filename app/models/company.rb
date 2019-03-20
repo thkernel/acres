@@ -1,8 +1,6 @@
 class Company < ApplicationRecord
 	
 
-
-
 	# FriendlyID, to have nice permalink.
 	extend FriendlyId
 	friendly_id :name, use: :slugged
@@ -29,6 +27,7 @@ class Company < ApplicationRecord
 			errors.add(:file,'Width or height must be at least 50px')
 		end
     end
+	
 	
 	
 end

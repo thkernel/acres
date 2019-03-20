@@ -62,6 +62,8 @@ class LogsController < ApplicationController
 		# Populate commissions.
 		populate_commission
 		handle_commissions
+	
+		
 
 		# We refresh page.
         format.html { redirect_to @log, notice: 'Log was successfully created.' }
@@ -115,7 +117,7 @@ class LogsController < ApplicationController
 
 
 	# Handle commissions.
-	def handle_commissions
+	def handle_commissionsssss
 
 		# Initialize
 		producer_commission_percentage = 0.0
