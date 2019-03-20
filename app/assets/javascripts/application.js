@@ -237,7 +237,7 @@ $(document).on('turbolinks:load', function(){
         } else {
           
 
-            $("#table-amount-producer").show();
+            $(".table-amount-producer").show();
         }
         //alert("hello clickable");
     });
