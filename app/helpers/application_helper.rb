@@ -357,6 +357,8 @@ module ApplicationHelper
 						bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
 						producer_commission = (bank_amount_commission) / 2
 
+						producer_commission_percentage = (bank_hypoplus_commission_percentage ) / 2
+
 						company_commission_net = (bank_amount_commission) / 2
 						company_commission_percentage = (company_commission_net / credit_amount) * 100
 
