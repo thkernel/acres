@@ -344,37 +344,40 @@ module ApplicationHelper
 
 			# Handle 
 			if credit_hypoplus.present? 
+				puts "CALCUL HYPOPLUS"
+				puts "Banque HYPO: #{bank_hypoplus_commission_percentage}"
+
 				if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
-						
+							
 					if producer_name.present? &&  producer_name != company_name 
-                        contributor_commission_percentage = 0.0 
-                        contributor_commission = 0.0
+						contributor_commission_percentage = 0.0 
+						contributor_commission = 0.0
 
-                
-                        bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
-                        producer_commission = (bank_amount_commission) / 2
+					
+						bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
+						producer_commission = (bank_amount_commission) / 2
 
-                        company_commission_net = (bank_amount_commission) / 2
-                        company_commission_percentage = (company_commission_net / credit_amount) * 100
+						company_commission_net = (bank_amount_commission) / 2
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
 
 
-                    else
-                        contributor_commission_percentage = 0.0 
-                        contributor_commission = 0.0
+					else
+						contributor_commission_percentage = 0.0 
+						contributor_commission = 0.0
 
-                        producer_commission = 0.0
-                        producer_commission_percentage = 0.0 
+						producer_commission = 0.0
+						producer_commission_percentage = 0.0 
 
-                        
-                        bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
-                       
+						
+						bank_amount_commission = (credit_amount * bank_hypoplus_commission_percentage) / 100
+					
 
-                        company_commission_net = bank_amount_commission
-                        company_commission_percentage = (company_commission_net / credit_amount) * 100
-                
-                    end
+						company_commission_net = bank_amount_commission
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+				
+					end
 
-			    end
+				end
 		    else
 		
                 # Rule 1
