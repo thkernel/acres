@@ -57,6 +57,9 @@ Rails.application.routes.draw do
 	get "/dashboard" => "dashboard#index" , as: :dashboard
 	get "/customers" => "customers#index", as: :customers_index
 
+	get "/payments" => "payments#index", as: :payments
+	get "/credits/bank/:id" => "payments#credits", as: :bank_credits
+
 	#get "/companies"     => "companies#index", as: :all_companies 
 
 
@@ -128,6 +131,7 @@ Rails.application.routes.draw do
 
 	get 'show/producer/credit/details/:id' => 'credit_details#producer_credit_details', as: :show_producer_credit_details
 	get 'show/contributor/credit/details/:id' => 'credit_details#contributor_credit_details', as: :show_contributor_credit_details
+	get 'credit/payments/:id' => 'credit_details#credit_payments_details', as: :credit_payments_details
 
 	#get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
 	get '/manager/new' => 'managers#new', as: :new_manager

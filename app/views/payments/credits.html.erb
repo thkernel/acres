@@ -1,0 +1,75 @@
+
+
+<div class="container-fluid">
+
+<div class="row">
+<div class="col-md-12">
+<div class="index-heading pull-left">
+<p>
+    <h3>Crédits pour: <%= @bank.name %></h3>
+    </p>
+    </div>
+<div class="pull-right">
+
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default">
+<div class="panel-body">
+<table  id="table-list" class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>N°Dossier</th>
+      <th>Client</th>
+      <th>Date prod.</th>
+      <th>Date acte</th>
+      <th>Montant emprunté</th>
+      <th>% com appo</th>
+      <th>Com appo</th>
+      <th>% com prod</th>
+      <th>Com prod</th>
+      <th>% com banque</th>
+      <th>Com nette Acres</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  	
+
+    <% @commissions.each do |commission| %>
+
+       
+
+
+      <tr>
+        <td><%= commission.credit_id %></td>
+         <td><%= credit_customer_name(commission.credit_id).humanize %></td>
+        <td><%= commission.production_date.strftime("%d/%m/%Y") if commission.production_date %></td>
+        <td><%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %></td>
+        <td class="blue-amount"><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+        <td><%= number_to_currency commission.contributor_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+        <td class="blue-amount"><%= number_to_currency commission.contributor_commission, unit: "", seperator: ",", delimiter: "." %></td>
+        <td><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+        <td class="blue-amount"><%= number_to_currency commission.producer_commission , unit: "", seperator: ",", delimiter: "."%></td>
+        <td><%= number_to_currency commission.bank_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+        <td class="blue-amount"><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>
+ <td><%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
+  '), credit_payments_details_path(commission.credit_id) %>
+          </td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+
+  
+</table>
+
+</div>
+</div>
+</div>
+
+</div>

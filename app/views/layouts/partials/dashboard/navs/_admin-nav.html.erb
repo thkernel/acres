@@ -3,7 +3,7 @@
 		<ul id="side-main-menu" class="side-menu list-unstyled">   
 		              
             <li>
-				<%= link_to raw('<i class="fa fa-line-chart" aria-hidden="true"></i>Tableau de bord'), dashboard_path %>
+				<%= link_to raw('<i class="fa fa-tachometer " aria-hidden="true"></i>Tableau de bord'), dashboard_path %>
 			</li>
 			<li>
 				<%= link_to raw('<i class="fa fa-download" aria-hidden="true"></i>
@@ -13,14 +13,21 @@
 				<%= link_to raw('<i class="fa fa-search" aria-hidden="true"></i>
 Recherche'), search_path %>
 			</li>
+			
 			<li>
 				<%= link_to raw('<i class="fa fa-balance-scale" aria-hidden="true"></i>
 Crédits'), credits_path %>
 			</li>
+
+			<li>
+				<%= link_to raw('<i class="fa fa-money" aria-hidden="true"></i>
+Paiements'), payments_path %>
+			</li>
+
 			
 			<li>
 				<a href="#commissiondropdownDropdown" aria-expanded="false" data-toggle="collapse"> 
-					<i class="fa fa-money" aria-hidden="true"></i>Commissions</a>
+					<i class="fa fa-line-chart" aria-hidden="true"></i>Commissions</a>
                 <ul id="commissiondropdownDropdown" class="collapse list-unstyled ">
                     <li><%= link_to raw('<i class="fa fa-address-book-o" aria-hidden="true"></i>Apporteurs'), contributors_commissions_path %>
                     </li>

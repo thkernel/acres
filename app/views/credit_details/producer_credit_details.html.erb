@@ -3,7 +3,7 @@
 <div class="title">
 <h1>Détails (Echéancier et paiements effectués)</h1>
 
-<h3>Date de l'acte: <%= @credit.acte_date %></h3>
+<h3>Date de l'acte: <%= @credit.acte_date.strftime("%d/%m/%Y") if @credit.acte_date %></h3>
 <h3>Numéro du dossier: <%= @credit.credit_id %></h3>
 </div>
 
