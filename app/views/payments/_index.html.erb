@@ -1,0 +1,18 @@
+<% if @banks.present? %>
+
+<% @banks.each do |bank| %>
+      <tr>
+        <td><%= link_to bank.name.humanize, bank_credits_path(bank.id) %></td>
+        
+        
+        <td>
+					<div class="action-buttons">
+					<%= link_to raw('<i class="fa fa-eye" aria-hidden="true"></i>
+'), bank_credits_path(bank.id), title: "Modifier" %>
+					
+</div>
+</td>
+      </tr>
+    <% end %>
+    
+    <% end %>
