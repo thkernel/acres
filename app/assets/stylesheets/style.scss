@@ -305,8 +305,6 @@ nav.navbar .dropdown-menu a {
     display: inline-block !important
 }
 
-
-
 .navbar-default {
     background-color: #f8f8f8;
     border: 0px solid !important;
@@ -398,8 +396,6 @@ nav.navbar .dropdown-menu a {
     ;
 }
 
-
-
 .social-link {
     float: right;
     margin-top: 40px;
@@ -472,13 +468,20 @@ nav.navbar .dropdown-menu a {
 .features-item-icon {
     margin: 15px;
 }
+
 .home nav.navbar {
     background: white !important;
     margin-bottom: 0px !important;
 }
-.footer-copyright{
+
+.footer-copyright {
     color: white !important;
 }
-p.hero-subtitle{
+
+p.hero-subtitle {
     text-shadow: 2px 0px 2px black;
+}
+
+ul.author-brand {
+    background: white !important;
 }
