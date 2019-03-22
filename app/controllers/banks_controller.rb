@@ -31,6 +31,7 @@ class BanksController < ApplicationController
   # POST /banks
   # POST /banks.json
   def create
+
     @banks = Bank.all
     @bank = current_user.banks.build(bank_params)
 
@@ -52,6 +53,7 @@ class BanksController < ApplicationController
   def update
     respond_to do |format|
       if @bank.update(bank_params)
+        puts "HUMMMMMMMMMMMMMMMMMMMMMMMMMMMM CHANGED: #{params[:commission_percentageeee]}"
 
         bank_commission_edition = BankCommissionEdition.new
         bank_commission_edition.date_effet = params[:date_effet]
