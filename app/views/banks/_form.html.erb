@@ -25,8 +25,8 @@
 			
 			<div class="form-group">
 					<%= fields_for(@commission_date_effet) do |de| %>
-						<%= de.label "Quelles compétences sont requises?" %>
-				<%= de.text_field :commission_percentageeee,  class:"form-control" %>
+					
+				<%= de.hidden_field :commission_percentageeee,  class:"form-control" %>
 					<% end %>
 				</div><!-- end nested -->
 

@@ -16,7 +16,10 @@ module ApplicationHelper
 	    @devise_mapping ||= Devise.mappings[:user]
 	end
 	
-	
+	def my_logger
+		@@my_logger ||= Logger.new("#{Rails.root}/log/commission-log.log")
+	end
+
 	def is_admin?
 		if  current_user.role == 'Admin'
 			true
@@ -247,7 +250,7 @@ module ApplicationHelper
 	def get_credit_hypoplus(credit_id)
 		
 		credit = Credit.find_by(credit_id: credit_id)
-		return credit
+		credit.hypoplus
 		
 	end
 
@@ -293,7 +296,8 @@ module ApplicationHelper
 
             # Get hypoplus column.
 
-            credit_hypoplus = get_credit_hypoplus(commission.credit_id).hypoplus
+			#credit_hypoplus = get_credit_hypoplus(commission.credit_id).hypoplus
+			credit_hypoplus = get_credit_hypoplus(commission.credit_id)
             
 			# Credit amount.
 			if commission.amount_credit.present?
@@ -344,8 +348,11 @@ module ApplicationHelper
 
 			# Handle 
 			if credit_hypoplus.present? 
-				puts "CALCUL HYPOPLUS"
+				puts "CALCUL HYPOPLUS POUR NO:#{commission.credit_id} Montant: #{commission.amount_credit}"
 				puts "Banque HYPO: #{bank_hypoplus_commission_percentage}"
+				my_logger.info("======Calcul d'Hypoplys====")
+				my_logger.info("Dossier: #{commission.credit_id}, Banque: #{commission.bank_name}, Client: #{credit_customer_name(commission.customer_id) if commission.customer_id}, Montant #{commission.amount_credit}")
+				
 
 				if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
 							
@@ -361,6 +368,9 @@ module ApplicationHelper
 
 						company_commission_net = (bank_amount_commission) / 2
 						company_commission_percentage = (company_commission_net / credit_amount) * 100
+						my_logger.info("====== Commission apres calcul ====")
+						my_logger.info("Commission banque: #{bank_amount_commission}, Commission producteur: #{producer_commission}, commission net acres: #{company_commission_net}")
+						my_logger.info("====== FIN CALCUL ====")
 
 
 					else
@@ -376,7 +386,9 @@ module ApplicationHelper
 
 						company_commission_net = bank_amount_commission
 						company_commission_percentage = (company_commission_net / credit_amount) * 100
-				
+						my_logger.info("====== Commission apres calcul ====")
+						my_logger.info("Commission banque: #{bank_amount_commission},  commission net acres: #{company_commission_net}")
+						my_logger.info("====== FIN CALCUL ====")
 					end
 
 				end
@@ -483,7 +495,9 @@ module ApplicationHelper
             commission.company_commission = company_commission_net
             commission.company_commission_percentage = company_commission_percentage
             commission.user_id = current_user.id
-            commission.save
+			commission.save
+			
+			puts "===============ENREGISTREMENT DANS BASE============================"
 	    end
 	
 	end
