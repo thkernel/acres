@@ -127,7 +127,7 @@
 
         <!-- Total emprunt -->
 
-            <tr>
+            <tr class="table-credit-amount">
                 <td><strong>Total emprunt</strong></td>
                  <% if @janvier %>
                     <td><%= number_to_currency @janvier_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
@@ -172,7 +172,7 @@
 
             <!-- Total emprunt -->
 
-            <tr>
+            <tr class="table-amount-commissions">
                 <td><strong>Total com</strong></td>
                  <% if @janvier %>
                     <td><%= number_to_currency @janvier_bank_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
@@ -217,7 +217,7 @@
 
             <!-- Total emprunt -->
 
-            <tr>
+            <tr class="table-amount-company">
                 <td><strong>Net acres com</strong></td>
                  <% if @janvier %>
                     <td><%= number_to_currency @janvier_company_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
@@ -263,7 +263,7 @@
 
             <!-- Total emprunt -->
 
-            <tr>
+            <tr class="table-amount-producer">
                 <td><strong>Montant prod</strong></td>
                  <% if @janvier %>
                     <td><%= number_to_currency @janvier_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
@@ -309,7 +309,7 @@
 
             <!-- Total emprunt -->
 
-            <tr>
+            <tr class="table-amount-contributor"> 
                 <td><strong>Montant appo</strong></td>
                  <% if @janvier %>
                     <td><%= number_to_currency @janvier_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
