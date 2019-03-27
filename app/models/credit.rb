@@ -4,7 +4,9 @@ class Credit < ApplicationRecord
     belongs_to :user
     has_many :credit_details, dependent: :destroy
 
-    
+    def self.credit_exist(credit_id)
+        where('credit_id = ?', credit_id)
+    end
 
     def self.to_csv(options = {})
         CSV.generate(options) do |csv|
