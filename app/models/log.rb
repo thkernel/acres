@@ -26,6 +26,8 @@ class Log < ApplicationRecord
         puts "Je compte: #{sheet.rows.count}"
         puts "Feuille: #{sheet}"
 
+        current_credit = nil
+
         if company
             sheet.rows.each_with_index do |row, index|
                 puts "L'index avant condition: #{index}"
@@ -39,6 +41,16 @@ class Log < ApplicationRecord
                     
                     credit = Credit.new 
 
+
+                     # Begin insert a bank, before to insert bank we check if bank exist
+                     if row[cell[0]].present?
+                        current_credit = Credit.find_by(credit_id: row[cell[0]])
+                        if current_credit.present?
+                            current_credit = current_credit.credit_id + Time.now.min + Time.now.sec
+                        else
+                            current_credit = row[cell[0]]
+                        end
+                    end
 
                     # Begin insert a bank, before to insert bank we check if bank exist
                     if row[cell[3]].present?
@@ -126,7 +138,7 @@ class Log < ApplicationRecord
                     end
 
 
-                    credit.credit_id = row[cell[0]] if row[cell[0]].present?
+                    credit.credit_id = current_credit
                     credit.production_date = row[cell[1]] if row[cell[1]].present?
                     credit.acte_date = row[cell[2]] if row[cell[2]].present?
                     credit.customer_name = row[cell[3]].downcase if row[cell[3]].present?
