@@ -13,7 +13,14 @@ set :rails_env, "production"
 #server "51.38.235.131", user: "root", roles: %w{app db web}, ssh_options: {forward_agent: true}
 server "gescomph.be", user: "root", roles: %w{app db web}, ssh_options: {forward_agent: true}
 
+set :branch, "master"
 
+
+
+
+ set :nginx_config_name, "acres"
+ set :nginx_server_name, "acres"
+ set :puma_workers, 1
 
 # role-based syntax
 # ==================

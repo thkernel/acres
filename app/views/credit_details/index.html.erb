@@ -7,10 +7,10 @@
 <h3>Numéro du dossier: <%= @credit.credit_id %></h3>
 </div>
 
-<table id="table-list" class="table table-striped table-bordered table-hover">
+<table id="echeance-table-list" class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
-    <th>#ID</th>
+    <!-- <th>#ID</th> -->
       <th>Tranche</th>
       <th>Date</th>
       <th>Com</th>
@@ -24,7 +24,7 @@
   <tbody>
     <% @credit_details.each do |credit_detail| %>
       <tr>
-      <td><%= credit_detail.id%></td>
+      <!-- <td> credit_detail.id</td>-->
         <td><%= credit_detail.installment_payment %></td>
         <td><%= credit_detail.installment_date %></td>
         <td><%= credit_detail.commission %></td>

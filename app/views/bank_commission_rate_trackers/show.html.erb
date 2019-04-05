@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date effet:</strong>
+  <%= @bank_commission_rate_tracker.date_effet %>
+</p>
+
+<p>
+  <strong>Old rate:</strong>
+  <%= @bank_commission_rate_tracker.old_rate %>
+</p>
+
+<p>
+  <strong>New rate:</strong>
+  <%= @bank_commission_rate_tracker.new_rate %>
+</p>
+
+<p>
+  <strong>Bank:</strong>
+  <%= @bank_commission_rate_tracker.bank %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @bank_commission_rate_tracker.user %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @bank_commission_rate_tracker.status %>
+</p>
+
+<%= link_to 'Edit', edit_bank_commission_rate_tracker_path(@bank_commission_rate_tracker) %> |
+<%= link_to 'Back', bank_commission_rate_trackers_path %>

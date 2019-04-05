@@ -1,0 +1,1 @@
+json.partial! "bank_commission_rate_trackers/bank_commission_rate_tracker", bank_commission_rate_tracker: @bank_commission_rate_tracker

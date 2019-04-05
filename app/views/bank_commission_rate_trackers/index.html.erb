@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bank Commission Rate Trackers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date effet</th>
+      <th>Old rate</th>
+      <th>New rate</th>
+      <th>Bank</th>
+      <th>User</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bank_commission_rate_trackers.each do |bank_commission_rate_tracker| %>
+      <tr>
+        <td><%= bank_commission_rate_tracker.date_effet %></td>
+        <td><%= bank_commission_rate_tracker.old_rate %></td>
+        <td><%= bank_commission_rate_tracker.new_rate %></td>
+        <td><%= bank_commission_rate_tracker.bank %></td>
+        <td><%= bank_commission_rate_tracker.user %></td>
+        <td><%= bank_commission_rate_tracker.status %></td>
+        <td><%= link_to 'Show', bank_commission_rate_tracker %></td>
+        <td><%= link_to 'Edit', edit_bank_commission_rate_tracker_path(bank_commission_rate_tracker) %></td>
+        <td><%= link_to 'Destroy', bank_commission_rate_tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bank Commission Rate Tracker', new_bank_commission_rate_tracker_path %>

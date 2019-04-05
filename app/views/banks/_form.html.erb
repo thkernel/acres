@@ -23,12 +23,13 @@
 				<%= form.text_field :commission_percentage, id: :bank_commission_percentage,  class:"form-control" %>
 			</div>
 			
+			
 			<div class="form-group">
 					<%= fields_for(@commission_date_effet) do |de| %>
-					
-				<%= de.hidden_field :commission_percentageeee,  class:"form-control" %>
+				<%= de.text_field :old_rate,  class:"form-control", :id => "old_rate", value: @bank.commission_percentage %>
+				<%= de.date_field :start_date,  class:"form-control", :id => "start_date" %>
 					<% end %>
-				</div><!-- end nested -->
+			</div><!-- end nested -->
 
 			<div class="form-group">
 				<%= form.label "Nombre d'écheance" %>

@@ -493,3 +493,7 @@ ul.author-brand {
   
     overflow-x: scroll;
 }
+
+.no-sort::after { display: none!important; }
+
+.no-sort { pointer-events: none!important; cursor: default!important; }

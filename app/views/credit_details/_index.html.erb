@@ -1,10 +1,11 @@
 <% if @credit_details.present? %>
 <% @credit_details.each do |credit_detail| %>
   <tr>
-      <td><%= credit_detail.id %></td>
+      <!--<td>credit_detail.id </td>-->
 
     <td><%= credit_detail.installment_payment %></td>
-    <td><%= credit_detail.installment_date %></td>
+    <td><%= credit_detail.installment_date.strftime("%d/%m/%Y") if credit_detail.installment_date %></td>
+    <td><%= get_customer_name(credit_detail.credit_id).humanize %></td>
     <td class="blue-amount"><%= number_to_currency credit_detail.commission, unit: "", seperator: ",", delimiter: "." %></td>
     <td class="blue-amount"><%= number_to_currency credit_detail.cumulative_amount, unit: "", seperator: ",", delimiter: "." %></td>
     <% if is_admin? %>

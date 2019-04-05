@@ -72,8 +72,9 @@ class Log < ApplicationRecord
                         unless  current_bank.present? 
                             bank = Bank.new
                             bank.name = row[cell[4]].downcase if row[cell[4]].present?
-                            bank.commission_percentage = 0
-                            bank.hypoplus_commission_percentage = 0
+                            bank.commission_percentage = 0.0
+                            bank.hypoplus_commission_percentage = 0.0
+                            bank.company_remaining_commission_rate = 0.25
                             bank.user_id = user.id
                             bank.save
 

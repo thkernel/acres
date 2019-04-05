@@ -7,6 +7,7 @@ end
 
 
 Rails.application.routes.draw do
+  resources :bank_commission_rate_trackers
 	#devise_for :admins
 	constraints SubdomainConstraint do     
 		resources :banks

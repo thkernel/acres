@@ -102,6 +102,17 @@ module ApplicationHelper
 		end
 	end
 
+	def is_cocourtier?(producer_name) 
+		user =  User.find_user_by_name_and_role(producer_name, 'Co-courtier').first
+		if user.present? 
+			if user.role == 'Co-courtier'
+				true 
+			else
+				false 
+			end
+		end
+	end
+
 	def is_contributor_or_producer?(user) 
 		if user.present? 
 			if user.role == 'Apporteur' || user.role == 'Producteur'
@@ -264,6 +275,12 @@ module ApplicationHelper
 		end
 	end
 
+	def get_customer_name(credit_id)
+		credit = Credit.find(credit_id)
+		
+		credit.customer_name  if credit
+	end
+
 
 	# Handle commissions.
 	def handle_commissions
@@ -346,6 +363,8 @@ module ApplicationHelper
 				puts "Producteur: #{producer_name} et #{producer_commission_percentage}"
 			end
 
+			
+
 			# Handle 
 			if credit_hypoplus.present? 
 				puts "CALCUL HYPOPLUS POUR NO:#{commission.credit_id} Montant: #{commission.amount_credit}"
@@ -396,92 +415,173 @@ module ApplicationHelper
 		
                 # Rule 1
                 if contributor_name == company_name && producer_name == company_name 
-                
-                    contributor_commission_percentage = 0.0 
-                    producer_commission_percentage = 0.0
-                    
-                    contributor_commission = 0.0
-                    producer_commission = 0.0
+				
+					if is_cocourtier?(producer_name)
+						contributor_commission_percentage = 0.0 
+						contributor_commission = 0.0
 
-                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                    company_commission_net = bank_amount_commission
-                    company_commission_percentage = (company_commission_net / credit_amount) * 100
+						producer_commission_percentage = 0.0
+						producer_commission = 0.0
 
-                    puts "REGLE 1"
+						producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                    	bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                    	company_commission_net = (bank_amount_commission) - (producer_commission)
+                    	company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+					else
+						contributor_commission_percentage = 0.0 
+						contributor_commission = 0.0
+
+						producer_commission_percentage = 0.0
+						producer_commission = 0.0
+
+						bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+						company_commission_net = bank_amount_commission
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+						puts "REGLE 1"
+					end
                 end
 
                 # Rule 1 bis
                 if contributor_name.blank? && producer_name == company_name 
-                
-                    contributor_commission_percentage = 0.0 
-                    producer_commission_percentage = 0.0
-                    
-                    contributor_commission = 0.0
-                    producer_commission = 0.0
+				
+					if is_cocourtier?(producer_name)
+						contributor_commission_percentage = 0.0 
+						contributor_commission = 0.0
 
-                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                    company_commission_net = bank_amount_commission
-                    company_commission_percentage = (company_commission_net / credit_amount) * 100
+						producer_commission_percentage = 0.0
+						producer_commission = 0.0
 
-                    puts "REGLE 1 BIS"
+						producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                    	bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                    	company_commission_net = (bank_amount_commission) - (producer_commission)
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+					else
+						contributor_commission_percentage = 0.0 
+						producer_commission_percentage = 0.0
+						
+						contributor_commission = 0.0
+						producer_commission = 0.0
+
+						bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+						company_commission_net = bank_amount_commission
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+						puts "REGLE 1 BIS"
+					end
                 end
 
                 # Rule 2 - new regle
                 if contributor_name.present? &&  contributor_name != company_name && producer_name == company_name
-                    
-                    producer_commission = 0.0
-                    producer_commission_percentage = 0.0
+                    if is_cocourtier?(producer_name)
+						contributor_commission_percentage = 0.0 
+						contributor_commission = 0.0
 
-                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                    contributor_commission = (credit_amount * contributor_commission_percentage) / 100
-                    company_commission_net = (bank_amount_commission) - (contributor_commission)
-                    company_commission_percentage = (company_commission_net / credit_amount) * 100
-                    puts "REGLE 2"
+						producer_commission_percentage = 0.0
+						producer_commission = 0.0
 
-                
+						producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                    	bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                    	company_commission_net = (bank_amount_commission) - (producer_commission)
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+					else
+						producer_commission = 0.0
+						producer_commission_percentage = 0.0
+
+						bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+						contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+						company_commission_net = (bank_amount_commission) - (contributor_commission)
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+						puts "REGLE 2"
+
+					end
                 
                 end
 			
 
 				# Regle 3 - new
                 if contributor_name.present? && contributor_name == producer_name && producer_name != company_name
-                    contributor_commission = 0.0
-                    contributor_commission_percentage = 0.0 
+					if is_cocourtier?(producer_name)
+						contributor_commission_percentage = 0.0 
+						contributor_commission = 0.0
 
-                    producer_commission = (credit_amount * producer_commission_percentage) / 100
-                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                    company_commission_net = (bank_amount_commission) - (producer_commission)
-                    company_commission_percentage = (company_commission_net / credit_amount) * 100
-                    puts "REGLE 3"
+						producer_commission_percentage = 0.0
+						producer_commission = 0.0
+
+						producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                    	bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                    	company_commission_net = (bank_amount_commission) - (producer_commission)
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+					else
+						contributor_commission = 0.0
+						contributor_commission_percentage = 0.0 
+
+						producer_commission = (credit_amount * producer_commission_percentage) / 100
+						bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+						company_commission_net = (bank_amount_commission) - (producer_commission)
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+						puts "REGLE 3"
+					end
 
                 end
 
 
                 # Regle 4 - New
                 if contributor_name.present? && contributor_name != producer_name && contributor_name != company_name && producer_name != company_name
-                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                    contributor_commission = (credit_amount * contributor_commission_percentage) / 100
-                    producer_commission = ((credit_amount * producer_commission_percentage) / 100) - ((contributor_commission * 50)/100)
-                    company_commission_net = (bank_amount_commission) - (producer_commission) - (contributor_commission)
-                    company_commission_percentage = (company_commission_net / credit_amount) * 100
+					if is_cocourtier?(producer_name)
+						contributor_commission_percentage = 0.0 
+						contributor_commission = 0.0
 
-                    puts "REGLE 4"
+						producer_commission_percentage = 0.0
+						producer_commission = 0.0
+
+						producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                    	bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                    	company_commission_net = (bank_amount_commission) - (producer_commission)
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+						
+					else
+					
+						bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+						contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+						producer_commission = ((credit_amount * producer_commission_percentage) / 100) - ((contributor_commission * 50)/100)
+						company_commission_net = (bank_amount_commission) - (producer_commission) - (contributor_commission)
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+					end
+					puts "REGLE 4"
+					
+					
                 end
 			
 			
                 # Regle 5
                 if contributor_name.present? && contributor_name == company_name && producer_name != company_name 
-                    contributor_commission = 0.0
-                    contributor_commission_percentage = 0.0
+					if is_cocourtier?(producer_name)
+						contributor_commission_percentage = 0.0 
+						contributor_commission = 0.0
 
-                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+						producer_commission_percentage = 0.0
+						producer_commission = 0.0
 
-                    producer_commission = ((credit_amount * producer_commission_percentage) / 100) 
-                    company_commission_net = (bank_amount_commission) - (producer_commission) 
-                    company_commission_percentage = (company_commission_net / credit_amount) * 100
+						producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                    	bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                    	company_commission_net = (bank_amount_commission) - (producer_commission)
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+					else
+						contributor_commission = 0.0
+						contributor_commission_percentage = 0.0
 
+						bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+						producer_commission = ((credit_amount * producer_commission_percentage) / 100) 
+						company_commission_net = (bank_amount_commission) - (producer_commission) 
+						company_commission_percentage = (company_commission_net / credit_amount) * 100
+					end
                     puts "REGLE 5"
-                end
+				end
+				
+				
 		    end
 		
             # Saving.
@@ -501,4 +601,8 @@ module ApplicationHelper
 	    end
 	
 	end
+
+
+
+
 end

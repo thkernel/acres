@@ -1,0 +1,47 @@
+<%= form_with(model: bank_commission_rate_tracker, local: true) do |form| %>
+  <% if bank_commission_rate_tracker.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bank_commission_rate_tracker.errors.count, "error") %> prohibited this bank_commission_rate_tracker from being saved:</h2>
+
+      <ul>
+      <% bank_commission_rate_tracker.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date_effet %>
+    <%= form.datetime_select :date_effet, id: :bank_commission_rate_tracker_date_effet %>
+  </div>
+
+  <div class="field">
+    <%= form.label :old_rate %>
+    <%= form.text_field :old_rate, id: :bank_commission_rate_tracker_old_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :new_rate %>
+    <%= form.text_field :new_rate, id: :bank_commission_rate_tracker_new_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bank_id %>
+    <%= form.text_field :bank_id, id: :bank_commission_rate_tracker_bank_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :bank_commission_rate_tracker_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :bank_commission_rate_tracker_status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

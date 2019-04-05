@@ -19,6 +19,7 @@
 Role.create(name: "Superadmin")
 Role.create(name: "Admin")
 Role.create(name: "Producteur")
+Role.create(name: "Co-courtier")
 Role.create(name: "Apporteur")
 
 
