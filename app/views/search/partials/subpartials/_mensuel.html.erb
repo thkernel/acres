@@ -76,7 +76,7 @@
         <tbody>
         <% @monthly.each do |monthly| %>
             <tr>
-                <td><%= monthly.bank_name %></td>
+                <td><%= monthly.bank_name.humanize %></td>
                 <% if @janvier %>
                     <td><%= number_to_currency monthly.janvier, unit: "", seperator: ",", delimiter: "." %></td>
                 <% end %>

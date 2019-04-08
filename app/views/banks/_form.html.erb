@@ -26,7 +26,7 @@
 			
 			<div class="form-group">
 					<%= fields_for(@commission_date_effet) do |de| %>
-				<%= de.text_field :old_rate,  class:"form-control", :id => "old_rate", value: @bank.commission_percentage %>
+				<%= de.hidden_field :old_rate,  class:"form-control", :id => "old_rate", value: @bank.commission_percentage %>
 				<%= de.date_field :start_date,  class:"form-control", :id => "start_date" %>
 					<% end %>
 			</div><!-- end nested -->

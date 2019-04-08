@@ -62,17 +62,16 @@ class SearchController < ApplicationController
     @commissions_acted = Commission.where("acte_date is not null").unscope(:order).group(:bank_name).sum(:bank_commission)
     @commissions_products = Commission.where("production_date is not null").unscope(:order).group(:bank_name).sum(:bank_commission)
 
-    puts "PAR BANQUE: #{@commissions_chart_pie}"
-    puts "PAR ACRES: #{@commissions_chart_pie_by_company_commission}"
-
-    puts "PAR ACRES: #{@commissions_chart_pie_by_company_commission}"
+   
 
     @total_montant_credit = @commissions.sum(:amount_credit)
     @total_commission_apporteur = @commissions.sum(:contributor_commission)
     @total_commission_nette_company = @commissions.sum(:company_commission)
     @total_commission_producteur = @commissions.sum( :producer_commission)
     @total_commission_bank = @commissions.sum( :bank_commission)
+
     monthly_tarte(acte_date_debut, acte_date_fin, producer_name, contributor_name, notary)
+    production(acte_date_debut, acte_date_fin,production_date_debut, production_date_fin)
   end
 
   # Handle monthly tarte
@@ -92,7 +91,7 @@ class SearchController < ApplicationController
     @septembre_amount_credit = 0.0
     @octobre_amount_credit = 0.0
     @novembre_amount_credit = 0.0
-     @decembre_amount_credit = 0.0
+    @decembre_amount_credit = 0.0
 
 
      # Bank Amount.
@@ -455,6 +454,77 @@ class SearchController < ApplicationController
     end
     
   end
+
+
+  def production(acte_date_debut, acte_date_fin,production_date_debut, production_date_fin)
+    @total_productions = 0.0
+    @total_acted = 0.0
+    @total_diff_of_production_and_acted = 0.0
+    @total_bank_commission_amount = 0.0
+    @total_paid_by_bank_amount = 0.0
+    @total_amount_to_paid_by_bank = 0.0
+    @productions = []
+    banks = Bank.all
+
+    #Loop all bank.
+    if banks.present?
+     
+      banks.each do |item|
+        production = Production.new
+        production.bank_name = item.name
+        amount_credit = bank_amount_credit(production_date_debut, production_date_fin, item.name).sum(:amount_credit)
+        acted_amount = bank_acted_amount(acte_date_debut, acte_date_fin, item.name).sum(:amount_credit)
+        production.amount_credit = amount_credit
+        production.amount_acted = acted_amount
+        production.diff_of_production_and_acted = (acted_amount) - (amount_credit)
+        production.bank_commission_amount = Commission.where(bank_name: item.name).sum(:bank_commission)
+        paid_by_bank_amount = amount_paid_by_bank(item.name)
+        production.paid_by_bank_amount = paid_by_bank_amount
+        production.amount_to_paid_by_bank = (production.bank_commission_amount) - (paid_by_bank_amount)
+        @productions << production
+      end
+      
+     
+    end
+
+    @productions.each do |production|
+      @total_productions += production.amount_credit
+      @total_acted += production.amount_acted
+      @total_diff_of_production_and_acted += production.diff_of_production_and_acted
+      @total_bank_commission_amount += production.bank_commission_amount
+      @total_paid_by_bank_amount += production.paid_by_bank_amount
+      @total_amount_to_paid_by_bank += production.amount_to_paid_by_bank
+
+    end
+   
+    @productions
+  end
+
+
+
+  def bank_amount_credit(production_date_debut, production_date_fin, bank_name)
+    bank_commissions = Commission.search_by_bank_and_production_date(production_date_debut, production_date_fin, bank_name)
+  end
+
+  def bank_acted_amount(acte_date_debut, acte_date_fin, bank_name)
+    bank_commissions = Commission.search_by_bank_and_acte_date(acte_date_debut, acte_date_fin, bank_name)
+  end
+
+  def amount_paid_by_bank(bank_name)
+    bank_credits = Credit.where(bank_name: bank_name)
+    @paid_by_bank = 0.0
+
+    if bank_credits.present?
+      bank_credits.each do |credit|
+       
+        credit_details = CreditDetail.where(creditUid: credit.credit_id).where(paid_by_bank: "Oui")
+        
+        @paid_by_bank += credit_details.sum(:cumulative_amount)
+      end
+    end
+
+    @paid_by_bank
+  end
 end
 
 class MonthlyTarte 
@@ -464,6 +534,14 @@ class MonthlyTarte
   attr_accessor :janvier_producer_commission, :fevrier_producer_commission, :mars_producer_commission, :avril_producer_commission, :mai_producer_commission, :juin_producer_commission, :juillet_producer_commission, :aout_producer_commission, :septembre_producer_commission, :octobre_producer_commission, :novembre_producer_commission, :decembre_producer_commission
   attr_accessor :janvier_company_commission, :fevrier_company_commission, :mars_company_commission, :avril_company_commission, :mai_company_commission, :juin_company_commission, :juillet_company_commission, :aout_company_commission, :septembre_company_commission, :octobre_company_commission, :novembre_company_commission, :decembre_company_commission
   attr_accessor :janvier_bank_commission, :fevrier_bank_commission, :mars_bank_commission, :avril_bank_commission, :mai_bank_commission, :juin_bank_commission, :juillet_bank_commission, :aout_bank_commission, :septembre_bank_commission, :octobre_bank_commission, :novembre_bank_commission, :decembre_bank_commission
+
+  def initializer
+  end
+end
+
+
+class Production
+  attr_accessor :bank_name, :amount_credit, :amount_acted, :diff_of_production_and_acted, :bank_commission_amount, :paid_by_bank_amount, :amount_to_paid_by_bank
 
   def initializer
   end

@@ -9,6 +9,10 @@
   <li class="nav-item">
     <a class="nav-link" id="actees-produites-tab" data-toggle="tab" href="#actees-produites" role="tab" aria-controls="actees-produites" aria-selected="false">ACTES & PRODUITS</a>
   </li>
+
+  <li class="nav-item">
+    <a class="nav-link" id="productions-tab" data-toggle="tab" href="#productions" role="tab" aria-controls="productions" aria-selected="false">PRODUCTIONS</a>
+  </li>
  
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -21,6 +25,10 @@
   </div>
   <div class="tab-pane fade" id="actees-produites" role="tabpanel" aria-labelledby="actees-produites-tab">
    <%= render "search/partials/subpartials/acted_products" %>
+  </div>
+
+   <div class="tab-pane fade" id="productions" role="tabpanel" aria-labelledby="productions-tab">
+   <%= render "search/partials/subpartials/productions" %>
   </div>
 </div>
 </div>

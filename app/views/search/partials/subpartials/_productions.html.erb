@@ -1,0 +1,49 @@
+<div class="mensuel">
+
+    
+
+    <table id="produtions" class="table table-striped table-bordered table-hover">
+        <thead>
+            <th>Banques</th>
+            
+
+            <th class="">Montant produit</th>
+            <th class="">Montant acté</th>
+            <th class="">Produit - Acté</th>
+            <th class="">Montant à récevoir</th>
+            <th class="">Paiements éffectués</th>
+            <th class="">Paiements restants</th>
+
+        </thead>
+        <tbody>
+        <% @productions.each do |production| %>
+            <tr>
+                <td><%= production.bank_name.humanize %></td>
+                
+                <td class=""><%= number_to_currency production.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <td class=""><%= number_to_currency production.amount_acted, unit: "", seperator: ",", delimiter: "." %></td>
+                <td class=""><%= number_to_currency production.diff_of_production_and_acted, unit: "", seperator: ",", delimiter: "." %></td>
+                <td class=""><%= number_to_currency production.bank_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <td class=""><%= number_to_currency production.paid_by_bank_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <td class=""><%= number_to_currency production.amount_to_paid_by_bank, unit: "", seperator: ",", delimiter: "." %></td>
+
+
+            </tr>
+            
+        <% end %>
+
+
+        <!-- Total emprunt -->
+        <tr>
+            <td><strong>TOTAUX</strong></td>
+            <td class=""><%= number_to_currency @total_productions, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class=""><%= number_to_currency @total_acted, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class=""><%= number_to_currency @total_diff_of_production_and_acted, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class=""><%= number_to_currency @total_bank_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class=""><%= number_to_currency @total_paid_by_bank_amount, unit: "", seperator: ",", delimiter: "." %></td>
+            <td class=""><%= number_to_currency @total_amount_to_paid_by_bank, unit: "", seperator: ",", delimiter: "." %></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
