@@ -13,7 +13,7 @@ set :rails_env, "staging"
 #server "51.38.235.131", user: "root", roles: %w{app db web}, ssh_options: {forward_agent: true}
 server "gescomph.ml", user: "root", roles: %w{app db web}, ssh_options: {forward_agent: true}
 
-set :branch, "staging"
+set :branch, "develop"
 set :port, 3000
 
 
