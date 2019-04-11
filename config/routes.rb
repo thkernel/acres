@@ -147,8 +147,9 @@ Rails.application.routes.draw do
 
 	get '/reset/get' => 'logs#reset', as: :get_reset_configuration
 	post '/reset/post' => 'logs#reset_all', as: :post_reset_configuration
-
-
+	get 'abandonment' => 'commissions#abandonments', as: :abandonments
+	get 'commissions/abandonment/:id' => 'commissions#abandon', as: :get_abandon
+	post 'commissions/abandon' => 'commissions#post_abandon', as: :post_abandon
 
 
 	devise_for :users, path: '', controllers: { 

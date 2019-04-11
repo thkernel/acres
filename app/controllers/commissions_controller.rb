@@ -13,6 +13,29 @@ class CommissionsController < ApplicationController
 	# Render dashboard layout for all actions.
 	layout "dashboard"
 
+	def abandonments
+		@credits = Credit.all
+	end
+
+	def abandon
+
+		@credit_id = params[:id]
+
+		bank_name = Commission.find_by(credit_id: @credit_id).bank_name
+		@bank = Bank.find_by(name: bank_name)
+
+		puts "CREDIT ID: #{@credit_id}"
+	end
+
+	def post_abandon 
+		commission_rate = params[:commission_rate] if params[:commission_rate]
+		credit_id  = params[:credit_id] if params[:credit_id]
+		bank_name = params[:bank_name] if params[:bank_name]
+		puts "% Commission: #{commission_rate}"
+
+		calculate_abandonment_commission(bank_name, credit_id, commission_rate)
+
+	end
 
 	def contributors
 		@total_montant_credit = Commission.all.sum(:amount_credit)
