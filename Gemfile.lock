@@ -151,7 +151,6 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    google-analytics-rails (1.1.1)
     highcharts-rails (6.0.3)
       railties (>= 3.1)
     htmlentities (4.3.4)
@@ -348,7 +347,6 @@ DEPENDENCIES
   dotenv-rails
   font-awesome-rails (~> 4.7, >= 4.7.0.4)
   friendly_id (~> 5.2, >= 5.2.4)
-  google-analytics-rails (= 1.1.1)
   highcharts-rails
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3, >= 4.3.3)
