@@ -4,6 +4,11 @@ class Credit < ApplicationRecord
     belongs_to :user
     has_many :credit_details, dependent: :destroy
 
+
+    validates :credit_id, presence: true, uniqueness: true
+    #scope :name, -> { where(:attibute => value)}
+    # Ex:- scope :active, -> {where(:active => true)}
+
     def self.credit_exist(credit_id)
         where('credit_id = ?', credit_id)
     end
