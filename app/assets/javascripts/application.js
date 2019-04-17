@@ -32,6 +32,7 @@
 //= require custom
 //= require banks
 //= require commissions
+//= require google_analytics
 
 $(document).on('turbolinks:load', function() {
     // For fixed width containers
