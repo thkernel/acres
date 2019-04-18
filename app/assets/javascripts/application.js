@@ -32,6 +32,7 @@
 //= require custom
 //= require banks
 //= require commissions
+//= require commission_change
 
 $(document).on('turbolinks:load', function() {
     // For fixed width containers

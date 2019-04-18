@@ -1,6 +1,7 @@
 class Bank < ApplicationRecord
     belongs_to :user
     has_many :bank_commission_editions, dependent: :destroy
+    has_many :bank_commission_rate_trackers, dependent: :destroy
 
     validates_presence_of :name
 

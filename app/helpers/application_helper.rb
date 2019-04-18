@@ -204,6 +204,10 @@ module ApplicationHelper
 		end
 		
 	end
+	def get_bank_name(bank_id)
+		bank = Bank.find(bank_id)
+		
+	end
 
 
 	def get_admin_company(user)

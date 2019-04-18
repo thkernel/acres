@@ -1,37 +1,53 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Bank Commission Rate Trackers</h1>
+<div class="container">
 
-<table>
+<div class="row">
+<div class="col-md-12">
+<div class="index-heading pull-left">
+    <h3>Historique des modifications de commissions des banques</h3>
+    </div>
+<div class="pull-right">
+
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default">
+<div class="panel-body">
+<table  id="table-list" class="table table-striped table-bordered table-hover">
+
   <thead>
     <tr>
+    <th>Date modification</th>
       <th>Date effet</th>
-      <th>Old rate</th>
-      <th>New rate</th>
-      <th>Bank</th>
-      <th>User</th>
-      <th>Status</th>
-      <th colspan="3"></th>
+       <th>Banque</th>
+      <th>Ancien taux(%)</th>
+      <th>Nouveau taux(%)</th>
+     
+      
+      
+  
     </tr>
   </thead>
 
   <tbody>
     <% @bank_commission_rate_trackers.each do |bank_commission_rate_tracker| %>
       <tr>
-        <td><%= bank_commission_rate_tracker.date_effet %></td>
+      <td><%= bank_commission_rate_tracker.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= bank_commission_rate_tracker.start_date.strftime("%d/%m/%Y") if bank_commission_rate_tracker.start_date %></td>
+        <td><%= get_bank_name(bank_commission_rate_tracker.bank_id).name.humanize %></td>
         <td><%= bank_commission_rate_tracker.old_rate %></td>
         <td><%= bank_commission_rate_tracker.new_rate %></td>
-        <td><%= bank_commission_rate_tracker.bank %></td>
-        <td><%= bank_commission_rate_tracker.user %></td>
-        <td><%= bank_commission_rate_tracker.status %></td>
-        <td><%= link_to 'Show', bank_commission_rate_tracker %></td>
-        <td><%= link_to 'Edit', edit_bank_commission_rate_tracker_path(bank_commission_rate_tracker) %></td>
-        <td><%= link_to 'Destroy', bank_commission_rate_tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
+        
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Bank Commission Rate Tracker', new_bank_commission_rate_tracker_path %>
+  </div>
+  </div>
+  </div>
+  
+  </div>
