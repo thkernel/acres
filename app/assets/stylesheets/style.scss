@@ -253,9 +253,13 @@ nav.navbar .dropdown-menu a {
     width: 100%;
 }
 
-#bank_date_effet {
+#commission_start_date {
     display: none;
-    visibility: hidden;
+    /*visibility: hidden;*/
+}
+#commission_start_date_label{
+    display: none;
+    /*visibility: hidden;*/
 }
 
 .collection-check-boxes label {

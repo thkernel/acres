@@ -12,6 +12,7 @@
 			Aucun rétrocalcul ne sera effectué lorsque vous modifiez ce pourcentage.
 		</div>
 
+		<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
 				<%= form.label "Nom" %>
@@ -25,10 +26,13 @@
 			
 			
 			<div class="form-group">
-					<%= fields_for(@commission_date_effet) do |de| %>
-				<%= de.hidden_field :old_rate,  class:"form-control", :id => "old_rate", value: @bank.commission_percentage %>
-				<%= de.date_field :start_date,  class:"form-control", :id => "start_date" %>
-					<% end %>
+				<%= fields_for(@commission_change) do |cc| %>
+					<%= cc.hidden_field :old_rate,  class:"form-control", :id => "old_rate", value: @bank.commission_percentage %>
+					<%= form.label "Date d'effet", :id => "commission_start_date_label" %>
+					<%= cc.date_field :rate_start_date,  class:"form-control", :id => "commission_start_date" %>
+					<%= cc.hidden_field :commission_was_changed,  class:"form-control", :id => "commission_was_changed", value: "false" %>
+
+				<% end %>
 			</div><!-- end nested -->
 
 			<div class="form-group">
@@ -52,7 +56,7 @@
 				<%= form.text_field :hypoplus_commission_percentage, id: :bank_hypoplus_commission_percentage,  class:"form-control" %>
 			</div>
 		</div>
-			
+		</div>
 	</div><!-- modal body -->
 	<div class="modal-footer">
 		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>

@@ -1,6 +1,6 @@
 class BankCommissionRateTrackersController < ApplicationController
   before_action :set_bank_commission_rate_tracker, only: [:show, :edit, :update, :destroy]
-
+  layout "dashboard"
   # GET /bank_commission_rate_trackers
   # GET /bank_commission_rate_trackers.json
   def index

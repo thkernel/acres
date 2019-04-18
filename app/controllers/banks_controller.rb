@@ -51,16 +51,41 @@ class BanksController < ApplicationController
   # PATCH/PUT /banks/1
   # PATCH/PUT /banks/1.json
   def update
+    commission_was_changed = params[:commission_was_changed]
+
+    rate_start_date = params[:rate_start_date]
+    old_rate = params[:old_rate]
+    new_rate = params[:commission_percentage]
+
+    if commission_was_changed.present? && commission_was_changed == "true"
+      if rate_start_date.present?
+        
+        
+
+        bank_commission_rate_tracker = BankCommissionRateTracker.new
+        bank_commission_rate_tracker.start_date = rate_start_date
+        bank_commission_rate_tracker.old_rate = old_rate
+        bank_commission_rate_tracker.new_rate = params[:bank][:commission_percentage]
+        bank_commission_rate_tracker.bank_id =  @bank.id 
+        bank_commission_rate_tracker.user_id = current_user.id 
+        bank_commission_rate_tracker.save
+
+
+      else
+        respond_to do |format|
+          format.html { redirect_to banks_path, alert: "Une erreur s'est passée lors de la modification. Vous n'avez renseigné la date d'effet."}
+        end
+
+        return
+      end
+
+    end
+
+  
     respond_to do |format|
       if @bank.update(bank_params)
-        puts "HUMMMMMMMMMMMMMMMMMMMMMMMMMMMM CHANGED: #{params[:commission_percentageeee]}"
 
-        bank_commission_edition = BankCommissionEdition.new
-        bank_commission_edition.date_effet = params[:date_effet]
-        bank_commission_edition.new_value = @bank.commission_percentage
-        bank_commission_edition.bank_id = @bank.id
-        bank_commission_edition.user_id = current_user.id
-        bank_commission_edition.save
+       
 
         @banks = Bank.all
         #compute_commission(@bank.id)
