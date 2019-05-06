@@ -133,7 +133,7 @@ class CreditDetailsController < ApplicationController
 								if bank_number_of_dates.present? && bank_first_installment.present? #&& contributor_commission.present?
 								#if bank_number_of_dates.present? && bank_first_installment.present? && contributor_commission.present?
 									#if bank_number_of_dates > 0 && bank_first_installment > 0 && contributor_commission > 0.0 --> old
-									if bank_number_of_dates > 0 && bank_first_installment > #0 && contributor_commission > 0.0
+									if bank_number_of_dates > 0 && bank_first_installment > 0 #&& contributor_commission > 0.0
 
 									
 									first_installment_commission = (contributor_commission  * bank_first_installment)/100 
