@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_installment: MyString
+  monthly_deadlines_before_payment: 1
+  monthly_installments: MyString
+  user: one
+
+two:
+  first_installment: MyString
+  monthly_deadlines_before_payment: 1
+  monthly_installments: MyString
+  user: two

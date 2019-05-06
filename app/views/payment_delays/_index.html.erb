@@ -1,0 +1,14 @@
+
+<tr>
+<td class="uppercase">Paiement de la première tranche</td>
+<td><%= @payment_delays.first_installment if @payment_delays.present? %></td>
+</tr>
+<tr>
+<td class="uppercase">Echéances mensuelles avant paiement</td>
+<td><%= @payment_delays.monthly_deadlines_before_payment if @payment_delays.present? %></td>
+</tr>
+<tr>
+<td class="uppercase">Paiement des tranches mensuelles</td>
+<td><%= @payment_delays.monthly_installments if @payment_delays.present? %></td>
+</tr>
+

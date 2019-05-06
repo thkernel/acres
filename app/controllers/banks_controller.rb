@@ -90,7 +90,8 @@ class BanksController < ApplicationController
         @banks = Bank.all
         #compute_commission(@bank.id)
 				#handle_commission(@bank.id)
-				handle_commissions
+        #handle_commissions
+        new_handle_commissions
 
         format.html { redirect_to @bank, notice: 'Bank was successfully updated.' }
         format.json { render :show, status: :ok, location: @bank }

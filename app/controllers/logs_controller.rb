@@ -61,7 +61,8 @@ class LogsController < ApplicationController
 
 		# Populate commissions.
 		populate_commission
-		handle_commissions
+    #handle_commissions
+    new_handle_commissions
 	
 		
 

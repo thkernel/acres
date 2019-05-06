@@ -114,12 +114,18 @@ class CreditDetailsController < ApplicationController
 					puts "DANS LE UNLESS"
 					@commission = Commission.find_by(credit_id: query)
 					puts "COMMISSION #{@commission.id} #{@commission.amount_credit}"
+
+					credit_acte_date = @commission.acte_date
+
 					if @commission.present? && @credit.present?
+
 						bank_name = @commission.bank_name
 						puts "UNE COMMISSION EST PRESENTE"
+
 						if bank_name.present?
 							puts "BANQUE PRESENTE"
 							bank = Bank.find_by(name: bank_name)
+
 							if bank.present?
 								bank_commission_percentage = bank.commission_percentage 
 								bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage
@@ -133,7 +139,7 @@ class CreditDetailsController < ApplicationController
 								if bank_number_of_dates.present? && bank_first_installment.present? #&& contributor_commission.present?
 								#if bank_number_of_dates.present? && bank_first_installment.present? && contributor_commission.present?
 									#if bank_number_of_dates > 0 && bank_first_installment > 0 && contributor_commission > 0.0 --> old
-									if bank_number_of_dates > 0 && bank_first_installment > #0 && contributor_commission > 0.0
+									if bank_number_of_dates > 0 && bank_first_installment > 0 #&& contributor_commission > 0.0
 
 									
 									first_installment_commission = (contributor_commission  * bank_first_installment)/100 
@@ -153,6 +159,7 @@ class CreditDetailsController < ApplicationController
 									credit_detail = CreditDetail.new
 									credit_detail.installment_payment = "Première tranche " 
 									credit_detail.installment_date = Date.today
+									#credit_detail.installment_date = credit_acte_date
 									credit_detail.commission = first_installment_commission 
 									credit_detail.cumulative_amount = 0.0
 									credit_detail.paid_by_bank = "Non" 
@@ -172,6 +179,8 @@ class CreditDetailsController < ApplicationController
 										credit_detail = CreditDetail.new
 										credit_detail.installment_payment = "Echéance " + i.to_s
 										credit_detail.installment_date = Date.today + i.month
+										#credit_detail.installment_date = credit_acte_date + i.month
+
 										credit_detail.commission = others_installment_commission
 										credit_detail.cumulative_amount =  first_installment_commission + cumulative_amount
 										credit_detail.paid_by_bank = "Non" 
