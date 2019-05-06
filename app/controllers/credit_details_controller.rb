@@ -117,7 +117,7 @@ class CreditDetailsController < ApplicationController
 
 					credit_acte_date = @commission.acte_date
 
-					if @commission.present? && @credit.present?
+					if @commission.present? && @credit.present? && credit_acte_date.present?
 
 						bank_name = @commission.bank_name
 						puts "UNE COMMISSION EST PRESENTE"
@@ -158,8 +158,8 @@ class CreditDetailsController < ApplicationController
 									# First installment.
 									credit_detail = CreditDetail.new
 									credit_detail.installment_payment = "Première tranche " 
-									credit_detail.installment_date = Date.today
-									#credit_detail.installment_date = credit_acte_date
+									#credit_detail.installment_date = Date.today
+									credit_detail.installment_date = credit_acte_date
 									credit_detail.commission = first_installment_commission 
 									credit_detail.cumulative_amount = 0.0
 									credit_detail.paid_by_bank = "Non" 
@@ -178,8 +178,8 @@ class CreditDetailsController < ApplicationController
 										
 										credit_detail = CreditDetail.new
 										credit_detail.installment_payment = "Echéance " + i.to_s
-										credit_detail.installment_date = Date.today + i.month
-										#credit_detail.installment_date = credit_acte_date + i.month
+										#credit_detail.installment_date = Date.today + i.month
+										credit_detail.installment_date = credit_acte_date + i.month
 
 										credit_detail.commission = others_installment_commission
 										credit_detail.cumulative_amount =  first_installment_commission + cumulative_amount
