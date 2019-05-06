@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First installment:</strong>
+  <%= @payment_delay.first_installment %>
+</p>
+
+<p>
+  <strong>Monthly deadlines before payment:</strong>
+  <%= @payment_delay.monthly_deadlines_before_payment %>
+</p>
+
+<p>
+  <strong>Monthly installments:</strong>
+  <%= @payment_delay.monthly_installments %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @payment_delay.user %>
+</p>
+
+<%= link_to 'Edit', edit_payment_delay_path(@payment_delay) %> |
+<%= link_to 'Back', payment_delays_path %>

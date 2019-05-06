@@ -31,6 +31,10 @@
 
 fr:
   hello: "Hello world"
+  helpers:
+    submit:
+      create: "Enregistrer"
+      update: "Modifier"
   subscription_successfull: "Vous êtes abonné avec succès!"
   subscription_exist: "Cette adresse email existe déjà dans nos base donées!"
   time_limit: "Délai"

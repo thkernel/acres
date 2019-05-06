@@ -82,6 +82,10 @@ Paiements'), payments_path %>
 									Société'), show_company_path(current_company) %>
 							</li>
 
+							<li><%= link_to raw('<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+									Délais paiements'), payment_delays_path %>
+							</li>
+
 							<li><%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
 									Réinitialisation'), get_reset_configuration_path, remote: true %>
 							</li>

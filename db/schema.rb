@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190404034712) do
+ActiveRecord::Schema.define(version: 20190506061235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -254,6 +254,16 @@ ActiveRecord::Schema.define(version: 20190404034712) do
     t.index ["user_id"], name: "index_notaries_on_user_id"
   end
 
+  create_table "payment_delays", force: :cascade do |t|
+    t.string "first_installment"
+    t.integer "monthly_deadlines_before_payment"
+    t.string "monthly_installments"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_payment_delays_on_user_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -319,6 +329,7 @@ ActiveRecord::Schema.define(version: 20190404034712) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "receives_summaries", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -339,6 +350,7 @@ ActiveRecord::Schema.define(version: 20190404034712) do
   add_foreign_key "logs", "users"
   add_foreign_key "mail_configurations", "users"
   add_foreign_key "notaries", "users"
+  add_foreign_key "payment_delays", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "user_commission_editions", "commission_settings"
   add_foreign_key "user_commission_editions", "users"

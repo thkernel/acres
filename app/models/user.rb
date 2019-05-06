@@ -34,6 +34,7 @@ class User < ApplicationRecord
 	has_many :accounts, dependent: :destroy
 	#has_many :bank_commission_rate_trackers, dependent: :destroy
 
+  has_one :payment_delay, dependent: :destroy
 
 
 	

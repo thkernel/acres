@@ -7,6 +7,7 @@ end
 
 
 Rails.application.routes.draw do
+  resources :payment_delays
   resources :bank_commission_rate_trackers
 	#devise_for :admins
 	constraints SubdomainConstraint do     
@@ -150,7 +151,7 @@ Rails.application.routes.draw do
 	get 'abandonment' => 'commissions#abandonments', as: :abandonments
 	get 'commissions/abandonment/:id' => 'commissions#abandon', as: :get_abandon
 	post 'commissions/abandon' => 'commissions#post_abandon', as: :post_abandon
-
+	get 'settings/payments' => 'payment_delays#settings', as: :payments_delays_settings
 
 	devise_for :users, path: '', controllers: { 
         registrations: "users/registrations",

@@ -1,5 +1,10 @@
 class Log < ApplicationRecord
+    # Include personnal shared utils.
+
+    #include SharedUtils::Utils
+
     require 'creek'
+    
     belongs_to :user
 
     validates_presence_of :file_name
