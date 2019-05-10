@@ -1,0 +1,37 @@
+<%= form_with(model: user_commission_rate_tracker, local: true) do |form| %>
+  <% if user_commission_rate_tracker.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user_commission_rate_tracker.errors.count, "error") %> prohibited this user_commission_rate_tracker from being saved:</h2>
+
+      <ul>
+      <% user_commission_rate_tracker.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.datetime_select :start_date, id: :user_commission_rate_tracker_start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :old_rate %>
+    <%= form.text_field :old_rate, id: :user_commission_rate_tracker_old_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :new_rate %>
+    <%= form.text_field :new_rate, id: :user_commission_rate_tracker_new_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :user_commission_rate_tracker_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

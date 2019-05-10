@@ -104,3 +104,4 @@ end
  gem 'ajax-datatables-rails'
  gem 'chartkick', '~> 3.0', '>= 3.0.2'
  gem 'highcharts-rails'
+ gem 'whenever', '~> 0.11.0'

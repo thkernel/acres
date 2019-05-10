@@ -1,8 +1,6 @@
 class Log < ApplicationRecord
     # Include personnal shared utils.
-
-    #include SharedUtils::Utils
-
+    include SharedUtils
     require 'creek'
     
     belongs_to :user
@@ -47,14 +45,22 @@ class Log < ApplicationRecord
                     credit = Credit.new 
 
 
-                     # Begin insert a bank, before to insert bank we check if bank exist
-                     if row[cell[0]].present?
-                        current_credit = Credit.find_by(credit_id: row[cell[0]])
+                    # Begin insert a bank, before to insert bank we check if bank exist
+                    if row[cell[0]].present?
+                       
+                        current_credit = Credit.find_by(credit_id: Extractor.extract_numeric(row[cell[0]]))
                         if current_credit.present?
-                            current_credit = current_credit.credit_id + Time.now.min + Time.now.sec
+                            if current_credit.hypoplus.present?
+                                next
+                            else
+                                current_credit = current_credit.credit_id + Time.now.min + Time.now.sec
+                            end
                         else
-                            current_credit = row[cell[0]]
+                            current_credit = Extractor.extract_numeric(row[cell[0]])
+                       
                         end
+                    else
+                        next
                     end
 
                     # Begin insert a bank, before to insert bank we check if bank exist

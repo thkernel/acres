@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @user_commission_rate_tracker.start_date %>
+</p>
+
+<p>
+  <strong>Old rate:</strong>
+  <%= @user_commission_rate_tracker.old_rate %>
+</p>
+
+<p>
+  <strong>New rate:</strong>
+  <%= @user_commission_rate_tracker.new_rate %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_commission_rate_tracker.user %>
+</p>
+
+<%= link_to 'Edit', edit_user_commission_rate_tracker_path(@user_commission_rate_tracker) %> |
+<%= link_to 'Back', user_commission_rate_trackers_path %>

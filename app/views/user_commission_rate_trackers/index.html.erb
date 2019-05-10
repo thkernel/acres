@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>User Commission Rate Trackers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start date</th>
+      <th>Old rate</th>
+      <th>New rate</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_commission_rate_trackers.each do |user_commission_rate_tracker| %>
+      <tr>
+        <td><%= user_commission_rate_tracker.start_date %></td>
+        <td><%= user_commission_rate_tracker.old_rate %></td>
+        <td><%= user_commission_rate_tracker.new_rate %></td>
+        <td><%= user_commission_rate_tracker.user %></td>
+        <td><%= link_to 'Show', user_commission_rate_tracker %></td>
+        <td><%= link_to 'Edit', edit_user_commission_rate_tracker_path(user_commission_rate_tracker) %></td>
+        <td><%= link_to 'Destroy', user_commission_rate_tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User Commission Rate Tracker', new_user_commission_rate_tracker_path %>

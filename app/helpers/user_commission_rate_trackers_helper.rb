@@ -1,0 +1,2 @@
+module UserCommissionRateTrackersHelper
+end

@@ -1,0 +1,1 @@
+json.partial! "user_commission_rate_trackers/user_commission_rate_tracker", user_commission_rate_tracker: @user_commission_rate_tracker

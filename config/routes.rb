@@ -7,6 +7,7 @@ end
 
 
 Rails.application.routes.draw do
+  resources :user_commission_rate_trackers
   resources :payment_delays
   resources :bank_commission_rate_trackers
 	#devise_for :admins
@@ -152,6 +153,8 @@ Rails.application.routes.draw do
 	get 'commissions/abandonment/:id' => 'commissions#abandon', as: :get_abandon
 	post 'commissions/abandon' => 'commissions#post_abandon', as: :post_abandon
 	get 'settings/payments' => 'payment_delays#settings', as: :payments_delays_settings
+	get "show/backup" => "administrations#show_backup", as: :show_backup
+	post 'administration/backup' => "administrations#backup_database", as: :backup_database
 
 	devise_for :users, path: '', controllers: { 
         registrations: "users/registrations",

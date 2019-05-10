@@ -1,14 +1,17 @@
 <div class="tabs">
 <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+<li class="nav-item">
+    <a class="nav-link active" id="actees-produites-tab" data-toggle="tab" href="#actees-produites" role="tab" aria-controls="actees-produites" aria-selected="false">ACTES & PRODUITS</a>
+  </li>
+
   <li class="nav-item">
-    <a class="nav-link active" id="tarte-tab" data-toggle="tab" href="#tarte" role="tab" aria-controls="tarte" aria-selected="true">TARTE</a>
+    <a class="nav-link " id="tarte-tab" data-toggle="tab" href="#tarte" role="tab" aria-controls="tarte" aria-selected="true">TARTE</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="mensuel-tab" data-toggle="tab" href="#mensuel" role="tab" aria-controls="mensuel" aria-selected="false">MENSUEL</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" id="actees-produites-tab" data-toggle="tab" href="#actees-produites" role="tab" aria-controls="actees-produites" aria-selected="false">ACTES & PRODUITS</a>
-  </li>
+  
 
   <li class="nav-item">
     <a class="nav-link" id="productions-tab" data-toggle="tab" href="#productions" role="tab" aria-controls="productions" aria-selected="false">PRODUCTIONS</a>
@@ -16,16 +19,19 @@
  
 </ul>
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="tarte" role="tabpanel" aria-labelledby="tarte-tab">
+
+  <div class="tab-pane fade show active" id="actees-produites" role="tabpanel" aria-labelledby="actees-produites-tab">
+   <%= render "search/partials/subpartials/acted_products" %>
+  </div>
+
+  <div class="tab-pane fade " id="tarte" role="tabpanel" aria-labelledby="tarte-tab">
       <%= render "search/partials/subpartials/tarte" %>
 
   </div>
   <div class="tab-pane fade" id="mensuel" role="tabpanel" aria-labelledby="mensuel-tab">
     <%= render "search/partials/subpartials/mensuel" %>
   </div>
-  <div class="tab-pane fade" id="actees-produites" role="tabpanel" aria-labelledby="actees-produites-tab">
-   <%= render "search/partials/subpartials/acted_products" %>
-  </div>
+  
 
    <div class="tab-pane fade" id="productions" role="tabpanel" aria-labelledby="productions-tab">
    <%= render "search/partials/subpartials/productions" %>

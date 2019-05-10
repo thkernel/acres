@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190506061235) do
+ActiveRecord::Schema.define(version: 20190510044141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -307,6 +307,16 @@ ActiveRecord::Schema.define(version: 20190506061235) do
     t.index ["user_id"], name: "index_user_commission_editions_on_user_id"
   end
 
+  create_table "user_commission_rate_trackers", force: :cascade do |t|
+    t.datetime "start_date"
+    t.float "old_rate"
+    t.float "new_rate"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_commission_rate_trackers_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "full_name"
     t.string "avatar_file_name"
@@ -354,4 +364,5 @@ ActiveRecord::Schema.define(version: 20190506061235) do
   add_foreign_key "profiles", "users"
   add_foreign_key "user_commission_editions", "commission_settings"
   add_foreign_key "user_commission_editions", "users"
+  add_foreign_key "user_commission_rate_trackers", "users"
 end

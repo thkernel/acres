@@ -47,9 +47,38 @@ class CommissionSettingsController < ApplicationController
   # PATCH/PUT /commission_settings/1
   # PATCH/PUT /commission_settings/1.json
   def update
+    commission_was_changed = params[:commission_was_changed]
+
+    rate_start_date = params[:rate_start_date]
+    old_rate = params[:old_rate]
+    new_rate = params[:commission_percentage]
+
+    if commission_was_changed.present? && commission_was_changed == "true"
+      if rate_start_date.present?
+        
+      
+        user_commission_rate_tracker = UserCommissionRateTracker.new
+        user_commission_rate_tracker.start_date = rate_start_date
+        user_commission_rate_tracker.old_rate = old_rate
+        user_commission_rate_tracker.new_rate = params[:commission_setting][:commission_percentage]
+        user_commission_rate_tracker.user_id = current_user.id 
+        user_commission_rate_tracker.save
+
+
+      else
+        respond_to do |format|
+          format.html { redirect_to banks_path, alert: "Une erreur s'est passée lors de la modification. Vous n'avez renseigné la date d'effet."}
+        end
+
+        return
+      end
+
+    end
+    
     respond_to do |format|
 	  if @commission_setting.update(commission_setting_params)
-		#compute_commission(@commission_setting.user_id)
+    #compute_commission(@commission_setting.user_id)
+    new_calculate_commissions({key: "user", value: @commission_setting.user_id })
 		puts "UPDATE"
         #format.html { redirect_to @commission_setting, notice: 'Commission setting was successfully updated.' }
         format.html { redirect_to all_users_path, notice: 'Commission setting was successfully updated.' }

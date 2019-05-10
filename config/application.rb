@@ -2,7 +2,7 @@ require_relative 'boot'
 
 require 'rails/all'
 require 'apartment/elevators/subdomain' # or 'domain', 'first_subdomain', 'host'
-
+require './lib/utils'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -23,6 +23,12 @@ module Acres
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
-    config.autoload_paths += %W(#{config.root}/lib) # add this line
+    #config.autoload_paths += %W(#{config.root}/lib)
+    #config.autoload_paths += Dir["#{config.root}/lib"]
+    #config.autoload_paths << "#{Rails.root}/lib"
+    #config.eager_load_paths << "#{Rails.root}/lib"
+    #config.enable_dependency_loading = true
+    #config.autoload_paths << Rails.root.join('lib')
+    #config.eager_load_paths << Rails.root.join('lib')
   end
 end
