@@ -1,6 +1,7 @@
 module ApplicationHelper
 	include PaymentDelaysHelper
-	include UsersHelper
+    include UsersHelper
+    include CommissionsHelper
 
     
 	

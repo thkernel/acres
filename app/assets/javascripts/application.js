@@ -34,6 +34,7 @@
 //= require commissions
 //= require google_analytics
 //= require commission_change
+//= require commission_settings
 
 $(document).on('turbolinks:load', function() {
     // For fixed width containers

@@ -59,8 +59,10 @@ class SearchController < ApplicationController
     monthly_commissions = Commission.group(:bank_name).select(:bank_name)#.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary)
 
 
-    @commissions_acted = Commission.where("acte_date is not null").unscope(:order).group(:bank_name).sum(:bank_commission)
-    @commissions_products = Commission.where("production_date is not null").unscope(:order).group(:bank_name).sum(:bank_commission)
+    @commissions_acted = @commissions.where("acte_date is not null").unscope(:order).group(:bank_name).sum(:amount_credit)
+
+    #@commissions_acted = Commission.where("acte_date is not null").unscope(:order).group(:bank_name).sum(:amount_credit)
+    @commissions_products = @commissions.where("production_date is not null").unscope(:order).group(:bank_name).sum(:amount_credit)
 
    
 
@@ -476,7 +478,7 @@ class SearchController < ApplicationController
         acted_amount = bank_acted_amount(acte_date_debut, acte_date_fin, item.name).sum(:amount_credit)
         production.amount_credit = amount_credit
         production.amount_acted = acted_amount
-        production.diff_of_production_and_acted = (acted_amount) - (amount_credit)
+        production.diff_of_production_and_acted = (amount_credit)  - (acted_amount)
         production.bank_commission_amount = Commission.where(bank_name: item.name).sum(:bank_commission)
         paid_by_bank_amount = amount_paid_by_bank(item.name)
         production.paid_by_bank_amount = paid_by_bank_amount
@@ -507,7 +509,7 @@ class SearchController < ApplicationController
   end
 
   def bank_acted_amount(acte_date_debut, acte_date_fin, bank_name)
-    bank_commissions = Commission.search_by_bank_and_acte_date(acte_date_debut, acte_date_fin, bank_name)
+    bank_commissions = Commission.search_by_bank_and_acte_date(acte_date_debut, acte_date_fin, bank_name).where("acte_date is not null")
   end
 
   def amount_paid_by_bank(bank_name)

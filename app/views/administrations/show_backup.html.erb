@@ -1,0 +1,58 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header align-items-center">
+                    <div class="card-header-title-text">
+                        <h1 class="uppercase">Backup</h1>
+                    </div>
+                    <div class="card-header-subtitle-text">
+                       
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="profile">
+                        <!-- Start section -->
+                        <div class="profile-section-bacic-infos">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-section-title">
+                                        <div class="pull-left">
+                                            <span>
+                                                <i class="fa fa-home" aria-hidden="true"></i>
+                                            </span>
+                                            <span>
+                                            <h3>
+                                            Cette action va faire un backup de toutes les données clients!
+                                            </h3></span>
+                                        </div>
+                                        <div class="pull-right">
+                                            
+                                        </div>
+                                    </div><!-- end section title -->
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-section-body">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                            <p>
+                                                <div class="form-group">
+    <%= button_to "Commencer",  backup_database_path,  class: "btn btn-danger btn-block",   autocomplete: "off" %>
+</p>
+  </div>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end section -->
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="company-modal" class="modal fade"></div>
