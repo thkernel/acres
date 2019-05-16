@@ -118,9 +118,11 @@ class CreditDetailsController < ApplicationController
 					if @commission.present? && @credit.present? && credit_acte_date.present?
 						bank_name = @commission.bank_name
 						puts "UNE COMMISSION EST PRESENTE"
+
 						if bank_name.present?
 							puts "BANQUE PRESENTE"
 							bank = Bank.find_by(name: bank_name)
+
 							if bank.present?
 								bank_commission_percentage = bank.commission_percentage 
 								bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage
@@ -137,18 +139,23 @@ class CreditDetailsController < ApplicationController
 									if bank_number_of_dates > 0 && bank_first_installment > 0 #&& contributor_commission > 0.0
 
 									
-									first_installment_commission = (contributor_commission  * bank_first_installment)/100 
+									#first_installment_commission = (contributor_commission  * bank_first_installment)/100 
 
 									if target == "producer"
 										first_installment_commission = (producer_commission  * bank_first_installment)/100
+										others_installment_commission = (producer_commission * (remaining_installment  / bank_number_of_dates))/100
+
 									elsif target == "contributor"
 										first_installment_commission = (contributor_commission  * bank_first_installment)/100
+										others_installment_commission = (contributor_commission * (remaining_installment  / bank_number_of_dates))/100
+
 									elsif target == "company"
 										first_installment_commission = (company_commission  * bank_first_installment)/100
+										others_installment_commission = (company_commission * (remaining_installment  / bank_number_of_dates))/100
+
 									end
 									
 
-									others_installment_commission = (contributor_commission * (remaining_installment  / bank_number_of_dates))/100
 									
 									# First installment.
 									credit_detail = CreditDetail.new
