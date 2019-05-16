@@ -51,16 +51,18 @@ class CommissionsController < ApplicationController
 			
 			if users.present?
 				@commissions = []
-				users.each {|user|
+				users.each do |user|
 					commissions = Commission.where(contributor_name: user.full_name)
 
-					if commissions.present?
+					if commissions.present? 
+						
 						commissions.each{|commission|
 							@commissions.push(commission)
 						}
+						
 					end
 					
-				}
+				end
 			end
 		end
 
