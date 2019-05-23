@@ -156,6 +156,10 @@ class CreditDetailsController < ApplicationController
 									end
 									
 
+<<<<<<< HEAD
+=======
+									#others_installment_commission = (contributor_commission * (remaining_installment  / bank_number_of_dates))/100
+>>>>>>> features
 									
 									# First installment.
 									credit_detail = CreditDetail.new
