@@ -1,7 +1,10 @@
 module SharedUtils
     module Extractor
         def self.extract_numeric(string)
-            output = string.scan(/\d/).join
+            #output = string.scan(/\d+/).join("")
+            string = string.to_s
+            output = string.gsub(/[^0-9]/, '')
+
             puts "TRAITEMENT DES ID DOSSIERS"
             puts "Source: #{string}, Sortie: #{output}"
             output
