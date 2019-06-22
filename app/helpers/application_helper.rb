@@ -553,22 +553,7 @@ module ApplicationHelper
 		end
 	end
 
-	def commission_rate_changed?(bank_name)
-		begin
-			bank = Bank.find_by(name: bank_name)
-			bank_commission_rate_tracker = BankCommissionRateTracker.find_by(bank_id: bank.id) if bank.present?
-
-			if bank_commission_rate_tracker.present?
-				true
-			else
-				false
-			end
-		rescue Exception => e
-			puts "Erreur: #{e.message}"
-		end
-	end
-
-
+	
 
 
 

@@ -100,6 +100,8 @@ gem 'apartment', '~> 2.2'
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'annotate', '~> 2.7', '>= 2.7.5'
+
 end
  gem 'ajax-datatables-rails'
  gem 'chartkick', '~> 3.0', '>= 3.0.2'
