@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: notaries
+#
+#  id         :bigint           not null, primary key
+#  full_name  :string
+#  address    :string
+#  phone      :string
+#  email      :string
+#  user_id    :bigint           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Notary < ApplicationRecord
 	belongs_to :user
 

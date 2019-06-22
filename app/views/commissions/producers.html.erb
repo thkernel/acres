@@ -28,7 +28,7 @@
       <!-- <th>Commission apporteur</th> -->
       <th>Com prod</th>
       <!-- <th>Commission banque</th> -->
-      <th>Com nette <%= current_company.name %> </th>
+      <!-- <th>Com nette <%= current_company.name %> </th> -->
       <th>Montant empruntés</th>
       
     </tr>
@@ -53,7 +53,7 @@
     <td><%= "#{number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "."}%" %></td>
 
         <td class="blue-amount"><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
-        <td class="blue-amount"><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>
+        <!-- <td class="blue-amount"><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>-->
         <td class="blue-amount"><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
         
       </tr>

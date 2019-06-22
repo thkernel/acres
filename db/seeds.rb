@@ -16,11 +16,19 @@
 
         
 # Add initial role in database.
-Role.create(name: "Superadmin")
-Role.create(name: "Admin")
-Role.create(name: "Producteur")
-Role.create(name: "Co-courtier")
-Role.create(name: "Apporteur")
+unless Role.all.present?
+    roles = Role.create([
+        {name: "Superadmin"}, 
+        {name: "Admin"},
+        {name: "Producteur"},
+        {name: "Co-courtier"},
+        {name: "Apporteur"}
+    ])
+else
+    roles = Role.all
+
+end
+
 
 
 # Capistrano-rails-collection cammands

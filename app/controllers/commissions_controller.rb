@@ -73,12 +73,14 @@ class CommissionsController < ApplicationController
 		@total_commission_nette_company = Commission.all.sum(:producer_commission)
 		@total_commission_producteur = Commission.all.sum(:company_commission)
 
-		if current_user.present? && is_producer?(current_user)
+		if current_user.present? && is_producer?(current_user) || current_user.present? && is_cocourtier?(current_user)
 			@commissions = Commission.where(producer_name: current_user.full_name)
+		
 		else
 
 			#@commissions = current_user.commissions 
-			users = User.where(role: 'Producteur')
+			#users = User.where(role: 'Producteur', role: "Co-courtier")
+			users = User.where(["role = ? OR role = ?", "Producteur", "Co-courtier"])
 			
 			if users.present?
 				@commissions = []
