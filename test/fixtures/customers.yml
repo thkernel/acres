@@ -11,12 +11,13 @@
 #  slug                :string
 #  avatar_file_name    :string
 #  avatar_content_type :string
-#  avatar_file_size    :integer
+#  avatar_file_size    :bigint
 #  avatar_updated_at   :datetime
 #  user_id             :bigint           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  full_name           :string
+#  excercise_year_id   :bigint           default(0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

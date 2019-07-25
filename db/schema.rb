@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190510044141) do
+ActiveRecord::Schema.define(version: 20190725111053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,9 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "status", default: "enable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
     t.index ["bank_id"], name: "index_bank_commission_rate_trackers_on_bank_id"
+    t.index ["excercise_year_id"], name: "index_bank_commission_rate_trackers_on_excercise_year_id"
     t.index ["user_id"], name: "index_bank_commission_rate_trackers_on_user_id"
   end
 
@@ -76,6 +78,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.datetime "updated_at", null: false
     t.integer "number_of_remaining_days", default: 0
     t.float "company_remaining_commission_rate", default: 0.0
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_banks_on_excercise_year_id"
     t.index ["user_id"], name: "index_banks_on_user_id"
   end
 
@@ -88,6 +92,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_commission_settings_on_excercise_year_id"
     t.index ["user_id"], name: "index_commission_settings_on_user_id", unique: true
   end
 
@@ -114,6 +120,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_commissions_on_excercise_year_id"
     t.index ["user_id"], name: "index_commissions_on_user_id"
   end
 
@@ -126,7 +134,7 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "slug"
     t.string "brand_file_name"
     t.string "brand_content_type"
-    t.integer "brand_file_size"
+    t.bigint "brand_file_size"
     t.datetime "brand_updated_at"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -155,7 +163,9 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "credit_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
     t.index ["credit_id"], name: "index_credit_details_on_credit_id"
+    t.index ["excercise_year_id"], name: "index_credit_details_on_excercise_year_id"
   end
 
   create_table "credits", force: :cascade do |t|
@@ -181,6 +191,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_credits_on_excercise_year_id"
     t.index ["user_id"], name: "index_credits_on_user_id"
   end
 
@@ -193,13 +205,27 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "slug"
     t.string "avatar_file_name"
     t.string "avatar_content_type"
-    t.integer "avatar_file_size"
+    t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_customers_on_excercise_year_id"
     t.index ["user_id"], name: "index_customers_on_user_id"
+  end
+
+  create_table "excercise_years", force: :cascade do |t|
+    t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "status"
+    t.string "close_at"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_excercise_years_on_user_id"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -223,6 +249,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_logs_on_excercise_year_id"
     t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
@@ -251,6 +279,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_notaries_on_excercise_year_id"
     t.index ["user_id"], name: "index_notaries_on_user_id"
   end
 
@@ -272,7 +302,7 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "slug"
     t.string "avatar_file_name"
     t.string "avatar_content_type"
-    t.integer "avatar_file_size"
+    t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -314,6 +344,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_user_commission_rate_trackers_on_excercise_year_id"
     t.index ["user_id"], name: "index_user_commission_rate_trackers_on_user_id"
   end
 
@@ -321,7 +353,7 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "full_name"
     t.string "avatar_file_name"
     t.string "avatar_content_type"
-    t.integer "avatar_file_size"
+    t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string "role", null: false
     t.string "status", default: "enable", null: false
@@ -349,20 +381,31 @@ ActiveRecord::Schema.define(version: 20190510044141) do
   add_foreign_key "bank_commission_editions", "banks"
   add_foreign_key "bank_commission_editions", "users"
   add_foreign_key "bank_commission_rate_trackers", "banks"
+  add_foreign_key "bank_commission_rate_trackers", "excercise_years"
   add_foreign_key "bank_commission_rate_trackers", "users"
+  add_foreign_key "banks", "excercise_years"
   add_foreign_key "banks", "users"
+  add_foreign_key "commission_settings", "excercise_years"
   add_foreign_key "commission_settings", "users"
+  add_foreign_key "commissions", "excercise_years"
   add_foreign_key "commissions", "users"
   add_foreign_key "companies", "users"
   add_foreign_key "credit_details", "credits"
+  add_foreign_key "credit_details", "excercise_years"
+  add_foreign_key "credits", "excercise_years"
   add_foreign_key "credits", "users"
+  add_foreign_key "customers", "excercise_years"
   add_foreign_key "customers", "users"
+  add_foreign_key "excercise_years", "users"
+  add_foreign_key "logs", "excercise_years"
   add_foreign_key "logs", "users"
   add_foreign_key "mail_configurations", "users"
+  add_foreign_key "notaries", "excercise_years"
   add_foreign_key "notaries", "users"
   add_foreign_key "payment_delays", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "user_commission_editions", "commission_settings"
   add_foreign_key "user_commission_editions", "users"
+  add_foreign_key "user_commission_rate_trackers", "excercise_years"
   add_foreign_key "user_commission_rate_trackers", "users"
 end

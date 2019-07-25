@@ -6,7 +6,7 @@
 #  full_name              :string
 #  avatar_file_name       :string
 #  avatar_content_type    :string
-#  avatar_file_size       :integer
+#  avatar_file_size       :bigint
 #  avatar_updated_at      :datetime
 #  role                   :string           not null
 #  status                 :string           default("enable"), not null
@@ -61,6 +61,8 @@ class User < ApplicationRecord
 	has_many :credits, dependent: :destroy
 	has_many :notaries, dependent: :destroy
 	has_many :accounts, dependent: :destroy
+	has_many :excercise_years, dependent: :destroy
+
 	#has_many :bank_commission_rate_trackers, dependent: :destroy
 
   has_one :payment_delay, dependent: :destroy

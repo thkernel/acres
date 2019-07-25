@@ -2,15 +2,16 @@
 #
 # Table name: logs
 #
-#  id         :bigint           not null, primary key
-#  file_name  :string
-#  no_record  :float
-#  error      :string
-#  status     :boolean
-#  slug       :string
-#  user_id    :bigint           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                :bigint           not null, primary key
+#  file_name         :string
+#  no_record         :float
+#  error             :string
+#  status            :boolean
+#  slug              :string
+#  user_id           :bigint           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  excercise_year_id :bigint           default(0)
 #
 
 class Log < ApplicationRecord
@@ -84,6 +85,7 @@ class Log < ApplicationRecord
                         unless current_customer.present?
                             customer = Customer.new
                             customer.full_name = row[cell[3]].downcase if row[cell[3]].present?
+                            customer.excercise_year_id = current_excercise.id
                             customer.user_id = user.id
                             customer.save
                         end
@@ -101,6 +103,7 @@ class Log < ApplicationRecord
                             bank.commission_percentage = 0.0
                             bank.hypoplus_commission_percentage = 0.0
                             bank.company_remaining_commission_rate = 0.25
+                            bank.excercise_year_id = current_excercise.id
                             bank.user_id = user.id
                             bank.save
 
@@ -126,6 +129,7 @@ class Log < ApplicationRecord
                                 #Add conritbutor config.
                                 commission_setting = CommissionSetting.new
                                 commission_setting.commission_percentage = 0.3
+                                commission_setting.excercise_year_id = current_excercise.id
                                 commission_setting.user_id = contributor.id
                                 commission_setting.save
                             end
@@ -158,6 +162,7 @@ class Log < ApplicationRecord
                         unless  current_notary.present?
                             notary = Notary.new
                             notary.full_name = row[cell[8]].downcase if row[cell[8]].present?
+                            notary.excercise_year_id = current_excercise.id
                             notary.user_id = user.id
                             notary.save
 
@@ -175,6 +180,7 @@ class Log < ApplicationRecord
                     credit.producer_name = row[cell[7]].downcase if row[cell[7]].present?
                     credit.notary_name = row[cell[8]].downcase if row[cell[8]].present?
                     credit.hypoplus = row[cell[9]] if row[cell[9]].present?
+                    credit.excercise_year_id = current_excercise.id
                     credit.user_id = user.id 
                     credit.save
                     # End saving

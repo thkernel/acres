@@ -1,0 +1,31 @@
+<%= form_with(model: excercise_year, local: true) do |form| %>
+  <% if excercise_year.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(excercise_year.errors.count, "error") %> prohibited this excercise_year from being saved:</h2>
+
+      <ul>
+      <% excercise_year.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :nom %>
+    <%= form.text_field :name, id: :excercise_year_name, class: "form-control", placeholder: "Ex: 2018-2019", required: true %>
+  </div>
+ <div class="form-group">
+    <%= form.label "Date début"%>
+    <%= form.date_field :start_date, id: :excercise_year_start_date, class: "form-control",  required: true %>
+  </div>
+
+ <div class="form-group">
+    <%= form.label "Date fin" %>
+    <%= form.date_field :end_date, id: :excercise_year_end_date, class: "form-control", placeholder: "Ex: 2018-2019", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "CRÉER", class: "btn btn-primary btn-block" %>
+  </div>
+<% end %>

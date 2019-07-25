@@ -69,7 +69,10 @@ Paiements'), payments_path %>
 						<a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs" aria-hidden="true"></i>
 						Paramètres</a>
 						<ul id="exampledropdownDropdown" class="collapse list-unstyled">
-							
+							<li>
+									<%= link_to raw('<i class="fa fa-calendar" aria-hidden="true"></i> Excercices'), excercise_years_path %>
+								</li>
+
 								<li>
 									<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
 								</li>

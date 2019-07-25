@@ -10,7 +10,7 @@
 #  slug                :string
 #  avatar_file_name    :string
 #  avatar_content_type :string
-#  avatar_file_size    :integer
+#  avatar_file_size    :bigint
 #  avatar_updated_at   :datetime
 #  user_id             :bigint           not null
 #  created_at          :datetime         not null

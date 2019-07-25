@@ -13,6 +13,7 @@
 #  credit_id                       :bigint           not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
+#  excercise_year_id               :bigint           default(0)
 #
 
 require 'test_helper'

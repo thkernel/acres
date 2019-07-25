@@ -6,7 +6,7 @@
 #  full_name              :string
 #  avatar_file_name       :string
 #  avatar_content_type    :string
-#  avatar_file_size       :integer
+#  avatar_file_size       :bigint
 #  avatar_updated_at      :datetime
 #  role                   :string           not null
 #  status                 :string           default("enable"), not null

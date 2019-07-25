@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @excercise_year.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @excercise_year.status %>
+</p>
+
+<p>
+  <strong>Close at:</strong>
+  <%= @excercise_year.close_at %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @excercise_year.user %>
+</p>
+
+<%= link_to 'Edit', edit_excercise_year_path(@excercise_year) %> |
+<%= link_to 'Back', excercise_years_path %>

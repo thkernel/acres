@@ -1,0 +1,10 @@
+$("ul.errors").html("");
+<% if @excercise_year.errors.any? %>
+  <% @excercise_year.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
+  <% end %>
+<% else %>
+  $(".excercises-index").html("<%= escape_javascript(render 'index') %>");
+  $("#excercise-modal").modal("hide");
+ 
+<% end %>

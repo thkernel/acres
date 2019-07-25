@@ -2,6 +2,7 @@ class DashboardController < ApplicationController
 	
 	before_action :authenticate_user!
 	before_action :create_company
+	before_action :if_excercise_year
 
 	layout 'dashboard'
 	
@@ -64,8 +65,18 @@ class DashboardController < ApplicationController
 	end
 
 	
+	def if_excercise_year
+		if request.subdomain.present? && request.subdomain != 'www'   
+			if current_user.role == "Admin"
+				excercises = ExcerciseYear.all
+				unless excercises.present?
+					redirect_to new_excercise_year_path
+				end
+			end
+		end
+	end
 	
-	
+
 
 	
 	

@@ -7,6 +7,10 @@ end
 
 
 Rails.application.routes.draw do
+	resources :excercise_years do   
+		get "delete"
+	end
+	
   resources :user_commission_rate_trackers
   resources :payment_delays
   resources :bank_commission_rate_trackers

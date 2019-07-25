@@ -2,15 +2,16 @@
 #
 # Table name: bank_commission_rate_trackers
 #
-#  id         :bigint           not null, primary key
-#  start_date :datetime
-#  old_rate   :float            default(0.0)
-#  new_rate   :float            default(0.0)
-#  bank_id    :bigint
-#  user_id    :bigint
-#  status     :string           default("enable")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                :bigint           not null, primary key
+#  start_date        :datetime
+#  old_rate          :float            default(0.0)
+#  new_rate          :float            default(0.0)
+#  bank_id           :bigint
+#  user_id           :bigint
+#  status            :string           default("enable")
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  excercise_year_id :bigint           default(0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
