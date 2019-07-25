@@ -6,7 +6,7 @@ class NotariesController < ApplicationController
   # GET /notaries
   # GET /notaries.json
   def index
-    @notaries = get_main_admin(current_user).notaries
+    @notaries = Notary.where(excercise_year_id: current_excercise.id)
   end
 
   # GET /notaries/1

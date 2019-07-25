@@ -4,7 +4,7 @@ class CommissionSettingsController < ApplicationController
   # GET /commission_settings
   # GET /commission_settings.json
   def index
-    @commission_settings = CommissionSetting.all
+    @commission_settings = CommissionSetting.where(excercise_year_id: current_excercise.id)
   end
 
   # GET /commission_settings/1

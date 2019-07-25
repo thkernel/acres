@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 	#after_action :set_mailer_settings
 	# Include Application helper.
 	include ApplicationHelper
+	include ExcerciseYearsHelper
  
 	
 	#add_flash_types :success, :danger, :info

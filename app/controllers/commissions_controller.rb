@@ -14,7 +14,7 @@ class CommissionsController < ApplicationController
 	layout "dashboard"
 
 	def abandonments
-		@credits = Credit.all
+		@credits = Credit.where(excercise_year_id: current_excercise.id)
 	end
 
 	def abandon

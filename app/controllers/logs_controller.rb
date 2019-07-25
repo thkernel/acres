@@ -5,14 +5,14 @@ class LogsController < ApplicationController
   helper LogsHelper
   # Include personnal shared utils.
   include SharedUtils
-  include ExcerciseYearsHelper
+  
   layout "dashboard"
 
 
   # GET /logs
   # GET /logs.json
   def index
-    @logs = Log.order('created_at DESC')
+    @logs = Log.where(excercise_year_id: current_excercise.id).order('created_at DESC')
   end
 
   # GET /logs/1
