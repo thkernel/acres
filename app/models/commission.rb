@@ -35,10 +35,12 @@ class Commission < ApplicationRecord
     belongs_to :user
 
     # Search
-    def self.search(production_date_debut, production_date_fin,  acte_date_debut,acte_date_fin, bank_name, producer_name, contributor_name, notary_name)
+    def self.search(production_date_debut, production_date_fin,  acte_date_debut,acte_date_fin, bank_name, producer_name, contributor_name, notary_name, current_excercise)
         
         if  notary_name.present?
+           
             query = Commission.order(:production_date)
+            query = query.where(excercise_year_id: current_excercise.id)
             query = query.where("production_date BETWEEN ? AND ? ", production_date_debut, production_date_fin) if production_date_debut.present? and  production_date_fin.present?
             query = query.where("acte_date BETWEEN ? AND ? ", acte_date_debut, acte_date_fin) if acte_date_debut.present? and  acte_date_fin.present?
             query = query.where("notary_name =  ?", notary_name) if notary_name.present?
