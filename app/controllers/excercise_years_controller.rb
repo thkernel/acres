@@ -14,6 +14,11 @@ class ExcerciseYearsController < ApplicationController
   def show
   end
 
+  def change_current_excercise
+    puts "HELLO"
+    #redirect_to dashboard_path
+  end
+
   # GET /excercise_years/new
   def new
     @excercise_year = ExcerciseYear.new
@@ -30,6 +35,7 @@ class ExcerciseYearsController < ApplicationController
 
     respond_to do |format|
       if @excercise_year.save
+        @excercise_years = ExcerciseYear.all
         format.html { redirect_to  excercise_years_path, notice: 'Excercise year was successfully created.' }
         format.json { render :show, status: :created, location: @excercise_year }
         format.js

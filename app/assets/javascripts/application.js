@@ -35,6 +35,7 @@
 //= require google_analytics
 //= require commission_change
 //= require commission_settings
+//= require excercise_years
 
 $(document).on('turbolinks:load', function() {
     // For fixed width containers

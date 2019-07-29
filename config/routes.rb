@@ -7,6 +7,7 @@ end
 
 
 Rails.application.routes.draw do
+	post "excercise_years/change_current_excercise" => "excercise_years#change_current_excercise"
   get 'dispatcher/index' => "dispatcher#index", as: :dispatcher
 
 	resources :excercise_years do   

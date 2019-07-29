@@ -40,7 +40,7 @@ class Commission < ApplicationRecord
         if  notary_name.present?
            
             query = Commission.order(:production_date)
-            query = query.where(excercise_year_id: current_excercise.id)
+            query = query.where(excercise_year_id: current_excercise)
             query = query.where("production_date BETWEEN ? AND ? ", production_date_debut, production_date_fin) if production_date_debut.present? and  production_date_fin.present?
             query = query.where("acte_date BETWEEN ? AND ? ", acte_date_debut, acte_date_fin) if acte_date_debut.present? and  acte_date_fin.present?
             query = query.where("notary_name =  ?", notary_name) if notary_name.present?
@@ -51,6 +51,7 @@ class Commission < ApplicationRecord
         
         else 
             query = Commission.order(:production_date)
+            query = query.where(excercise_year_id: current_excercise)
             #query = query.where("production_date = ? AND acte_date = ? AND bank_name = ? AND contributor_name = ? AND producer_name = ?", production_date, acte_date, bank_name, contributor_name, producer_name) if production_date.present?
             query = query.where("production_date BETWEEN ? AND ? ", production_date_debut, production_date_fin) if production_date_debut.present? and  production_date_fin.present?
             query = query.where("acte_date BETWEEN ? AND ? ", acte_date_debut, acte_date_fin) if acte_date_debut.present? and  acte_date_fin.present?
@@ -74,6 +75,7 @@ class Commission < ApplicationRecord
     def self.search_by_bank_and_production_date(production_date_debut, production_date_fin, bank_name)
         
         query = Commission.order(:production_date)
+        query = query.where(excercise_year_id: current_excercise)
         query = query.where("production_date BETWEEN ? AND ? ", production_date_debut, production_date_fin) if production_date_debut.present? and  production_date_fin.present?
         query = query.where("bank_name =  ?", bank_name) if bank_name.present?
 
@@ -85,6 +87,7 @@ class Commission < ApplicationRecord
     def self.search_by_bank_and_acte_date(acte_date_debut, acte_date_fin, bank_name)
         
         query = Commission.order(:acte_date)
+        query = query.where(excercise_year_id: current_excercise)
         query = query.where("acte_date BETWEEN ? AND ? ", acte_date_debut, acte_date_fin) if acte_date_debut.present? and  acte_date_fin.present?
         query = query.where("bank_name =  ?", bank_name) if bank_name.present?
 
@@ -99,6 +102,7 @@ class Commission < ApplicationRecord
         
        
             query = Commission.order(:production_date)
+            query = query.where(excercise_year_id: current_excercise)
             #query = query.where("production_date = ? AND acte_date = ? AND bank_name = ? AND contributor_name = ? AND producer_name = ?", production_date, acte_date, bank_name, contributor_name, producer_name) if production_date.present?
             query = query.where("acte_date <> ''")
               
