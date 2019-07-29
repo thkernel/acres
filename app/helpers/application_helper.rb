@@ -19,7 +19,7 @@ module ApplicationHelper
 
 
 
-
+   
 	
 	def get_bank_commission_rate(bank_name)
 		bank = Bank.find_by(name: bank_name)

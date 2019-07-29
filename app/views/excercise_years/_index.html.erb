@@ -1,12 +1,11 @@
+
 <% @excercise_years.each do |excercise_year| %>
       <tr>
         <td><%= excercise_year.name %></td>
         <td><%= excercise_year.start_date.strftime("%d/%m/%Y") %></td>
         <td><%= excercise_year.end_date.strftime("%d/%m/%Y") %></td>
         <td><%= excercise_year.status %></td>
-     
-      
-         <td>
+        <td>
 					<div class="action-buttons">
 					<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>
 '), edit_excercise_year_path(excercise_year), title: "Modifier", remote: true %>

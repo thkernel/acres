@@ -8,10 +8,10 @@ class SearchController < ApplicationController
 
   def search
    
-    @banks = Bank.all
+    @banks = Bank.where(excercise_year_id: current_excercise.id)
     @contributors = User.find_by_role('Apporteur')
     @producers = User.find_by_role('Producteur')
-    @notaries = Notary.all
+    @notaries = Notary.where(excercise_year_id: current_excercise.id)
 
     #puts "Je suis une date avant #{params[:production_date_debut]}"
    
@@ -40,7 +40,7 @@ class SearchController < ApplicationController
     @selected_acte_date_fin = acte_date_fin if acte_date_fin.present?
     @selected_notary = notary if notary.present?
  
-    banks = Bank.find_by_array_of_names(bank_name) if bank_name.present?
+    banks = Bank.find_by_array_of_names(bank_name, current_excercise.id) if bank_name.present?
     @selected_banks =  banks unless banks.blank?
 
     producers = User.find_by_fullname_and_role(producer_name, 'Producteur') if producer_name.present?
@@ -52,11 +52,11 @@ class SearchController < ApplicationController
 
      
 
-    @commissions = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
+    @commissions = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary,current_excercise.id)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
 
-    @commissions_chart_pie = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary).unscope(:order).group(:bank_name).sum(:bank_commission)
-    @commissions_chart_pie_by_company_commission = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary).unscope(:order).group(:bank_name).sum(:company_commission)
-    monthly_commissions = Commission.group(:bank_name).select(:bank_name)#.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary)
+    @commissions_chart_pie = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary, current_excercise.id).unscope(:order).group(:bank_name).sum(:bank_commission)
+    @commissions_chart_pie_by_company_commission = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary, current_excercise.id).unscope(:order).group(:bank_name).sum(:company_commission)
+    monthly_commissions = Commission.where(excercise_year_id: current_excercise.id).group(:bank_name).select(:bank_name)#.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary)
 
 
     @commissions_acted = @commissions.where("acte_date is not null").unscope(:order).group(:bank_name).sum(:amount_credit)
@@ -173,7 +173,7 @@ class SearchController < ApplicationController
         if start_month && end_month
           (start_month..end_month).each do |month|
 
-            monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ?', month, item.name)
+            monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, item.name, current_excercise.id)
             monthly_commission = monthly_commission.where('producer_name IN (?)', producer_name) if producer_name.present?
             monthly_commission = monthly_commission.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
             monthly_commission = monthly_commission.where('notary_name = ?', notary) if notary.present?
@@ -300,7 +300,7 @@ class SearchController < ApplicationController
         else
           (1..12).each do |month|
 
-            monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ?', month, item.name)
+            monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ? AND excercise_year_id = ?', month, item.name, current_excercise.id)
             monthly_commission = monthly_commission.where('producer_name IN (?)', producer_name) if producer_name.present?
             monthly_commission = monthly_commission.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
             monthly_commission = monthly_commission.where('notary_name = ?', notary) if notary.present?
@@ -427,7 +427,7 @@ class SearchController < ApplicationController
         end
 
         #comm = Commission.where("acte_date BETWEEN ? AND ? ", acte_date_debut, acte_date_fin)
-        comm = Commission.where("bank_name = ? ", item.name)
+        comm = Commission.where("bank_name = ? AND excercise_year_id = ? ", item.name, current_excercise.id)
         bank_commission.amount_credit = comm.sum(:amount_credit)
         bank_commission.bank_commission = comm.sum(:bank_commission)
         bank_commission.contributor_commission = comm.sum(:contributor_commission)

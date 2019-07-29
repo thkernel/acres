@@ -20,6 +20,7 @@ class Log < ApplicationRecord
     require 'creek'
     
     belongs_to :user
+    belongs_to :excercise_year
 
     validates_presence_of :file_name
 

@@ -7,6 +7,8 @@ end
 
 
 Rails.application.routes.draw do
+  get 'dispatcher/index' => "dispatcher#index", as: :dispatcher
+
 	resources :excercise_years do   
 		get "delete"
 	end

@@ -15,11 +15,25 @@
 
 class ExcerciseYear < ApplicationRecord
   belongs_to :user
+  has_many :banks, dependent: :destroy
+  has_many :logs, dependent: :destroy
+  has_many :customers, dependent: :destroy
+  has_many :notaries, dependent: :destroy
+  has_many :credits, dependent: :destroy
+  has_many :commissions, dependent: :destroy
+  has_many :commission_settings, dependent: :destroy
+
+
+  validates :name, presence: true, uniqueness: true
+
   before_save :set_status
+
+  # Constantes
+  STATUS = [["Open"], ["Close"]]
 
   def set_status
     unless self.status.present?
-      self.status = "open"
+      self.status = "Open"
     end
   end
 end

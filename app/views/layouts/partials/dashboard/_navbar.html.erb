@@ -78,7 +78,12 @@
                       </a>
                 </li>-->
 
-                
+                  <li>
+                    
+                    <%= form_with(url: root_path, local: false) do |form| %>      
+										  <%= form.collection_select(:excercise_year, ExcerciseYear.all,  :id, :name , {prompt: "Excercices", selected: (current_excercise.id if current_excercise)}, class: "form-control", required: true) %>
+                    <% end %>
+                  </li>
                   <li class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <%= image_tag current_user.avatar.url(:thumb),  alt: "Avatar",  class: "img-fluid rounded-circle" %> 

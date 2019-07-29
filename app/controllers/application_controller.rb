@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
 	#before_action :set_global
 	#before_action :app_setup
 	
+	
+	
 	#after_action :set_mailer_settings
 	# Include Application helper.
 	include ApplicationHelper
@@ -87,6 +89,9 @@ class ApplicationController < ActionController::Base
           end
         
       end
-    end
+		end
+		
 	
+	
+
 end

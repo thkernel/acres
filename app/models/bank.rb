@@ -22,6 +22,7 @@
 
 class Bank < ApplicationRecord
     belongs_to :user
+    belongs_to :excercise_year
     has_many :bank_commission_editions, dependent: :destroy
     has_many :bank_commission_rate_trackers, dependent: :destroy
 

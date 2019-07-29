@@ -33,60 +33,56 @@ class LogsController < ApplicationController
   end
 
   def reset_all 
-	# Delete all bank.
-	Bank.destroy_all
-	producers = User.find_by_role("Producteur")
-	producers.destroy_all
+    # Delete all bank.
+    Bank.destroy_all
+    producers = User.find_by_role("Producteur")
+    producers.destroy_all
 	
-	contributors = User.find_by_role("Apporteur")
-	contributors.destroy_all
-	Credit.destroy_all
-	Commission.destroy_all
-	Customer.destroy_all
+    contributors = User.find_by_role("Apporteur")
+    contributors.destroy_all
+    Credit.destroy_all
+    Commission.destroy_all
+    Customer.destroy_all
 
-	respond_to do |format|
-		format.html { redirect_to dashboard_path, notice: 'Données supprimées avec succès!' }
-		format.json { head :no_content }
-		format.js
-	  end
+    respond_to do |format|
+      format.html { redirect_to dashboard_path, notice: 'Données supprimées avec succès!' }
+      format.json { head :no_content }
+      format.js
+      end
 
-  end
+    end
 
   # POST /logs
   # POST /logs.json
   def create
-	file = params[:log][:file_name]
+	  file = params[:log][:file_name]
 	
     respond_to do |format|
-    #if Log.import?(file, current_user)
-    if import_processing?(file, current_user)
-		
-		# Now we are sure that the importation was succefull.
-		#compute_commissions
+      #if Log.import?(file, current_user)
+      if import_processing?(file, current_user)
+      
+        # Now we are sure that the importation was succefull.
+        #compute_commissions
 
-		# Populate commissions.
-		populate_commission
-    #handle_commissions
-    new_calculate_commissions
-	
-		
+        # Populate commissions.
+        populate_commission
+        #handle_commissions
+        new_calculate_commissions
 
-		# We refresh page.
-        format.html { redirect_to @log, notice: 'Log was successfully created.' }
-        format.json { render :show, status: :created, location: @log }
-        format.js
-      else
-        format.html { render :new }
-        format.json { render json: @log.errors, status: :unprocessable_entity }
-        format.js
-      end
+          format.html { redirect_to @log, notice: 'Log was successfully created.' }
+          format.json { render :show, status: :created, location: @log }
+          format.js
+        else
+          format.html { render :new }
+          format.json { render json: @log.errors, status: :unprocessable_entity }
+          format.js
+        end
     end
-    @logs = Log.all
+    @logs = Log.where(excercise_year_id: current_excercise.id).order('created_at DESC')
 
   end
 
-  # PATCH/PUT /logs/1
-  # PATCH/PUT /logs/1.json
+  
   def update
     respond_to do |format|
       if @log.update(log_params)
@@ -99,8 +95,7 @@ class LogsController < ApplicationController
     end
   end
 
-  # DELETE /logs/1
-  # DELETE /logs/1.json
+  
   def destroy
     @log.destroy
     respond_to do |format|
@@ -128,8 +123,9 @@ class LogsController < ApplicationController
 		# Load the current admin user old comissions and we delete there after.
 		#commission = current_user.commissions
 
-		# Deleting the olds commissions before compute the news
-		Commission.destroy_all #if commission.present?
+    # Deleting the olds commissions before compute the news
+    commissions = Commission.where(excercise_year_id: current_excercise.id)
+		commissions.destroy_all #if commission.present?
 		#Credit.destroy_all
 		
 		# Load all credits.
@@ -156,7 +152,8 @@ class LogsController < ApplicationController
 			#commission.bank_commission_percentage = bank_commission_percentage
 			#commission.company_comission = company_commission_net
 			commission.notary_name = credit.notary_name
-			commission.amount_credit = credit.amount
+      commission.amount_credit = credit.amount
+      commission.excercise_year_id = current_excercise.id
 			commission.user_id = current_user.id
 			commission.save
 		end
@@ -167,26 +164,27 @@ class LogsController < ApplicationController
   def import_processing?(file, user)
     # But before import in database, we delete all data in our model
     #Credit.delete_all#(user_id: user.id) #if Credit.find_by(user_id: user.id).present?
-   Credit.destroy_all
+    credits = Credit.where(excercise_year_id: current_excercise.id)
+    credits.destroy_all
    
-   # Opening file
-   creek = Creek::Book.new(file.path)
-   puts "File path: #{file.path}"
+    # Opening file
+    creek = Creek::Book.new(file.path)
+    puts "File path: #{file.path}"
 
-   company = Company.first
-   company = company.name.downcase if company
+    company = Company.first
+    company = company.name.downcase if company
    
    
-   # Getting the first sheet
-   sheet = creek.sheets[0]
+    # Getting the first sheet
+    sheet = creek.sheets[0]
 
 
-   record_count = 0
-   # Loop all sheet rows
-   puts "Je compte: #{sheet.rows.count}"
-   puts "Feuille: #{sheet}"
+    record_count = 0
+    # Loop all sheet rows
+    puts "Je compte: #{sheet.rows.count}"
+    puts "Feuille: #{sheet}"
 
-   current_credit = nil
+    current_credit = nil
 
    if company
        sheet.rows.each_with_index do |row, index|
@@ -335,8 +333,10 @@ class LogsController < ApplicationController
        log.no_record = record_count
        log.error = "Non"
        log.status = true
+       log.excercise_year_id = current_excercise.id
        log.user_id = user.id
        log.save
+       puts "SAVING SUCCESSFULL"
    end
    
    return true

@@ -32,6 +32,8 @@ class Credit < ApplicationRecord
     require 'csv'
 
     belongs_to :user
+    belongs_to :excercise_year
+
     has_many :credit_details, dependent: :destroy
 
 

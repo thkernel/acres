@@ -30,7 +30,7 @@ class ExcerciseYearsController < ApplicationController
 
     respond_to do |format|
       if @excercise_year.save
-        format.html { redirect_to  dashboard_path, notice: 'Excercise year was successfully created.' }
+        format.html { redirect_to  excercise_years_path, notice: 'Excercise year was successfully created.' }
         format.json { render :show, status: :created, location: @excercise_year }
         format.js
       else
@@ -41,12 +41,12 @@ class ExcerciseYearsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /excercise_years/1
-  # PATCH/PUT /excercise_years/1.json
+ 
   def update
     respond_to do |format|
       if @excercise_year.update(excercise_year_params)
-        format.html { redirect_to @excercise_year, notice: 'Excercise year was successfully updated.' }
+        @excercise_years = ExcerciseYear.all
+        format.html { redirect_to excercise_years_path, notice: 'Excercise year was successfully updated.' }
         format.json { render :show, status: :ok, location: @excercise_year }
         format.js
       else
@@ -57,7 +57,10 @@ class ExcerciseYearsController < ApplicationController
     end
   end
 
-  # DELETE /excercise_years/1
+  def delete
+    @excercise_year = ExcerciseYear.find(params[:excercise_year_id])
+  end
+
   # DELETE /excercise_years/1.json
   def destroy
     @excercise_year.destroy
@@ -76,6 +79,6 @@ class ExcerciseYearsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def excercise_year_params
-      params.require(:excercise_year).permit(:name, :start_date, :end_date)
+      params.require(:excercise_year).permit(:name, :start_date, :end_date, :status)
     end
 end

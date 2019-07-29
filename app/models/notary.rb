@@ -15,6 +15,8 @@
 
 class Notary < ApplicationRecord
 	belongs_to :user
+	belongs_to :excercise_year
+
 
 	validates_presence_of :full_name
 

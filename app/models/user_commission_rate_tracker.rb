@@ -14,4 +14,6 @@
 
 class UserCommissionRateTracker < ApplicationRecord
   belongs_to :user
+  belongs_to :excercise_year
+
 end

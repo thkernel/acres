@@ -15,4 +15,6 @@
 
 class UserCommissionEdition < ApplicationRecord
     belongs_to :commission_setting
+    belongs_to :excercise_year
+
 end

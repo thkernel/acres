@@ -15,5 +15,6 @@
 
 class BankCommissionEdition < ApplicationRecord
     belongs_to :bank
-    
+    belongs_to :excercise_year
+
 end

@@ -7,6 +7,8 @@ class Users::SessionsController < Devise::SessionsController
   #after_action :app_setup
   before_action :setup_initial_data
   #before_action :superadmin_setup
+  
+
 
   # GET /resource/sign_in
   # def new
