@@ -72,7 +72,7 @@ class Commission < ApplicationRecord
     end
 
     # Search
-    def self.search_by_bank_and_production_date(production_date_debut, production_date_fin, bank_name)
+    def self.search_by_bank_and_production_date(production_date_debut, production_date_fin, bank_name, current_excercise)
         
         query = Commission.order(:production_date)
         query = query.where(excercise_year_id: current_excercise)
@@ -84,7 +84,7 @@ class Commission < ApplicationRecord
     
     end
 
-    def self.search_by_bank_and_acte_date(acte_date_debut, acte_date_fin, bank_name)
+    def self.search_by_bank_and_acte_date(acte_date_debut, acte_date_fin, bank_name, current_excercise)
         
         query = Commission.order(:acte_date)
         query = query.where(excercise_year_id: current_excercise)
