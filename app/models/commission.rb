@@ -98,7 +98,7 @@ class Commission < ApplicationRecord
 
 
 
-    def self.acted
+    def self.acted(current_excercise)
         
        
             query = Commission.order(:production_date)
@@ -112,19 +112,12 @@ class Commission < ApplicationRecord
     end
 
 
-    def self.search_by_bank(bank_name)
-        where('bank_name = ?', "#{bank_name}")
+    def self.search_by_bank(bank_name, current_excercise)
+        where('bank_name = ? AND excercise_year_id = ?', "#{bank_name}", "#{bank_name}")
     end
     
     
 
-    def self.to_csv(options = {})
-    CSV.generate(options) do |csv|
-        csv << column_names
-        all.each do |product|
-        csv << product.attributes.values
-        end
-    end
-    end
+    
 
 end

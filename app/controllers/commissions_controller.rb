@@ -38,13 +38,13 @@ class CommissionsController < ApplicationController
 	end
 
 	def contributors
-		@total_montant_credit = Commission.all.sum(:amount_credit)
-		@total_commission_apporteur = Commission.all.sum(:contributor_commission)
-		@total_commission_nette_company = Commission.all.sum(:producer_commission)
+		@total_montant_credit = Commission.where(excercise_year_id: current_excercise.id).sum(:amount_credit)
+		@total_commission_apporteur = Commission.where(excercise_year_id: current_excercise.id).sum(:contributor_commission)
+		@total_commission_nette_company = Commission.where(excercise_year_id: current_excercise.id).sum(:producer_commission)
 		#@total_commission_producteur = Commission.all.sum(:company_commission)
 
 		if current_user.present? && is_contributor?(current_user)
-			@commissions = Commission.where(contributor_name: current_user.full_name)
+			@commissions = Commission.where(contributor_name: current_user.full_name).where(excercise_year_id: current_excercise.id)
 		else
 			#@commissions = current_user.commissions 
 			users = User.where(role: 'Apporteur')
@@ -52,7 +52,7 @@ class CommissionsController < ApplicationController
 			if users.present?
 				@commissions = []
 				users.each do |user|
-					commissions = Commission.where(contributor_name: user.full_name)
+					commissions = Commission.where(contributor_name: user.full_name).where(excercise_year_id: current_excercise.id)
 
 					if commissions.present? 
 						
@@ -70,13 +70,13 @@ class CommissionsController < ApplicationController
 	end
 
 	def producers
-		@total_montant_credit = Commission.all.sum(:amount_credit)
+		@total_montant_credit = Commission.where(excercise_year_id: current_excercise.id).sum(:amount_credit)
 		#@total_commission_apporteur = Commission.all.sum(:contributor_commission)
-		@total_commission_nette_company = Commission.all.sum(:producer_commission)
-		@total_commission_producteur = Commission.all.sum(:company_commission)
+		@total_commission_nette_company = Commission.where(excercise_year_id: current_excercise.id).sum(:producer_commission)
+		@total_commission_producteur = Commission.where(excercise_year_id: current_excercise.id).sum(:company_commission)
 
 		if current_user.present? && is_producer?(current_user) || current_user.present? && is_cocourtier?(current_user)
-			@commissions = Commission.where(producer_name: current_user.full_name)
+			@commissions = Commission.where(producer_name: current_user.full_name).where(excercise_year_id: current_excercise.id)
 		
 		else
 
@@ -87,7 +87,7 @@ class CommissionsController < ApplicationController
 			if users.present?
 				@commissions = []
 				users.each do |user|
-					commissions = Commission.where(producer_name: user.full_name)
+					commissions = Commission.where(producer_name: user.full_name).where(excercise_year_id: current_excercise.id)
 					if commissions.present?
 						commissions.each do |commission|
 							@commissions.push(commission)
@@ -100,20 +100,20 @@ class CommissionsController < ApplicationController
 	end
 
 	def banks
-		@commissions = Commission.all
+		@commissions = Commission.where(excercise_year_id: current_excercise.id)
 		#@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
 	end
 
 	def company 
-		@commissions = Commission.all
+		@commissions = Commission.where(excercise_year_id: current_excercise.id)
 		@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
 	end
 	# GET /commissions
 	# GET /commissions.json
 	def index
-		@commissions = Commission.all
+		@commissions = Commission.where(excercise_year_id: current_excercise.id)
 		@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
 	end
@@ -123,14 +123,14 @@ class CommissionsController < ApplicationController
 			@producer_name = params[:producer_name] 
 			@producer = User.find_by(full_name: @producer_name)
 			@producer_commission_percentage = @producer.commission_setting.commission_percentage if @producer.commission_setting.present?
-			@commissions = Commission.where(producer_name: @producer_name)
+			@commissions = Commission.where(producer_name: @producer_name).where(excercise_year_id: current_excercise.id)
 			@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
 		elsif params[:producer_name].blank?
 			@producer_name = current_user.full_name 
 			@producer = User.find_by(full_name: @producer_name)
 			@producer_commission_percentage = @producer.commission_setting.commission_percentage if @producer.commission_setting.present?
-			@commissions = Commission.where(producer_name: @producer_name)
+			@commissions = Commission.where(producer_name: @producer_name).where(excercise_year_id: current_excercise.id)
 			@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
 			
@@ -149,7 +149,7 @@ class CommissionsController < ApplicationController
 			@contributor_name = params[:contributor_name] 
 			@contributor = User.find_by(full_name: @contributor_name)
 			@contributor_commission_percentage = @contributor.commission_setting.commission_percentage if @contributor.commission_setting.present?
-			@commissions = Commission.where(contributor_name: @contributor_name)
+			@commissions = Commission.where(contributor_name: @contributor_name).where(excercise_year_id: current_excercise.id)
 			@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
 			
@@ -158,7 +158,7 @@ class CommissionsController < ApplicationController
 			@contributor_name = current_user.full_name 
 			@contributor = User.find_by(full_name: @contributor_name)
 			@contributor_commission_percentage = @contributor.commission_setting.commission_percentage if @contributor.commission_setting.present?
-			@commissions = Commission.where(contributor_name: @contributor_name)
+			@commissions = Commission.where(contributor_name: @contributor_name).where(excercise_year_id: current_excercise.id)
 			@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
 			
@@ -174,7 +174,7 @@ class CommissionsController < ApplicationController
 
 	def resume_bank
 		@bank_name = params[:bank_name] if params[:bank_name].present?
-		@commissions = Commission.where(bank_name: @bank_name)
+		@commissions = Commission.where(bank_name: @bank_name).where(excercise_year_id: current_excercise.id)
 		@commissions = @commissions.where(user_id: get_main_admin(current_user))
 
 		@total_montant_credit = @commissions.sum(:amount_credit)
