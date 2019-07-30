@@ -72,7 +72,8 @@ class AccountsController < ApplicationController
   def destroy
     @account.destroy
     @accounts = Account.all
-
+    delete_tenant(@account.subdomain.downcase)
+    
     respond_to do |format|
       format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }
       format.json { head :no_content }
@@ -81,6 +82,10 @@ class AccountsController < ApplicationController
   end
 
   private
+    def delete_tenant(tenant_name)
+      Apartment::Tenant.drop(tenant_name)
+
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_account
       @account = Account.find(params[:id])

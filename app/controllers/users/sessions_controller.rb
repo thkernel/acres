@@ -87,6 +87,13 @@ class Users::SessionsController < Devise::SessionsController
       end
     end
 
-    
+    def set_current_excercise_year
+      # Get all excercises
+      # If exist
+      # Get the open excercise
+      # Set it in the sesssion variable and redirecto to dashboard
+      # If not exist redirect to create a new.
+      
+    end
     
 end
