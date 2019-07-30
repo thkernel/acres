@@ -83,7 +83,7 @@ class Users::SessionsController < Devise::SessionsController
       roles = Role.all 
 
       unless roles.present?
-         Role.create([{ name: 'Admin' }, { name: 'Producteur' }, { name: 'Apporteur' }])
+         Role.create([{ name: 'Admin' }, { name: 'Producteur' }, { name: 'Apporteur' }, { name: 'Co-courtier' }])
       end
     end
 

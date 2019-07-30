@@ -16,7 +16,7 @@ class ExcerciseYearsController < ApplicationController
 
   def change_current_excercise
     puts "HELLO"
-    #redirect_to dashboard_path
+    redirect_to dashboard_path
   end
 
   # GET /excercise_years/new
