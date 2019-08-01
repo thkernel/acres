@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:role, :full_name, :login])
 		devise_parameter_sanitizer.permit(:account_update, keys: [:role, :full_name, :login, :avatar])
 	end
-
+=begin
   def after_sign_in_path_for(resource)
 		dashboard_path
 	
 	end
-	
+=end
 	
 
 

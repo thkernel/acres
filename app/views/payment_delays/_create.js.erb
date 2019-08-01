@@ -1,10 +1,10 @@
 $("ul.errors").html("");
-<% if @paymeny_delay.errors.any? %>
-  <% @paymeny_delay.errors.full_messages.each do |message| %>
+<% if @payment_delay.errors.any? %>
+  <% @payment_delay.errors.full_messages.each do |message| %>
     $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
   <% end %>
 <% else %>
   $(".index").html("<%= escape_javascript(render 'index') %>");
-  $("#paymeny-delay-modal").modal("hide");
+  $("#payment-delay-modal").modal("hide");
  
 <% end %>

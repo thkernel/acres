@@ -4,7 +4,7 @@ class PaymentDelaysController < ApplicationController
   # GET /payment_delays
   # GET /payment_delays.json
   def index
-    @payment_delays = PaymentDelay.all
+    @payment_delays = PaymentDelay.take
   end
 
   # GET /payment_delays/1
@@ -31,7 +31,7 @@ class PaymentDelaysController < ApplicationController
 
     respond_to do |format|
       if @payment_delay.save
-        @payment_delay = PaymentDelay.all
+        @payment_delays = PaymentDelay.take
         format.html { redirect_to @payment_delay, notice: 'Payment delay was successfully created.' }
         format.json { render :show, status: :created, location: @payment_delay }
         format.js
@@ -48,6 +48,7 @@ class PaymentDelaysController < ApplicationController
   def update
     respond_to do |format|
       if @payment_delay.update(payment_delay_params)
+        @payment_delays = PaymentDelay.take
         format.html { redirect_to @payment_delay, notice: 'Payment delay was successfully updated.' }
         format.json { render :show, status: :ok, location: @payment_delay }
         format.js

@@ -71,7 +71,7 @@ class CreditDetailsController < ApplicationController
   def update
     respond_to do |format|
       if @credit_detail.update(credit_detail_params)
-        @credit_details = CreditDetail.where(["creditUid = ? AND excercise_year_id = ?",  @credit_detail.creditUid, current_excercise.id]).reorder('id ASC')
+        @credit_details = CreditDetail.where(["creditid = ? AND excercise_year_id = ?",  @credit_detail.creditUid, current_excercise.id]).reorder('id ASC')
         format.html { redirect_to @credit_detail, notice: 'Credit detail was successfully updated.' }
         format.json { render :show, status: :ok, location: @credit_detail }
 		    format.js

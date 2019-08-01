@@ -9,7 +9,17 @@ class Users::SessionsController < Devise::SessionsController
   #before_action :superadmin_setup
   
 
-
+  def after_sign_in_path_for(resource)
+    #dashboard_path
+    if request.subdomain.present? && request.subdomain != 'www'   
+		  if current_user.role == "Admin"
+        load_session
+      else
+        dashboard_path
+      end
+    end
+  end
+  
   # GET /resource/sign_in
   # def new
   #   super
@@ -87,13 +97,25 @@ class Users::SessionsController < Devise::SessionsController
       end
     end
 
-    def set_current_excercise_year
+    def load_session
       # Get all excercises
-      # If exist
-      # Get the open excercise
-      # Set it in the sesssion variable and redirecto to dashboard
-      # If not exist redirect to create a new.
+     
+      if excercise_exist?
+        if excercise_openned?
+          session[:current_excercise] = openned_excercise.id
+          puts "HUMMM SESSION ID: #{session[:current_excercise]}"
+          #redirect_to dashboard_path
+          dashboard_path
+        else
+          excercise_years_path
+        end
+      else
+        new_excercise_year_path
+      end
+      
       
     end
+
+
     
 end
