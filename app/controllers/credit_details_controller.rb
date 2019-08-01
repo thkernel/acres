@@ -49,7 +49,9 @@ class CreditDetailsController < ApplicationController
   # POST /credit_details
   # POST /credit_details.json
   def create
-    @credit_detail = CreditDetail.new(credit_detail_params)
+		@credit_detail = CreditDetail.new(credit_detail_params)
+		@credit_detail.excercise_year_id = current_excercise.id
+		
 
     respond_to do |format|
       if @credit_detail.save
@@ -69,7 +71,7 @@ class CreditDetailsController < ApplicationController
   def update
     respond_to do |format|
       if @credit_detail.update(credit_detail_params)
-        @credit_details = CreditDetail.where(creditUid: @credit_detail.creditUid).reorder('id ASC')
+        @credit_details = CreditDetail.where(["creditUid = ? AND excercise_year_id = ?",  @credit_detail.creditUid, current_excercise.id]).reorder('id ASC')
         format.html { redirect_to @credit_detail, notice: 'Credit detail was successfully updated.' }
         format.json { render :show, status: :ok, location: @credit_detail }
 		    format.js
@@ -106,13 +108,16 @@ class CreditDetailsController < ApplicationController
 
 		#Calculate payments installment
 		def calculate_payment_installment(query, target)
-			credit_detail = CreditDetail.find_by(creditUid: query)
-			@credit = Credit.find_by(credit_id: query)
+			#credit_detail = CreditDetail.find_by(creditUid: query)
+			credit_detail = CreditDetail.where(["creditUid = ? AND excercise_year_id = ?", query, current_excercise.id]).take
+			#@credit = Credit.find_by(credit_id: query)
+			@credit = Credit.where(["credit_id = ? AND excercise_year_id = ?",  query, current_excercise.id]).take
 	
 				unless credit_detail.present?
 
 					puts "DANS LE UNLESS"
-					@commission = Commission.find_by(credit_id: query)
+					#@commission = Commission.find_by(credit_id: query)
+					@commission = Commission.where(["credit_id = ? AND excercise_year_id = ?", query, current_excercise.id]).take
 					puts "COMMISSION #{@commission.id} #{@commission.amount_credit}"
 					credit_acte_date = @commission.acte_date
 					if @commission.present? && @credit.present? && credit_acte_date.present?
@@ -121,7 +126,8 @@ class CreditDetailsController < ApplicationController
 
 						if bank_name.present?
 							puts "BANQUE PRESENTE"
-							bank = Bank.find_by(name: bank_name)
+							#bank = Bank.find_by(name: bank_name)
+							bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
 
 							if bank.present?
 								bank_commission_percentage = bank.commission_percentage 
@@ -198,7 +204,7 @@ class CreditDetailsController < ApplicationController
 						end	
 					end
 				end
-				@credit_details = CreditDetail.where(creditUid: query).reorder('id ASC')
+				@credit_details = CreditDetail.where(["creditUid = ? AND excercise_year_id = ?", query, current_excercise.id]).reorder('id ASC')
 				#@credit_details = CreditDetail.where(creditUid: query).reorder('installment_date ASC')
 
 		end

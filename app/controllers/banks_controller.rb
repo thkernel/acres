@@ -68,6 +68,7 @@ class BanksController < ApplicationController
         bank_commission_rate_tracker.new_rate = params[:bank][:commission_percentage]
         bank_commission_rate_tracker.bank_id =  @bank.id 
         bank_commission_rate_tracker.user_id = current_user.id 
+        bank_commission_rate_tracker.excercise_year_id = current_excercise.id
         bank_commission_rate_tracker.save
 
 

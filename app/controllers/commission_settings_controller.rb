@@ -25,7 +25,7 @@ class CommissionSettingsController < ApplicationController
   # POST /commission_settings.json
   def create
     @commission_setting = CommissionSetting.new(commission_setting_params)
-
+    @commission_setting.excercise_year_id = current_excercise.id
     respond_to do |format|
       if @commission_setting.save
 
@@ -62,6 +62,7 @@ class CommissionSettingsController < ApplicationController
         user_commission_rate_tracker.old_rate = old_rate
         user_commission_rate_tracker.new_rate = params[:commission_setting][:commission_percentage]
         user_commission_rate_tracker.user_id = current_user.id 
+        user_commission_rate_tracker.excercise_year_id = current_excercise.id 
         user_commission_rate_tracker.save
 
 

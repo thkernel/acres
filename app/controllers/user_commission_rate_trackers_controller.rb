@@ -25,7 +25,8 @@ class UserCommissionRateTrackersController < ApplicationController
   # POST /user_commission_rate_trackers.json
   def create
     @user_commission_rate_tracker = UserCommissionRateTracker.new(user_commission_rate_tracker_params)
-
+    @user_commission_rate_tracker.excercise_year_id = current_excercise.id
+    
     respond_to do |format|
       if @user_commission_rate_tracker.save
         format.html { redirect_to @user_commission_rate_tracker, notice: 'User commission rate tracker was successfully created.' }

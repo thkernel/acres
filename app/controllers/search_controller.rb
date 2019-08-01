@@ -513,7 +513,7 @@ class SearchController < ApplicationController
   end
 
   def amount_paid_by_bank(bank_name)
-    bank_credits = Credit.where(bank_name: bank_name)
+    bank_credits = Credit.where(["bank_name = ? AND excercise_year_id = ?", bank_name, current_excercise.id])
     @paid_by_bank = 0.0
 
     if bank_credits.present?

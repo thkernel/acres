@@ -1,13 +1,8 @@
 # Include calculate commission module
-include CalculateCommission
+include CalculateBankCommissionRateEvolution
 
 namespace :tasks do
-    desc "Excute complementary seeds"
-    task complementary_seed: :environment do 
-        Role.create(name: "Co-courtier")
-
-    end
-
+    
 
     desc "Calculate bank commission rate evolution"
     task calculate_bank_commission_rate_evolution: :environment do 

@@ -2,8 +2,8 @@ module CommissionsHelper
 
     def bank_commission_rate_changed?(bank_name)
 		begin
-			bank = Bank.find_by(name: bank_name)
-			bank_commission_rate_tracker = BankCommissionRateTracker.where(bank_id: bank.id) if bank.present?
+			bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
+			bank_commission_rate_tracker = BankCommissionRateTracker.where(["bank_id = ? AND excercise_year_id =  ?", bank.id, current_excercise.id]) if bank.present?
 
 			if bank_commission_rate_tracker.present? && bank_commission_rate_tracker.count > 1
 				true
@@ -337,18 +337,18 @@ module CommissionsHelper
                     user = User.find(args[0][:value])
 
                     if user.role == "Apporteur"
-                        @commissions = Commission.where(contributor_name: user.full_name)
+                        @commissions = Commission.where(["contributor_name = ? AND excercise_year_id = ?", user.full_name, current_excercise.id])
                     elsif user.role == "Producteur"
-                        @commissions = Commission.where(producer_name: user.full_name)
+                        @commissions = Commission.where(["producer_name = ? AND excercise_year_id = ?", user.full_name, current_excercise.id])
                     end
                 elsif args[0][:key] == "bank"
                     commission_type = "bank"
                     bank = Bank.find(args[0][:value])
-                    @commissions = Commission.where(bank_name: bank.name)
+                    @commissions = Commission.where(["bank_name = ? AND excercise_year_id = ?",  bank.name, current_excercise.id])
                 end
             else
                 # Load all commissions.
-                @commissions = Commission.all
+                @commissions = Commission.where(excercise_year_id: current_excercise.id)
             end
 
             if @commissions.present?
@@ -367,7 +367,8 @@ module CommissionsHelper
 
                     # We get the bank infos.
                     if commission.bank_name
-                        bank = Bank.find_by_name(commission.bank_name)
+                        #bank = Bank.find_by_name(commission.bank_name)
+                        bank = Bank.where(["name = ? AND excercise_year_id = ?", commission.bank_name, current_excercise.id]).take
                     end
                     
 
@@ -473,7 +474,7 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate))/100
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
@@ -503,7 +504,7 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/ 100
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
@@ -531,7 +532,7 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
@@ -559,7 +560,7 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
@@ -586,7 +587,7 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
@@ -614,7 +615,7 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100

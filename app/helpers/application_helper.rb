@@ -22,16 +22,19 @@ module ApplicationHelper
    
 	
 	def get_bank_commission_rate(bank_name)
-		bank = Bank.find_by(name: bank_name)
+        #bank = Bank.find_by(name: bank_name)
+        bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
 		bank.commission_percentage
 	end
 	def credit_acte_date(credit_id)
-		credit = Credit.find_by(credit_id: credit_id)
+        #credit = Credit.find_by(credit_id: credit_id)
+        credit = Credit.where(["credit_id = ? AND excercise_year_id = ?", credit_id, current_excercise.id]).take
 		credit.acte_date if credit.acte_date.present?
 	end
 
 	def credit_customer_name(credit_id)
-		credit = Credit.find_by(credit_id: credit_id)
+        #credit = Credit.find_by(credit_id: credit_id)
+        credit = Credit.where(["credit_id = ? AND excercise_year_id = ?",  credit_id, current_excercise.id]).take
 		if credit.present?
 			credit.customer_name 
 		end
@@ -43,7 +46,9 @@ module ApplicationHelper
 		status = false
 		users.each do |user_id|
 			
-			user_commission_percentage = CommissionSetting.find_by(user_id: user_id)
+            #user_commission_percentage = CommissionSetting.find_by(user_id: user_id)
+            user_commission_percentage = CommissionSetting.where(["user_id = ? AND excercise_year_id = ?",  user_id, current_excercise.id]).take
+
 
 			if user_commission_percentage.present?
 				status = false
@@ -84,7 +89,8 @@ module ApplicationHelper
 		
 	end
 	def get_bank_name(bank_id)
-		bank = Bank.find(bank_id)
+        #bank = Bank.find(bank_id)
+        bank = Bank.where(["id = ? AND excercise_year_id = ?", bank_id, current_excercise.id]).take
 		
 	end
 
@@ -128,7 +134,8 @@ module ApplicationHelper
 	end
 
 	def bank_name(id)
-		bank = Bank.find(id)
+        #bank = Bank.find(id)
+        bank = Bank.where(["id = ? AND excercise_year_id", id, current_excercise.id]).take
 		bank.name
 	end
 
@@ -146,7 +153,8 @@ module ApplicationHelper
 
 	def get_credit_hypoplus(credit_id)
 		
-		credit = Credit.find_by(credit_id: credit_id)
+        #credit = Credit.find_by(credit_id: credit_id)
+        credit = Credit.where(["credit_id = ? AND excercise_year_id = ?", credit_id, current_excercise.id] ).take
 		credit.hypoplus
 		
 	end
@@ -162,8 +170,8 @@ module ApplicationHelper
 	end
 
 	def get_customer_name(credit_id)
-		credit = Credit.find(credit_id)
-		
+		#credit = Credit.find(credit_id)
+		credit = Credit.where(["id = ? AND excercise_year_id = ?", credit_id, current_excercise.id]).take
 		credit.customer_name  if credit
 	end
 

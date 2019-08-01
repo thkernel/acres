@@ -1,4 +1,4 @@
-module CalculateCommission
+module CalculateBankCommissionRateEvolution
 
     def my_logger
 		@@my_logger ||= Logger.new("#{Rails.root}/log/commission-log.log")
@@ -39,10 +39,11 @@ module CalculateCommission
 
                     if start_date == system_current_date
                     
-                        bank = Bank.find(record.bank_id)
+                        #bank = Bank.find(record.bank_id)
+                        bank = Bank.where(["id = ? AND excercise_year_id = ? ", record.bank_id, current_excercise.id]).take
 
                         if bank.present? 
-                            commissions = Commission.where(bank_name: bank.name.downcase).where("production_date is not null")
+                            commissions = Commission.where(["bank_name = ? AND excercise_year_id = ?",  bank.name.downcase, current_excercise.id]).where("production_date is not null")
                             
                             if commissions.present? 
 
@@ -71,6 +72,7 @@ module CalculateCommission
 
                                      #credit_hypoplus = get_credit_hypoplus(commission.credit_id).hypoplus
                                     credit_hypoplus = Credit.find_by(credit_id: commission.credit_id).hypoplus
+                                    
                                     
                                     # Credit amount.
                                     if commission.amount_credit.present?

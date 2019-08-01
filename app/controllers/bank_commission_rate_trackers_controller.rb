@@ -25,7 +25,8 @@ class BankCommissionRateTrackersController < ApplicationController
   # POST /bank_commission_rate_trackers.json
   def create
     @bank_commission_rate_tracker = BankCommissionRateTracker.new(bank_commission_rate_tracker_params)
-
+    @bank_commission_rate_tracker.excercise_year_id = current_excercise.id
+    
     respond_to do |format|
       if @bank_commission_rate_tracker.save
         format.html { redirect_to @bank_commission_rate_tracker, notice: 'Bank commission rate tracker was successfully created.' }
