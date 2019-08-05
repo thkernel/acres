@@ -109,7 +109,7 @@ class CreditDetailsController < ApplicationController
 		#Calculate payments installment
 		def calculate_payment_installment(query, target)
 			#credit_detail = CreditDetail.find_by(creditUid: query)
-			credit_detail = CreditDetail.where(["creditUid = ? AND excercise_year_id = ?", query, current_excercise.id]).take
+			credit_detail = CreditDetail.where(["credituid = ? AND excercise_year_id = ?", query, current_excercise.id]).take
 			#@credit = Credit.find_by(credit_id: query)
 			@credit = Credit.where(["credit_id = ? AND excercise_year_id = ?",  query, current_excercise.id]).take
 	

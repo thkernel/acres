@@ -1,7 +1,9 @@
 module ExcerciseYearsHelper
 
     def current_excercise
-        excercise = ExcerciseYear.find(session[:current_excercise])
+        if session[:current_excercise]
+            excercise = ExcerciseYear.find(session[:current_excercise])
+        end
         
     end
 

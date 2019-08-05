@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190725111053) do
+ActiveRecord::Schema.define(version: 20190801153702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 20190725111053) do
     t.float "cumulative_amount", default: 0.0
     t.string "paid_by_bank", default: "Non"
     t.string "paid_to_contributor_or_producer", default: "Non"
-    t.bigint "creditUid", null: false
+    t.bigint "credituid", null: false
     t.bigint "credit_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -372,6 +372,8 @@ ActiveRecord::Schema.define(version: 20190725111053) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "receives_summaries", default: false
+    t.string "slug"
+    t.string "identifier"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

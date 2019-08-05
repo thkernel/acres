@@ -30,8 +30,9 @@
 class User < ApplicationRecord
 
 
-	#extend FriendlyId
-	#friendly_id :name, use: :slugged
+	extend FriendlyId
+	friendly_id :full_name, use: :slugged
+	
 	#@user = User.friendly.find(params[:id]) In controller
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
@@ -43,6 +44,7 @@ class User < ApplicationRecord
 	validates :email, uniqueness: true
 	validates :role, presence: true
 	validates :full_name, presence: true
+	validates :slug,  uniqueness: true
 	#validates :login, presence: true
 	#validates :password_confirmation, presence: true, on: :create
 	#validates_presence_of :password_confirmation, :if => :password

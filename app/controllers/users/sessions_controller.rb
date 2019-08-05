@@ -8,9 +8,11 @@ class Users::SessionsController < Devise::SessionsController
   before_action :setup_initial_data
   #before_action :superadmin_setup
   
+  
 
   def after_sign_in_path_for(resource)
-    #dashboard_path
+    dashboard_path
+=begin
     if request.subdomain.present? && request.subdomain != 'www'   
 		  if current_user.role == "Admin"
         load_session
@@ -18,6 +20,7 @@ class Users::SessionsController < Devise::SessionsController
         dashboard_path
       end
     end
+=end
   end
   
   # GET /resource/sign_in
@@ -31,9 +34,10 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+     super
+     session[:current_excercise] = nil
+   end
 
   # protected
 
@@ -97,25 +101,8 @@ class Users::SessionsController < Devise::SessionsController
       end
     end
 
-    def load_session
-      # Get all excercises
-     
-      if excercise_exist?
-        if excercise_openned?
-          session[:current_excercise] = openned_excercise.id
-          puts "HUMMM SESSION ID: #{session[:current_excercise]}"
-          #redirect_to dashboard_path
-          dashboard_path
-        else
-          excercise_years_path
-        end
-      else
-        new_excercise_year_path
-      end
-      
-      
-    end
+    
 
-
+    
     
 end

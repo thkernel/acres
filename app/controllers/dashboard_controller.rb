@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
 	before_action :authenticate_user!
 	before_action :create_company
 	#before_action :if_excercise_year
+	before_action :load_session
 
 
 	layout 'dashboard'
@@ -94,6 +95,31 @@ class DashboardController < ApplicationController
 	  end
 	
 	
-	
+	def load_session
+		session[:current_excercise] = nil
+		if request.subdomain.present? && request.subdomain != 'www'   
+			if current_user.role == "Admin"
+
+					# Get all excercises
+				puts "LOAD SESSION START "
+				if excercise_exist?
+					puts "EXCERCISE EXIST"
+					if excercise_openned?
+						session[:current_excercise] = openned_excercise.id
+						puts "HUMMM SESSION ID: #{session[:current_excercise]}"
+						#redirect_to dashboard_path
+						#dashboard_path
+					else
+						excercise_years_path
+					end
+				else
+					puts "EXCERCISE DON'T EXIST"
+					redirect_to new_excercise_year_path
+				end
+			end
+		end
+		
+		
+	end
 
 end

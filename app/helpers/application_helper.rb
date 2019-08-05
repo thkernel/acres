@@ -505,9 +505,11 @@ module ApplicationHelper
 	def calculate_abandonment_commission(bank_name, credit_id, new_commission_rate)
 		begin 
 			new_commission_rate = new_commission_rate.to_f
-			bank = Bank.find_by(name: bank_name)
+            #bank = Bank.find_by(name: bank_name)
+            bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
 			old_commission_rate = bank.commission_percentage
-			commission = Commission.find_by(credit_id: credit_id)
+            #commission = Commission.find_by(credit_id: credit_id)
+            commission = Commission.where(["credit_id = ? AND excercise_year_id = ?",  credit_id, current_excercise.id]).take
 
 			contributor_name = commission.contributor_name.downcase 
 			producer_name = commission.producer_name.downcase 
@@ -547,9 +549,10 @@ module ApplicationHelper
 	
 	def commission_rate_to_use(bank_name)
 		begin
-			bank = Bank.find_by(name: bank_name)
-			#commission = Commision.find_by(credit_id: commission_id)
-			bank_commission_rate_tracker = BankCommissionRateTracker.find_by(bank_id: bank.id) if bank.present?
+            #bank = Bank.find_by(name: bank_name)
+            bank = Bank.where(["name = ? AND excercise_year_id = ?", bank_name, current_excercise.id ]).take
+			#bank_commission_rate_tracker = BankCommissionRateTracker.find_by(bank_id: bank.id) if bank.present?
+			bank_commission_rate_tracker = BankCommissionRateTracker.where(["bank_id = ? AND excercise_year_id = ?",  bank.id, current_excercise.id]).take if bank.present?
 
 			if bank_commission_rate_tracker.present?
 				#last_bank_commission_rate = bank_commission_rate_tracker.last
