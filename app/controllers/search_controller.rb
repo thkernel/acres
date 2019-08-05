@@ -519,7 +519,7 @@ class SearchController < ApplicationController
     if bank_credits.present?
       bank_credits.each do |credit|
        
-        credit_details = CreditDetail.where(creditUid: credit.credit_id).where(paid_by_bank: "Oui").where(excercise_year_id: current_excercise)
+        credit_details = CreditDetail.where(credituid: credit.credit_id).where(paid_by_bank: "Oui").where(excercise_year_id: current_excercise)
         
         @paid_by_bank += credit_details.sum(:cumulative_amount)
       end
