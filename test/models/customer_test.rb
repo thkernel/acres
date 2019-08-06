@@ -17,7 +17,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  full_name           :string
-#  excercise_year_id   :bigint           default(0)
+#  excercise_year_id   :bigint
 #
 
 require 'test_helper'

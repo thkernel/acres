@@ -25,6 +25,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  receives_summaries     :boolean          default(FALSE)
+#  slug                   :string
+#  identifier             :string
 #
 
 class User < ApplicationRecord
@@ -64,6 +66,7 @@ class User < ApplicationRecord
 	has_many :notaries, dependent: :destroy
 	has_many :accounts, dependent: :destroy
 	has_many :excercise_years, dependent: :destroy
+	has_many :bank_commission_rate_abandonments, dependent: :destroy
 
 	#has_many :bank_commission_rate_trackers, dependent: :destroy
 

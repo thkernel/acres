@@ -34,15 +34,27 @@ class CommissionsController < ApplicationController
 		bank_name = params[:bank_name] if params[:bank_name]
 		puts "% Commission: #{commission_rate}"
 
-		calculate_abandonment_commission(bank_name, credit_id, commission_rate)
+		bank_commission_rate_abandonment = BankCommissionRateAbandonment.new
+		bank_commission_rate_abandonment.bank_name = bank_name 
+		bank_commission_rate_abandonment.credituid = credit_id 
+		bank_commission_rate_abandonment.abandonment_rate = commission_rate 
+		bank_commission_rate_abandonment.user_id = current_user.id 
+		bank_commission_rate_abandonment.excercise_year_id = current_excercise.id
 
+
+
+	
 		respond_to do |format|
-		
-			format.js
+			if bank_commission_rate_abandonment.save
+				#calculate_abandonment_commission(bank_name, credit_id, commission_rate)
+				format.js
+			end
 		end
 
 
 	end
+
+
 
 	def contributors
 		@total_montant_credit = Commission.where(excercise_year_id: current_excercise.id).sum(:amount_credit)

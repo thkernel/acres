@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190805140601) do
+ActiveRecord::Schema.define(version: 20190805195720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,19 @@ ActiveRecord::Schema.define(version: 20190805140601) do
     t.datetime "updated_at", null: false
     t.index ["bank_id"], name: "index_bank_commission_editions_on_bank_id"
     t.index ["user_id"], name: "index_bank_commission_editions_on_user_id"
+  end
+
+  create_table "bank_commission_rate_abandonments", force: :cascade do |t|
+    t.string "bank_name"
+    t.float "current_bank_rate", default: 0.0
+    t.float "abandonment_rate", default: 0.0
+    t.bigint "credituid"
+    t.bigint "excercise_year_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["excercise_year_id"], name: "index_bank_commission_rate_abandonments_on_excercise_year_id"
+    t.index ["user_id"], name: "index_bank_commission_rate_abandonments_on_user_id"
   end
 
   create_table "bank_commission_rate_trackers", force: :cascade do |t|
@@ -397,6 +410,8 @@ ActiveRecord::Schema.define(version: 20190805140601) do
   add_foreign_key "bank_commision_rate_abandonments", "users"
   add_foreign_key "bank_commission_editions", "banks"
   add_foreign_key "bank_commission_editions", "users"
+  add_foreign_key "bank_commission_rate_abandonments", "excercise_years"
+  add_foreign_key "bank_commission_rate_abandonments", "users"
   add_foreign_key "bank_commission_rate_trackers", "banks"
   add_foreign_key "bank_commission_rate_trackers", "excercise_years"
   add_foreign_key "bank_commission_rate_trackers", "users"

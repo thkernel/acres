@@ -25,6 +25,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  receives_summaries     :boolean          default(FALSE)
+#  slug                   :string
+#  identifier             :string
 #
 
 require 'test_helper'

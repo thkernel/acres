@@ -9,7 +9,7 @@
 #  user_id           :bigint
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  excercise_year_id :bigint           default(0)
+#  excercise_year_id :bigint
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

@@ -502,49 +502,7 @@ module ApplicationHelper
 
 
 
-	def calculate_abandonment_commission(bank_name, credit_id, new_commission_rate)
-		begin 
-			new_commission_rate = new_commission_rate.to_f
-            #bank = Bank.find_by(name: bank_name)
-            bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
-			old_commission_rate = bank.commission_percentage
-            #commission = Commission.find_by(credit_id: credit_id)
-            commission = Commission.where(["credit_id = ? AND excercise_year_id = ?",  credit_id, current_excercise.id]).take
-
-			contributor_name = commission.contributor_name.downcase 
-			producer_name = commission.producer_name.downcase 
-			company_name = current_company.name.downcase
-			amount_credit = commission.amount_credit
-			company_commission_net = 0.0
-			producer_commission = 0.0
-			contributor_commission = commission.contributor_commission
-
-			if producer_name.present? && producer_name == company_name 
-				commission_diff = (amount_credit) * ((new_commission_rate) / 100)
-				bank_commission = commission_diff
-				company_commission_net = ((old_commission_rate) / 100) - ((100 * commission_diff)/100)
-			end
-
-			if producer_name.present? && producer_name != company_name 
-				commission_diff = (amount_credit) * (new_commission_rate)/100
-				producer_commission = contributor_commission - ((50 * commission_diff)/100)
-				bank_commission = commission_diff
-				company_commission_net = ((old_commission_rate) / 100) - producer_commission - contributor_commission - ((50 * commission_diff)/100)
-			end
-
-			commission.update_columns(:company_commission => company_commission_net,:producer_commission => producer_commission )
-			#commission.update_column(:producer_commission, producer_commission)
-		rescue Exception => e
-			#puts "Une erreur s'est passée: #{e.to_s}"
-			#notice: "Une erreur s'est passée: #{e.to_s}"
-				logger.error("Message for the log file #{e.to_s}")
-				flash[:alert] = "Une erreur s'est passée: #{e.to_s}"
-				
-		ensure
-			redirect_to abandonments_path
-		end
-
-	end
+	
 
 	
 	def commission_rate_to_use(bank_name)

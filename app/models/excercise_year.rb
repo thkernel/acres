@@ -22,6 +22,8 @@ class ExcerciseYear < ApplicationRecord
   has_many :credits, dependent: :destroy
   has_many :commissions, dependent: :destroy
   has_many :commission_settings, dependent: :destroy
+  has_many :bank_commission_rate_abandonments, dependent: :destroy
+
 
 
   validates :name, presence: true, uniqueness: true
