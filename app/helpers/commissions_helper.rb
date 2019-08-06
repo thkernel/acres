@@ -616,9 +616,9 @@ module CommissionsHelper
 
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
+                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 
                                     producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/ 100
-                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
                                 else
@@ -676,9 +676,9 @@ module CommissionsHelper
 
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
+                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 
                                     producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
-                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
                                 else
@@ -738,9 +738,9 @@ module CommissionsHelper
 
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
+                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 
                                     producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
-                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
                                 else
@@ -799,8 +799,9 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
                                     
@@ -860,8 +861,9 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
                                 else
