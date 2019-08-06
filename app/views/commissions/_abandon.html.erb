@@ -6,7 +6,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Abandon de commission</h4>
         </div>
-            <%= form_with(url: post_abandon_path, local: false) do |form| %>
+            <%= form_with(url: post_abandon_path, local: true) do |form| %>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -31,7 +31,7 @@
                 </div><!-- modal body -->
                 <div class="modal-footer">
                     <%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
-                    <%= form.button "Abandonner",  class: "btn btn-warning",  data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Importation en cours..."}, autocomplete: "off" %>
+                    <%= form.button "Abandonner",  class: "btn btn-warning",  data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Traitement encours..."}, autocomplete: "off" %>
                 </div>
             <% end %>
     </div>

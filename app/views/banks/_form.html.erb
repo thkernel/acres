@@ -65,6 +65,7 @@
 	</div><!-- modal body -->
 	<div class="modal-footer">
 		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
-		<%= form.submit "Enregistrer", class: "btn btn-warning",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+		<%= form.button "Enregistrer",  class: "btn btn-warning",  data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Traitement encours..."}, autocomplete: "off" %>
+
 	</div>
 <% end %>

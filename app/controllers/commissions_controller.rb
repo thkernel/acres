@@ -47,7 +47,9 @@ class CommissionsController < ApplicationController
 		respond_to do |format|
 			if bank_commission_rate_abandonment.save
 				#calculate_abandonment_commission(bank_name, credit_id, commission_rate)
-				format.js
+				
+				format.html { redirect_to abandonments_path, notice: 'Abandonment was successfully created.' }
+				#format.js
 			end
 		end
 
