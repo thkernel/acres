@@ -171,7 +171,7 @@ module ApplicationHelper
 
 	def get_customer_name(credit_id)
 		#credit = Credit.find(credit_id)
-		credit = Credit.where(["id = ? AND excercise_year_id = ?", credit_id, current_excercise.id]).take
+		credit = Credit.where(["credit_id = ? AND excercise_year_id = ?", credit_id, current_excercise.id]).take
 		credit.customer_name  if credit
 	end
 
