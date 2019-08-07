@@ -6,7 +6,7 @@
         <td data-sort="<%= commission.acte_date.strftime("%Y%m%d%H%M%s") if commission.acte_date %>"><%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %></td>
        
         <td><%= commission.bank_name.humanize if commission.bank_name  %></td>
-        <td><%= "#{get_bank_commission_rate(commission.bank_name)}%" if commission.bank_name  %></td>
+        <td><%= "#{commission.bank_commission_percentage}%" if commission.bank_name  %></td>
 
         <td class="blue-amount"><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
         <td><%= commission.contributor_name.humanize if commission.contributor_name %></td>
