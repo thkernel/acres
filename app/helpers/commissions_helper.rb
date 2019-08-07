@@ -550,10 +550,13 @@ module CommissionsHelper
                                     producer_commission = 0.0
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 
-                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate))/100
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER ====")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 1 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
+
 
                                 else
                                     #Si c'est un cas d'abandon
@@ -619,10 +622,12 @@ module CommissionsHelper
                                     producer_commission = 0.0
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 
-                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/ 100
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER ====")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 2 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
@@ -681,10 +686,12 @@ module CommissionsHelper
                                     producer_commission = 0.0
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 
-                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER ====")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 3 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
@@ -743,12 +750,15 @@ module CommissionsHelper
 
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
+                                    
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 
-                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER ====")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 4 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
@@ -808,10 +818,12 @@ module CommissionsHelper
 
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 
-                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER ====")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 5 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
@@ -871,10 +883,12 @@ module CommissionsHelper
 
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
 
-                                    producer_commission = (credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) )/100
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER ====")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 6 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
