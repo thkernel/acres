@@ -46,8 +46,8 @@
 
 
       <tr>
-        <td><%= commission.credit_id %></td>
-         <td><%= credit_customer_name(commission.credit_id).humanize %></td>
+        <td><%= commission.credit_identifier %></td>
+         <td><%= credit_customer_name(commission.credit_identifier).humanize %></td>
         <td><%= commission.production_date.strftime("%d/%m/%Y") if commission.production_date %></td>
         <td><%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %></td>
         <td class="blue-amount"><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
@@ -58,7 +58,7 @@
         <td><%= number_to_currency commission.bank_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
         <td class="blue-amount"><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>
  <td><%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
-  '), credit_payments_details_path(commission.credit_id) %>
+  '), credit_payments_details_path(commission.credit_identifier) %>
           </td>
         
       </tr>

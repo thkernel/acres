@@ -3,7 +3,7 @@
 # Table name: credits
 #
 #  id                           :bigint           not null, primary key
-#  credit_id                    :bigint
+#  identifier                   :bigint
 #  production_date              :date
 #  acte_date                    :date
 #  customer_id                  :integer

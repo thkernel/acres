@@ -1,0 +1,11 @@
+<% @first_installment_payment_delay_expireds.each do |first_installment_payment_delay_expired| %>
+      <tr>
+        <td><%= first_installment_payment_delay_expired.credit_id %></td>
+        <td><%= first_installment_payment_delay_expired.expiration_date %></td>
+        <td><%= first_installment_payment_delay_expired.first_installment_percentage %></td>
+        <td><%= first_installment_payment_delay_expired.installment_amount %></td>
+       
+       
+        
+      </tr>
+    <% end %>

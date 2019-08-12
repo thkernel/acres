@@ -47,7 +47,7 @@
                 <% else %>
                     <td></td>
             <% end %>
-            <td><%= credit_customer_name(commission.credit_id).humanize if credit_customer_name(commission.credit_id) %></td>
+            <td><%= credit_customer_name(commission.credit_identifier).humanize if credit_customer_name(commission.credit_identifier) %></td>
 
 
             <% if commission.contributor_name.present? %>

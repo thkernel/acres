@@ -19,8 +19,8 @@ class CommissionsController < ApplicationController
 
 	def abandon
 
-		@credit_id = params[:id]
-		commission = Commission.where(["excercise_year_id = ? AND credit_id = ? ",  current_excercise.id, @credit_id]).take
+		@credit_identifier = params[:identifier]
+		commission = Commission.where(["excercise_year_id = ? AND credit_identifier = ? ",  current_excercise.id, @credit_identifier]).take
 		bank_name = commission.bank_name
 		#@bank = Bank.find_by(name: bank_name)
 		@bank = Bank.where(["name = ? AND excercise_year_id = ?", bank_name, current_excercise.id]).take
@@ -30,13 +30,13 @@ class CommissionsController < ApplicationController
 
 	def post_abandon 
 		commission_rate = params[:commission_rate] if params[:commission_rate]
-		credit_id  = params[:credit_id] if params[:credit_id]
+		credit_identifier  = params[:credit_identifier] if params[:credit_identifier]
 		bank_name = params[:bank_name] if params[:bank_name]
 		puts "% Commission: #{commission_rate}"
 
 		bank_commission_rate_abandonment = BankCommissionRateAbandonment.new
 		bank_commission_rate_abandonment.bank_name = bank_name 
-		bank_commission_rate_abandonment.credituid = credit_id 
+		bank_commission_rate_abandonment.credit_identifier = credit_identifier
 		bank_commission_rate_abandonment.abandonment_rate = commission_rate 
 		bank_commission_rate_abandonment.user_id = current_user.id 
 		bank_commission_rate_abandonment.excercise_year_id = current_excercise.id

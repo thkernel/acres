@@ -1,7 +1,7 @@
  <% @commissions.each do |commission| %>
       <tr>
-        <td><%= commission.credit_id %></td>
-         <td><%= get_customer_name(commission.credit_id).humanize if commission.credit_id  %></td>
+        <td><%= commission.credit_identifier %></td>
+        <td><%= credit_customer_name(commission.credit_identifier).humanize if commission.credit_identifier  %></td>
         <td data-sort="<%= commission.production_date.strftime("%Y%m%d%H%M%s") if commission.production_date %>"><%= commission.production_date.strftime("%d/%m/%Y") if commission.production_date %></td>
         <td data-sort="<%= commission.acte_date.strftime("%Y%m%d%H%M%s") if commission.acte_date %>"><%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %></td>
        
@@ -16,7 +16,7 @@
         <td>
          
             <div class="action-buttons">
-              <%= link_to 'Abandon', get_abandon_path(commission.credit_id), title: "Abandon de  commission", remote: true %>
+              <%= link_to 'Abandon', get_abandon_path(commission.credit_identifier), title: "Abandon de  commission", remote: true %>
 
             </div>
          

@@ -7,6 +7,8 @@ end
 
 
 Rails.application.routes.draw do
+  resources :monthly_payment_delay_expireds
+  resources :first_installment_payment_delay_expireds
 	post "excercise_years/change_current_excercise" => "excercise_years#change_current_excercise"
   get 'dispatcher/index' => "dispatcher#index", as: :dispatcher
 
@@ -157,7 +159,7 @@ Rails.application.routes.draw do
 	get '/reset/get' => 'logs#reset', as: :get_reset_configuration
 	post '/reset/post' => 'logs#reset_all', as: :post_reset_configuration
 	get 'abandonment' => 'commissions#abandonments', as: :abandonments
-	get 'commissions/abandonment/:id' => 'commissions#abandon', as: :get_abandon
+	get 'commissions/abandonment/:identifier' => 'commissions#abandon', as: :get_abandon
 	post 'commissions/abandon' => 'commissions#post_abandon', as: :post_abandon
 	get 'settings/payments' => 'payment_delays#settings', as: :payments_delays_settings
 	get "show/backup" => "administrations#show_backup", as: :show_backup
@@ -191,10 +193,17 @@ Rails.application.routes.draw do
 		end
 	end
 
-	%w( 404 422 500 ).each do |code|
-		get code, :to => "errors#show", :code => code
-	end
-	
+=begin
+        %w( 404 422 500 ).each do |code|
+          get code, :to => "errors#show", :code => code
+        end
+=end
+
+# Dynamic error pages
+get "/404", to: "errors#not_found"
+get "/422", to: "errors#unacceptable"
+get "/500", to: "errors#internal_error"
+
 
     
 

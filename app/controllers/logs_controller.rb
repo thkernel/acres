@@ -137,7 +137,7 @@ class LogsController < ApplicationController
 			# Instance of Commission.
 			commission = Commission.new
 
-			commission.credit_id = credit.credit_id
+			commission.credit_identifier = credit.identifier
 			commission.production_date = credit.production_date
 			commission.acte_date = credit.acte_date
 			commission.customer_id = credit.customer_id if credit.customer_id
@@ -197,18 +197,18 @@ class LogsController < ApplicationController
                # Insert the line in database,
                #user = User.new
                
-               credit = Credit.new 
+               
 
 
                # Begin insert a bank, before to insert bank we check if bank exist
                if row[cell[0]].present?
                   
-                   current_credit = Credit.find_by(credit_id: Extractor.extract_numeric(row[cell[0]]))
+                   current_credit = Credit.where(["identifier = ? AND excercise_year_id = ?",  Extractor.extract_numeric(row[cell[0]]), current_excercise.id]).take
                    if current_credit.present?
                        if current_credit.hypoplus.present?
                            next
                        else
-                           current_credit = current_credit.credit_id + Time.now.min + Time.now.sec
+                           current_credit = current_credit.identifier + Time.now.min + Time.now.sec
                        end
                    else
                        current_credit = Extractor.extract_numeric(row[cell[0]])
@@ -220,7 +220,7 @@ class LogsController < ApplicationController
 
                # Begin insert a bank, before to insert bank we check if bank exist
                if row[cell[3]].present?
-                   current_customer = Customer.exists(row[cell[3]].downcase)
+                   current_customer = Customer.exists(row[cell[3]].downcase, current_excercise.id)
                    unless current_customer.present?
                        customer = Customer.new
                        customer.full_name = row[cell[3]].downcase if row[cell[3]].present?
@@ -233,7 +233,7 @@ class LogsController < ApplicationController
 
                # Begin insert a bank, before to insert bank we check if bank exist
                if row[cell[4]].present?
-                   current_bank = Bank.exists(row[cell[4]].downcase)
+                   current_bank = Bank.exists(row[cell[4]].downcase, current_excercise.id)
                    
                    # If bank exist.
                    unless  current_bank.present? 
@@ -297,7 +297,7 @@ class LogsController < ApplicationController
 
                if row[cell[8]].present?
                    
-                   current_notary = Notary.is_notary(row[cell[8]].downcase).present?
+                   current_notary = Notary.is_notary(row[cell[8]].downcase, current_excercise.id).present?
                    unless  current_notary.present?
                        notary = Notary.new
                        notary.full_name = row[cell[8]].downcase if row[cell[8]].present?
@@ -308,8 +308,8 @@ class LogsController < ApplicationController
                    end
                end
 
-
-               credit.credit_id = current_credit
+               credit = Credit.new 
+               credit.identifier = current_credit
                credit.production_date = row[cell[1]] if row[cell[1]].present?
                credit.acte_date = row[cell[2]] if row[cell[2]].present?
                credit.customer_name = row[cell[3]].downcase if row[cell[3]].present?

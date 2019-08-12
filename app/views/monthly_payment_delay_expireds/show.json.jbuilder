@@ -1,0 +1,1 @@
+json.partial! "monthly_payment_delay_expireds/monthly_payment_delay_expired", monthly_payment_delay_expired: @monthly_payment_delay_expired

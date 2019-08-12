@@ -115,10 +115,12 @@ fr:
   mail_confirmation_body: "Vous avez reçu ce mail suite à votre inscription sur notre plateforme: www.slatejob.com, pour continuer à utiliser nos services, veuillez confirmer votre inscription en cliquant sur le lien ci-dessous:"
   confirm_my_account: "Confirmer mon compte"
   team_cordially: "Cordialement l'équipe de SlateJob"
-  error_404_title: "Oops! La page que vous cherchiez n'existe pas."
-  error_404_body: "Vous avez peut-être mal tapé l'adresse ou la page a peut-être été supprimée. Si vous êtes le propriétaire de l'application, consultez les journaux pour plus d'informations."
-  error_500_title: "Oops! Nous sommes désolés, une erreur s'est produite."
-  error_500_body: "Si vous êtes le propriétaire de l'application, consultez les journaux pour plus d'informations."
-  app_name: "Nom de l'application"
+  error_404_title: "Oops! page non trouvée."
+  error_404_body: "La page que vous recherchez a peut-être été supprimée ou son nom a été modifié ou est temporairement indisponible."
+  error_422_title: "Requête non traitable."
+  error_422_body: "La requête est incompréhensible ou incomplète."
+  error_500_title: "Oops! Erreur interne du serveur."
+  error_500_body: "Le serveur  a rencontré un problème l’empêchant de répondre à traiter votre demande."
+
 
   

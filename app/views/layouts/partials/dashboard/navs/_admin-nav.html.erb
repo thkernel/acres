@@ -29,6 +29,19 @@ Abandons com'), abandonments_path %>
 Paiements'), payments_path %>
 			</li>
 
+<li>
+				<a href="#echeanceExpireedropdownDropdown" aria-expanded="false" data-toggle="collapse"> 
+					<i class="fa fa-calendar-times-o" aria-hidden="true"></i>Écheances à terme</a>
+                <ul id="echeanceExpireedropdownDropdown" class="collapse list-unstyled ">
+                    <li><%= link_to raw('<i class="fa fa-calendar-times-o" aria-hidden="true"></i>Premières tranches'), first_installment_payment_delay_expireds_path %>
+                    </li>
+                    <li>
+                        <%= link_to raw('<i class="fa fa-calendar-times-o" aria-hidden="true"></i> Paiments mensuels'), producers_commissions_path %>
+                    </li>
+                    
+                </ul>
+            </li>
+
 			
 			<li>
 				<a href="#commissiondropdownDropdown" aria-expanded="false" data-toggle="collapse"> 

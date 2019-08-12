@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190805195720) do
+ActiveRecord::Schema.define(version: 20190809113543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20190805195720) do
     t.string "bank_name"
     t.float "current_bank_rate", default: 0.0
     t.float "abandonment_rate", default: 0.0
-    t.bigint "credituid"
+    t.bigint "credit_identifier"
     t.bigint "excercise_year_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20190805195720) do
   end
 
   create_table "commissions", force: :cascade do |t|
-    t.bigint "credit_id"
+    t.bigint "credit_identifier"
     t.date "production_date"
     t.date "acte_date"
     t.integer "customer_id"
@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 20190805195720) do
     t.float "cumulative_amount", default: 0.0
     t.string "paid_by_bank", default: "Non"
     t.string "paid_to_contributor_or_producer", default: "Non"
-    t.bigint "credituid", null: false
+    t.bigint "credit_identifier", null: false
     t.bigint "credit_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -195,7 +195,7 @@ ActiveRecord::Schema.define(version: 20190805195720) do
   end
 
   create_table "credits", force: :cascade do |t|
-    t.bigint "credit_id"
+    t.bigint "identifier"
     t.date "production_date"
     t.date "acte_date"
     t.integer "customer_id"
@@ -254,6 +254,19 @@ ActiveRecord::Schema.define(version: 20190805195720) do
     t.index ["user_id"], name: "index_excercise_years_on_user_id"
   end
 
+  create_table "first_installment_payment_delay_expireds", force: :cascade do |t|
+    t.bigint "credit_identifier"
+    t.datetime "expiration_date"
+    t.float "first_installment_percentage", default: 0.0
+    t.float "installment_amount", default: 0.0
+    t.float "credit_amount", default: 0.0
+    t.string "status"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_first_installment_payment_delay_expireds_on_user_id"
+  end
+
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -295,6 +308,18 @@ ActiveRecord::Schema.define(version: 20190805195720) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_mail_configurations_on_user_id", unique: true
+  end
+
+  create_table "monthly_payment_delay_expireds", force: :cascade do |t|
+    t.bigint "credit_identifier"
+    t.datetime "expiration_date"
+    t.bigint "installment_identifier"
+    t.float "payment_amount", default: 0.0
+    t.string "status"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_monthly_payment_delay_expireds_on_user_id"
   end
 
   create_table "notaries", force: :cascade do |t|
@@ -429,9 +454,11 @@ ActiveRecord::Schema.define(version: 20190805195720) do
   add_foreign_key "customers", "excercise_years"
   add_foreign_key "customers", "users"
   add_foreign_key "excercise_years", "users"
+  add_foreign_key "first_installment_payment_delay_expireds", "users"
   add_foreign_key "logs", "excercise_years"
   add_foreign_key "logs", "users"
   add_foreign_key "mail_configurations", "users"
+  add_foreign_key "monthly_payment_delay_expireds", "users"
   add_foreign_key "notaries", "excercise_years"
   add_foreign_key "notaries", "users"
   add_foreign_key "payment_delays", "users"

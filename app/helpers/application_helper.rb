@@ -13,32 +13,8 @@ module ApplicationHelper
 		@@my_logger ||= Logger.new("#{Rails.root}/log/commission-log.log")
 	end
 
-	def commission_logger
-		@@commission_logger ||= Logger.new("#{Rails.root}/log/commission-log.log")
-	end
 
-
-
-   
 	
-	def get_bank_commission_rate(bank_name)
-        #bank = Bank.find_by(name: bank_name)
-        bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
-		bank.commission_percentage
-	end
-	def credit_acte_date(credit_id)
-        #credit = Credit.find_by(credit_id: credit_id)
-        credit = Credit.where(["credit_id = ? AND excercise_year_id = ?", credit_id, current_excercise.id]).take
-		credit.acte_date if credit.acte_date.present?
-	end
-
-	def credit_customer_name(credit_id)
-        #credit = Credit.find_by(credit_id: credit_id)
-        credit = Credit.where(["credit_id = ? AND excercise_year_id = ?",  credit_id, current_excercise.id]).take
-		if credit.present?
-			credit.customer_name 
-		end
-	end
 
 	def unregistered_commission_percentage?
 		
@@ -133,11 +109,7 @@ module ApplicationHelper
 		end
 	end
 
-	def bank_name(id)
-        #bank = Bank.find(id)
-        bank = Bank.where(["id = ? AND excercise_year_id", id, current_excercise.id]).take
-		bank.name
-	end
+	
 
 	def completed?(status)
 		if status == 'yes'
@@ -169,11 +141,7 @@ module ApplicationHelper
 		end
 	end
 
-	def get_customer_name(credit_id)
-		#credit = Credit.find(credit_id)
-		credit = Credit.where(["credit_id = ? AND excercise_year_id = ?", credit_id, current_excercise.id]).take
-		credit.customer_name  if credit
-	end
+	
 
 
 	# Handle commissions.

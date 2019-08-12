@@ -71,7 +71,7 @@ class CreditDetailsController < ApplicationController
   def update
     respond_to do |format|
       if @credit_detail.update(credit_detail_params)
-        @credit_details = CreditDetail.where(["creditid = ? AND excercise_year_id = ?",  @credit_detail.creditUid, current_excercise.id]).reorder('id ASC')
+        @credit_details = CreditDetail.where(["credituid = ? AND excercise_year_id = ?",  @credit_detail.creditUid, current_excercise.id]).reorder('id ASC')
         format.html { redirect_to @credit_detail, notice: 'Credit detail was successfully updated.' }
         format.json { render :show, status: :ok, location: @credit_detail }
 		    format.js
@@ -109,15 +109,15 @@ class CreditDetailsController < ApplicationController
 		#Calculate payments installment
 		def calculate_payment_installment(query, target)
 			#credit_detail = CreditDetail.find_by(creditUid: query)
-			credit_detail = CreditDetail.where(["credituid = ? AND excercise_year_id = ?", query, current_excercise.id]).take
+			credit_detail = CreditDetail.where(["credit_identifier = ? AND excercise_year_id = ?", query, current_excercise.id]).take
 			#@credit = Credit.find_by(credit_id: query)
-			@credit = Credit.where(["credit_id = ? AND excercise_year_id = ?",  query, current_excercise.id]).take
+			@credit = Credit.where(["identifier = ? AND excercise_year_id = ?",  query, current_excercise.id]).take
 	
 				unless credit_detail.present?
 
 					puts "DANS LE UNLESS"
 					#@commission = Commission.find_by(credit_id: query)
-					@commission = Commission.where(["credit_id = ? AND excercise_year_id = ?", query, current_excercise.id]).take
+					@commission = Commission.where(["credit_identifier = ? AND excercise_year_id = ?", query, current_excercise.id]).take
 					puts "COMMISSION #{@commission.id} #{@commission.amount_credit}"
 					credit_acte_date = @commission.acte_date
 					if @commission.present? && @credit.present? && credit_acte_date.present?
@@ -173,8 +173,9 @@ class CreditDetailsController < ApplicationController
 									credit_detail.cumulative_amount = 0.0
 									credit_detail.paid_by_bank = "Non" 
 									credit_detail.paid_to_contributor_or_producer = "Non" 
-									credit_detail.creditUid = query
+									credit_detail.credit_identifier = query
 									credit_detail.credit_id = @credit.id
+									credit_detail.excercise_year_id = current_excercise.id
 									credit_detail.save
 
 									# Others installment.
@@ -193,8 +194,9 @@ class CreditDetailsController < ApplicationController
 										credit_detail.cumulative_amount =  first_installment_commission + cumulative_amount
 										credit_detail.paid_by_bank = "Non" 
 										credit_detail.paid_to_contributor_or_producer = "Non" 
-										credit_detail.creditUid = query
+										credit_detail.credit_identifier = query
 										credit_detail.credit_id = @credit.id
+										credit_detail.excercise_year_id = current_excercise.id
 										credit_detail.save
 
 									end
@@ -204,7 +206,7 @@ class CreditDetailsController < ApplicationController
 						end	
 					end
 				end
-				@credit_details = CreditDetail.where(["creditUid = ? AND excercise_year_id = ?", query, current_excercise.id]).reorder('id ASC')
+				@credit_details = CreditDetail.where(["credit_identifier = ? AND excercise_year_id = ?", query, current_excercise.id]).reorder('id ASC')
 				#@credit_details = CreditDetail.where(creditUid: query).reorder('installment_date ASC')
 
 		end

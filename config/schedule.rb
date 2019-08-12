@@ -21,4 +21,6 @@
 
 every 1.hour, :roles =>[:db, :app, :web] do
     rake "db:dump"
+    rake "tasks:calculate_bank_commission_rate_evolution"
+    rake "tasks:check_first_installment_payment_delay_expired"
 end

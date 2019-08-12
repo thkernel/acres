@@ -505,7 +505,7 @@ class SearchController < ApplicationController
 
 
   def bank_amount_credit(production_date_debut, production_date_fin, bank_name)
-    bank_commissions = Commission.search_by_bank_and_production_date(production_date_debut, production_date_fin, bank_name, current_excercise)
+    bank_commissions = Commission.search_by_bank_and_production_date(production_date_debut, production_date_fin, bank_name, current_excercise.id)
   end
 
   def bank_acted_amount(acte_date_debut, acte_date_fin, bank_name)
@@ -519,7 +519,7 @@ class SearchController < ApplicationController
     if bank_credits.present?
       bank_credits.each do |credit|
        
-        credit_details = CreditDetail.where(credituid: credit.credit_id).where(paid_by_bank: "Oui").where(excercise_year_id: current_excercise)
+        credit_details = CreditDetail.where(credit_identifier: credit.identifier).where(paid_by_bank: "Oui").where(excercise_year_id: current_excercise.id)
         
         @paid_by_bank += credit_details.sum(:cumulative_amount)
       end

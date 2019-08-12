@@ -9,7 +9,7 @@
 #  cumulative_amount               :float            default(0.0)
 #  paid_by_bank                    :string           default("Non")
 #  paid_to_contributor_or_producer :string           default("Non")
-#  credituid                       :bigint           not null
+#  credit_identifier               :bigint           not null
 #  credit_id                       :bigint           not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
@@ -24,7 +24,7 @@ class CreditDetail < ApplicationRecord
 
 
 
-    def self.search_by_credit_id(credit_id)
-        where('credit_id = ?', credit_id)
+    def self.search_by_credit_id(credit_identifier)
+        where('credit_identifier = ?', credit_identifier)
     end
 end

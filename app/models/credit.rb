@@ -3,7 +3,7 @@
 # Table name: credits
 #
 #  id                           :bigint           not null, primary key
-#  credit_id                    :bigint
+#  identifier                   :bigint
 #  production_date              :date
 #  acte_date                    :date
 #  customer_id                  :integer
@@ -37,22 +37,17 @@ class Credit < ApplicationRecord
     has_many :credit_details, dependent: :destroy
 
 
-    validates :credit_id, presence: true, uniqueness: true
+    validates :identifier, presence: true, uniqueness: true
+    validates :bank_id, presence: true
+
     #scope :name, -> { where(:attibute => value)}
     # Ex:- scope :active, -> {where(:active => true)}
 
-    def self.credit_exist(credit_id)
-        where('credit_id = ?', credit_id)
+    def self.credit_exist(credit_identifier, current_excercise)
+        where('identifier = ? AND excercise_year_id = ? ', credit_identifier, current_excercise)
     end
 
-    def self.to_csv(options = {})
-        CSV.generate(options) do |csv|
-            csv << column_names
-            all.each do |product|
-            csv << product.attributes.values
-            end
-        end
-    end
+    
 
     #def self.to_csv(options = {})
         #desired_columns = ["id", "name", "released_on", "price"]

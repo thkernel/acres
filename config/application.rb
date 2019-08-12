@@ -4,6 +4,9 @@ require 'rails/all'
 require 'apartment/elevators/subdomain' # or 'domain', 'first_subdomain', 'host'
 require './lib/utils'
 require './lib/calculate_commission/calculate_bank_commission_rate_evolution'
+require './lib/payments_delay_expired/check_first_installment_payment_delay_expired'
+
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

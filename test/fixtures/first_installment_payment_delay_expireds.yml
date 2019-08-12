@@ -1,0 +1,37 @@
+# == Schema Information
+#
+# Table name: first_installment_payment_delay_expireds
+#
+#  id                           :bigint           not null, primary key
+#  credit_id                    :string
+#  expiration_date              :datetime
+#  first_installment_percentage :float            default(0.0)
+#  installment_amount           :float            default(0.0)
+#  credit_amount                :float            default(0.0)
+#  status                       :string
+#  user_id                      :bigint
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  credit_id: MyString
+  expiration_date: 2019-08-09 08:32:07
+  first_installment_percentage: 1.5
+  installment: 1.5
+  installment_amount: 1.5
+  credit_amount: 1.5
+  status: MyString
+  user: one
+
+two:
+  credit_id: MyString
+  expiration_date: 2019-08-09 08:32:07
+  first_installment_percentage: 1.5
+  installment: 1.5
+  installment_amount: 1.5
+  credit_amount: 1.5
+  status: MyString
+  user: two

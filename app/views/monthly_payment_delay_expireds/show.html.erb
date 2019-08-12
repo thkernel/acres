@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Credit identifier:</strong>
+  <%= @monthly_payment_delay_expired.credit_identifier %>
+</p>
+
+<p>
+  <strong>Expiration date:</strong>
+  <%= @monthly_payment_delay_expired.expiration_date %>
+</p>
+
+<p>
+  <strong>Installment identifier:</strong>
+  <%= @monthly_payment_delay_expired.installment_identifier %>
+</p>
+
+<p>
+  <strong>Commission amount:</strong>
+  <%= @monthly_payment_delay_expired.commission_amount %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @monthly_payment_delay_expired.user %>
+</p>
+
+<%= link_to 'Edit', edit_monthly_payment_delay_expired_path(@monthly_payment_delay_expired) %> |
+<%= link_to 'Back', monthly_payment_delay_expireds_path %>

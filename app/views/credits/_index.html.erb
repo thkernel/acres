@@ -1,6 +1,6 @@
  <% @credits.each do |credit| %>
       <tr>
-        <td><%= credit.credit_id %></td>
+        <td><%= credit.identifier %></td>
          <td><%= credit.customer_name.humanize if credit.customer_name  %></td>
         <td data-sort="<%= credit.production_date.strftime("%Y%m%d%H%M%s") if credit.production_date %>"><%= credit.production_date.strftime("%d/%m/%Y") if credit.production_date %></td>
         <td data-sort="<%= credit.acte_date.strftime("%Y%m%d%H%M%s") if credit.acte_date %>"><%= credit.acte_date.strftime("%d/%m/%Y") if credit.acte_date %></td>

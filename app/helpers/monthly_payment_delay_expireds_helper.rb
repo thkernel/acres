@@ -1,0 +1,2 @@
+module MonthlyPaymentDelayExpiredsHelper
+end

@@ -3,7 +3,7 @@
 # Table name: commissions
 #
 #  id                                :bigint           not null, primary key
-#  credit_id                         :bigint
+#  credit_identifier                 :bigint
 #  production_date                   :date
 #  acte_date                         :date
 #  customer_id                       :integer
@@ -34,6 +34,9 @@ class Commission < ApplicationRecord
     # Relationship.
     belongs_to :user
 
+
+    validates :bank_name, presence: true
+    
     # Search
     def self.search(production_date_debut, production_date_fin,  acte_date_debut,acte_date_fin, bank_name, producer_name, contributor_name, notary_name, current_excercise)
         

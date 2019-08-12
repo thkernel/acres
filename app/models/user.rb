@@ -144,4 +144,12 @@ class User < ApplicationRecord
 			errors.add(:file,'Width or height must be at least 50px')
 		end
 	end
+
+	private
+	def random_user_id 
+		begin
+			self.slug = "u#{SecureRandom.random_number(1_000_000_000)}"
+		end while User.where(slug: self.slug).exists?
+	end 
+	
 end
