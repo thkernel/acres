@@ -3,7 +3,7 @@
 # Table name: first_installment_payment_delay_expireds
 #
 #  id                           :bigint           not null, primary key
-#  credit_id                    :string
+#  credit_identifier            :bigint
 #  expiration_date              :datetime
 #  first_installment_percentage :float            default(0.0)
 #  installment_amount           :float            default(0.0)

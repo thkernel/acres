@@ -6,7 +6,7 @@
 #  bank_name         :string
 #  current_bank_rate :float            default(0.0)
 #  abandonment_rate  :float            default(0.0)
-#  credituid         :bigint
+#  credit_identifier :bigint
 #  excercise_year_id :bigint
 #  user_id           :bigint
 #  created_at        :datetime         not null

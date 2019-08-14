@@ -39,7 +39,11 @@ namespace :tasks do
             Apartment::Tenant.switch(tenant) do
                 if openned_excercise
                     #puts "Yes, #{openned_excercise.id}"
+                    puts "CURRENT TENANT: #{tenant}"
                     check_first_installment_payment_delay_expired(openned_excercise.id)
+                else
+                    # Next Tenant
+                    next
                 end
 
             end

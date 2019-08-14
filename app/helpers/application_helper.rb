@@ -13,7 +13,9 @@ module ApplicationHelper
 		@@my_logger ||= Logger.new("#{Rails.root}/log/commission-log.log")
 	end
 
-
+    def first_installment_payment_delay_expired?
+        true
+    end
 	
 
 	def unregistered_commission_percentage?

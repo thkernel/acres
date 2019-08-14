@@ -1,0 +1,17 @@
+<div class="container">
+
+<% if is_admin? || is_superadmin? %>
+    <% if first_installment_payment_delay_expired?  %>
+
+            <div class="alert alert-danger" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+                <p>
+                    ATTENTION, Des paiements de prémières tranches sont arrivée à terme.
+                    <%= link_to "Plus d'informations", first_installment_payment_delay_expireds_path %>
+                </p>
+                </div>
+        <% end %>
+<% end %>
+</div>
