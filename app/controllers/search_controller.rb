@@ -40,7 +40,7 @@ class SearchController < ApplicationController
     @selected_acte_date_fin = acte_date_fin if acte_date_fin.present?
     @selected_notary = notary if notary.present?
  
-    banks = Bank.find_by_array_of_names(bank_name, current_excercise.id) if bank_name.present?
+    banks = Bank.find_by_array_of_names(bank_name) if bank_name.present?
     @selected_banks =  banks unless banks.blank?
 
     producers = User.find_by_fullname_and_role(producer_name, 'Producteur') if producer_name.present?

@@ -16,7 +16,7 @@ module CalculateBankCommissionRateEvolution
     end
 
     def credit_customer_name(credit_id)
-		credit = Credit.find_by(credit_id: credit_id)
+		credit = Credit.find_by(identifier: credit_id)
 		if credit.present?
 			credit.customer_name 
 		end
@@ -70,8 +70,8 @@ module CalculateBankCommissionRateEvolution
                                         return
                                     end
 
-                                     #credit_hypoplus = get_credit_hypoplus(commission.credit_id).hypoplus
-                                    credit_hypoplus = Credit.find_by(credit_id: commission.credit_id).hypoplus
+                                     #credit_hypoplus = get_credit_hypoplus(commission.credit_identifier).hypoplus
+                                    credit_hypoplus = Credit.find_by(identifier: commission.credit_identifier).hypoplus
                                     
                                     
                                     # Credit amount.
@@ -123,10 +123,10 @@ module CalculateBankCommissionRateEvolution
                                             # Handle 
                                             # Handle 
                         if credit_hypoplus.present? 
-                            puts "CALCUL HYPOPLUS POUR NO:#{commission.credit_id} Montant: #{commission.amount_credit}"
+                            puts "CALCUL HYPOPLUS POUR NO:#{commission.credit_identifier} Montant: #{commission.amount_credit}"
                             puts "Banque HYPO: #{bank_hypoplus_commission_percentage}"
                             my_logger.info("======Calcul d'Hypoplys====")
-                            my_logger.info("Dossier: #{commission.credit_id}, Banque: #{commission.bank_name}, Client: #{credit_customer_name(commission.customer_id) if commission.customer_id}, Montant #{commission.amount_credit}")
+                            my_logger.info("Dossier: #{commission.credit_identifier}, Banque: #{commission.bank_name}, Client: #{credit_customer_name(commission.customer_id) if commission.customer_id}, Montant #{commission.amount_credit}")
                             
 
                             if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
@@ -185,18 +185,18 @@ module CalculateBankCommissionRateEvolution
 
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 1 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 1 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
 
 
                                 else
                                     #Si c'est un cas d'abandon
                                    
-                                    if rate_abandonment_case?(commission.credit_id, commission.bank_name.downcase)
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
                                         my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
                                         puts("==== CAS D'UN ABANDON DE COMMISSION")
                                         puts("==== LE TAUX REF: #{bank_commission_percentage}")
                                         my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
-                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_id, commission.bank_name.downcase)
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
                                         if bank_commission_rate_abandonment.present?
                                             my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
@@ -257,14 +257,14 @@ module CalculateBankCommissionRateEvolution
 
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 2 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 2 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
-                                    if rate_abandonment_case?(commission.credit_id, commission.bank_name.downcase)
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
                                         my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
                                         my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
-                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_id, commission.bank_name.downcase)
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
                                         if bank_commission_rate_abandonment.present?
                                             my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
@@ -321,14 +321,14 @@ module CalculateBankCommissionRateEvolution
 
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 3 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 3 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
-                                    if rate_abandonment_case?(commission.credit_id, commission.bank_name.downcase)
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
                                         my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
                                         my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
-                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_id, commission.bank_name.downcase)
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
                                         if bank_commission_rate_abandonment.present?
                                             my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
@@ -388,14 +388,14 @@ module CalculateBankCommissionRateEvolution
 
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 4 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 4 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
-                                    if rate_abandonment_case?(commission.credit_id, commission.bank_name.downcase)
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
                                         my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
                                         my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
-                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_id, commission.bank_name.downcase)
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
                                         if bank_commission_rate_abandonment.present?
                                             my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
@@ -453,14 +453,14 @@ module CalculateBankCommissionRateEvolution
 
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 5 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 5 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
-                                    if rate_abandonment_case?(commission.credit_id, commission.bank_name.downcase)
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
                                         my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
                                         my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
-                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_id, commission.bank_name.downcase)
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
                                         if bank_commission_rate_abandonment.present?
                                             my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
@@ -518,14 +518,14 @@ module CalculateBankCommissionRateEvolution
 
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 6 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 6 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
 
                                 else
                                     #Si c'est un cas d'abandon
-                                    if rate_abandonment_case?(commission.credit_id, commission.bank_name.downcase)
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
                                         my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
                                         my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
-                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_id, commission.bank_name.downcase)
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
                                         if bank_commission_rate_abandonment.present?
                                             my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")

@@ -30,10 +30,8 @@ class Bank < ApplicationRecord
 
 
     def self.find_by_array_of_names(bank_names)
-        query = query.where("name IN (?)", bank_names)
-        #query = query.where(excercise_year_id: current_excercise.id)
-        query
-
+        where("name IN (?)", bank_names)
+       
     end
     # Find bank by name.
 
