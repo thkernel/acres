@@ -29,23 +29,23 @@ class Bank < ApplicationRecord
     validates_presence_of :name
 
 
-    def self.find_by_array_of_names(bank_names, current_excercise)
-        query = query.where("name IN (?) AND excercise_year_id = ?", bank_names, current_excercise)
+    def self.find_by_array_of_names(bank_names)
+        query = query.where("name IN (?)", bank_names)
         #query = query.where(excercise_year_id: current_excercise.id)
         query
 
     end
     # Find bank by name.
 
-    def self.exists(bank_name, current_excercise)
-        #where('name = ? ', bank_name)
-        where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise]).take
+    def self.exists(bank_name)
+        where('name = ? ', bank_name)
+        #where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise]).take
         
     end
 
     def self.search(bank_name, current_excercise)
-        #where('name = ?', bank_name).take
-        query = query.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise]).take
-        query
+        where('name = ?', bank_name).take
+        #query = query.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise]).take
+        #query
     end
 end

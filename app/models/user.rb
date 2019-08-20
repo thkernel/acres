@@ -32,8 +32,8 @@
 class User < ApplicationRecord
 
 
-	extend FriendlyId
-	friendly_id :full_name, use: :slugged
+	#extend FriendlyId
+	#friendly_id :full_name, use: :slugged
 	
 	#@user = User.friendly.find(params[:id]) In controller
 	# Include default devise modules. Others available are:

@@ -45,11 +45,10 @@ module CommissionsHelper
 	def calculate_abandonment_commission(bank_name, credit_id, new_commission_rate)
 		begin 
 			new_commission_rate = new_commission_rate.to_f
-            #bank = Bank.find_by(name: bank_name)
-            bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
+            bank = Bank.find_by(name: bank_name)
 			old_commission_rate = bank.commission_percentage
             #commission = Commission.find_by(credit_id: credit_id)
-            commission = Commission.where(["credit_id = ? AND excercise_year_id = ?",  credit_id, current_excercise.id]).take
+            commission = Commission.where(["credit_identifier = ? AND excercise_year_id = ?",  credit_id, current_excercise.id]).take
 
 			contributor_name = commission.contributor_name.downcase 
 			producer_name = commission.producer_name.downcase 
@@ -442,8 +441,8 @@ module CommissionsHelper
 
                     # We get the bank infos.
                     if commission.bank_name
-                        #bank = Bank.find_by_name(commission.bank_name)
-                        bank = Bank.where(["name = ? AND excercise_year_id = ?", commission.bank_name, current_excercise.id]).take
+                        bank = Bank.find_by(name: commission.bank_name)
+                        #bank = Bank.where(["name = ? AND excercise_year_id = ?", commission.bank_name, current_excercise.id]).take
                     end
                     
 

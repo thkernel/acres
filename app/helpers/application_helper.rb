@@ -14,7 +14,7 @@ module ApplicationHelper
 	end
 
     def first_installment_payment_delay_expired?
-        true
+        false
     end
 	
 
@@ -67,8 +67,7 @@ module ApplicationHelper
 		
 	end
 	def get_bank_name(bank_id)
-        #bank = Bank.find(bank_id)
-        bank = Bank.where(["id = ? AND excercise_year_id = ?", bank_id, current_excercise.id]).take
+        bank = Bank.find(bank_id)
 		
 	end
 
@@ -127,8 +126,7 @@ module ApplicationHelper
 
 	def get_credit_hypoplus(credit_id)
 		
-        #credit = Credit.find_by(credit_id: credit_id)
-        credit = Credit.where(["credit_id = ? AND excercise_year_id = ?", credit_id, current_excercise.id] ).take
+        credit = Credit.find_by(identifier: credit_id)
 		credit.hypoplus
 		
 	end

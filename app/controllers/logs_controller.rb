@@ -5,6 +5,7 @@ class LogsController < ApplicationController
   helper LogsHelper
   # Include personnal shared utils.
   include SharedUtils
+  include SharedUtils::AppLogger
   
   layout "dashboard"
 
@@ -33,16 +34,26 @@ class LogsController < ApplicationController
   end
 
   def reset_all 
+    
     # Delete all bank.
     Bank.destroy_all
+
     producers = User.find_by_role("Producteur")
     producers.destroy_all
 	
     contributors = User.find_by_role("Apporteur")
     contributors.destroy_all
-    Credit.destroy_all
-    Commission.destroy_all
+
+    credits = Credit.where(excercise_year_id: current_excercise.id)
+    credits.destroy_all
+
+    commissions = Commission.where(excercise_year_id: current_excercise.id)
+    commissions.destroy_all
+
     Customer.destroy_all
+
+    Notary.destroy_all
+
 
     respond_to do |format|
       format.html { redirect_to dashboard_path, notice: 'Données supprimées avec succès!' }
@@ -197,13 +208,13 @@ class LogsController < ApplicationController
                # Insert the line in database,
                #user = User.new
                
-               
+               credit = Credit.new 
 
 
                # Begin insert a bank, before to insert bank we check if bank exist
                if row[cell[0]].present?
-                  
-                   current_credit = Credit.where(["identifier = ? AND excercise_year_id = ?",  Extractor.extract_numeric(row[cell[0]]), current_excercise.id]).take
+                    current_credit = Credit.find_by(identifier: Extractor.extract_numeric(row[cell[0]]))
+                   #current_credit = Credit.where(["identifier = ? AND excercise_year_id = ?",  Extractor.extract_numeric(row[cell[0]]), current_excercise.id]).take
                    if current_credit.present?
                        if current_credit.hypoplus.present?
                            next
@@ -220,7 +231,7 @@ class LogsController < ApplicationController
 
                # Begin insert a bank, before to insert bank we check if bank exist
                if row[cell[3]].present?
-                   current_customer = Customer.exists(row[cell[3]].downcase, current_excercise.id)
+                   current_customer = Customer.exists(row[cell[3]].downcase)
                    unless current_customer.present?
                        customer = Customer.new
                        customer.full_name = row[cell[3]].downcase if row[cell[3]].present?
@@ -233,7 +244,7 @@ class LogsController < ApplicationController
 
                # Begin insert a bank, before to insert bank we check if bank exist
                if row[cell[4]].present?
-                   current_bank = Bank.exists(row[cell[4]].downcase, current_excercise.id)
+                   current_bank = Bank.exists(row[cell[4]].downcase)
                    
                    # If bank exist.
                    unless  current_bank.present? 
@@ -297,7 +308,7 @@ class LogsController < ApplicationController
 
                if row[cell[8]].present?
                    
-                   current_notary = Notary.is_notary(row[cell[8]].downcase, current_excercise.id).present?
+                   current_notary = Notary.is_notary(row[cell[8]].downcase).present?
                    unless  current_notary.present?
                        notary = Notary.new
                        notary.full_name = row[cell[8]].downcase if row[cell[8]].present?
@@ -308,7 +319,8 @@ class LogsController < ApplicationController
                    end
                end
 
-               credit = Credit.new 
+               data_injection_logger.info("CREDIT ID: #{current_credit} SAVING...")
+               #credit = Credit.new 
                credit.identifier = current_credit
                credit.production_date = row[cell[1]] if row[cell[1]].present?
                credit.acte_date = row[cell[2]] if row[cell[2]].present?
@@ -321,7 +333,13 @@ class LogsController < ApplicationController
                credit.hypoplus = row[cell[9]] if row[cell[9]].present?
                credit.excercise_year_id = current_excercise.id
                credit.user_id = user.id 
-               credit.save
+               if credit.save
+               
+               data_injection_logger.info("CURRENT EXCERCISE: #{current_excercise.id}")
+               data_injection_logger.info("CREDIT WAS SAVED...")
+               else
+                data_injection_logger.info("CREDIT WAS NOT SAVED...")
+               end
                # End saving
                record_count += 1
            end

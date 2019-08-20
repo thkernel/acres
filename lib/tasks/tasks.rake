@@ -2,7 +2,7 @@
 include CalculateBankCommissionRateEvolution
 include CheckFirstInstallmentPaymentDelayExpired
 include SharedUtils::ExcerciseYearMixin
-include SharedUtils::CronLogger
+include SharedUtils::AppLogger
 
 namespace :tasks do
     

@@ -126,8 +126,8 @@ class CreditDetailsController < ApplicationController
 
 						if bank_name.present?
 							puts "BANQUE PRESENTE"
-							#bank = Bank.find_by(name: bank_name)
-							bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
+							bank = Bank.find_by(name: bank_name)
+							#bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
 
 							if bank.present?
 								bank_commission_percentage = bank.commission_percentage 

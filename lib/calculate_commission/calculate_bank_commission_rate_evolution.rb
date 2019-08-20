@@ -39,8 +39,8 @@ module CalculateBankCommissionRateEvolution
 
                     if start_date == system_current_date
                     
-                        #bank = Bank.find(record.bank_id)
-                        bank = Bank.where(["id = ? AND excercise_year_id = ? ", record.bank_id, current_excercise.id]).take
+                        bank = Bank.find(record.bank_id)
+                        #bank = Bank.where(["id = ? AND excercise_year_id = ? ", record.bank_id, current_excercise.id]).take
 
                         if bank.present? 
                             commissions = Commission.where(["bank_name = ? AND excercise_year_id = ?",  bank.name.downcase, current_excercise.id]).where("production_date is not null")

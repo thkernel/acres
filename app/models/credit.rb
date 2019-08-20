@@ -29,7 +29,7 @@
 #
 
 class Credit < ApplicationRecord
-    require 'csv'
+    #require 'csv'
 
     belongs_to :user
     belongs_to :excercise_year
@@ -38,7 +38,7 @@ class Credit < ApplicationRecord
 
 
     validates :identifier, presence: true, uniqueness: true
-    validates :bank_id, presence: true
+    #validates :bank_id, presence: true
 
     #scope :name, -> { where(:attibute => value)}
     # Ex:- scope :active, -> {where(:active => true)}

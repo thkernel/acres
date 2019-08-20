@@ -10,7 +10,7 @@ class BanksController < ApplicationController
   # GET /banks.json
   def index
    
-      @banks = Bank.where(excercise_year_id: current_excercise.id)
+      @banks = Bank.all
     
   end
 

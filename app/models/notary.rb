@@ -21,8 +21,8 @@ class Notary < ApplicationRecord
 	validates_presence_of :full_name
 
     # Find users by roles and authors.
-	def self.is_notary(full_name, current_excercise)
-		where("full_name = ? AND excercise_year_id = ?",  full_name, current_excercise)
+	def self.is_notary(full_name)
+		where("full_name = ? ",  full_name)
 	end
 
 
