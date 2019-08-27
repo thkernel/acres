@@ -83,29 +83,33 @@ Paiements'), payments_path %>
 						Paramètres</a>
 						<ul id="exampledropdownDropdown" class="collapse list-unstyled">
 							<li>
-									<%= link_to raw('<i class="fa fa-calendar" aria-hidden="true"></i> Excercices'), excercise_years_path %>
-								</li>
+								<%= link_to raw('<i class="fa fa-calendar" aria-hidden="true"></i> Excercices'), excercise_years_path %>
+							</li>
 
-								<li>
-									<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
-								</li>
-								<li>
-                <%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i>Banques'), banks_path %>
-			</li>
+							<li>
+								<%= link_to raw('<i class="fa fa-user" aria-hidden="true"></i> Utilisateurs'), all_users_path %>
+							</li>
+							<li>
+                				<%= link_to raw('<i class="fa fa-university" aria-hidden="true"></i>Banques'), banks_path %>
+							</li>
 							
 					
-							<li><%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
+							<li>
+								<%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
 									Société'), show_company_path(current_company) %>
 							</li>
 
-							<li><%= link_to raw('<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+							<li>
+							<%= link_to raw('<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
 									Délais paiements'), payment_delays_path %>
 							</li>
-							<li><%= link_to raw('<i class="fa fa-database" aria-hidden="true"></i>
+							<li>
+								<%= link_to raw('<i class="fa fa-database" aria-hidden="true"></i>
 									Backup'), show_backup_path %>
 							</li>
 
-							<li><%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
+							<li>
+								<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
 									Réinitialisation'), get_reset_configuration_path, remote: true %>
 							</li>
                             

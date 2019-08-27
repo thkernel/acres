@@ -38,8 +38,10 @@
                                         <table class="table table-striped">
                                             <tbody>
                                             <p>
+                                            <%= form_with(url: backup_database_path, local: true) do |form| %>
                                                 <div class="form-group">
-    <%= button_to "Commencer",  backup_database_path,  class: "btn btn-danger btn-block",   autocomplete: "off" %>
+    <%= form.button "Commencer",  class: "btn btn-danger btn-block"%>
+<% end %>
 </p>
   </div>
                                             </tbody>
