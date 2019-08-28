@@ -14,7 +14,6 @@ class AdministrationsController < ApplicationController
         # Download the last file of the array
         download_file("#{files.last}")
 
-        
       
          
     end
