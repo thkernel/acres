@@ -7,6 +7,7 @@ end
 
 
 Rails.application.routes.draw do
+  resources :borderaus
   resources :monthly_payment_delay_expireds
   resources :first_installment_payment_delay_expireds
 	post "excercise_years/change_current_excercise" => "excercise_years#change_current_excercise"

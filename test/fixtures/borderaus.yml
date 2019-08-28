@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  installment: 1
+  file_name: MyString
+  credit_identifier: MyString
+  excercise_year_id: one
+
+two:
+  name: MyString
+  installment: 1
+  file_name: MyString
+  credit_identifier: MyString
+  excercise_year_id: two

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190809113543) do
+ActiveRecord::Schema.define(version: 20190828070315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,17 @@ ActiveRecord::Schema.define(version: 20190809113543) do
     t.bigint "excercise_year_id"
     t.index ["excercise_year_id"], name: "index_banks_on_excercise_year_id"
     t.index ["user_id"], name: "index_banks_on_user_id"
+  end
+
+  create_table "borderaus", force: :cascade do |t|
+    t.string "name"
+    t.integer "installment"
+    t.string "file_name"
+    t.string "credit_identifier"
+    t.bigint "excercise_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["excercise_year_id"], name: "index_borderaus_on_excercise_year_id"
   end
 
   create_table "commission_settings", force: :cascade do |t|
@@ -442,6 +453,7 @@ ActiveRecord::Schema.define(version: 20190809113543) do
   add_foreign_key "bank_commission_rate_trackers", "users"
   add_foreign_key "banks", "excercise_years"
   add_foreign_key "banks", "users"
+  add_foreign_key "borderaus", "excercise_years"
   add_foreign_key "commission_settings", "excercise_years"
   add_foreign_key "commission_settings", "users"
   add_foreign_key "commissions", "excercise_years"
