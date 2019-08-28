@@ -12,12 +12,15 @@ class CreditDetailsController < ApplicationController
     query = params[:id] 
 	
 		calculate_payment_installment(query, "producer")
+		@borderaus = Borderau.where(credit_identifier: query)
+
   end
 
   def contributor_credit_details
     
     query = params[:id] 
 		calculate_payment_installment(query, "contributor")
+		@borderaus = Borderau.where(credit_identifier: query)
 	end
 	
 
