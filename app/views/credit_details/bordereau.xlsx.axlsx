@@ -1,0 +1,19 @@
+
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Bordereau") do |sheet|
+  sheet.add_row 
+  sheet.add_row ["Bordereau de commission de la société #{Company.take.name} du #{Time.now}"]
+  sheet.add_row 
+  sheet.add_row ["Apporteur/producteur :", "" ]
+
+  credit_details.each do |credit_detail|
+    sheet.add_row [credit_detail.id, credit_detail.identifier]
+  end
+
+  sheet.add_row ["TOTAL DOSSIER", "" ]
+  sheet.add_row 
+  sheet.add_row ["Tranche:", "" ]
+  sheet.add_row 
+  sheet.add_row ["Nom du  client :" ]
+
+end

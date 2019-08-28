@@ -9,6 +9,8 @@ class BorderausController < ApplicationController
     @borderaus = Borderau.all
   end
 
+  
+
   # GET /borderaus/1
   # GET /borderaus/1.json
   def show

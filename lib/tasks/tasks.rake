@@ -1,6 +1,7 @@
 # Include calculate commission module
 include CalculateBankCommissionRateEvolution
 include CheckFirstInstallmentPaymentDelayExpired
+include GenerateBordereau
 include SharedUtils::ExcerciseYearMixin
 include SharedUtils::AppLogger
 
@@ -51,5 +52,29 @@ namespace :tasks do
         
 
         cron_logger.info("======== CRON: CHECK FIRST INSTALLMENT PAYMENT DELAY EXPIRED, AT: #{Time.now} ===========")
+    end
+
+    desc "Generate borderaux to xls file"
+    task generate_bordereau: :environment do
+
+        tenants = Apartment.tenant_names
+        puts "Tenants: #{tenants}" 
+
+        tenants.each do |tenant|
+            Apartment::Tenant.switch(tenant) do
+                if openned_excercise
+                    #puts "Yes, #{openned_excercise.id}"
+                    puts "CURRENT TENANT: #{tenant}"
+                   generate_bordereau(openned_excercise.id)
+                else
+                    # Next Tenant
+                    next
+                end
+
+            end
+        end 
+        
+
+        cron_logger.info("======== CRON: BORDEREAU EXPORTED: #{Time.now} ===========")
     end
 end
