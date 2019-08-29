@@ -7,13 +7,14 @@ wb.add_worksheet(name: "Bordereau") do |sheet|
   sheet.add_row ["Apporteur/producteur :", "" ]
 
   credit_details.each do |credit_detail|
-    sheet.add_row [credit_detail.id, credit_detail.identifier]
+    sheet.add_row [credit_detail.installment_payment, credit_detail.commission]
   end
 
-  sheet.add_row ["TOTAL DOSSIER", "" ]
+  sheet.add_row ["TOTAL DU DOSSIER N° #{credit_identifier}", "" ]
   sheet.add_row 
   sheet.add_row ["Tranche:", "" ]
   sheet.add_row 
-  sheet.add_row ["Nom du  client :" ]
+  sheet.add_row ["Nom du  client : #{customer}" ]
+  sheet.add_row ["Total général de ce bordereau", ""]
 
 end

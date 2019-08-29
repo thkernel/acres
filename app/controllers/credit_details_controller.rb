@@ -6,16 +6,9 @@ class CreditDetailsController < ApplicationController
   layout "dashboard"
 
 
-	def current_company
 	
-		company = Company.take
-		if company.present?
-			company
-		end
-		
-	end
 
-	
+
   # GET /credit_details
   # GET /credit_details.json
   def producer_credit_details

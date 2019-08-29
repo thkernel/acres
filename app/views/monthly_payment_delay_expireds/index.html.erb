@@ -1,16 +1,29 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Monthly Payment Delay Expireds</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="index-heading pull-left">
+      <h3>Liste des paiements mensuels  </h3>
+      </div>
+  <div class="pull-right">
+  
+    </div>
+    </div>
+ </div>
+  <div class="row">
+ <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table id="table-list" class="table table-striped table-bordered table-hover">
 
-<table>
+
   <thead>
     <tr>
-      <th>Credit identifier</th>
+      <th>N°Crédit</th>
       <th>Expiration date</th>
-      <th>Installment identifier</th>
-      <th>Commission amount</th>
-      <th>User</th>
-      <th colspan="3"></th>
+      <th>Tranche</th>
+      <th>Commission</th>
+     
     </tr>
   </thead>
 
@@ -21,15 +34,15 @@
         <td><%= monthly_payment_delay_expired.expiration_date %></td>
         <td><%= monthly_payment_delay_expired.installment_identifier %></td>
         <td><%= monthly_payment_delay_expired.commission_amount %></td>
-        <td><%= monthly_payment_delay_expired.user %></td>
-        <td><%= link_to 'Show', monthly_payment_delay_expired %></td>
-        <td><%= link_to 'Edit', edit_monthly_payment_delay_expired_path(monthly_payment_delay_expired) %></td>
-        <td><%= link_to 'Destroy', monthly_payment_delay_expired, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       
+       
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
+    </div>
+  </div>
+</div>
+</div>
 
-<br>
-
-<%= link_to 'New Monthly Payment Delay Expired', new_monthly_payment_delay_expired_path %>

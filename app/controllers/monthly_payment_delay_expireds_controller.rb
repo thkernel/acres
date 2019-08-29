@@ -1,5 +1,8 @@
 class MonthlyPaymentDelayExpiredsController < ApplicationController
+  before_action :authenticate_user!
+
   before_action :set_monthly_payment_delay_expired, only: [:show, :edit, :update, :destroy]
+  layout "dashboard"
 
   # GET /monthly_payment_delay_expireds
   # GET /monthly_payment_delay_expireds.json
