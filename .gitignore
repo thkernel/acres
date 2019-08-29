@@ -22,3 +22,4 @@
 /db/backups
 .byebug_history
 /db/backups
+/public/exportations/
