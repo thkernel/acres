@@ -71,6 +71,6 @@ class FirstInstallmentPaymentDelayExpiredsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def first_installment_payment_delay_expired_params
-      params.require(:first_installment_payment_delay_expired).permit(:credit_id, :expiration_date, :first_installment_percentage, :installment, :installment_amount, :credit_amount, :status, :user_id)
+      params.require(:first_installment_payment_delay_expired).permit(:credit_identifier, :expiration_date, :installment_identifier, :commission_amount, :user_id)
     end
 end

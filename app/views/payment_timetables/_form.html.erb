@@ -1,0 +1,32 @@
+<%= form_with(model: payment_timetable, local: true) do |form| %>
+  <% if payment_timetable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(payment_timetable.errors.count, "error") %> prohibited this payment_timetable from being saved:</h2>
+
+      <ul>
+      <% payment_timetable.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.text_field :type, id: :payment_timetable_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :credit_identifier %>
+    <%= form.text_field :credit_identifier, id: :payment_timetable_credit_identifier %>
+  </div>
+
+  <div class="field">
+    <%= form.label :excercise_year_id %>
+    <%= form.text_field :excercise_year_id, id: :payment_timetable_excercise_year_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -54,10 +54,14 @@
         <td><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
 
         <td class="blue-amount"><%= number_to_currency commission.producer_commission, unit: "", seperator: ",", delimiter: "." %></td>
-        <td>
+        <!-- <td>
         <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
 '), show_producer_credit_details_path(commission.credit_identifier) %>
-        </td>
+        </td> -->
+        <td>
+          <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
+  '), show_producer_payment_timetable_details_path(commission.credit_identifier) %>
+          </td>
       </tr>
     <% end %>
   </tbody>

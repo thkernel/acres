@@ -13,14 +13,14 @@ module CheckMonthlyInstallmentPaymentDelayExpired
 
         monthly_installments_config = PaymentDelay::MONTHLY_INSTALLMENTS
 
-        puts "MONTHLY PAYMENT CONFIG:#{monthly_installments_config}"
+        #puts "MONTHLY PAYMENT CONFIG:#{monthly_installments_config}"
 
         if payment_delays_config
            
-            puts "PAYMENT DELAYS CONFIG:#{payment_delays_config.inspect}"
+            #puts "PAYMENT DELAYS CONFIG:#{payment_delays_config.inspect}"
     
             monthly_installment = payment_delays_config.monthly_installments
-            puts "MONTHLY_INSTALLMENTS: #{monthly_installment}"
+            #puts "MONTHLY_INSTALLMENTS: #{monthly_installment}"
            
         else
             puts "EXITING..."
@@ -46,11 +46,11 @@ module CheckMonthlyInstallmentPaymentDelayExpired
                     expiration_date = nil
 
                     # Mois suivant (+15 jours)
-                    puts "CURRENT VALUE: #{monthly_installments_config[1][0]}"
+                    #puts "CURRENT VALUE: #{monthly_installments_config[1][0]}"
                     if monthly_installment.present? && monthly_installment == monthly_installments_config[0][0]
                         
                         
-                        puts "Mois suivant (+15 jours)" 
+                        #puts "Mois suivant (+15 jours)" 
 
                         #Add +15jours
                         expiration_date = acte_date + 15.day
@@ -58,12 +58,12 @@ module CheckMonthlyInstallmentPaymentDelayExpired
                        # Add 1 month
                         expiration_date = expiration_date + 1.month
                         expiration_date = expiration_date.strftime("%d/%m/%Y")
-                        puts "Expiration date: #{expiration_date.strftime("%d/%m/%Y")}"
+                        #puts "Expiration date: #{expiration_date.strftime("%d/%m/%Y")}"
 
 
                     # +1 Mois et 15 jours
                     elsif monthly_installment.present? && monthly_installment == monthly_installments_config[2][0]
-                        puts "+1 Mois et 15 jours"
+                        #puts "+1 Mois et 15 jours"
 
                          #Add +15jours
                          expiration_date = acte_date + 15.day
@@ -71,41 +71,63 @@ module CheckMonthlyInstallmentPaymentDelayExpired
                          # Add 1 month
                           expiration_date = expiration_date + 1.month
                           expiration_date = expiration_date.strftime("%d/%m/%Y")
-                          puts "Expiration date: #{expiration_date.strftime("%d/%m/%Y")}"
+                          #puts "Expiration date: #{expiration_date.strftime("%d/%m/%Y")}"
 
                     #Fin du 2ème mois
                     elsif monthly_installment.present? && monthly_installment == monthly_installments_config[3][0]
-                        puts "Fin du 2ème mois"
+                        #puts "Fin du 2ème mois"
 
                         # Add 1 month
                         expiration_date = acte_date + 2.month
                         expiration_date = expiration_date.end_of_month.strftime("%d/%m/%Y")
-                        puts "Expiration date: #{expiration_date.strftime("%d/%m/%Y")}"
+                        #puts "Expiration date: #{expiration_date.strftime("%d/%m/%Y")}"
 
                     end
 
                     # If expired, add credit to the expiration table.
                     #if current_date == expiration_date
                         #Get credit details
-                        credit_details = CreditDetail.where(["excercise_year_id = ? AND credit_identifier = ? AND installment_payment <> ?", current_excercise, credit.identifier, "Première tranche"])
-                        
-                        if credit_details
-                            credit_details.each do |credit_detail|
-                                #if  credit_details.paid_by_bank == "Oui"
+                        #credit_details = CreditDetail.where(["excercise_year_id = ? AND credit_identifier = ? AND installment_payment <> ?", current_excercise, credit.identifier, "Première tranche"])
+                        payment_timetables = PaymentTimetable.where(["excercise_year_id = ? AND credit_identifier = ?", current_excercise, credit.identifier.to_s])
 
-                                    #generate_bordereau(credit.identifier, credit_details.installment_payment, current_excercise)
+                        if payment_timetables
+                            payment_timetables.each do |payment_timetable|
+                                payment_timetable_details = PaymentTimetableDetail.where(["payment_timetable_id = ? AND paid_by_bank = ? AND installment_payment <> ?",  payment_timetable.id,  "Oui",  "Première tranche"])
+                                #puts "PAYMENT TIMETABLE DETAILS: #{payment_timetable_details.inspect}"
+                                i = 0
+                                payment_timetable_details.each do |payment_timetable_detail|
+                                    
+                                    #if  payment_timetable_detail.paid_by_bank == "Oui"
 
-                                    #monthly_installment_delay_expired = MonthlyPaymentDelayExpired.new
-                                    #monthly_installment_delay_expired.credit_identifier = credit.identifier
-                                    #monthly_installment_delay_expired.expiration_date = expiration_date
-                                    #monthly_installment_delay_expired.credit_amount = credit.amount
-                                    #monthly_installment_delay_expired.installment_amount = credit_details.commission
-                                    #monthly_installment_delay_expired.user_id = current_user.id
-                                    #monthly_installment_delay_expired.save
+                                        monthly_payment_delay_expireds = MonthlyPaymentDelayExpired.where(["credit_identifier = ? AND excercise_year_id = ? AND target = ? AND installment = ?", credit.identifier, current_excercise, payment_timetable.target, payment_timetable_detail.installment_payment ])
+                                        
+                                        unless monthly_payment_delay_expireds.present?
+                                            monthly_installment_delay_expired = MonthlyPaymentDelayExpired.new
+                                            monthly_installment_delay_expired.installment = payment_timetable_detail.installment_payment
+                                            monthly_installment_delay_expired.credit_identifier = payment_timetable.credit_identifier
+                                            monthly_installment_delay_expired.expiration_date = expiration_date
+                                            monthly_installment_delay_expired.target = payment_timetable.target
+                                            monthly_installment_delay_expired.payment_amount = payment_timetable_detail.commission
+                                            monthly_installment_delay_expired.excercise_year_id = current_excercise
 
-                                #end
+                                            monthly_installment_delay_expired.user_id = credit.user_id
+                                            
+                                            if generate_bordereau?(credit, payment_timetable, payment_timetable_detail, current_excercise)
 
-                                generate_bordereau(credit.identifier, credit.customer_name, credit_detail.installment_payment, current_excercise)
+                                                monthly_installment_delay_expired.save
+                                            end
+
+                                            i+= 1
+                                            
+                                            puts "BORDERAU N°: #{i}"
+                                            puts "PAYMENT TIMETABLE DETAILS: #{payment_timetable_detail.inspect}"
+
+                                        end
+
+                                    #end
+                                   
+                                end
+
 
                             end
                         end

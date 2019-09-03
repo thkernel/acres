@@ -1,0 +1,25 @@
+<% if @payment_timetable_details.present? %>
+<% @payment_timetable_details.each do |payment_timetable_detail| %>
+  <tr>
+      <!--<td>payment_timetable_detail.id </td>-->
+
+    <td><%= payment_timetable_detail.installment_payment %></td>
+    <td><%= payment_timetable_detail.installment_date.strftime("%d/%m/%Y") if payment_timetable_detail.installment_date %></td>
+    <td><%= credit_customer_name_from_payment_timetable(payment_timetable_detail.payment_timetable_id).humanize %></td>
+    <td class="blue-amount"><%= number_to_currency payment_timetable_detail.commission, unit: "", seperator: ",", delimiter: "." %></td>
+    <td class="blue-amount"><%= number_to_currency payment_timetable_detail.cumulative_amount, unit: "", seperator: ",", delimiter: "." %></td>
+    <% if is_admin? %>
+		<td><%= payment_timetable_detail.paid_by_bank %></td>
+		<td><%= payment_timetable_detail.paid_to_contributor_or_producer %></td>
+    
+		<td>
+			<div class="action-buttons">
+				<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_payment_timetable_detail_path(payment_timetable_detail), title: "Modifier", remote: true %>
+				<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
+'), payment_timetable_detail_delete_path(payment_timetable_detail), remote: true, title: "Supprimer", class: "delete" %>
+</div>
+</td>
+	<% end %>
+	</tr>
+<% end %>
+<% end %>

@@ -7,6 +7,11 @@ end
 
 
 Rails.application.routes.draw do
+	resources :payment_timetable_details do   
+		get "delete"
+	end
+	
+  resources :payment_timetables
   resources :borderaus
   resources :monthly_payment_delay_expireds
   resources :first_installment_payment_delay_expireds
@@ -144,7 +149,12 @@ Rails.application.routes.draw do
 
 	get 'show/producer/credit/details/:id' => 'credit_details#producer_credit_details', as: :show_producer_credit_details
 	get 'show/contributor/credit/details/:id' => 'credit_details#contributor_credit_details', as: :show_contributor_credit_details
+	
+	get 'show/contributor/credit/payment/timetable/:id' => 'payment_timetable_details#contributor_payment_timetable_details', as: :show_contributor_payment_timetable_details
+	get 'show/producer/credit/payment/timetable/:id' => 'payment_timetable_details#producer_payment_timetable_details', as: :show_producer_payment_timetable_details
+
 	get 'credit/payments/:id' => 'credit_details#credit_payments_details', as: :credit_payments_details
+	get "download/files/bordereaux/:file_name" => "credit_details#download_bordereau", as: :download_bordereau
 
 	#get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
 	get '/manager/new' => 'managers#new', as: :new_manager

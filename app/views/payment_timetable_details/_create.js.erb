@@ -1,0 +1,10 @@
+$("ul.errors").html("");
+<% if @payment_timetable_detail.errors.any? %>
+  <% @payment_timetable_detail.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
+  <% end %>
+<% else %>
+  $(".payment-timetable-details").html("<%= escape_javascript(render 'index') %>");
+  $("#payment-timetable-details-modal").modal("hide");
+ 
+<% end %>

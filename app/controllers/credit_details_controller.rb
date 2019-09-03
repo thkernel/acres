@@ -7,7 +7,13 @@ class CreditDetailsController < ApplicationController
 
 
 	
-
+	def download_bordereau
+		send_file(
+			"#{Rails.root}/public/exportations/bordereaux/#{params[:file_name]}.xlsx",
+			filename: "#{params[:file_name]}.xlsx",
+			type: "application/xlsx"
+		)
+	end
 
   # GET /credit_details
   # GET /credit_details.json

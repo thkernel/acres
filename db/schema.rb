@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190828070315) do
+ActiveRecord::Schema.define(version: 20190902124936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -268,10 +268,11 @@ ActiveRecord::Schema.define(version: 20190828070315) do
   create_table "first_installment_payment_delay_expireds", force: :cascade do |t|
     t.bigint "credit_identifier"
     t.datetime "expiration_date"
-    t.float "first_installment_percentage", default: 0.0
-    t.float "installment_amount", default: 0.0
-    t.float "credit_amount", default: 0.0
+    t.string "installment"
+    t.string "target"
+    t.float "payment_amount", default: 0.0
     t.string "status"
+    t.bigint "excercise_year_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -324,12 +325,15 @@ ActiveRecord::Schema.define(version: 20190828070315) do
   create_table "monthly_payment_delay_expireds", force: :cascade do |t|
     t.bigint "credit_identifier"
     t.datetime "expiration_date"
-    t.bigint "installment_identifier"
+    t.string "installment"
+    t.string "target"
     t.float "payment_amount", default: 0.0
     t.string "status"
+    t.bigint "excercise_year_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["excercise_year_id"], name: "index_monthly_payment_delay_expireds_on_excercise_year_id"
     t.index ["user_id"], name: "index_monthly_payment_delay_expireds_on_user_id"
   end
 
@@ -354,6 +358,29 @@ ActiveRecord::Schema.define(version: 20190828070315) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_payment_delays_on_user_id"
+  end
+
+  create_table "payment_timetable_details", force: :cascade do |t|
+    t.bigint "payment_timetable_id"
+    t.string "installment_payment"
+    t.date "installment_date"
+    t.float "commission", default: 0.0
+    t.float "cumulative_amount", default: 0.0
+    t.string "paid_by_bank", default: "Non"
+    t.string "paid_to_contributor_or_producer", default: "Non"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_timetable_id"], name: "index_payment_timetable_details_on_payment_timetable_id"
+  end
+
+  create_table "payment_timetables", force: :cascade do |t|
+    t.string "target"
+    t.string "credit_identifier"
+    t.bigint "excercise_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["excercise_year_id"], name: "index_payment_timetables_on_excercise_year_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -470,10 +497,13 @@ ActiveRecord::Schema.define(version: 20190828070315) do
   add_foreign_key "logs", "excercise_years"
   add_foreign_key "logs", "users"
   add_foreign_key "mail_configurations", "users"
+  add_foreign_key "monthly_payment_delay_expireds", "excercise_years"
   add_foreign_key "monthly_payment_delay_expireds", "users"
   add_foreign_key "notaries", "excercise_years"
   add_foreign_key "notaries", "users"
   add_foreign_key "payment_delays", "users"
+  add_foreign_key "payment_timetable_details", "payment_timetables"
+  add_foreign_key "payment_timetables", "excercise_years"
   add_foreign_key "profiles", "users"
   add_foreign_key "user_commission_editions", "commission_settings"
   add_foreign_key "user_commission_editions", "users"
