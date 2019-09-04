@@ -13,11 +13,15 @@
 		<td><%= payment_timetable_detail.paid_to_contributor_or_producer %></td>
     
 		<td>
+      	<% unless closed_excercise?(session[:current_excercise])  %>
+
 			<div class="action-buttons">
 				<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_payment_timetable_detail_path(payment_timetable_detail), title: "Modifier", remote: true %>
 				<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
 '), payment_timetable_detail_delete_path(payment_timetable_detail), remote: true, title: "Supprimer", class: "delete" %>
+
 </div>
+<% end %>
 </td>
 	<% end %>
 	</tr>

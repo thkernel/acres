@@ -96,7 +96,7 @@ class DashboardController < ApplicationController
 	
 	
 	def load_session
-		session[:current_excercise] = nil
+		#session[:current_excercise] = nil
 		if request.subdomain.present? && request.subdomain != 'www'   
 			if current_user.role == "Admin"
 
@@ -105,10 +105,12 @@ class DashboardController < ApplicationController
 				if excercise_exist?
 					puts "EXCERCISE EXIST"
 					if excercise_openned?
-						session[:current_excercise] = openned_excercise.id
-						puts "HUMMM SESSION ID: #{session[:current_excercise]}"
-						#redirect_to dashboard_path
-						#dashboard_path
+						unless session[:current_excercise]
+							session[:current_excercise] = openned_excercise.id
+							puts "HUMMM SESSION ID: #{session[:current_excercise]}"
+							#redirect_to dashboard_path
+							#dashboard_path
+						end
 					else
 						excercise_years_path
 					end

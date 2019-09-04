@@ -39,7 +39,7 @@
 				<%= render('layouts/partials/smtp_alert') %>
 			<% end %>
 		<% if is_admin? %>
-			
+			<%= render('layouts/partials/onclosed_excercise_alert') %>
 			<%= render('layouts/partials/unregistered_alert') %>
 			<%= render('layouts/partials/first_installment_payment_delay_expireds_alert') %>
 		<% end %>

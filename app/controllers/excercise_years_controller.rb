@@ -15,7 +15,8 @@ class ExcerciseYearsController < ApplicationController
   end
 
   def change_current_excercise
-    puts "HELLO"
+    puts "HELLO: #{params[:current_excercise]}"
+    session[:current_excercise] = params[:current_excercise]
     redirect_to dashboard_path
   end
 

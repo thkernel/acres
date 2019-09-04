@@ -14,11 +14,13 @@
         <td><%= commission.notary_name.humanize if commission.notary_name %></td>
         
         <td>
-         
-            <div class="action-buttons">
-              <%= link_to 'Abandon', get_abandon_path(commission.credit_identifier), title: "Abandon de  commission", remote: true %>
+         		<% unless closed_excercise?(session[:current_excercise])  %>
 
-            </div>
+              <div class="action-buttons">
+                <%= link_to 'Abandon', get_abandon_path(commission.credit_identifier), title: "Abandon de  commission", remote: true %>
+
+              </div>
+            <% end %>
          
         </td>
         

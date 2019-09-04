@@ -30,4 +30,13 @@ module ExcerciseYearsHelper
            
         
     end
+
+    def closed_excercise?(current_excercise_year_id)
+        excercise = ExcerciseYear.find(current_excercise_year_id)
+        if excercise.present? && excercise.status == "Close"
+            true
+        else
+            false 
+        end
+    end
 end
