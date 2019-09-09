@@ -1,7 +1,7 @@
 <div class="container">
 
 <% if is_admin? || is_superadmin? %>
-    <% if closed_excercise?(session[:current_excercise])  %>
+    <% if session[:current_excercise] && closed_excercise?(session[:current_excercise])  %>
 
             <div class="alert alert-danger" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">

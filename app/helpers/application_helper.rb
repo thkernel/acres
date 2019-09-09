@@ -25,8 +25,8 @@ module ApplicationHelper
 		status = false
 		users.each do |user_id|
 			
-            #user_commission_percentage = CommissionSetting.find_by(user_id: user_id)
-            user_commission_percentage = CommissionSetting.where(["user_id = ? AND excercise_year_id = ?",  user_id, current_excercise.id]).take
+            user_commission_percentage = CommissionSetting.find_by(user_id: user_id)
+            #user_commission_percentage = CommissionSetting.where(["user_id = ? AND excercise_year_id = ?",  user_id, current_excercise.id]).take
 
 
 			if user_commission_percentage.present?

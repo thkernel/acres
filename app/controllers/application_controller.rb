@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
-	
+	include CheckExcerciseYearConcern
 	  protect_from_forgery with: :exception
 	
 	#before_action :configure_permitted_parameters, if: :devise_controller?
 	#before_action :set_global
 	#before_action :app_setup
+	
 	
 	
 	

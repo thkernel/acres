@@ -3,7 +3,8 @@ class DashboardController < ApplicationController
 	before_action :authenticate_user!
 	before_action :create_company
 	#before_action :if_excercise_year
-	before_action :load_session
+	#before_action :load_session
+	before_action :current_excercise_year
 
 
 	layout 'dashboard'

@@ -1,6 +1,8 @@
 require 'creek'
 class LogsController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_excercise_year
+
   before_action :set_log, only: [:show, :edit, :update, :destroy]
   helper LogsHelper
   # Include personnal shared utils.
