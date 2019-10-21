@@ -1,5 +1,7 @@
 class NotariesController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_excercise_year
+
   before_action :set_notary, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
 

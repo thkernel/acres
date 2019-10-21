@@ -1,5 +1,7 @@
 class CustomUsersController < ApplicationController
-    before_action :authenticate_user!
+		before_action :authenticate_user!
+		before_action :current_excercise_year
+
     before_action :set_user, only: [:show, :edit, :update, :destroy] # probably want to keep using this
     layout "dashboard"
     

@@ -1,6 +1,8 @@
 class CreditDetailsController < ApplicationController
   # This controller is reserved for all user authenticate users
-  before_action :authenticate_user!
+	before_action :authenticate_user!
+	before_action :current_excercise_year
+
   
   before_action :set_credit_detail, only: [:show, :edit, :update, :destroy]
   layout "dashboard"

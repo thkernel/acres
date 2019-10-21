@@ -1,5 +1,6 @@
 class BorderausController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_excercise_year
   layout "dashboard"
   before_action :set_borderau, only: [:show, :edit, :update, :destroy]
 

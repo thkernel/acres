@@ -1,6 +1,8 @@
 class CommissionsController < ApplicationController
 	# This controller is reserved for all user authenticate users
 	before_action :authenticate_user!
+	before_action :current_excercise_year
+
 
 	# Calling set_commion methode on before action to initialize commissions variable.
 	before_action :set_commission, only: [:show, :edit, :update, :destroy]

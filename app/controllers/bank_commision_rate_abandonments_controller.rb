@@ -1,5 +1,6 @@
 class BankCommissionRateAbandonmentController < ApplicationController
     before_action :authenticate_user!
+    before_action :current_excercise_year
     before_action :set_bank_commission_rate_abandonment, only: [:show, :edit, :update, :destroy]
 
 

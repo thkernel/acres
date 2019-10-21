@@ -1,5 +1,6 @@
 class BankCommissionEditionsController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_excercise_year
   before_action :set_bank_commission_edition, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
   # GET /bank_commission_editions

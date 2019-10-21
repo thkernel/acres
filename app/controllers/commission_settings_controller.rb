@@ -1,4 +1,6 @@
 class CommissionSettingsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :current_excercise_year
   before_action :set_commission_setting, only: [:show, :edit, :update, :destroy]
 
   # GET /commission_settings
