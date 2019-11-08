@@ -23,9 +23,10 @@ class CommissionsController < ApplicationController
 
 		@credit_identifier = params[:identifier]
 		commission = Commission.where(["excercise_year_id = ? AND credit_identifier = ? ",  current_excercise.id, @credit_identifier]).take
+		
 		bank_name = commission.bank_name
-		#@bank = Bank.find_by(name: bank_name)
-		@bank = Bank.where(["name = ? AND excercise_year_id = ?", bank_name, current_excercise.id]).take
+		@bank = Bank.find_by(name: bank_name)
+		#@bank = Bank.where(["name = ? AND excercise_year_id = ?", bank_name, current_excercise.id]).take
 
 		puts "CREDIT ID: #{@credit_id}"
 	end

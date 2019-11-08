@@ -3,16 +3,24 @@
 <% @banks.each do |bank| %>
       <tr>
         <td><%= bank.name.humanize %></td>
-        <td><%= bank.commission_percentage %></td>
-        <td><%= bank.number_of_dates %></td>
-        <td><%= bank.first_installment %></td>
-        <td><%= bank.number_of_remaining_days %></td>
-        <td><%= bank.hypoplus_commission_percentage %></td>
+        <td><%= current_bank_setting(bank).commission_percentage if current_bank_setting(bank) %></td>
+        <td><%= current_bank_setting(bank).number_of_dates if current_bank_setting(bank) %></td>
+        <td><%= current_bank_setting(bank).first_installment if current_bank_setting(bank) %></td>
+        <td><%= current_bank_setting(bank).number_of_remaining_days if current_bank_setting(bank) %></td>
+        <td><%= current_bank_setting(bank).hypoplus_commission_percentage if current_bank_setting(bank) %></td>
         
         <td>
 					<div class="action-buttons">
-					<%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>
+					  <%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>
 '), edit_bank_path(bank), title: "Modifier", remote: true %>
+
+<% if have_bank_settings?(bank) %>
+	<%= link_to raw('<i class="fa fa-cog" aria-hidden="true"></i>
+'), edit_bank_setting_path(current_bank_setting(bank).id), title: "Paramètres commissions", remote: true %>
+<% else %>
+<%= link_to raw('<i class="fa fa-cog" aria-hidden="true"></i>
+'), new_bank_setting_path(bank_id: bank.id), title: "Paramètres commissions", remote: true %>
+<% end %>
 					<%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>
 '), bank_delete_path(bank.id), remote: true, title: "Supprimer", class: "delete" %>
 </div>

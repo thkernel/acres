@@ -10,12 +10,12 @@
   <ul class="errors"></ul>
   Etes-vous sûr de vouloir supprimer cet client?
   <p>
-  E-mail: <b> <%= @customer.first_name %></b>
+  E-mail: <b> <%= @customer.full_name %></b>
   </p>
   </div>
   <div class="modal-footer">
     <%= link_to "Non", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
-    <%= link_to "Oui", delete_customer_path(@customer), method: :delete, remote: true, class: "btn btn-danger" %>
+    <%= link_to "Oui", customer_path(@customer), method: :delete, remote: true, class: "btn btn-danger" %>
   </div>
   </div>
 </div>

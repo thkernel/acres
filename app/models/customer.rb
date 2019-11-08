@@ -17,12 +17,11 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  full_name           :string
-#  excercise_year_id   :bigint
 #
 
 class Customer < ApplicationRecord
     belongs_to :user
-    belongs_to :excercise_year
+    #belongs_to :excercise_year
 
     validates_presence_of :full_name
 

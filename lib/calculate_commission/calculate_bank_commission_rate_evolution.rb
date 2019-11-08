@@ -87,8 +87,10 @@ module CalculateBankCommissionRateEvolution
                                          
                                             bank_commission_percentage = record.new_rate
                                     
-                                            if bank.present? && bank.hypoplus_commission_percentage.present?
-                                                bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+                                            if bank.present? #&& bank.hypoplus_commission_percentage.present?
+                                                #bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+                                                bank_hypoplus_commission_percentage = current_bank_setting(bank).hypoplus_commission_percentage 
+
                                             end
 
         

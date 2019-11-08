@@ -7,6 +7,7 @@ end
 
 
 Rails.application.routes.draw do
+  resources :bank_settings
 	resources :payment_timetable_details do   
 		get "delete"
 	end
@@ -51,7 +52,6 @@ Rails.application.routes.draw do
 	resources :companies
 
 	
-	resources :customers
 
 	resources :customers do
 		get 'delete'

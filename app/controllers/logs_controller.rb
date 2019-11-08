@@ -237,7 +237,7 @@ class LogsController < ApplicationController
                    unless current_customer.present?
                        customer = Customer.new
                        customer.full_name = row[cell[3]].downcase if row[cell[3]].present?
-                       customer.excercise_year_id = current_excercise.id
+                       #customer.excercise_year_id = current_excercise.id
                        customer.user_id = user.id
                        customer.save
                    end
@@ -246,19 +246,34 @@ class LogsController < ApplicationController
 
                # Begin insert a bank, before to insert bank we check if bank exist
                if row[cell[4]].present?
-                   current_bank = Bank.exists(row[cell[4]].downcase)
+                   current_bank = Bank.exists(row[cell[4]].downcase).take
                    
-                   # If bank exist.
+                   # If bank not exist.
                    unless  current_bank.present? 
                        bank = Bank.new
                        bank.name = row[cell[4]].downcase if row[cell[4]].present?
-                       bank.commission_percentage = 0.0
-                       bank.hypoplus_commission_percentage = 0.0
-                       bank.company_remaining_commission_rate = 0.25
+                       #bank.commission_percentage = 0.0
+                       #bank.hypoplus_commission_percentage = 0.0
+                       #bank.company_remaining_commission_rate = 0.25
                        bank.excercise_year_id = current_excercise.id
                        bank.user_id = user.id
                        bank.save
+                       current_bank = bank
 
+                   end
+
+                   #Add bank setting
+                   unless have_bank_settings?(current_bank)
+                    bank_setting = BankSetting.new
+                    bank_setting.commission_percentage = 0.0
+                    bank_setting.number_of_dates = 0
+                    bank_setting.first_installment = 0.0
+                    bank_setting.number_of_remaining_days = 0.0
+                    bank_setting.hypoplus_commission_percentage = 0.0
+                    bank_setting.company_remaining_commission_rate = 0.25
+                    bank_setting.bank_id = current_bank.id
+                    bank_setting.excercise_year_id = current_excercise.id
+                    bank_setting.save
                    end
                end
 
@@ -314,7 +329,7 @@ class LogsController < ApplicationController
                    unless  current_notary.present?
                        notary = Notary.new
                        notary.full_name = row[cell[8]].downcase if row[cell[8]].present?
-                       notary.excercise_year_id = current_excercise.id
+                       #notary.excercise_year_id = current_excercise.id
                        notary.user_id = user.id
                        notary.save
 

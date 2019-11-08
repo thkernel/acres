@@ -1,0 +1,48 @@
+<div class="container">
+
+<div class="row">
+<div class="col-md-12">
+<div class="index-heading pull-left">
+    <h3>Liste des banques</h3>
+    
+    </div>
+<div class="pull-right">
+
+
+<p>
+</p>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default">
+<div class="panel-body">
+<table  id="table-list" class="table table-striped table-bordered table-hover">
+
+  <thead>
+    <tr>
+      <th>Commission percentage</th>
+      <th>Hypoplus commission percentage</th>
+      <th>First installment</th>
+      <th>Number of dates</th>
+      <th>Number of remaining days</th>
+      <th>Company remaining commission rate</th>
+      
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody class="bank-settings">
+    <%= render "index" %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="bank-setting-modal" class="modal fade"></div>
+

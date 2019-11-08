@@ -10,10 +10,10 @@ class SearchController < ApplicationController
 
   def search
    
-    @banks = Bank.where(excercise_year_id: current_excercise.id)
+    @banks = Bank.all
     @contributors = User.find_by_role('Apporteur')
     @producers = User.find_by_role('Producteur')
-    @notaries = Notary.where(excercise_year_id: current_excercise.id)
+    @notaries = Notary.all
 
     #puts "Je suis une date avant #{params[:production_date_debut]}"
    

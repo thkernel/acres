@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Commission percentage:</strong>
+  <%= @bank_setting.commission_percentage %>
+</p>
+
+<p>
+  <strong>Hypoplus commission percentage:</strong>
+  <%= @bank_setting.hypoplus_commission_percentage %>
+</p>
+
+<p>
+  <strong>First installment:</strong>
+  <%= @bank_setting.first_installment %>
+</p>
+
+<p>
+  <strong>Number of dates:</strong>
+  <%= @bank_setting.number_of_dates %>
+</p>
+
+<p>
+  <strong>Number of remaining days:</strong>
+  <%= @bank_setting.number_of_remaining_days %>
+</p>
+
+<p>
+  <strong>Company remaining commission rate:</strong>
+  <%= @bank_setting.company_remaining_commission_rate %>
+</p>
+
+<p>
+  <strong>Excercise year:</strong>
+  <%= @bank_setting.excercise_year %>
+</p>
+
+<p>
+  <strong>Bank:</strong>
+  <%= @bank_setting.bank %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @bank_setting.status %>
+</p>
+
+<%= link_to 'Edit', edit_bank_setting_path(@bank_setting) %> |
+<%= link_to 'Back', bank_settings_path %>

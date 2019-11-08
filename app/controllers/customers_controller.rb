@@ -8,7 +8,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.where(excercise_year_id: current_excercise.id)
+    @customers = Customer.all
   end
 
   # GET /customers/1
@@ -61,6 +61,10 @@ class CustomersController < ApplicationController
         format.js
       end
     end
+  end
+
+  def delete
+    @customer = Customer.find(params[:customer_id])
   end
 
   # DELETE /customers/1

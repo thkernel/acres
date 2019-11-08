@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
 	# Include Application helper.
 	include ApplicationHelper
 	include ExcerciseYearsHelper
+	include BanksHelper
  
 	
 	#add_flash_types :success, :danger, :info

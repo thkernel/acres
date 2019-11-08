@@ -1,4 +1,5 @@
 module CommissionsHelper
+	
 
 
     # Rate abandonment case.
@@ -46,7 +47,8 @@ module CommissionsHelper
 		begin 
 			new_commission_rate = new_commission_rate.to_f
             bank = Bank.find_by(name: bank_name)
-			old_commission_rate = bank.commission_percentage
+            #old_commission_rate = bank.commission_percentage
+            old_commission_rate = current_bank_setting(bank).commission_percentage
             #commission = Commission.find_by(credit_id: credit_id)
             commission = Commission.where(["credit_identifier = ? AND excercise_year_id = ?",  credit_id, current_excercise.id]).take
 
@@ -106,8 +108,10 @@ module CommissionsHelper
 
             end
 
-            if bank.present? && bank.hypoplus_commission_percentage.present?
-                bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+            if bank.present? #&& bank.hypoplus_commission_percentage.present?
+                #bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+                bank_hypoplus_commission_percentage = current_bank_setting(bank).hypoplus_commission_percentage 
+
             end
 
         
@@ -449,14 +453,17 @@ module CommissionsHelper
                     # If bank commission rate was changed.
                     
 
-                        if bank.present? && bank.commission_percentage.present?
-                            puts "BANQUE NAME: #{bank.name} et #{bank.commission_percentage}"
+                        if bank.present? #&& bank.commission_percentage.present?
+                            puts "BANQUE NAME: #{bank.name} et #{current_bank_setting(bank).commission_percentage}"
                             # Get bank infos required infos for the compute.
-                            bank_commission_percentage = bank.commission_percentage 
+                            #bank_commission_percentage = bank.commission_percentage 
+                            bank_commission_percentage = current_bank_setting(bank).commission_percentage 
                         end
 
                         if bank.present? && bank.hypoplus_commission_percentage.present?
-                            bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+                            #bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+                            bank_hypoplus_commission_percentage = current_bank_setting(bank).hypoplus_commission_percentage 
+
                         end
 
                         # We get the producer infos.

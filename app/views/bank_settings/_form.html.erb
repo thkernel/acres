@@ -1,0 +1,65 @@
+<%= form_with(model: bank_setting, local: true) do |form| %>
+  <div class="modal-body">
+		<ul class="errors"></ul>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :commission_percentage, "% com" %>
+          <%= form.number_field :commission_percentage, id: :bank_setting_commission_percentage, class: "form-control", lang: "en", step: :any, value: (bank_setting.commission_percentage.present? ? bank_setting.commission_percentage : 0.0) %>
+        </div>
+        <div class="form-group">
+					<%= fields_for(@commission_change) do |cc| %>
+						<%= cc.hidden_field :old_rate,  class:"form-control", :id => "old_rate", value: (current_bank_setting(@bank).commission_percentage if current_bank_setting(@bank) ) %>
+						<%= form.label "Date d'effet", :id => "commission_start_date_label" %>
+						<%= cc.date_field :rate_start_date,  class:"form-control", :id => "commission_start_date" %>
+						<%= cc.hidden_field :commission_was_changed,  class:"form-control", :id => "commission_was_changed", value: "false" %>
+
+					<% end %>
+				</div><!-- end nested -->
+
+        <div class="form-group">
+          <%= form.label :hypoplus_commission_percentage, "% com hypoplus" %>
+          <%= form.number_field :hypoplus_commission_percentage, id: :bank_setting_hypoplus_commission_percentage, class: "form-control", lang: "en", step: :any, value: (bank_setting.hypoplus_commission_percentage.present? ? bank_setting.hypoplus_commission_percentage : 0.0) %>
+        </div>
+
+
+        <div class="form-group">
+          <%= form.label :number_of_dates, "Nombre d'écheance" %>
+          <%= form.number_field :number_of_dates, id: :bank_setting_number_of_dates, class: "form-control" , value: (bank_setting.number_of_dates.present? ? bank_setting.number_of_dates : 0.0) %>
+        </div>
+
+        
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :first_installment, "Première tranche (%)" %>
+          <%= form.number_field :first_installment, id: :bank_setting_first_installment, class: "form-control", lang: "en", step: :any, value: (bank_setting.first_installment.present? ? bank_setting.first_installment : 0.0) %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :number_of_remaining_days, "Solde tranche en %" %>
+          <%= form.number_field :number_of_remaining_days, id: :bank_setting_number_of_remaining_days, class: "form-control", readonly: true, lang: "en", step: :any, value: (bank_setting.number_of_remaining_days.present? ? bank_setting.number_of_remaining_days : 0.0) %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label "Taux com restante à #{current_company.name.humanize}" %>
+          <%= form.number_field :company_remaining_commission_rate, id: :bank_setting_company_remaining_commission_rate , class: "form-control", lang: "en", step: :any, value: (bank_setting.company_remaining_commission_rate.present? ? bank_setting.company_remaining_commission_rate : 0.25) %>
+        </div>
+      </div>
+
+    </div>
+   
+
+          <%= form.hidden_field :bank_id, value: @bank.id %>
+
+
+
+  </div><!-- modal body -->
+	<div class="modal-footer">
+		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
+		<%= form.button "Enregistrer",  class: "btn btn-warning",  data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Traitement encours..."}, autocomplete: "off" %>
+
+	</div>
+<% end %>

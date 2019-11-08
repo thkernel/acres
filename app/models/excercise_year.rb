@@ -17,8 +17,8 @@ class ExcerciseYear < ApplicationRecord
   belongs_to :user
   has_many :banks, dependent: :destroy
   has_many :logs, dependent: :destroy
-  has_many :customers, dependent: :destroy
-  has_many :notaries, dependent: :destroy
+  #has_many :customers, dependent: :destroy
+  #has_many :notaries, dependent: :destroy
   has_many :credits, dependent: :destroy
   has_many :commissions, dependent: :destroy
   has_many :commission_settings, dependent: :destroy
@@ -26,6 +26,7 @@ class ExcerciseYear < ApplicationRecord
   has_many :borderaus, dependent: :destroy
   has_many :payment_timetables, dependent: :destroy
   has_many :monthly_installment_delay_expireds, dependent: :destroy
+  has_many :bank_settings, dependent: :destroy
 
 
 

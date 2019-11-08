@@ -27,8 +27,8 @@ class DashboardController < ApplicationController
 				#@credits = get_main_admin(current_user).credits
 				@credits = Credit.where(excercise_year_id: current_excercise.id)
 
-				@banks_count = Bank.where(excercise_year_id: current_excercise.id).count 
-				@customers_count = Customer.where(excercise_year_id: current_excercise.id).count 
+				@banks_count = Bank.count 
+				@customers_count = Customer.count 
 				@credits_count = Credit.where(excercise_year_id: current_excercise.id).count 
 
 				contributors_count = User.find_by_role('Apporteur').count
@@ -41,8 +41,8 @@ class DashboardController < ApplicationController
 				if current_excercise.present?
 					@credits = Credit.where(excercise_year_id: current_excercise.id)
 
-					@banks_count = Bank.where(excercise_year_id: current_excercise.id).count 
-					@customers_count = Customer.where(excercise_year_id: current_excercise.id).count 
+					@banks_count = Bank.count 
+					@customers_count = Customer.count 
 					
 					@credits_count = Credit.where(excercise_year_id: current_excercise.id).count 
 			
@@ -53,8 +53,8 @@ class DashboardController < ApplicationController
 				else
 					@credits = Credit.all
 
-					@banks_count = Bank.all.count 
-					@customers_count = Customer.all.count 
+					@banks_count = Bank.count 
+					@customers_count = Customer.count 
 					
 					@credits_count = Credit.all.count 
 			

@@ -2,16 +2,17 @@
 #
 # Table name: first_installment_payment_delay_expireds
 #
-#  id                           :bigint           not null, primary key
-#  credit_identifier            :bigint
-#  expiration_date              :datetime
-#  first_installment_percentage :float            default(0.0)
-#  installment_amount           :float            default(0.0)
-#  credit_amount                :float            default(0.0)
-#  status                       :string
-#  user_id                      :bigint
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
+#  id                :bigint           not null, primary key
+#  credit_identifier :bigint
+#  expiration_date   :datetime
+#  installment       :string
+#  target            :string
+#  payment_amount    :float            default(0.0)
+#  status            :string
+#  excercise_year_id :bigint
+#  user_id           :bigint
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

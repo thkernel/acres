@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190902124936) do
+ActiveRecord::Schema.define(version: 20191105052746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,22 @@ ActiveRecord::Schema.define(version: 20190902124936) do
     t.index ["bank_id"], name: "index_bank_commission_rate_trackers_on_bank_id"
     t.index ["excercise_year_id"], name: "index_bank_commission_rate_trackers_on_excercise_year_id"
     t.index ["user_id"], name: "index_bank_commission_rate_trackers_on_user_id"
+  end
+
+  create_table "bank_settings", force: :cascade do |t|
+    t.float "commission_percentage"
+    t.float "hypoplus_commission_percentage"
+    t.float "first_installment"
+    t.integer "number_of_dates"
+    t.integer "number_of_remaining_days"
+    t.float "company_remaining_commission_rate"
+    t.bigint "excercise_year_id"
+    t.bigint "bank_id"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_bank_settings_on_bank_id"
+    t.index ["excercise_year_id"], name: "index_bank_settings_on_excercise_year_id"
   end
 
   create_table "banks", force: :cascade do |t|
@@ -248,8 +264,6 @@ ActiveRecord::Schema.define(version: 20190902124936) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
-    t.bigint "excercise_year_id"
-    t.index ["excercise_year_id"], name: "index_customers_on_excercise_year_id"
     t.index ["user_id"], name: "index_customers_on_user_id"
   end
 
@@ -345,8 +359,6 @@ ActiveRecord::Schema.define(version: 20190902124936) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "excercise_year_id"
-    t.index ["excercise_year_id"], name: "index_notaries_on_excercise_year_id"
     t.index ["user_id"], name: "index_notaries_on_user_id"
   end
 
@@ -478,6 +490,8 @@ ActiveRecord::Schema.define(version: 20190902124936) do
   add_foreign_key "bank_commission_rate_trackers", "banks"
   add_foreign_key "bank_commission_rate_trackers", "excercise_years"
   add_foreign_key "bank_commission_rate_trackers", "users"
+  add_foreign_key "bank_settings", "banks"
+  add_foreign_key "bank_settings", "excercise_years"
   add_foreign_key "banks", "excercise_years"
   add_foreign_key "banks", "users"
   add_foreign_key "borderaus", "excercise_years"
@@ -490,7 +504,6 @@ ActiveRecord::Schema.define(version: 20190902124936) do
   add_foreign_key "credit_details", "excercise_years"
   add_foreign_key "credits", "excercise_years"
   add_foreign_key "credits", "users"
-  add_foreign_key "customers", "excercise_years"
   add_foreign_key "customers", "users"
   add_foreign_key "excercise_years", "users"
   add_foreign_key "first_installment_payment_delay_expireds", "users"
@@ -499,7 +512,6 @@ ActiveRecord::Schema.define(version: 20190902124936) do
   add_foreign_key "mail_configurations", "users"
   add_foreign_key "monthly_payment_delay_expireds", "excercise_years"
   add_foreign_key "monthly_payment_delay_expireds", "users"
-  add_foreign_key "notaries", "excercise_years"
   add_foreign_key "notaries", "users"
   add_foreign_key "payment_delays", "users"
   add_foreign_key "payment_timetable_details", "payment_timetables"

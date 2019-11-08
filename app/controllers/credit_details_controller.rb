@@ -145,10 +145,18 @@ class CreditDetailsController < ApplicationController
 							#bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
 
 							if bank.present?
-								bank_commission_percentage = bank.commission_percentage 
-								bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage
-								bank_first_installment = bank.first_installment
-								bank_number_of_dates = bank.number_of_dates
+								#bank_commission_percentage = bank.commission_percentage 
+								bank_commission_percentage = current_bank_setting(bank).commission_percentage 
+								
+								#bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage
+								bank_hypoplus_commission_percentage = current_bank_setting(bank).hypoplus_commission_percentage
+
+								#bank_first_installment = bank.first_installment
+								bank_first_installment = current_bank_setting(bank).first_installment
+
+								#bank_number_of_dates = bank.number_of_dates
+								bank_number_of_dates = current_bank_setting(bank).number_of_dates
+
 								contributor_commission = @commission.contributor_commission 
 								producer_commission = @commission.producer_commission
 								company_commission = @commission.company_commission
