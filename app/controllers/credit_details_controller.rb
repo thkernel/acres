@@ -135,16 +135,19 @@ class CreditDetailsController < ApplicationController
 					@commission = Commission.where(["credit_identifier = ? AND excercise_year_id = ?", query, current_excercise.id]).take
 					puts "COMMISSION #{@commission.id} #{@commission.amount_credit}"
 					credit_acte_date = @commission.acte_date
+
 					if @commission.present? && @credit.present? && credit_acte_date.present?
 						bank_name = @commission.bank_name
-						puts "UNE COMMISSION EST PRESENTE"
+						puts "UNE COMMISSION EST PRESENTE #{bank_name}"
 
 						if bank_name.present?
-							puts "BANQUE PRESENTE"
+							puts "BANQUE PRESENTE #{bank_name}"
 							bank = Bank.find_by(name: bank_name)
 							#bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
 
 							if bank.present?
+
+								puts "IN BANK "
 								#bank_commission_percentage = bank.commission_percentage 
 								bank_commission_percentage = current_bank_setting(bank).commission_percentage 
 								

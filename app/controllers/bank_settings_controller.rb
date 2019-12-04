@@ -86,6 +86,8 @@ class BankSettingsController < ApplicationController
     respond_to do |format|
       if @bank_setting.update(bank_setting_params)
         new_calculate_commissions({key: "bank", value: @bank_setting.bank_id })
+        
+        reset_payment_timetable(Bank.find(@bank_setting.bank_id))
 
         format.html { redirect_to banks_path, notice: 'Bank setting was successfully updated.' }
         format.json { render :show, status: :ok, location: @bank_setting }
@@ -117,5 +119,16 @@ class BankSettingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def bank_setting_params
       params.require(:bank_setting).permit(:commission_percentage, :hypoplus_commission_percentage, :first_installment, :number_of_dates, :number_of_remaining_days, :company_remaining_commission_rate, :bank_id)
+    end
+
+
+
+    def reset_payment_timetable(bank)
+      credits = Credit.where(bank_name: bank.name)
+      
+      credits.each do |credit|
+        PaymentTimetable.where(["credit_identifier = ? AND excercise_year_id = ?",  credit.identifier.to_s, current_excercise.id]).destroy_all
+        
+      end
     end
 end

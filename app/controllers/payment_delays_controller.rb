@@ -32,7 +32,7 @@ class PaymentDelaysController < ApplicationController
     respond_to do |format|
       if @payment_delay.save
         @payment_delays = PaymentDelay.take
-        format.html { redirect_to @payment_delay, notice: 'Payment delay was successfully created.' }
+        format.html { redirect_to payment_delays_path, notice: 'Payment delay was successfully created.' }
         format.json { render :show, status: :created, location: @payment_delay }
         format.js
       else
@@ -49,7 +49,7 @@ class PaymentDelaysController < ApplicationController
     respond_to do |format|
       if @payment_delay.update(payment_delay_params)
         @payment_delays = PaymentDelay.take
-        format.html { redirect_to @payment_delay, notice: 'Payment delay was successfully updated.' }
+        format.html { redirect_to payment_delays_path, notice: 'Payment delay was successfully updated.' }
         format.json { render :show, status: :ok, location: @payment_delay }
         format.js
       else

@@ -28,6 +28,6 @@ class Customer < ApplicationRecord
     # Find bank by name.
 
     def self.exists(full_name)
-        where('full_name = ? ', full_name)
+        where('lower(full_name) = ? ', full_name)
     end
 end

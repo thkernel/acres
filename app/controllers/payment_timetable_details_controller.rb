@@ -42,30 +42,15 @@ class PaymentTimetableDetailsController < ApplicationController
 
   
 
-  # GET /payment_timetable_detailss/new
-  def new
-    @payment_timetable_details = PaymentTimetableDetail.new
-  end
-
-  
-
-  
-  
-
-  
-		
-
-		
-
-
-
-  
-
   # GET /payment_timetable_details/new
   def new
     @payment_timetable_detail = PaymentTimetableDetail.new
   end
 
+
+  def edit 
+    puts "IN EDIT #{@query}"
+  end
   
   # POST /payment_timetable_details
   # POST /payment_timetable_details.json
@@ -88,9 +73,9 @@ class PaymentTimetableDetailsController < ApplicationController
   def update
     respond_to do |format|
       if @payment_timetable_detail.update(payment_timetable_detail_params)
-        @payment_timetable_details = PaymentTimetableDetail.where(payment_timetable_id: @payment_timetable_detail.id).reorder('id ASC')
 
-        format.html { redirect_to @payment_timetable_detail, notice: 'Payment timetable detail was successfully updated.' }
+
+        format.html { redirect_to show_producer_payment_timetable_details_path(PaymentTimetable.find(@payment_timetable_detail.payment_timetable_id).credit_identifier), notice: 'Payment timetable detail was successfully updated.' }
         format.json { render :show, status: :ok, location: @payment_timetable_detail }
         format.js
       else
@@ -151,16 +136,23 @@ class PaymentTimetableDetailsController < ApplicationController
 						puts "UNE COMMISSION EST PRESENTE"
 
 						if bank_name.present?
-							puts "BANQUE PRESENTE"
+							puts "BANQUE PRESENTE #{bank_name}"
 							bank = Bank.find_by(name: bank_name)
 							#bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
 
-							if bank.present?
-								bank_commission_percentage = bank.commission_percentage 
-								bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage
-								bank_first_installment = bank.first_installment
-								bank_number_of_dates = bank.number_of_dates
-								contributor_commission = @commission.contributor_commission 
+              if bank.present?
+                puts "IN BANK"
+
+
+                current_bank_settings = bank.bank_settings.where(excercise_year_id: current_excercise.id).take
+                
+                puts "BANK SETTINGS: #{current_bank_settings.inspect}"
+								bank_commission_percentage = current_bank_settings.commission_percentage 
+								bank_hypoplus_commission_percentage = current_bank_settings.hypoplus_commission_percentage
+								bank_first_installment = current_bank_settings.first_installment
+								bank_number_of_dates = current_bank_settings.number_of_dates
+                
+                contributor_commission = @commission.contributor_commission 
 								producer_commission = @commission.producer_commission
 								company_commission = @commission.company_commission
 								remaining_installment = 100 - bank_first_installment

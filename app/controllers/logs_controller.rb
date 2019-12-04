@@ -50,6 +50,7 @@ class LogsController < ApplicationController
     credits.destroy_all
 
     commissions = Commission.where(excercise_year_id: current_excercise.id)
+    
     commissions.destroy_all
 
     Customer.destroy_all
@@ -141,9 +142,12 @@ class LogsController < ApplicationController
 		commissions.destroy_all #if commission.present?
 		#Credit.destroy_all
 		
-		# Load all credits.
-		@credits = Credit.all
-		#@credits = current_user.credits
+    # Load all credits.
+
+		#@credits = Credit.all
+    #@credits = current_user.credits
+    @credits = Credit.where(excercise_year_id: current_excercise.id)
+
 
 		# Explore credits.
 		@credits.each do |credit|
@@ -219,7 +223,9 @@ class LogsController < ApplicationController
                    #current_credit = Credit.where(["identifier = ? AND excercise_year_id = ?",  Extractor.extract_numeric(row[cell[0]]), current_excercise.id]).take
                    if current_credit.present?
                        if current_credit.hypoplus.present?
-                           next
+                           #next (old)
+                           current_credit = current_credit.identifier + Time.now.min + Time.now.sec
+
                        else
                            current_credit = current_credit.identifier + Time.now.min + Time.now.sec
                        end

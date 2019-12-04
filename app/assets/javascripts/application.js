@@ -19,6 +19,8 @@
 //= require DataTables/datatables.min
 // require DataTables/Buttons-1.5.1/js/dataTables.buttons.min
 //= require DataTables/Buttons-1.5.1/js/buttons.html5.js
+//= require numeral/numeral.min
+//= require currency/currency.min
 
 //= require DataTables/JSZip-2.5.0/jszip.min
 //= require Chart.bundle
@@ -37,6 +39,7 @@
 //= require commission_settings
 //= require excercise_years
 //= require bank_settings
+//= require payments
 
 $(document).on('turbolinks:load', function() {
     // For fixed width containers
