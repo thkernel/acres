@@ -11,7 +11,7 @@
 #  slug                :string
 #  avatar_file_name    :string
 #  avatar_content_type :string
-#  avatar_file_size    :integer
+#  avatar_file_size    :bigint
 #  avatar_updated_at   :datetime
 #  user_id             :bigint           not null
 #  created_at          :datetime         not null
@@ -21,11 +21,13 @@
 
 class Customer < ApplicationRecord
     belongs_to :user
+    #belongs_to :excercise_year
+
     validates_presence_of :full_name
 
     # Find bank by name.
 
     def self.exists(full_name)
-        where('full_name = ?', full_name)
+        where('lower(full_name) = ? ', full_name)
     end
 end

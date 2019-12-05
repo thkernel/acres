@@ -1,0 +1,41 @@
+# == Schema Information
+#
+# Table name: bank_settings
+#
+#  id                                :bigint           not null, primary key
+#  commission_percentage             :float
+#  hypoplus_commission_percentage    :float
+#  first_installment                 :float
+#  number_of_dates                   :integer
+#  number_of_remaining_days          :integer
+#  company_remaining_commission_rate :float
+#  excercise_year_id                 :bigint
+#  bank_id                           :bigint
+#  status                            :string
+#  created_at                        :datetime         not null
+#  updated_at                        :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  commission_percentage: 1.5
+  hypoplus_commission_percentage: 1.5
+  first_installment: 1.5
+  number_of_dates: 1
+  number_of_remaining_days: 1
+  company_remaining_commission_rate: 1.5
+  excercise_year: one
+  bank: one
+  status: MyString
+
+two:
+  commission_percentage: 1.5
+  hypoplus_commission_percentage: 1.5
+  first_installment: 1.5
+  number_of_dates: 1
+  number_of_remaining_days: 1
+  company_remaining_commission_rate: 1.5
+  excercise_year: two
+  bank: two
+  status: MyString

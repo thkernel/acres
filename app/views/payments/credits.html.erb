@@ -19,7 +19,7 @@
 <div class="col-md-12">
 <div class="panel panel-default">
 <div class="panel-body">
-<table  id="table-list" class="table table-striped table-bordered table-hover">
+<table  id="commission_by_bank_table" class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
       <th>N°Dossier</th>
@@ -32,7 +32,9 @@
       <th>% com prod</th>
       <th>Com prod</th>
       <th>% com banque</th>
-      <th><%= %"Com nette #{current_company.name.humanize}" %></th>
+      <th class="bank_commission">Com banque</th>
+
+      <th class="company_commission"><%= %"Com nette #{current_company.name.humanize}" %></th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -46,8 +48,8 @@
 
 
       <tr>
-        <td><%= commission.credit_id %></td>
-         <td><%= credit_customer_name(commission.credit_id).humanize %></td>
+        <td><%= commission.credit_identifier %></td>
+         <td><%= credit_customer_name(commission.credit_identifier).humanize if credit_customer_name(commission.credit_identifier) %></td>
         <td><%= commission.production_date.strftime("%d/%m/%Y") if commission.production_date %></td>
         <td><%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %></td>
         <td class="blue-amount"><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
@@ -56,15 +58,20 @@
         <td><%= number_to_currency commission.producer_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
         <td class="blue-amount"><%= number_to_currency commission.producer_commission , unit: "", seperator: ",", delimiter: "."%></td>
         <td><%= number_to_currency commission.bank_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
+        <td class="blue-amount"><%= number_to_currency commission.bank_commission, unit: "", seperator: ",", delimiter: "." %></td>
+
         <td class="blue-amount"><%= number_to_currency commission.company_commission, unit: "", seperator: ",", delimiter: "." %></td>
  <td><%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
-  '), credit_payments_details_path(commission.credit_id) %>
+  '), credit_payments_details_path(commission.credit_identifier) %>
           </td>
         
       </tr>
     <% end %>
   </tbody>
+  <tfoot class="tfooter">
+      <%= render("payments/partials/tfooter") %> 
 
+  </tfoot>
   
 </table>
 

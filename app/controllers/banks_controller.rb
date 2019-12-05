@@ -1,5 +1,6 @@
 class BanksController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_excercise_year
   before_action :set_bank, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
 
@@ -11,6 +12,10 @@ class BanksController < ApplicationController
   def index
    
       @banks = Bank.all
+      respond_to do |format|
+        format.html
+        format.xlsx
+      end
     
   end
 
@@ -68,6 +73,7 @@ class BanksController < ApplicationController
         bank_commission_rate_tracker.new_rate = params[:bank][:commission_percentage]
         bank_commission_rate_tracker.bank_id =  @bank.id 
         bank_commission_rate_tracker.user_id = current_user.id 
+        bank_commission_rate_tracker.excercise_year_id = current_excercise.id
         bank_commission_rate_tracker.save
 
 

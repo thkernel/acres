@@ -4,13 +4,18 @@ class AdministrationsController < ApplicationController
     layout "dashboard"
 
     def backup_database
-        Rake::Task['db:dump'].execute
+        #Rake::Task['db:dump'].execute
         puts "Resultat de la sauve: #{Rake::Task['db:dump'].execute}"
 
-        
-        download_file("#{Rails.root}/db/seeds.rb")
+        #files = Dir["/home/#{ENV['USER']}/acres_backups/*"]
+        files =  Dir["#{Rails.root}/db/backups/*"]
+        #download_file("#{Rails.root}/db/seeds.rb")
+       
+        # Download the last file of the array
+        download_file("#{files.last}")
 
       
+         
     end
 
     def show_backup

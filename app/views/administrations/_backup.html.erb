@@ -6,17 +6,20 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Backup</h4>
       </div>
-      	<div class="modal-body">
-  <ul class="errors"></ul>
-  <p>
- Cette action va faire un backup de toutes les données clients!
-</p>
-  
-  </div>
-  <div class="modal-footer">
-    <%= link_to "Non", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
-    <%= button_to "Oui, Je continue",  backup_database_path,  class: "btn btn-danger",  data: {disable_with: "Backup en cours..."}, autocomplete: "off" %>
+        <%= form_with(url: backup_database_path, local: true) do |form| %>
 
-  </div>
+      	<div class="modal-body">
+          <ul class="errors"></ul>
+            <p>
+          Cette action va faire un backup de toutes les données clients!
+          </p>
+  
+        </div>
+        <div class="modal-footer">
+          <%= link_to "Non", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
+          <%= form.submit "Oui, Je continue",  backup_database_path,  class: "btn btn-danger",  data: {disable_with: "Backup en cours..."}, autocomplete: "off" %>
+
+        </div>
+        <% end %>
   </div>
 </div>

@@ -3,7 +3,13 @@ require_relative 'boot'
 require 'rails/all'
 require 'apartment/elevators/subdomain' # or 'domain', 'first_subdomain', 'host'
 require './lib/utils'
-require './lib/calculate_commission/calculate_commission'
+require './lib/calculate_commission/calculate_bank_commission_rate_evolution'
+require './lib/payments_delay_expired/check_first_installment_payment_delay_expired'
+require './lib/payments_delay_expired/check_monthly_installment_payment_delay_expired'
+require './lib/payments_delay_expired/generate_bordereau'
+
+
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

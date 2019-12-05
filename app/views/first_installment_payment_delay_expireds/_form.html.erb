@@ -1,0 +1,57 @@
+<%= form_with(model: first_installment_payment_delay_expired, local: true) do |form| %>
+  <% if first_installment_payment_delay_expired.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(first_installment_payment_delay_expired.errors.count, "error") %> prohibited this first_installment_payment_delay_expired from being saved:</h2>
+
+      <ul>
+      <% first_installment_payment_delay_expired.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :credit_id %>
+    <%= form.text_field :credit_id, id: :first_installment_payment_delay_expired_credit_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expiration_date %>
+    <%= form.datetime_select :expiration_date, id: :first_installment_payment_delay_expired_expiration_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :first_installment_percentage %>
+    <%= form.text_field :first_installment_percentage, id: :first_installment_payment_delay_expired_first_installment_percentage %>
+  </div>
+
+  <div class="field">
+    <%= form.label :installment %>
+    <%= form.text_field :installment, id: :first_installment_payment_delay_expired_installment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :installment_amount %>
+    <%= form.text_field :installment_amount, id: :first_installment_payment_delay_expired_installment_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :credit_amount %>
+    <%= form.text_field :credit_amount, id: :first_installment_payment_delay_expired_credit_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :first_installment_payment_delay_expired_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :first_installment_payment_delay_expired_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

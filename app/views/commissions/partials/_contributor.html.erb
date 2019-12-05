@@ -41,8 +41,8 @@
     <% if @commissions.present? %>
       <% @commissions.each do |commission| %>
         <tr>
-          <td><%= commission.credit_id %></td>
-          <td><%= credit_customer_name(commission.credit_id).humanize if credit_customer_name(commission.credit_id)%></td>
+          <td><%= commission.credit_identifier %></td>
+          <td><%= credit_customer_name(commission.credit_identifier).humanize if credit_customer_name(commission.credit_identifier)%></td>
 
           <td><%= commission.production_date.strftime("%d/%m/%Y") if commission.production_date %></td>
           <td><%= commission.acte_date.strftime("%d/%m/%Y") if commission.acte_date %></td>
@@ -50,10 +50,17 @@
           <td><%= number_to_currency commission.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
           <td><%= number_to_currency commission.contributor_commission_percentage, unit: "", seperator: ",", delimiter: "." %></td>
           <td><%= number_to_currency commission.contributor_commission, unit: "", seperator: ",", delimiter: "." %></td>
+          <!--<td>
+          
+          <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
+  '), show_contributor_credit_details_path(commission.credit_identifier) %>
+          </td> -->
+
           <td>
           <%= link_to raw('<i class="fa fa-plus-circle" aria-hidden="true"></i>
-  '), show_contributor_credit_details_path(commission.credit_id) %>
+  '), show_contributor_payment_timetable_details_path(commission.credit_identifier) %>
           </td>
+
         </tr>
 	  <% end %>
 	<% end %>

@@ -1,14 +1,21 @@
 class ApplicationController < ActionController::Base
-	
+	include CheckExcerciseYearConcern
 	  protect_from_forgery with: :exception
 	
 	#before_action :configure_permitted_parameters, if: :devise_controller?
 	#before_action :set_global
 	#before_action :app_setup
 	
+	
+	
+	
+	
+	
 	#after_action :set_mailer_settings
 	# Include Application helper.
 	include ApplicationHelper
+	include ExcerciseYearsHelper
+	include BanksHelper
  
 	
 	#add_flash_types :success, :danger, :info
@@ -16,12 +23,12 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:role, :full_name, :login])
 		devise_parameter_sanitizer.permit(:account_update, keys: [:role, :full_name, :login, :avatar])
 	end
-
+=begin
   def after_sign_in_path_for(resource)
 		dashboard_path
 	
 	end
-	
+=end
 	
 
 
@@ -86,6 +93,10 @@ class ApplicationController < ActionController::Base
           end
         
       end
-    end
+		end
+		
 	
+		
+		
+
 end

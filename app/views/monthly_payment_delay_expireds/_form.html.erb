@@ -1,0 +1,42 @@
+<%= form_with(model: monthly_payment_delay_expired, local: true) do |form| %>
+  <% if monthly_payment_delay_expired.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(monthly_payment_delay_expired.errors.count, "error") %> prohibited this monthly_payment_delay_expired from being saved:</h2>
+
+      <ul>
+      <% monthly_payment_delay_expired.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :credit_identifier %>
+    <%= form.text_field :credit_identifier, id: :monthly_payment_delay_expired_credit_identifier %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expiration_date %>
+    <%= form.datetime_select :expiration_date, id: :monthly_payment_delay_expired_expiration_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :installment_identifier %>
+    <%= form.text_field :installment_identifier, id: :monthly_payment_delay_expired_installment_identifier %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commission_amount %>
+    <%= form.text_field :commission_amount, id: :monthly_payment_delay_expired_commission_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :monthly_payment_delay_expired_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

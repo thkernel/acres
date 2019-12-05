@@ -17,6 +17,7 @@
 #  updated_at                        :datetime         not null
 #  number_of_remaining_days          :integer          default(0)
 #  company_remaining_commission_rate :float            default(0.0)
+#  excercise_year_id                 :bigint
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

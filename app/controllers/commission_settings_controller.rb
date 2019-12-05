@@ -1,10 +1,12 @@
 class CommissionSettingsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :current_excercise_year
   before_action :set_commission_setting, only: [:show, :edit, :update, :destroy]
 
   # GET /commission_settings
   # GET /commission_settings.json
   def index
-    @commission_settings = CommissionSetting.all
+    @commission_settings = CommissionSetting.where(excercise_year_id: current_excercise.id)
   end
 
   # GET /commission_settings/1
@@ -25,7 +27,7 @@ class CommissionSettingsController < ApplicationController
   # POST /commission_settings.json
   def create
     @commission_setting = CommissionSetting.new(commission_setting_params)
-
+    @commission_setting.excercise_year_id = current_excercise.id
     respond_to do |format|
       if @commission_setting.save
 
@@ -62,6 +64,7 @@ class CommissionSettingsController < ApplicationController
         user_commission_rate_tracker.old_rate = old_rate
         user_commission_rate_tracker.new_rate = params[:commission_setting][:commission_percentage]
         user_commission_rate_tracker.user_id = current_user.id 
+        user_commission_rate_tracker.excercise_year_id = current_excercise.id 
         user_commission_rate_tracker.save
 
 

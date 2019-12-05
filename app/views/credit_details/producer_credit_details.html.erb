@@ -4,7 +4,7 @@
 <h1>Détails (Echéancier et paiements effectués)</h1>
 
 <h3>Date de l'acte: <%= @credit.acte_date.strftime("%d/%m/%Y") if @credit.acte_date %></h3>
-<h3>Numéro du dossier: <%= @credit.credit_id %></h3>
+<h3>Numéro du dossier: <%= @credit.identifier %></h3>
 </div>
 
 <table id="echeance-table-list" class="table table-striped table-bordered table-hover">
@@ -26,6 +26,13 @@
     <%= render('index') %>
   </tbody>
 </table>
+
+
+
+
+<div class="borderaus">
+  <%= render "borderaus" %>
+</div>
 
 </div>
 

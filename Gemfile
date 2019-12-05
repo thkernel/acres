@@ -84,16 +84,18 @@ gem 'friendly_id', '~> 5.2', '>= 5.2.4'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'premailer-rails', '~> 1.10', '>= 1.10.2'
 gem 'remotipart', '~> 1.4', '>= 1.4.2'
-gem 'roo', '~> 2.7', '>= 2.7.1'
+#gem 'roo', '~> 2.7', '>= 2.7.1'
 gem 'creek', '~> 2.2'
 gem 'paperclip', '~> 6.0'
 gem 'client_side_validations', '~> 11.1', '>= 11.1.2'
 gem 'action_mailer_auto_url_options', '~> 1.0', '>= 1.0.2'
 gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'
 gem 'chosen-rails', '~> 1.8', '>= 1.8.7'
-#gem 'rubyzip', '~> 1.2', '>= 1.2.1'
+gem 'rubyzip', '~> 1.2.3'
+#gem 'rubyzip', '~> 1.1.0'
 #gem 'axlsx', '~> 2.0', '>= 2.0.1'
-#gem 'axlsx_rails', '~> 0.5.2'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
+gem 'axlsx_rails', '~> 0.5.2'
 
 gem 'apartment', '~> 2.2'
 
@@ -107,3 +109,4 @@ end
  gem 'chartkick', '~> 3.0', '>= 3.0.2'
  gem 'highcharts-rails'
  gem 'whenever', '~> 0.11.0'
+ 

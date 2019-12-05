@@ -1,12 +1,14 @@
 class NotariesController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_excercise_year
+
   before_action :set_notary, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
 
   # GET /notaries
   # GET /notaries.json
   def index
-    @notaries = get_main_admin(current_user).notaries
+    @notaries = Notary.where(excercise_year_id: current_excercise.id)
   end
 
   # GET /notaries/1

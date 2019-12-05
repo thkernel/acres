@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @borderau.name %>
+</p>
+
+<p>
+  <strong>Installment:</strong>
+  <%= @borderau.installment %>
+</p>
+
+<p>
+  <strong>File name:</strong>
+  <%= @borderau.file_name %>
+</p>
+
+<p>
+  <strong>Credit identifier:</strong>
+  <%= @borderau.credit_identifier %>
+</p>
+
+<p>
+  <strong>Excercise year:</strong>
+  <%= @borderau.excercise_year_id %>
+</p>
+
+<%= link_to 'Edit', edit_borderau_path(@borderau) %> |
+<%= link_to 'Back', borderaus_path %>

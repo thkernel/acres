@@ -1,9 +1,37 @@
 module CommissionsHelper
+	
 
+
+    # Rate abandonment case.
+
+    def rate_abandonment_case?(credit_id, bank_name)
+        if credit_id.present? && bank_name.present?
+            bank_commission_rate_abandonments = BankCommissionRateAbandonment.where(["credit_identifier = ? AND bank_name = ? AND excercise_year_id = ?", credit_id, bank_name, current_excercise.id])
+            if bank_commission_rate_abandonments.present?
+                true
+            else
+                false
+            end
+        else
+            false
+        end
+    end
+
+    def get_bank_commission_rate_abandonment(credit_id, bank_name)
+        if credit_id.present? && bank_name.present?
+            bank_commission_rate_abandonments = BankCommissionRateAbandonment.where(["credit_identifier = ? AND bank_name = ? AND excercise_year_id = ?", credit_id, bank_name, current_excercise.id])
+            if bank_commission_rate_abandonments.present?
+                bank_commission_rate_abandonments = bank_commission_rate_abandonments.order(id: :desc).first
+           
+            end
+        end
+    end
+
+    # Bank commission rate changement processing.
     def bank_commission_rate_changed?(bank_name)
 		begin
-			bank = Bank.find_by(name: bank_name)
-			bank_commission_rate_tracker = BankCommissionRateTracker.where(bank_id: bank.id) if bank.present?
+			bank = Bank.where(["name = ? AND excercise_year_id = ?",  bank_name, current_excercise.id]).take
+			bank_commission_rate_tracker = BankCommissionRateTracker.where(["bank_id = ? AND excercise_year_id =  ?", bank.id, current_excercise.id]) if bank.present?
 
 			if bank_commission_rate_tracker.present? && bank_commission_rate_tracker.count > 1
 				true
@@ -15,7 +43,55 @@ module CommissionsHelper
 		end
 	end
 
+	def calculate_abandonment_commission(bank_name, credit_id, new_commission_rate)
+		begin 
+			new_commission_rate = new_commission_rate.to_f
+            bank = Bank.find_by(name: bank_name)
+            #old_commission_rate = bank.commission_percentage
+            old_commission_rate = current_bank_setting(bank).commission_percentage
+            #commission = Commission.find_by(credit_id: credit_id)
+            commission = Commission.where(["credit_identifier = ? AND excercise_year_id = ?",  credit_id, current_excercise.id]).take
 
+			contributor_name = commission.contributor_name.downcase 
+			producer_name = commission.producer_name.downcase 
+			company_name = current_company.name.downcase
+			amount_credit = commission.amount_credit
+			company_commission_net = 0.0
+			producer_commission = 0.0
+			contributor_commission = commission.contributor_commission
+            my_logger.info("==== LE CALCUL D'ABANDON ")
+
+			if producer_name.present? && producer_name == company_name 
+				commission_diff = (amount_credit) * ((new_commission_rate) / 100)
+				bank_commission = commission_diff
+				company_commission_net = ((old_commission_rate) / 100) - ((100 * commission_diff)/100)
+                my_logger.info("==== LE CALCUL D'ABANDON A ETE FAIT AVEC LE 1E CAS")
+
+            end
+
+			if producer_name.present? && producer_name != company_name 
+				commission_diff = (amount_credit) * (new_commission_rate)/100
+				producer_commission = contributor_commission - ((50 * commission_diff)/100)
+				bank_commission = commission_diff
+				company_commission_net = ((old_commission_rate) / 100) - producer_commission - contributor_commission - ((50 * commission_diff)/100)
+                my_logger.info("==== LE CALCUL D'ABANDON A ETE FAIT AVEC LE 2E CAS")
+
+            end
+
+			commission.update_columns(:company_commission => company_commission_net,:producer_commission => producer_commission, :bank_commission_percentage => new_commission_rate )
+			#commission.update_column(:producer_commission, producer_commission)
+		rescue Exception => e
+			#puts "Une erreur s'est passée: #{e.to_s}"
+			#notice: "Une erreur s'est passée: #{e.to_s}"
+				logger.error("Message for the log file #{e.to_s}")
+				flash[:alert] = "Une erreur s'est passée: #{e.to_s}"
+				
+		ensure
+			redirect_to abandonments_path
+		end
+
+    end
+    
 
     # Calculate bank commission rate change.
 
@@ -32,8 +108,10 @@ module CommissionsHelper
 
             end
 
-            if bank.present? && bank.hypoplus_commission_percentage.present?
-                bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+            if bank.present? #&& bank.hypoplus_commission_percentage.present?
+                #bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+                bank_hypoplus_commission_percentage = current_bank_setting(bank).hypoplus_commission_percentage 
+
             end
 
         
@@ -337,18 +415,18 @@ module CommissionsHelper
                     user = User.find(args[0][:value])
 
                     if user.role == "Apporteur"
-                        @commissions = Commission.where(contributor_name: user.full_name)
+                        @commissions = Commission.where(["contributor_name = ? AND excercise_year_id = ?", user.full_name, current_excercise.id])
                     elsif user.role == "Producteur"
-                        @commissions = Commission.where(producer_name: user.full_name)
+                        @commissions = Commission.where(["producer_name = ? AND excercise_year_id = ?", user.full_name, current_excercise.id])
                     end
                 elsif args[0][:key] == "bank"
                     commission_type = "bank"
                     bank = Bank.find(args[0][:value])
-                    @commissions = Commission.where(bank_name: bank.name)
+                    @commissions = Commission.where(["bank_name = ? AND excercise_year_id = ?",  bank.name, current_excercise.id])
                 end
             else
                 # Load all commissions.
-                @commissions = Commission.all
+                @commissions = Commission.where(excercise_year_id: current_excercise.id)
             end
 
             if @commissions.present?
@@ -358,7 +436,7 @@ module CommissionsHelper
                     # Get hypoplus column.
 
                     #credit_hypoplus = get_credit_hypoplus(commission.credit_id).hypoplus
-                    credit_hypoplus = get_credit_hypoplus(commission.credit_id)
+                    credit_hypoplus = get_credit_hypoplus(commission.credit_identifier)
                     
                     # Credit amount.
                     if commission.amount_credit.present?
@@ -367,21 +445,25 @@ module CommissionsHelper
 
                     # We get the bank infos.
                     if commission.bank_name
-                        bank = Bank.find_by_name(commission.bank_name)
+                        bank = Bank.find_by(name: commission.bank_name)
+                        #bank = Bank.where(["name = ? AND excercise_year_id = ?", commission.bank_name, current_excercise.id]).take
                     end
                     
 
                     # If bank commission rate was changed.
                     
 
-                        if bank.present? && bank.commission_percentage.present?
-                            puts "BANQUE NAME: #{bank.name} et #{bank.commission_percentage}"
+                        if bank.present? #&& bank.commission_percentage.present?
+                            puts "BANQUE NAME: #{bank.name} et #{current_bank_setting(bank).commission_percentage}"
                             # Get bank infos required infos for the compute.
-                            bank_commission_percentage = bank.commission_percentage 
+                            #bank_commission_percentage = bank.commission_percentage 
+                            bank_commission_percentage = current_bank_setting(bank).commission_percentage 
                         end
 
                         if bank.present? && bank.hypoplus_commission_percentage.present?
-                            bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+                            #bank_hypoplus_commission_percentage = bank.hypoplus_commission_percentage 
+                            bank_hypoplus_commission_percentage = current_bank_setting(bank).hypoplus_commission_percentage 
+
                         end
 
                         # We get the producer infos.
@@ -417,10 +499,10 @@ module CommissionsHelper
 
                         # Handle 
                         if credit_hypoplus.present? 
-                            puts "CALCUL HYPOPLUS POUR NO:#{commission.credit_id} Montant: #{commission.amount_credit}"
+                            puts "CALCUL HYPOPLUS POUR NO:#{commission.credit_identifier} Montant: #{commission.amount_credit}"
                             puts "Banque HYPO: #{bank_hypoplus_commission_percentage}"
                             my_logger.info("======Calcul d'Hypoplys====")
-                            my_logger.info("Dossier: #{commission.credit_id}, Banque: #{commission.bank_name}, Client: #{credit_customer_name(commission.customer_id) if commission.customer_id}, Montant #{commission.amount_credit}")
+                            my_logger.info("Dossier: #{commission.credit_identifier}, Banque: #{commission.bank_name}, Client: #{credit_customer_name(commission.customer_id) if commission.customer_id}, Montant #{commission.amount_credit}")
                             
 
                             if bank_hypoplus_commission_percentage.present? && bank_hypoplus_commission_percentage > 0.0 
@@ -472,24 +554,66 @@ module CommissionsHelper
 
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
-
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 1 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
+
 
                                 else
-                                    contributor_commission_percentage = 0.0 
-                                    contributor_commission = 0.0
+                                    #Si c'est un cas d'abandon
+                                   
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
+                                        my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
+                                        puts("==== CAS D'UN ABANDON DE COMMISSION")
+                                        puts("==== LE TAUX REF: #{bank_commission_percentage}")
+                                        my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
-                                    producer_commission_percentage = 0.0
-                                    producer_commission = 0.0
+                                        if bank_commission_rate_abandonment.present?
+                                            my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
+                                            
+                                            contributor_commission_percentage = 0.0 
+                                            contributor_commission = 0.0
 
-                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                                    company_commission_net = bank_amount_commission
-                                    company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                            producer_commission_percentage = 0.0
+                                            producer_commission = 0.0
+
+                                            
+                                            company_commission_net = 0.0
+                                            
+
+                                            new_commission_rate = bank_commission_rate_abandonment.abandonment_rate.to_f
+                                           
+                                        
+                                            rate_diff = bank_commission_percentage - new_commission_rate
+                                            commission_diff = (credit_amount * rate_diff) / 100
+                                            bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                            company_commission_net = bank_amount_commission - commission_diff
+                                            company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+                                            bank_commission_percentage = new_commission_rate
+
+                                        end
+
+                                    else
+                                        #Cas normal
+                                        contributor_commission_percentage = 0.0 
+                                        contributor_commission = 0.0
+
+                                        producer_commission_percentage = 0.0
+                                        producer_commission = 0.0
+
+                                        bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                        company_commission_net = bank_amount_commission
+                                        company_commission_percentage = (company_commission_net / credit_amount) * 100
 
                                     puts "REGLE 1"
+                                    end
                                 end
                             end
 
@@ -502,23 +626,59 @@ module CommissionsHelper
 
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
-
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 2 ==== (DOSSIER: #{commission.credit_id}, MONTANT:  #{commission.amount_credit})")
+
                                 else
-                                    contributor_commission_percentage = 0.0 
-                                    producer_commission_percentage = 0.0
-                                    
-                                    contributor_commission = 0.0
-                                    producer_commission = 0.0
+                                    #Si c'est un cas d'abandon
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
+                                        my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
+                                        my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
-                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                                    company_commission_net = bank_amount_commission
-                                    company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                        if bank_commission_rate_abandonment.present?
+                                            my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
+                                            
+                                            contributor_commission_percentage = 0.0 
+                                            producer_commission_percentage = 0.0
+                                        
+                                            contributor_commission = 0.0
+                                            producer_commission = 0.0
+                                            company_commission_net = 0.0
+                                            
 
-                                    puts "REGLE 1 BIS"
+                                            new_commission_rate = bank_commission_rate_abandonment.abandonment_rate.to_f
+                                           
+                                        
+                                            rate_diff = bank_commission_percentage - new_commission_rate
+                                            commission_diff = (credit_amount * rate_diff) / 100
+                                            bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                            company_commission_net = bank_amount_commission - commission_diff
+                                            company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+                                            bank_commission_percentage = new_commission_rate
+
+                                        end
+                                    else
+                                        #Cas normal
+                                        contributor_commission_percentage = 0.0 
+                                        producer_commission_percentage = 0.0
+                                        
+                                        contributor_commission = 0.0
+                                        producer_commission = 0.0
+
+                                        bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                        company_commission_net = bank_amount_commission
+                                        company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+                                        puts "REGLE 1 BIS"
+                                    end
                                 end
                             end
 
@@ -530,20 +690,58 @@ module CommissionsHelper
 
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
-
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                else
-                                    producer_commission = 0.0
-                                    producer_commission_percentage = 0.0
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 3 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
 
-                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                                    contributor_commission = (credit_amount * contributor_commission_percentage) / 100
-                                    company_commission_net = (bank_amount_commission) - (contributor_commission)
-                                    company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    puts "REGLE 2"
+                                else
+                                    #Si c'est un cas d'abandon
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
+                                        my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
+                                        my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
+
+                                        if bank_commission_rate_abandonment.present?
+                                            my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
+                                            
+                                            
+                                
+                                            producer_commission_percentage = 0.0
+                                            producer_commission = 0.0
+
+                                            company_commission_net = 0.0
+                                            
+
+                                            new_commission_rate = bank_commission_rate_abandonment.abandonment_rate.to_f
+                                           
+                                        
+                                            rate_diff = bank_commission_percentage - new_commission_rate
+                                            commission_diff = (credit_amount * rate_diff) / 100
+                                            
+                                            bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                            contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+                                            company_commission_net = (bank_amount_commission - contributor_commission) - commission_diff
+                                            company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+                                            bank_commission_percentage = new_commission_rate
+
+                                        end
+                                    else
+                                        #Cas normal
+                                        producer_commission = 0.0
+                                        producer_commission_percentage = 0.0
+
+                                        bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                        contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+                                        company_commission_net = (bank_amount_commission) - (contributor_commission)
+                                        company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                        puts "REGLE 2"
+                                    end
 
                                 end
                             
@@ -558,20 +756,58 @@ module CommissionsHelper
 
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
-
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
+                                    
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 4 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
+
                                 else
-                                    contributor_commission = 0.0
-                                    contributor_commission_percentage = 0.0 
+                                    #Si c'est un cas d'abandon
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
+                                        my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
+                                        my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
-                                    producer_commission = (credit_amount * producer_commission_percentage) / 100
-                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                                    company_commission_net = (bank_amount_commission) - (producer_commission)
-                                    company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    puts "REGLE 3"
+                                        if bank_commission_rate_abandonment.present?
+                                            my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
+                                            
+                                            contributor_commission = 0.0
+                                            contributor_commission_percentage = 0.0 
+                                
+                                            company_commission_net = 0.0
+                                            
+
+                                            new_commission_rate = bank_commission_rate_abandonment.abandonment_rate.to_f
+                                           
+                                        
+                                            rate_diff = bank_commission_percentage - new_commission_rate
+                                            commission_diff = (credit_amount * rate_diff) / 100
+                                            
+                                            bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                            producer_commission = ((credit_amount * producer_commission_percentage) / 100) - commission_diff
+                                            company_commission_net = (bank_amount_commission - producer_commission) - commission_diff
+                                            company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+
+                                            bank_commission_percentage = new_commission_rate
+
+                                        end
+                                    else
+                                        #Cas normal
+                                        contributor_commission = 0.0
+                                        contributor_commission_percentage = 0.0 
+
+                                        producer_commission = (credit_amount * producer_commission_percentage) / 100
+                                        bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                        company_commission_net = (bank_amount_commission) - (producer_commission)
+                                        company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                        puts "REGLE 3"
+                                    end
                                 end
 
                             end
@@ -586,18 +822,55 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
-                                    
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 5 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
+
                                 else
+                                    #Si c'est un cas d'abandon
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
+                                        my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
+                                        my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
+
+                                        if bank_commission_rate_abandonment.present?
+                                            my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
+                                            
+                                           
                                 
-                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
-                                    contributor_commission = (credit_amount * contributor_commission_percentage) / 100
-                                    producer_commission = ((credit_amount * producer_commission_percentage) / 100) - ((contributor_commission * 50)/100)
-                                    company_commission_net = (bank_amount_commission) - (producer_commission) - (contributor_commission)
-                                    company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                            company_commission_net = 0.0
+                                            
+
+                                            new_commission_rate = bank_commission_rate_abandonment.abandonment_rate.to_f
+                                           
+                                        
+                                            rate_diff = bank_commission_percentage - new_commission_rate
+                                            commission_diff = (credit_amount * rate_diff) / 100
+                                            
+                                            bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                            contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+                                            producer_commission = ((credit_amount * producer_commission_percentage) / 100) - commission_diff
+                                            company_commission_net = (bank_amount_commission - producer_commission - contributor_commission) - commission_diff
+                                            company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+
+                                            bank_commission_percentage = new_commission_rate
+
+                                        end
+                                    else
+                                        #Cas normal
+                                
+                                        bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                        contributor_commission = (credit_amount * contributor_commission_percentage) / 100
+                                        producer_commission = ((credit_amount * producer_commission_percentage) / 100) - ((contributor_commission * 50)/100)
+                                        company_commission_net = (bank_amount_commission) - (producer_commission) - (contributor_commission)
+                                        company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                    end
                                 end
                                 puts "REGLE 4"
                                 
@@ -614,19 +887,58 @@ module CommissionsHelper
                                     producer_commission_percentage = 0.0
                                     producer_commission = 0.0
 
-                                    producer_commission = credit_amount * (bank_amount_commission - bank.company_remaining_commission_rate) 
                                     bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                                    producer_commission = (credit_amount * (bank_commission_percentage - bank.company_remaining_commission_rate)) / 100
+                                    producer_commission_percentage = bank_commission_percentage - bank.company_remaining_commission_rate
+
                                     company_commission_net = (bank_amount_commission) - (producer_commission)
                                     company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                    my_logger.info("======CAS CO-COURTIER DANS REGLE 6 ==== (DOSSIER: #{commission.credit_identifier}, MONTANT:  #{commission.amount_credit})")
+
                                 else
-                                    contributor_commission = 0.0
-                                    contributor_commission_percentage = 0.0
+                                    #Si c'est un cas d'abandon
+                                    if rate_abandonment_case?(commission.credit_identifier, commission.bank_name.downcase)
+                                        my_logger.info("==== CAS D'UN ABANDON DE COMMISSION")
+                                        my_logger.info("==== LE TAUX REF: #{bank_commission_percentage}")
+                                        bank_commission_rate_abandonment = get_bank_commission_rate_abandonment(commission.credit_identifier, commission.bank_name.downcase)
 
-                                    bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                        if bank_commission_rate_abandonment.present?
+                                            my_logger.info("==== LE NOUVEAU TAUX: #{bank_commission_rate_abandonment.abandonment_rate}")
+                                            
+                                            contributor_commission = 0.0
+                                            contributor_commission_percentage = 0.0
+                                
+                                            company_commission_net = 0.0
+                                            
 
-                                    producer_commission = ((credit_amount * producer_commission_percentage) / 100) 
-                                    company_commission_net = (bank_amount_commission) - (producer_commission) 
-                                    company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                            new_commission_rate = bank_commission_rate_abandonment.abandonment_rate.to_f
+                                           
+                                        
+                                            rate_diff = bank_commission_percentage - new_commission_rate
+                                            commission_diff = (credit_amount * rate_diff) / 100
+                                            
+                                            bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+                                            producer_commission = ((credit_amount * producer_commission_percentage) / 100) - commission_diff
+                                            company_commission_net = (bank_amount_commission - producer_commission) - commission_diff
+                                            company_commission_percentage = (company_commission_net / credit_amount) * 100
+
+
+
+                                            bank_commission_percentage = new_commission_rate
+
+                                        end
+                                    else
+                                        #Cas normal
+                                        contributor_commission = 0.0
+                                        contributor_commission_percentage = 0.0
+
+                                        bank_amount_commission = (credit_amount * bank_commission_percentage) / 100
+
+                                        producer_commission = ((credit_amount * producer_commission_percentage) / 100) 
+                                        company_commission_net = (bank_amount_commission) - (producer_commission) 
+                                        company_commission_percentage = (company_commission_net / credit_amount) * 100
+                                    end
                                 end
                                 puts "REGLE 5"
                             end

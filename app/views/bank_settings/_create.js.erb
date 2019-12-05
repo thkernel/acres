@@ -1,0 +1,9 @@
+$("ul.errors").html("");
+<% if @bank_setting.errors.any? %>
+  <% @bank_setting.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
+  <% end %>
+<% else %>
+  $("#bank-setting-modal").modal("hide");
+ 
+<% end %>

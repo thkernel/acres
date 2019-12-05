@@ -11,7 +11,7 @@
 #  slug               :string
 #  brand_file_name    :string
 #  brand_content_type :string
-#  brand_file_size    :integer
+#  brand_file_size    :bigint
 #  brand_updated_at   :datetime
 #  user_id            :bigint           not null
 #  created_at         :datetime         not null

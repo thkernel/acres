@@ -6,8 +6,11 @@
 			</div>
 			<div class="pull-right">
 				<p>
-				<%= link_to raw('<i class="fa fa-file-excel-o" aria-hidden="true"></i>
-				Importer'), new_log_path, class: "btn btn-warning", remote: true %>
+					<% unless closed_excercise?(session[:current_excercise])  %>
+						<%= link_to raw('<i class="fa fa-file-excel-o" aria-hidden="true"></i>
+						Importer'), new_log_path, class: "btn btn-warning", remote: true %>
+
+					<% end %>
 				</p>
 			</div>
 		</div>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @payment_timetable.type %>
+</p>
+
+<p>
+  <strong>Credit identifier:</strong>
+  <%= @payment_timetable.credit_identifier %>
+</p>
+
+<p>
+  <strong>Excercise year:</strong>
+  <%= @payment_timetable.excercise_year %>
+</p>
+
+<%= link_to 'Edit', edit_payment_timetable_path(@payment_timetable) %> |
+<%= link_to 'Back', payment_timetables_path %>

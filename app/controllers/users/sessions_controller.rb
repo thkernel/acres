@@ -7,7 +7,22 @@ class Users::SessionsController < Devise::SessionsController
   #after_action :app_setup
   before_action :setup_initial_data
   #before_action :superadmin_setup
+  
+  
 
+  def after_sign_in_path_for(resource)
+    dashboard_path
+=begin
+    if request.subdomain.present? && request.subdomain != 'www'   
+		  if current_user.role == "Admin"
+        load_session
+      else
+        dashboard_path
+      end
+    end
+=end
+  end
+  
   # GET /resource/sign_in
   # def new
   #   super
@@ -19,9 +34,10 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+     super
+     session[:current_excercise] = nil
+   end
 
   # protected
 
@@ -81,9 +97,11 @@ class Users::SessionsController < Devise::SessionsController
       roles = Role.all 
 
       unless roles.present?
-         Role.create([{ name: 'Admin' }, { name: 'Producteur' }, { name: 'Apporteur' }])
+         Role.create([{ name: 'Admin' }, { name: 'Producteur' }, { name: 'Apporteur' }, { name: 'Co-courtier' }])
       end
     end
+
+    
 
     
     

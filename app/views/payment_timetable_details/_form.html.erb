@@ -1,0 +1,50 @@
+<%= form_with(model: payment_timetable_detail, local: true) do |form| %>
+  <div class="modal-body">
+  <% if payment_timetable_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(payment_timetable_detail.errors.count, "error") %> prohibited this payment_timetable_detail from being saved:</h2>
+
+      <ul>
+      <% payment_timetable_detail.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label "Tranche de paiement"%>
+    <%= form.text_field :installment_payment, id: :payment_timetable_detail_installment_payment, class: "form-control", disabled: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Date de la tranche" %>
+    <%= form.date_field :installment_date, id: :payment_timetable_detail_installment_date, class: "form-control", disabled: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Commission" %>
+    <%= form.number_field :commission, id: :payment_timetable_detail_commission, class: "form-control", disabled: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Montant cumulé" %>
+    <%= form.number_field :cumulative_amount, id: :payment_timetable_detail_cumulative_amount, class: "form-control", disabled: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Payé par la banque" %>
+    <%= form.select :paid_by_bank,  CreditDetail::YES_NO, {prompt: ""}, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Payé au apporteur ou au producteur" %>
+    <%= form.select :paid_to_contributor_or_producer,  CreditDetail::YES_NO, {prompt: ""},  class: "form-control" %>
+  </div>
+  </div>
+
+  <div class="modal-footer">
+		<%= link_to "Annuler", "#", class: "btn", data: {dismiss: "modal"} %>
+		<%= form.submit "Modifier les paiements de ce dossier", class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+	</div>
+<% end %>

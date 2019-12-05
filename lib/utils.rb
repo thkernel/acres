@@ -11,15 +11,40 @@ module SharedUtils
         end
     end
 
+    module AppLogger
+        def cron_logger
+            @@cron_logger ||= Logger.new("#{Rails.root}/log/cron-log.log")
+        end
+
+        def data_injection_logger
+            @@data_injection_logger ||= Logger.new("#{Rails.root}/log/data-injection-log.log")
+        end
+    
+    end
+
     module Duplicate
         def self.is_duplicate?(row, cel)
             current_credit = Extractor.extract_number(row[cell[0]]).present?
-            credit = Credit.find_by(credit_id: current_credit)
-            if true
+            credit = Credit.find_by(identifier: current_credit)
+            #credit = Credit.where(["identifier = ? AND excercise_year_id = ?",  current_credit, current_excercise.id]).take
+            if credit
                 true 
             else
                 false
             end
         end
+    end
+
+    module ExcerciseYearMixin 
+       
+    
+        def openned_excercise
+            
+                
+            excercise = ExcerciseYear.where(status: "Open").take 
+           
+
+        end
+    
     end
 end

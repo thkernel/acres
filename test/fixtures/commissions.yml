@@ -3,7 +3,7 @@
 # Table name: commissions
 #
 #  id                                :bigint           not null, primary key
-#  credit_id                         :bigint
+#  credit_identifier                 :bigint
 #  production_date                   :date
 #  acte_date                         :date
 #  customer_id                       :integer
@@ -25,6 +25,7 @@
 #  user_id                           :bigint           not null
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
+#  excercise_year_id                 :bigint
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

@@ -1,5 +1,7 @@
 class CreditsController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_excercise_year
+
   before_action :set_credit, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
 
@@ -7,7 +9,7 @@ class CreditsController < ApplicationController
   # GET /credits.json
   def index
     #@credits = current_user.credits
-    @credits = Credit.all
+    @credits = Credit.where(excercise_year_id: current_excercise.id)
   end
 
   # GET /credits/1

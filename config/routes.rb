@@ -7,6 +7,22 @@ end
 
 
 Rails.application.routes.draw do
+  resources :bank_settings
+	resources :payment_timetable_details do   
+		get "delete"
+	end
+	
+  resources :payment_timetables
+  resources :borderaus
+  resources :monthly_payment_delay_expireds
+  resources :first_installment_payment_delay_expireds
+	post "excercise_years/change_current_excercise" => "excercise_years#change_current_excercise"
+  get 'dispatcher/index' => "dispatcher#index", as: :dispatcher
+
+	resources :excercise_years do   
+		get "delete"
+	end
+	
   resources :user_commission_rate_trackers
   resources :payment_delays
   resources :bank_commission_rate_trackers
@@ -36,7 +52,6 @@ Rails.application.routes.draw do
 	resources :companies
 
 	
-	resources :customers
 
 	resources :customers do
 		get 'delete'
@@ -134,7 +149,12 @@ Rails.application.routes.draw do
 
 	get 'show/producer/credit/details/:id' => 'credit_details#producer_credit_details', as: :show_producer_credit_details
 	get 'show/contributor/credit/details/:id' => 'credit_details#contributor_credit_details', as: :show_contributor_credit_details
+	
+	get 'show/contributor/credit/payment/timetable/:id' => 'payment_timetable_details#contributor_payment_timetable_details', as: :show_contributor_payment_timetable_details
+	get 'show/producer/credit/payment/timetable/:id' => 'payment_timetable_details#producer_payment_timetable_details', as: :show_producer_payment_timetable_details
+
 	get 'credit/payments/:id' => 'credit_details#credit_payments_details', as: :credit_payments_details
+	get "download/files/bordereaux/:file_name" => "credit_details#download_bordereau", as: :download_bordereau
 
 	#get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
 	get '/manager/new' => 'managers#new', as: :new_manager
@@ -150,7 +170,7 @@ Rails.application.routes.draw do
 	get '/reset/get' => 'logs#reset', as: :get_reset_configuration
 	post '/reset/post' => 'logs#reset_all', as: :post_reset_configuration
 	get 'abandonment' => 'commissions#abandonments', as: :abandonments
-	get 'commissions/abandonment/:id' => 'commissions#abandon', as: :get_abandon
+	get 'commissions/abandonment/:identifier' => 'commissions#abandon', as: :get_abandon
 	post 'commissions/abandon' => 'commissions#post_abandon', as: :post_abandon
 	get 'settings/payments' => 'payment_delays#settings', as: :payments_delays_settings
 	get "show/backup" => "administrations#show_backup", as: :show_backup
@@ -184,10 +204,17 @@ Rails.application.routes.draw do
 		end
 	end
 
-	%w( 404 422 500 ).each do |code|
-		get code, :to => "errors#show", :code => code
-	end
-	
+=begin
+        %w( 404 422 500 ).each do |code|
+          get code, :to => "errors#show", :code => code
+        end
+=end
+
+# Dynamic error pages
+get "/404", to: "errors#not_found"
+get "/422", to: "errors#unacceptable"
+get "/500", to: "errors#internal_error"
+
 
     
 

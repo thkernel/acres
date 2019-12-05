@@ -59,6 +59,7 @@ namespace :db do
     end
 
     def backup_directory(create=false)
+        #backup_dir = "/home/#{ENV['USER']}/acres_backups"
         backup_dir = "#{Rails.root}/db/backups"
         if create and not Dir.exists?(backup_dir)
           puts "Creating #{backup_dir} .."

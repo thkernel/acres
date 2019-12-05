@@ -1,0 +1,14 @@
+<% @bank_settings.each do |bank_setting| %>
+    <tr>
+    <td><%= bank_setting.commission_percentage %></td>
+    <td><%= bank_setting.hypoplus_commission_percentage %></td>
+    <td><%= bank_setting.first_installment %></td>
+    <td><%= bank_setting.number_of_dates %></td>
+    <td><%= bank_setting.number_of_remaining_days %></td>
+    <td><%= bank_setting.company_remaining_commission_rate %></td>
+   
+    <td><%= link_to 'Show', bank_setting %></td>
+    <td><%= link_to 'Edit', edit_bank_setting_path(bank_setting) %></td>
+    <td><%= link_to 'Destroy', bank_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+<% end %>

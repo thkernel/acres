@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Payment timetable:</strong>
+  <%= @payment_timetable_detail.payment_timetable %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @payment_timetable_detail.status %>
+</p>
+
+<%= link_to 'Edit', edit_payment_timetable_detail_path(@payment_timetable_detail) %> |
+<%= link_to 'Back', payment_timetable_details_path %>

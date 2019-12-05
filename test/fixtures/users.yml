@@ -6,7 +6,7 @@
 #  full_name              :string
 #  avatar_file_name       :string
 #  avatar_content_type    :string
-#  avatar_file_size       :integer
+#  avatar_file_size       :bigint
 #  avatar_updated_at      :datetime
 #  role                   :string           not null
 #  status                 :string           default("enable"), not null
@@ -25,6 +25,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  receives_summaries     :boolean          default(FALSE)
+#  slug                   :string
+#  identifier             :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

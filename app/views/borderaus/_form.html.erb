@@ -1,0 +1,42 @@
+<%= form_with(model: borderau, local: true) do |form| %>
+  <% if borderau.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(borderau.errors.count, "error") %> prohibited this borderau from being saved:</h2>
+
+      <ul>
+      <% borderau.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :borderau_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :installment %>
+    <%= form.number_field :installment, id: :borderau_installment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :file_name %>
+    <%= form.text_field :file_name, id: :borderau_file_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :credit_identifier %>
+    <%= form.text_field :credit_identifier, id: :borderau_credit_identifier %>
+  </div>
+
+  <div class="field">
+    <%= form.label :excercise_year_id_id %>
+    <%= form.text_field :excercise_year_id_id, id: :borderau_excercise_year_id_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -3,9 +3,9 @@
 	<head>
 
 		<% if is_superadmin? || is_manager? %>
-			<title><%= "Tableau de bord " %></title>
+			<title><%= "Tableau de bord" %></title>
 		<% else %>
-			<title><%= "Tableau de bord - #{get_app_name(current_user)}" %></title>
+			<title><%= "Tableau de bord" %></title>
 		<% end %>
     <%= csrf_meta_tags %>
 
@@ -20,7 +20,7 @@
 		<div class="wrapper">
 		<%= render :partial => 'layouts/partials/flash_messages', :flash => flash %>
 	<div id="reset-modal" class="modal fade"></div>
-	<div id="backup-database-modal" class="modal fade"></div>
+	<div id="backup-modal" class="modal fade"></div>
 
 		<!-- Left Sidebar -->
 	  <%= render('layouts/partials/dashboard/sidebar') %>
@@ -39,8 +39,9 @@
 				<%= render('layouts/partials/smtp_alert') %>
 			<% end %>
 		<% if is_admin? %>
-			
+			<%= render('layouts/partials/onclosed_excercise_alert') %>
 			<%= render('layouts/partials/unregistered_alert') %>
+			<%= render('layouts/partials/first_installment_payment_delay_expireds_alert') %>
 		<% end %>
 
 	   <!-- End Left sidebar -->

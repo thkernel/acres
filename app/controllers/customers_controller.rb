@@ -1,5 +1,7 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_excercise_year
+
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
   layout "dashboard"
 
@@ -59,6 +61,10 @@ class CustomersController < ApplicationController
         format.js
       end
     end
+  end
+
+  def delete
+    @customer = Customer.find(params[:customer_id])
   end
 
   # DELETE /customers/1

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190510044141) do
+ActiveRecord::Schema.define(version: 20191105052746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,19 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.index ["user_id"], name: "index_app_configs_on_user_id", unique: true
   end
 
+  create_table "bank_commision_rate_abandonments", force: :cascade do |t|
+    t.string "bank_name"
+    t.float "current_bank_rate", default: 0.0
+    t.float "abandonment_rate", default: 0.0
+    t.bigint "credituid"
+    t.bigint "excercise_year_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["excercise_year_id"], name: "index_bank_commision_rate_abandonments_on_excercise_year_id"
+    t.index ["user_id"], name: "index_bank_commision_rate_abandonments_on_user_id", unique: true
+  end
+
   create_table "bank_commission_editions", force: :cascade do |t|
     t.date "date_effet"
     t.string "completed", default: "no"
@@ -48,6 +61,19 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.index ["user_id"], name: "index_bank_commission_editions_on_user_id"
   end
 
+  create_table "bank_commission_rate_abandonments", force: :cascade do |t|
+    t.string "bank_name"
+    t.float "current_bank_rate", default: 0.0
+    t.float "abandonment_rate", default: 0.0
+    t.bigint "credit_identifier"
+    t.bigint "excercise_year_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["excercise_year_id"], name: "index_bank_commission_rate_abandonments_on_excercise_year_id"
+    t.index ["user_id"], name: "index_bank_commission_rate_abandonments_on_user_id"
+  end
+
   create_table "bank_commission_rate_trackers", force: :cascade do |t|
     t.datetime "start_date"
     t.float "old_rate", default: 0.0
@@ -57,8 +83,26 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "status", default: "enable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
     t.index ["bank_id"], name: "index_bank_commission_rate_trackers_on_bank_id"
+    t.index ["excercise_year_id"], name: "index_bank_commission_rate_trackers_on_excercise_year_id"
     t.index ["user_id"], name: "index_bank_commission_rate_trackers_on_user_id"
+  end
+
+  create_table "bank_settings", force: :cascade do |t|
+    t.float "commission_percentage"
+    t.float "hypoplus_commission_percentage"
+    t.float "first_installment"
+    t.integer "number_of_dates"
+    t.integer "number_of_remaining_days"
+    t.float "company_remaining_commission_rate"
+    t.bigint "excercise_year_id"
+    t.bigint "bank_id"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_bank_settings_on_bank_id"
+    t.index ["excercise_year_id"], name: "index_bank_settings_on_excercise_year_id"
   end
 
   create_table "banks", force: :cascade do |t|
@@ -76,7 +120,20 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.datetime "updated_at", null: false
     t.integer "number_of_remaining_days", default: 0
     t.float "company_remaining_commission_rate", default: 0.0
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_banks_on_excercise_year_id"
     t.index ["user_id"], name: "index_banks_on_user_id"
+  end
+
+  create_table "borderaus", force: :cascade do |t|
+    t.string "name"
+    t.integer "installment"
+    t.string "file_name"
+    t.string "credit_identifier"
+    t.bigint "excercise_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["excercise_year_id"], name: "index_borderaus_on_excercise_year_id"
   end
 
   create_table "commission_settings", force: :cascade do |t|
@@ -88,11 +145,13 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_commission_settings_on_excercise_year_id"
     t.index ["user_id"], name: "index_commission_settings_on_user_id", unique: true
   end
 
   create_table "commissions", force: :cascade do |t|
-    t.bigint "credit_id"
+    t.bigint "credit_identifier"
     t.date "production_date"
     t.date "acte_date"
     t.integer "customer_id"
@@ -114,6 +173,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_commissions_on_excercise_year_id"
     t.index ["user_id"], name: "index_commissions_on_user_id"
   end
 
@@ -126,7 +187,7 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "slug"
     t.string "brand_file_name"
     t.string "brand_content_type"
-    t.integer "brand_file_size"
+    t.bigint "brand_file_size"
     t.datetime "brand_updated_at"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -151,15 +212,17 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.float "cumulative_amount", default: 0.0
     t.string "paid_by_bank", default: "Non"
     t.string "paid_to_contributor_or_producer", default: "Non"
-    t.bigint "creditUid", null: false
+    t.bigint "credit_identifier", null: false
     t.bigint "credit_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
     t.index ["credit_id"], name: "index_credit_details_on_credit_id"
+    t.index ["excercise_year_id"], name: "index_credit_details_on_excercise_year_id"
   end
 
   create_table "credits", force: :cascade do |t|
-    t.bigint "credit_id"
+    t.bigint "identifier"
     t.date "production_date"
     t.date "acte_date"
     t.integer "customer_id"
@@ -181,6 +244,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_credits_on_excercise_year_id"
     t.index ["user_id"], name: "index_credits_on_user_id"
   end
 
@@ -193,13 +258,39 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "slug"
     t.string "avatar_file_name"
     t.string "avatar_content_type"
-    t.integer "avatar_file_size"
+    t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
     t.index ["user_id"], name: "index_customers_on_user_id"
+  end
+
+  create_table "excercise_years", force: :cascade do |t|
+    t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "status"
+    t.string "close_at"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_excercise_years_on_user_id"
+  end
+
+  create_table "first_installment_payment_delay_expireds", force: :cascade do |t|
+    t.bigint "credit_identifier"
+    t.datetime "expiration_date"
+    t.string "installment"
+    t.string "target"
+    t.float "payment_amount", default: 0.0
+    t.string "status"
+    t.bigint "excercise_year_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_first_installment_payment_delay_expireds_on_user_id"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -223,6 +314,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_logs_on_excercise_year_id"
     t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
@@ -241,6 +334,21 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_mail_configurations_on_user_id", unique: true
+  end
+
+  create_table "monthly_payment_delay_expireds", force: :cascade do |t|
+    t.bigint "credit_identifier"
+    t.datetime "expiration_date"
+    t.string "installment"
+    t.string "target"
+    t.float "payment_amount", default: 0.0
+    t.string "status"
+    t.bigint "excercise_year_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["excercise_year_id"], name: "index_monthly_payment_delay_expireds_on_excercise_year_id"
+    t.index ["user_id"], name: "index_monthly_payment_delay_expireds_on_user_id"
   end
 
   create_table "notaries", force: :cascade do |t|
@@ -264,6 +372,29 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.index ["user_id"], name: "index_payment_delays_on_user_id"
   end
 
+  create_table "payment_timetable_details", force: :cascade do |t|
+    t.bigint "payment_timetable_id"
+    t.string "installment_payment"
+    t.date "installment_date"
+    t.float "commission", default: 0.0
+    t.float "cumulative_amount", default: 0.0
+    t.string "paid_by_bank", default: "Non"
+    t.string "paid_to_contributor_or_producer", default: "Non"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_timetable_id"], name: "index_payment_timetable_details_on_payment_timetable_id"
+  end
+
+  create_table "payment_timetables", force: :cascade do |t|
+    t.string "target"
+    t.string "credit_identifier"
+    t.bigint "excercise_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["excercise_year_id"], name: "index_payment_timetables_on_excercise_year_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -272,7 +403,7 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "slug"
     t.string "avatar_file_name"
     t.string "avatar_content_type"
-    t.integer "avatar_file_size"
+    t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -314,6 +445,8 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "excercise_year_id"
+    t.index ["excercise_year_id"], name: "index_user_commission_rate_trackers_on_excercise_year_id"
     t.index ["user_id"], name: "index_user_commission_rate_trackers_on_user_id"
   end
 
@@ -321,7 +454,7 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.string "full_name"
     t.string "avatar_file_name"
     t.string "avatar_content_type"
-    t.integer "avatar_file_size"
+    t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string "role", null: false
     t.string "status", default: "enable", null: false
@@ -340,29 +473,52 @@ ActiveRecord::Schema.define(version: 20190510044141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "receives_summaries", default: false
+    t.string "slug"
+    t.string "identifier"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "accounts", "users"
   add_foreign_key "app_configs", "users"
+  add_foreign_key "bank_commision_rate_abandonments", "excercise_years"
+  add_foreign_key "bank_commision_rate_abandonments", "users"
   add_foreign_key "bank_commission_editions", "banks"
   add_foreign_key "bank_commission_editions", "users"
+  add_foreign_key "bank_commission_rate_abandonments", "excercise_years"
+  add_foreign_key "bank_commission_rate_abandonments", "users"
   add_foreign_key "bank_commission_rate_trackers", "banks"
+  add_foreign_key "bank_commission_rate_trackers", "excercise_years"
   add_foreign_key "bank_commission_rate_trackers", "users"
+  add_foreign_key "bank_settings", "banks"
+  add_foreign_key "bank_settings", "excercise_years"
+  add_foreign_key "banks", "excercise_years"
   add_foreign_key "banks", "users"
+  add_foreign_key "borderaus", "excercise_years"
+  add_foreign_key "commission_settings", "excercise_years"
   add_foreign_key "commission_settings", "users"
+  add_foreign_key "commissions", "excercise_years"
   add_foreign_key "commissions", "users"
   add_foreign_key "companies", "users"
   add_foreign_key "credit_details", "credits"
+  add_foreign_key "credit_details", "excercise_years"
+  add_foreign_key "credits", "excercise_years"
   add_foreign_key "credits", "users"
   add_foreign_key "customers", "users"
+  add_foreign_key "excercise_years", "users"
+  add_foreign_key "first_installment_payment_delay_expireds", "users"
+  add_foreign_key "logs", "excercise_years"
   add_foreign_key "logs", "users"
   add_foreign_key "mail_configurations", "users"
+  add_foreign_key "monthly_payment_delay_expireds", "excercise_years"
+  add_foreign_key "monthly_payment_delay_expireds", "users"
   add_foreign_key "notaries", "users"
   add_foreign_key "payment_delays", "users"
+  add_foreign_key "payment_timetable_details", "payment_timetables"
+  add_foreign_key "payment_timetables", "excercise_years"
   add_foreign_key "profiles", "users"
   add_foreign_key "user_commission_editions", "commission_settings"
   add_foreign_key "user_commission_editions", "users"
+  add_foreign_key "user_commission_rate_trackers", "excercise_years"
   add_foreign_key "user_commission_rate_trackers", "users"
 end

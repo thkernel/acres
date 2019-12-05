@@ -1,14 +1,16 @@
 class CustomUsersController < ApplicationController
-    before_action :authenticate_user!
+		before_action :authenticate_user!
+		before_action :current_excercise_year
+
     before_action :set_user, only: [:show, :edit, :update, :destroy] # probably want to keep using this
     layout "dashboard"
     
 
     
     def new
-		@roles = Role.where.not(name: "Superadmin")
-		@user = User.new
-	end
+			@roles = Role.where.not(name: "Superadmin")
+			@user = User.new
+		end
 	
     def create
 		@user = User.new(user_params)
@@ -45,15 +47,18 @@ class CustomUsersController < ApplicationController
     end
 
 	# Index
-    def index
+		def index
+		
     	if is_admin?
-			@users = User.where.not(role: 'Superadmin')
-			@users = @users.where.not(id: current_user)
-      	end
-		if is_superadmin?
-			@users = User.all
-			@users = @users.where.not(id: current_user)
-		end
+				@users = User.where.not(role: 'Superadmin')
+				@users = @users.where.not(id: current_user)
+			
+			end
+
+			if is_superadmin?
+				@users = User.all
+				@users = @users.where.not(id: current_user)
+			end
       
     end
     

@@ -1,0 +1,20 @@
+
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Bordereau") do |sheet|
+  sheet.add_row 
+  sheet.add_row ["Bordereau de commission de la société #{Company.take.name} du #{Time.now}"]
+  sheet.add_row 
+  sheet.add_row ["Apporteur/producteur :", "#{target_name}" ]
+
+  payment_timetable_details.each do |payment_timetable_detail|
+    sheet.add_row [payment_timetable_detail.installment_payment, payment_timetable_detail.commission]
+  end
+
+  sheet.add_row ["TOTAL DU DOSSIER N° #{credit_identifier}","#{amount}" ]
+  sheet.add_row 
+  sheet.add_row ["Tranche:", "#{installment}" ]
+  sheet.add_row 
+  sheet.add_row ["Nom du  client : #{customer}" ]
+  sheet.add_row ["Total général de ce bordereau", "#{amount}"]
+
+end

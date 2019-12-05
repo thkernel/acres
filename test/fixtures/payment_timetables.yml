@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: payment_timetables
+#
+#  id                :bigint           not null, primary key
+#  target            :string
+#  credit_identifier :string
+#  excercise_year_id :bigint
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  credit_identifier: MyString
+  excercise_year: one
+
+two:
+  type: 
+  credit_identifier: MyString
+  excercise_year: two

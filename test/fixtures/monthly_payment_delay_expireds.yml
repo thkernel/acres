@@ -1,0 +1,32 @@
+# == Schema Information
+#
+# Table name: monthly_payment_delay_expireds
+#
+#  id                :bigint           not null, primary key
+#  credit_identifier :bigint
+#  expiration_date   :datetime
+#  installment       :string
+#  target            :string
+#  payment_amount    :float            default(0.0)
+#  status            :string
+#  excercise_year_id :bigint
+#  user_id           :bigint
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  credit_identifier: MyString
+  expiration_date: 2019-08-09 11:35:43
+  installment_identifier: MyString
+  commission_amount: 1.5
+  user: one
+
+two:
+  credit_identifier: MyString
+  expiration_date: 2019-08-09 11:35:43
+  installment_identifier: MyString
+  commission_amount: 1.5
+  user: two

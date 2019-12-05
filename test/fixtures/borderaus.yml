@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: borderaus
+#
+#  id                :bigint           not null, primary key
+#  name              :string
+#  installment       :integer
+#  file_name         :string
+#  credit_identifier :string
+#  excercise_year_id :bigint
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  installment: 1
+  file_name: MyString
+  credit_identifier: MyString
+  excercise_year_id: one
+
+two:
+  name: MyString
+  installment: 1
+  file_name: MyString
+  credit_identifier: MyString
+  excercise_year_id: two

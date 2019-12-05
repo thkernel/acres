@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Payment Timetable Details</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Payment timetable</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payment_timetable_details.each do |payment_timetable_detail| %>
+      <tr>
+        <td><%= payment_timetable_detail.payment_timetable %></td>
+        <td><%= payment_timetable_detail.status %></td>
+        <td><%= link_to 'Show', payment_timetable_detail %></td>
+        <td><%= link_to 'Edit', edit_payment_timetable_detail_path(payment_timetable_detail) %></td>
+        <td><%= link_to 'Destroy', payment_timetable_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Payment Timetable Detail', new_payment_timetable_detail_path %>
