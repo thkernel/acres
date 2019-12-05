@@ -69,7 +69,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #additional gem
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
-gem 'devise', '~> 4.4', '>= 4.4.3'
+gem 'devise', '~> 4.7'
 gem 'devise-i18n', '~> 1.6', '>= 1.6.2'
 gem 'cancancan', '~> 2.2'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
