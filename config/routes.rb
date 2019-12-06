@@ -155,6 +155,8 @@ Rails.application.routes.draw do
 
 	get 'credit/payments/:id' => 'credit_details#credit_payments_details', as: :credit_payments_details
 	get "download/files/bordereaux/:file_name" => "credit_details#download_bordereau", as: :download_bordereau
+	get 'credit/payments/details/all' => 'credit_details#edit_all_credit_payments_details', as: :edit_all_credit_payments_details
+	put 'credit/payments/details/all' => 'credit_details#update_all_credit_payments_details', as: :update_all_credit_payments_details
 
 	#get 'credit/details/new/' => 'credit_details#new', as: :new_credit_detail
 	get '/manager/new' => 'managers#new', as: :new_manager

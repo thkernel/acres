@@ -1,11 +1,28 @@
 <div class="container">
 
-<div class="title">
-<h1>Echéancier et paiements effectués</h1>
 
-<h3>Date de l'acte: <%= @credit.acte_date.strftime("%d/%m/%Y") if @credit.acte_date.present? %></h3>
-<h3>Numéro du dossier: <%= @credit.identifier %></h3>
-</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="index-heading pull-left">
+
+        <div class="title">
+          <h1>Echéancier et paiements effectués</h1>
+
+          <h3>Date de l'acte: <%= @credit.acte_date.strftime("%d/%m/%Y") if @credit.acte_date.present? %></h3>
+          <h3>Numéro du dossier: <%= @credit.identifier %></h3>
+        </div>
+
+
+
+			</div>
+			<div class="pull-right">
+                
+        <p>
+        <%= link_to raw('<i class="fa fa-money" aria-hidden="true"></i> Paiment en masse'), edit_all_credit_payments_details_path(credit: @credit.identifier), class: "btn btn-warning", remote: false %>
+        </p>
+			</div>
+		</div>
+	</div>
 
 <table id="echeance-table-list" class="table table-striped table-bordered table-hover">
   <thead>

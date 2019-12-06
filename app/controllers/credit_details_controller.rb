@@ -47,9 +47,33 @@ class CreditDetailsController < ApplicationController
 	end
 	
 
+	def edit_all_credit_payments_details
+		credit_identifier = params[:credit]
+		@credit = Credit.find_by(identifier: credit_identifier)
+		@credit_details = CreditDetail.where(["credit_identifier = ? AND excercise_year_id = ?", credit_identifier, current_excercise.id]).reorder('id ASC')
+	end
+
+
+	def update_all_credit_payments_details
+		params['credit_details'].keys.each do |id|
+			@credit_detail = CreditDetail.find(id.to_i)
+			
+			@credit_detail.update_attributes(update_all_credit_detail_params(id))
+
+		end
+		bank = Bank.find_by(name: Credit.find_by(identifier: @credit_detail.credit_identifier).bank_name)
+		redirect_to bank_credits_path(bank.id)
+
+	
+	end
+
   # GET /credit_details/1
-  # GET /credit_details/1.json
-  def show
+	# GET /credit_details/1.json
+	
+
+	def show
+		
+
   end
 
   # GET /credit_details/new
@@ -118,6 +142,12 @@ class CreditDetailsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def credit_detail_params
       params.require(:credit_detail).permit(:installment_payment, :installment_date, :commission, :cumulative_amount, :paid_by_bank, :paid_to_contributor_or_producer)
+		end
+
+
+		#For bulk update.
+		def update_all_credit_detail_params(id)
+      params.require(:credit_details).fetch(id).permit(:installment_payment, :installment_date, :commission, :cumulative_amount, :paid_by_bank, :paid_to_contributor_or_producer)
 		end
 		
 

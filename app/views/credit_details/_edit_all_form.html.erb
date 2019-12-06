@@ -1,0 +1,61 @@
+<%= form_with(url: update_all_credit_payments_details_path, local: true, method: :put) do |form| %>
+
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tranche</th>
+                <th>Date</th>
+                <th>Commission</th>
+                <th>Montant cumulé</th>
+                <th>Payé par la banque </th>
+                <th>Payé au apporteur ou au producteur </td>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            <% @credit_details.each do |credit_detail| %>
+                <%= fields_for "credit_details[]", credit_detail do |credit_detail_fields| %>
+
+                    <tr>
+                        <td>
+                            
+                            <%= credit_detail_fields.text_field :installment_payment, class: "form-control", disabled: true %>
+
+                        </td>
+
+                        <td>
+                            <%= credit_detail_fields.date_field :installment_date, id: :credit_detail_installment_date, class: "form-control", disabled: true %>
+
+                        </td>
+                        <td>
+                            <%= credit_detail_fields.number_field :commission, id: :credit_detail_commission, class: "form-control", disabled: true %>
+
+                        </td>
+                        <td>
+                            <%= credit_detail_fields.number_field :cumulative_amount, id: :credit_detail_cumulative_amount, class: "form-control", disabled: true %>
+                        </td>
+                        <td>
+                            <%= credit_detail_fields.select :paid_by_bank,  CreditDetail::YES_NO, {prompt: ""}, class: "form-control" %>
+
+                        </td>
+                        
+                        <td>
+                            <%= credit_detail_fields.select :paid_to_contributor_or_producer,  CreditDetail::YES_NO, {prompt: ""},  class: "form-control" %>
+                        </td>
+                    </tr>
+                <% end %>
+            <% end%>
+        </tbody>
+    </table>
+
+
+
+
+
+  <div class="form-group">
+		<%= form.submit "Modifier les paiements de ce dossier", class: "btn btn-primary",  "data-loading-text"=>"Loading...", autocomplete: "off" %>
+	</div>
+  
+<% end %>
