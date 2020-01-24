@@ -25,7 +25,7 @@ class ExcerciseYear < ApplicationRecord
   has_many :bank_commission_rate_abandonments, dependent: :destroy
   has_many :borderaus, dependent: :destroy
   has_many :payment_timetables, dependent: :destroy
-  has_many :monthly_installment_delay_expireds, dependent: :destroy
+  has_many :monthly_payment_delay_expireds, dependent: :destroy
   has_many :bank_settings, dependent: :destroy
 
 

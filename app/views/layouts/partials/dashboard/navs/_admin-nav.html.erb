@@ -100,8 +100,10 @@ Borderaux'), borderaus_path %>
 							
 					
 							<li>
-								<%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
+								<% if current_company.present? %>
+									<%= link_to raw('<i class="fa fa-home" aria-hidden="true"></i>
 									Société'), show_company_path(current_company) %>
+								<% end %>
 							</li>
 
 							<li>

@@ -76,9 +76,13 @@ class DashboardController < ApplicationController
 	end
 
 	def create_company
-		company = Company.all
-		if  company.blank? && is_admin?
-			redirect_to new_company_path
+		if request.subdomain.present? && request.subdomain != 'www'   
+
+			#company = Company.all
+		
+			if  current_company.blank? && is_admin?
+				redirect_to new_company_path
+			end	
 		end
 	end
 
@@ -86,7 +90,7 @@ class DashboardController < ApplicationController
 	
 	def if_excercise_year
 		if request.subdomain.present? && request.subdomain != 'www'   
-		  if current_user.role == "Admin"
+		  if current_user.role == "Admin" && current_company.present?
 			#excercises = ExcerciseYear.all
 			unless current_excercise.present? 
 			  redirect_to new_excercise_year_path

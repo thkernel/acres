@@ -36,7 +36,10 @@ class ExcerciseYearsController < ApplicationController
 
     respond_to do |format|
       if @excercise_year.save
-        session[:current_excercise] = @excercise_year.id
+
+        unless session[:current_excercise].present?
+          session[:current_excercise] = @excercise_year.id
+        end
         @excercise_years = ExcerciseYear.all
         format.html { redirect_to  excercise_years_path, notice: 'Excercise year was successfully created.' }
         format.json { render :show, status: :created, location: @excercise_year }
@@ -71,11 +74,15 @@ class ExcerciseYearsController < ApplicationController
 
   # DELETE /excercise_years/1.json
   def destroy
-    @excercise_year.destroy
-    respond_to do |format|
-      format.html { redirect_to excercise_years_url, notice: 'Excercise year was successfully destroyed.' }
-      format.json { head :no_content }
-      format.js
+    if session[:current_excercise] != @excercise_year.id
+      @excercise_year.destroy
+      @excercise_years = ExcerciseYear.all
+
+      respond_to do |format|
+        format.html { redirect_to excercise_years_url, notice: 'Excercise year was successfully destroyed.' }
+        format.json { head :no_content }
+        format.js
+      end
     end
   end
 
