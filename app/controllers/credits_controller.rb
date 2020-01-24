@@ -9,7 +9,11 @@ class CreditsController < ApplicationController
   # GET /credits.json
   def index
     #@credits = current_user.credits
-    @credits = Credit.where(excercise_year_id: current_excercise.id)
+    if current_excercise.present?
+      @credits = Credit.where(excercise_year_id: current_excercise.id) 
+    else
+      @credits = []
+    end
   end
 
   # GET /credits/1
