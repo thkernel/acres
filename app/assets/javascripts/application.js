@@ -104,6 +104,8 @@ $(document).on('turbolinks:load', function() {
         responsive: true
     });
 
+    
+
 
     $('#echeance-table-list').DataTable({
         
@@ -142,6 +144,8 @@ $(document).on('turbolinks:load', function() {
          }],
         responsive: true
     });
+
+    
 
 
 

@@ -225,7 +225,7 @@ class CreditDetailsController < ApplicationController
 									credit_detail.installment_payment = "Première tranche " 
 									#credit_detail.installment_date = Date.today
 									credit_detail.installment_date = credit_acte_date
-									credit_detail.commission = first_installment_commission 
+									credit_detail.commission = first_installment_commission.round(2) if first_installment_commission
 									credit_detail.cumulative_amount = 0.0
 									credit_detail.paid_by_bank = "Non" 
 									credit_detail.paid_to_contributor_or_producer = "Non" 
@@ -246,8 +246,8 @@ class CreditDetailsController < ApplicationController
 										credit_detail.installment_payment = "Echéance " + i.to_s
 										#credit_detail.installment_date = Date.today + i.month
 										credit_detail.installment_date = credit_acte_date + i.month
-										credit_detail.commission = others_installment_commission
-										credit_detail.cumulative_amount =  first_installment_commission + cumulative_amount
+										credit_detail.commission = others_installment_commission.round(2) if others_installment_commission
+										credit_detail.cumulative_amount =  (first_installment_commission + cumulative_amount).round(2)
 										credit_detail.paid_by_bank = "Non" 
 										credit_detail.paid_to_contributor_or_producer = "Non" 
 										credit_detail.credit_identifier = query
