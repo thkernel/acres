@@ -110,7 +110,7 @@ class CreditDetailsController < ApplicationController
   def update
     respond_to do |format|
       if @credit_detail.update(credit_detail_params)
-        @credit_details = CreditDetail.where(["credituid = ? AND excercise_year_id = ?",  @credit_detail.creditUid, current_excercise.id]).reorder('id ASC')
+        @credit_details = CreditDetail.where(["credit_identifier = ? AND excercise_year_id = ?",  @credit_detail.credit_identifier, current_excercise.id]).reorder('id ASC')
         format.html { redirect_to @credit_detail, notice: 'Credit detail was successfully updated.' }
         format.json { render :show, status: :ok, location: @credit_detail }
 		    format.js
@@ -153,7 +153,7 @@ class CreditDetailsController < ApplicationController
 
 		#Calculate payments installment
 		def calculate_payment_installment(query, target)
-			#credit_detail = CreditDetail.find_by(creditUid: query)
+			#credit_detail = CreditDetail.find_by(credit_identifier: query)
 			credit_detail = CreditDetail.where(["credit_identifier = ? AND excercise_year_id = ?", query, current_excercise.id]).take
 			#@credit = Credit.find_by(credit_id: query)
 			@credit = Credit.where(["identifier = ? AND excercise_year_id = ?",  query, current_excercise.id]).take
@@ -263,7 +263,7 @@ class CreditDetailsController < ApplicationController
 					end
 				end
 				@credit_details = CreditDetail.where(["credit_identifier = ? AND excercise_year_id = ?", query, current_excercise.id]).reorder('id ASC')
-				#@credit_details = CreditDetail.where(creditUid: query).reorder('installment_date ASC')
+				#@credit_details = CreditDetail.where(credit_identifier: query).reorder('installment_date ASC')
 
 		end
 
