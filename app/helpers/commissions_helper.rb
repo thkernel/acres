@@ -458,6 +458,7 @@ module CommissionsHelper
                             # Get bank infos required infos for the compute.
                             #bank_commission_percentage = bank.commission_percentage 
                             bank_commission_percentage = current_bank_setting(bank).commission_percentage 
+                        
                         end
 
                         if bank.present? && bank.hypoplus_commission_percentage.present?
@@ -953,7 +954,7 @@ module CommissionsHelper
                         commission.producer_commission = producer_commission
                         commission.producer_commission_percentage = producer_commission_percentage
                         commission.bank_commission = bank_amount_commission
-                        commission.bank_commission_percentage = bank_commission_percentage
+                        commission.bank_commission_percentage = credit_hypoplus.present? ? bank_hypoplus_commission_percentage : bank_commission_percentage
                         commission.company_commission = company_commission_net
                         commission.company_commission_percentage = company_commission_percentage
                         commission.user_id = current_user.id
