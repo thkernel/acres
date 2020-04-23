@@ -74,12 +74,12 @@ class SearchController < ApplicationController
     @total_commission_producteur = @commissions.sum( :producer_commission)
     @total_commission_bank = @commissions.sum( :bank_commission)
 
-    monthly_tarte(acte_date_debut, acte_date_fin, producer_name, contributor_name, notary)
+    monthly_tarte(acte_date_debut, acte_date_fin, bank_name,  producer_name, contributor_name, notary)
     production(acte_date_debut, acte_date_fin,production_date_debut, production_date_fin)
   end
 
   # Handle monthly tarte
-  def monthly_tarte(acte_date_debut, acte_date_fin,producer_name, contributor_name, notary)
+  def monthly_tarte(acte_date_debut, acte_date_fin, banks, producer_name, contributor_name, notary)
     @janvier, @fevrier, @mars, @avril, @mai, @juin, @juillet, @aout, @septembre, @octobre, @novembre, @decembre = false
     @monthly = []
     
@@ -156,14 +156,22 @@ class SearchController < ApplicationController
     @decembre_contributor_commission_amount = 0.0
 
 
-    banks = Bank.all
+    
+    #banks = Bank.all #We filter banks by selected banks.
+    banks = banks.present? ? Bank.where("name IN (?)", banks) : Bank.all
+
+    puts "SELECTED BANKS: #{banks.inspect}"
 
     #Loop all bank.
   
     start_month = acte_date_debut.month if acte_date_debut
     end_month = acte_date_fin.month if acte_date_fin
+
     puts "Le mois date debut: #{acte_date_debut.month}" if acte_date_debut
     puts "Le mois date fin: #{acte_date_fin.month}" if acte_date_fin
+    puts "L'année: #{acte_date_fin.year}" if acte_date_fin
+    acte_year = acte_date_fin.year if acte_date_fin
+
     monthly_amount = []
     months = ['janvier','fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre']
    
@@ -175,10 +183,18 @@ class SearchController < ApplicationController
         if start_month.present? && end_month.present?
           (start_month..end_month).each do |month|
 
-            monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, item.name, current_excercise.id)
+            monthly_commission = Commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id)
             monthly_commission = monthly_commission.where('producer_name IN (?)', producer_name) if producer_name.present?
             monthly_commission = monthly_commission.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
             monthly_commission = monthly_commission.where('notary_name = ?', notary) if notary.present?
+
+            #AVANT LA BOUCLE DE PARCOUR
+            puts "-------------------------------------------------------------------"
+            monthly_commission.each do |commission|
+              puts "*** CREDIT ID: #{commission.credit_identifier}, ACTE_DATE: #{commission.acte_date},  BANK COMMISSION: #{commission.bank_commission}, RECORD AMOUNT: #{commission.amount_credit}"
+            end
+
+            puts "--------------------------------------------------------------------"
 
             current_month = months[month-1]
          
@@ -186,14 +202,22 @@ class SearchController < ApplicationController
             case current_month
               when 'janvier'
                 bank_commission.janvier = monthly_commission.sum(:bank_commission)
+                puts "BANK : #{item.name}, COMMISSION FOR: #{current_month} = #{bank_commission.janvier}"
                 bank_commission.janvier_amount_credit = monthly_commission.sum(:amount_credit)
+                puts "BANK : #{item.name}, CREDIT AMOUNT FOR: #{current_month} = #{bank_commission.janvier_amount_credit}"
 
                 @janvier_amount_credit += monthly_commission.sum(:amount_credit)
                 @janvier_bank_commission_amount += monthly_commission.sum(:bank_commission)
                 @janvier_company_commission_amount += monthly_commission.sum(:company_commission)
                 @janvier_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @janvier_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
-                
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
+
+
                 @janvier = true
               when 'fevrier'
                 bank_commission.fevrier = monthly_commission.sum(:bank_commission)
@@ -204,6 +228,11 @@ class SearchController < ApplicationController
                 @fevrier_company_commission_amount += monthly_commission.sum(:company_commission)
                 @fevrier_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @fevrier_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
 
                 @fevrier = true
@@ -216,6 +245,11 @@ class SearchController < ApplicationController
                 @mars_company_commission_amount += monthly_commission.sum(:company_commission)
                 @mars_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @mars_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @mars = true
               when 'avril'
@@ -227,6 +261,11 @@ class SearchController < ApplicationController
                 @avril_company_commission_amount += monthly_commission.sum(:company_commission)
                 @avril_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @avril_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @avril = true
               when 'mai'
@@ -238,6 +277,11 @@ class SearchController < ApplicationController
                 @mai_company_commission_amount += monthly_commission.sum(:company_commission)
                 @mai_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @mai_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @mai = true
               when 'juin'
@@ -249,6 +293,11 @@ class SearchController < ApplicationController
                 @juin_company_commission_amount += monthly_commission.sum(:company_commission)
                 @juin_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @juin_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
 
                 @juin = true
@@ -261,6 +310,11 @@ class SearchController < ApplicationController
                 @juillet_company_commission_amount += monthly_commission.sum(:company_commission)
                 @juillet_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @juillet_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @juillet = true
               when 'aout'
@@ -272,6 +326,11 @@ class SearchController < ApplicationController
                 @aout_company_commission_amount += monthly_commission.sum(:company_commission)
                 @aout_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @aout_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @aout = true
               when 'septembre'
@@ -283,6 +342,11 @@ class SearchController < ApplicationController
                 @septembre_company_commission_amount += monthly_commission.sum(:company_commission)
                 @septembre_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @septembre_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @septembre = true
               when 'octobre'
@@ -295,7 +359,12 @@ class SearchController < ApplicationController
                 @octobre_company_commission_amount += monthly_commission.sum(:company_commission)
                 @octobre_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @octobre_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
 
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @octobre = true
               when 'novembre'
@@ -307,6 +376,11 @@ class SearchController < ApplicationController
                 @novembre_company_commission_amount += monthly_commission.sum(:company_commission)
                 @novembre_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @novembre_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @novembre = true
               when 'decembre'
@@ -318,11 +392,19 @@ class SearchController < ApplicationController
                 @decembre_company_commission_amount += monthly_commission.sum(:company_commission)
                 @decembre_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @decembre_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @decembre = true
             end
           end 
 
+          @monthly << bank_commission
+          
         else
           (1..12).each do |month|
 
@@ -345,6 +427,13 @@ class SearchController < ApplicationController
                 @janvier_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @janvier_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
                 
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
+
+                
                 @janvier = true
               when 'fevrier'
                 bank_commission.fevrier = monthly_commission.sum(:bank_commission)
@@ -355,6 +444,11 @@ class SearchController < ApplicationController
                 @fevrier_company_commission_amount += monthly_commission.sum(:company_commission)
                 @fevrier_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @fevrier_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
 
                 @fevrier = true
@@ -367,6 +461,11 @@ class SearchController < ApplicationController
                 @mars_company_commission_amount += monthly_commission.sum(:company_commission)
                 @mars_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @mars_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @mars = true
               when 'avril'
@@ -378,6 +477,11 @@ class SearchController < ApplicationController
                 @avril_company_commission_amount += monthly_commission.sum(:company_commission)
                 @avril_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @avril_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @avril = true
               when 'mai'
@@ -389,6 +493,11 @@ class SearchController < ApplicationController
                 @mai_company_commission_amount += monthly_commission.sum(:company_commission)
                 @mai_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @mai_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @mai = true
               when 'juin'
@@ -400,6 +509,11 @@ class SearchController < ApplicationController
                 @juin_company_commission_amount += monthly_commission.sum(:company_commission)
                 @juin_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @juin_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
 
                 @juin = true
@@ -412,6 +526,11 @@ class SearchController < ApplicationController
                 @juillet_company_commission_amount += monthly_commission.sum(:company_commission)
                 @juillet_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @juillet_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @juillet = true
               when 'aout'
@@ -423,6 +542,11 @@ class SearchController < ApplicationController
                 @aout_company_commission_amount += monthly_commission.sum(:company_commission)
                 @aout_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @aout_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @aout = true
               when 'septembre'
@@ -434,6 +558,11 @@ class SearchController < ApplicationController
                 @septembre_company_commission_amount += monthly_commission.sum(:company_commission)
                 @septembre_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @septembre_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @septembre = true
               when 'octobre'
@@ -446,6 +575,11 @@ class SearchController < ApplicationController
                 @octobre_company_commission_amount += monthly_commission.sum(:company_commission)
                 @octobre_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @octobre_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
 
                 @octobre = true
@@ -458,6 +592,11 @@ class SearchController < ApplicationController
                 @novembre_company_commission_amount += monthly_commission.sum(:company_commission)
                 @novembre_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @novembre_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @novembre = true
               when 'decembre'
@@ -469,22 +608,31 @@ class SearchController < ApplicationController
                 @decembre_company_commission_amount += monthly_commission.sum(:company_commission)
                 @decembre_producer_commission_amount += monthly_commission.sum(:producer_commission)
                 @decembre_contributor_commission_amount += monthly_commission.sum(:contributor_commission)
+                bank_commission.amount_credit += monthly_commission.sum(:amount_credit)
+                bank_commission.bank_commission += monthly_commission.sum(:bank_commission)
+                bank_commission.company_commission += monthly_commission.sum(:company_commission)
+                bank_commission.producer_commission += monthly_commission.sum(:producer_commission)
+                bank_commission.contributor_commission += monthly_commission.sum(:contributor_commission)
 
                 @decembre = true
             end
           end 
+          @monthly << bank_commission
 
         end
 
         #comm = Commission.where("acte_date BETWEEN ? AND ? ", acte_date_debut, acte_date_fin)
 
-        comm = Commission.where("acte_date is not null AND bank_name = ? AND excercise_year_id = ? ", item.name, current_excercise.id)
+        ## Commented at 23-05-2020
+        #comm = Commission.where("acte_date is not null AND bank_name = ? AND excercise_year_id = ? ", item.name, current_excercise.id)
 
-        bank_commission.amount_credit = comm.sum(:amount_credit)
-        bank_commission.bank_commission = comm.sum(:bank_commission)
-        bank_commission.contributor_commission = comm.sum(:contributor_commission)
-        bank_commission.producer_commission = comm.sum(:producer_commission)
-        bank_commission.company_commission = comm.sum(:company_commission)
+        #bank_commission.amount_credit = comm.sum(:amount_credit)
+        #bank_commission.bank_commission = comm.sum(:bank_commission)
+        #bank_commission.contributor_commission = comm.sum(:contributor_commission)
+        #bank_commission.producer_commission = comm.sum(:producer_commission)
+        #bank_commission.company_commission = comm.sum(:company_commission)
+        ##
+
 
         #bank_commission.janvier_amount_credit = comm.sum(:bank_commission)
         #bank_commission.fevrier_amount_credit = comm.sum(:bank_commission)
@@ -499,8 +647,9 @@ class SearchController < ApplicationController
         #bank_commission.novembre_amount_credit = comm.sum(:bank_commission)
         #bank_commission.decembre_amount_credit = comm.sum(:bank_commission)
 
-        @monthly << bank_commission
+        ##@monthly << bank_commission
       end
+
       puts "Tableau des montant: #{monthly_amount}"
       @monthly
     end
@@ -559,7 +708,7 @@ class SearchController < ApplicationController
   end
 
   def bank_acted_amount(acte_date_debut, acte_date_fin, bank_name)
-    bank_commissions = Commission.search_by_bank_and_acte_date(acte_date_debut, acte_date_fin, bank_name, current_excercise).where("acte_date is not null")
+    bank_commissions = Commission.search_by_bank_and_acte_date(acte_date_debut, acte_date_fin, bank_name, current_excercise.id).where("acte_date is not null")
   end
 
   def amount_paid_by_bank(bank_name)
@@ -587,7 +736,12 @@ class MonthlyTarte
   attr_accessor :janvier_company_commission, :fevrier_company_commission, :mars_company_commission, :avril_company_commission, :mai_company_commission, :juin_company_commission, :juillet_company_commission, :aout_company_commission, :septembre_company_commission, :octobre_company_commission, :novembre_company_commission, :decembre_company_commission
   attr_accessor :janvier_bank_commission, :fevrier_bank_commission, :mars_bank_commission, :avril_bank_commission, :mai_bank_commission, :juin_bank_commission, :juillet_bank_commission, :aout_bank_commission, :septembre_bank_commission, :octobre_bank_commission, :novembre_bank_commission, :decembre_bank_commission
 
-  def initializer
+  def initialize
+    @amount_credit = 0.0
+    @bank_commission = 0.0
+    @company_commission = 0.0
+    @producer_commission = 0.0
+    @contributor_commission = 0.0
   end
 end
 
@@ -595,6 +749,6 @@ end
 class Production
   attr_accessor :bank_name, :amount_credit, :amount_acted, :diff_of_production_and_acted, :bank_commission_amount, :paid_by_bank_amount, :amount_to_paid_by_bank
 
-  def initializer
+  def initialize
   end
 end
