@@ -157,10 +157,9 @@ class SearchController < ApplicationController
 
 
     
-    #banks = Bank.all #We filter banks by selected banks.
-    banks = banks.present? ? Bank.where("name IN (?)", banks) : Bank.all
+    banks = Bank.all #We filter banks by selected banks.
+    #banks = banks.present? ? Bank.where("name IN (?)", banks) : Bank.all
 
-    puts "SELECTED BANKS: #{banks.inspect}"
 
     #Loop all bank.
   
@@ -182,8 +181,8 @@ class SearchController < ApplicationController
 
         if start_month.present? && end_month.present?
           (start_month..end_month).each do |month|
-
-            monthly_commission = Commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id)
+            monthly_commission = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id)
+            monthly_commission = monthly_commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id)
             monthly_commission = monthly_commission.where('producer_name IN (?)', producer_name) if producer_name.present?
             monthly_commission = monthly_commission.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
             monthly_commission = monthly_commission.where('notary_name = ?', notary) if notary.present?
