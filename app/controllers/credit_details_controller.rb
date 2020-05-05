@@ -192,6 +192,7 @@ class CreditDetailsController < ApplicationController
 
 								contributor_commission = @commission.contributor_commission 
 								producer_commission = @commission.producer_commission
+								bank_commission = @commission.bank_commission
 								company_commission = @commission.company_commission
 								remaining_installment = 100 - bank_first_installment
 
@@ -204,16 +205,16 @@ class CreditDetailsController < ApplicationController
 									#first_installment_commission = (contributor_commission  * bank_first_installment)/100 
 
 									if target == "producer"
-										first_installment_commission = (company_commission  * bank_first_installment)/100
-										others_installment_commission = (company_commission * (remaining_installment  / bank_number_of_dates))/100
+										first_installment_commission = (bank_commission  * bank_first_installment)/100
+										others_installment_commission = (bank_commission * (remaining_installment  / bank_number_of_dates))/100
 
 									elsif target == "contributor"
-										first_installment_commission = (company_commission  * bank_first_installment)/100
-										others_installment_commission = (company_commission * (remaining_installment  / bank_number_of_dates))/100
+										first_installment_commission = (bank_commission  * bank_first_installment)/100
+										others_installment_commission = (bank_commission * (remaining_installment  / bank_number_of_dates))/100
 
 									elsif target == "company"
-										first_installment_commission = (company_commission  * bank_first_installment)/100
-										others_installment_commission = (company_commission * (remaining_installment  / bank_number_of_dates))/100
+										first_installment_commission = (bank_commission  * bank_first_installment)/100
+										others_installment_commission = (bank_commission * (remaining_installment  / bank_number_of_dates))/100
 
 									end
 									

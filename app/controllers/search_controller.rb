@@ -74,12 +74,12 @@ class SearchController < ApplicationController
     @total_commission_producteur = @commissions.sum( :producer_commission)
     @total_commission_bank = @commissions.sum( :bank_commission)
 
-    monthly_tarte(acte_date_debut, acte_date_fin, bank_name,  producer_name, contributor_name, notary)
+    monthly_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
     production(acte_date_debut, acte_date_fin,production_date_debut, production_date_fin)
   end
 
   # Handle monthly tarte
-  def monthly_tarte(acte_date_debut, acte_date_fin, banks, producer_name, contributor_name, notary)
+  def monthly_tarte(acte_date_debut, acte_date_fin,production_date_debut, production_date_fin, banks, producer_name, contributor_name, notary)
     @janvier, @fevrier, @mars, @avril, @mai, @juin, @juillet, @aout, @septembre, @octobre, @novembre, @decembre = false
     @monthly = []
     
@@ -163,13 +163,26 @@ class SearchController < ApplicationController
 
     #Loop all bank.
   
-    start_month = acte_date_debut.month if acte_date_debut
-    end_month = acte_date_fin.month if acte_date_fin
+    acte_start_month = acte_date_debut.month if acte_date_debut
+    acte_end_month = acte_date_fin.month if acte_date_fin
+
+    production_start_month = production_date_debut.month if production_date_debut
+    production_end_month = production_date_fin.month if production_date_fin
 
     puts "Le mois date debut: #{acte_date_debut.month}" if acte_date_debut
     puts "Le mois date fin: #{acte_date_fin.month}" if acte_date_fin
+    
     puts "L'année: #{acte_date_fin.year}" if acte_date_fin
     acte_year = acte_date_fin.year if acte_date_fin
+    production_year = production_date_fin.year if production_date_fin
+
+    if acte_date_debut.present? && acte_date_fin.present?
+      start_month = acte_start_month
+      end_month = acte_end_month
+    elsif production_date_debut.present? && production_date_fin.present?
+      start_month = production_start_month
+      end_month = production_end_month
+    end
 
     monthly_amount = []
     months = ['janvier','fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre']
@@ -181,8 +194,8 @@ class SearchController < ApplicationController
 
         if start_month.present? && end_month.present?
           (start_month..end_month).each do |month|
-            monthly_commission = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id)
-            monthly_commission = monthly_commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id)
+            monthly_commission = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id) if production_date_debut.present?
+            monthly_commission = monthly_commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id) if acte_date_debut.present?
             monthly_commission = monthly_commission.where('producer_name IN (?)', producer_name) if producer_name.present?
             monthly_commission = monthly_commission.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
             monthly_commission = monthly_commission.where('notary_name = ?', notary) if notary.present?
@@ -408,6 +421,7 @@ class SearchController < ApplicationController
           (1..12).each do |month|
 
             monthly_commission = Commission.where('extract(month  from acte_date) = ? AND bank_name = ? AND excercise_year_id = ?', month, item.name, current_excercise.id)
+            monthly_commission = monthly_commission.where('extract(month  from production_date) = ? AND bank_name = ? AND excercise_year_id = ?', month, item.name, current_excercise.id)
             monthly_commission = monthly_commission.where('producer_name IN (?)', producer_name) if producer_name.present?
             monthly_commission = monthly_commission.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
             monthly_commission = monthly_commission.where('notary_name = ?', notary) if notary.present?
