@@ -1,0 +1,144 @@
+<div class="commission-mensuelle-compagnie">
+
+    
+
+    <table id="stat-commission-mensuelle-compagnie" class="table table-striped table-bordered table-hover">
+        <thead>
+            <th></th>
+            <% if @janvier %>
+                <th>Janvier</th>
+            <% end %>
+            <% if @fevrier %>
+                <th>Février</th>
+            <% end %>
+            <% if @mars %>
+                <th>Mars</th>
+            <% end %>
+            <% if @avril %>
+                <th>Avril</th>
+            <% end %>
+            <% if @mai %>
+                <th>Mai</th>
+            <% end %>
+            <% if @juin %>
+                <th>Juin</th>
+            <% end %>
+            <% if @juillet %>
+                <th>Juillet</th>
+            <% end %>
+            <% if @aout %>
+                <th>Aôut</th>
+            <% end %>
+            <% if @septembre %>
+                <th>Septembre</th>
+            <% end %>
+            <% if @octobre %>
+                <th>Octobre</th>
+            <% end %>
+                <% if @novembre %>
+            <th>Novembre</th>
+            <% end %>
+            <% if @decembre %>
+                <th>Décembre</th>
+            <% end %>
+
+            <th class="table-company-commission-amount">Totaux</th>
+            
+        </thead>
+        <tbody>
+        <% @monthly_producer_commission.each do |monthly_producer_commission| %>
+            <tr>
+                <td><%= monthly_producer_commission.bank_name.humanize %></td>
+                <% if @janvier %>
+                    <td><%= number_to_currency monthly_producer_commission.janvier_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @fevrier %>
+                    <td><%= number_to_currency monthly_producer_commission.fevrier_producer_commission_amount,  unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @mars %>
+                    <td><%= number_to_currency monthly_producer_commission.mars_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @avril %>
+                    <td><%= number_to_currency monthly_producer_commission.avril_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @mai %>
+                    <td><%= number_to_currency monthly_producer_commission.mai_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @juin %>
+                    <td><%= number_to_currency monthly_producer_commission.juin_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @juillet %>
+                    <td><%= number_to_currency monthly_producer_commission.juillet_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @aout %>
+                    <td><%= number_to_currency monthly_producer_commission.aout_producer_commission_amount , unit: "", seperator: ",", delimiter: "."%></td>
+                <% end %>
+                <% if @septembre %>
+                    <td><%= number_to_currency monthly_producer_commission.septembre_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @octobre %>
+                    <td><%= number_to_currency monthly_producer_commission.octobre_producer_commission_amount , unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @novembre %>
+                    <td><%= number_to_currency monthly_producer_commission.novembre_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @decembre %>
+                    <td><%= number_to_currency monthly_producer_commission.decembre_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <td class="table-company-commission-amount"><%= number_to_currency monthly_producer_commission.producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                
+
+            </tr>
+            
+        <% end %>
+
+
+        <!-- Total emprunt -->
+
+            <tr class="table-company-commission-amount">
+                <td><strong>Totaux</strong></td>
+                 <% if @janvier %>
+                    <td><%= number_to_currency @janvier_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @fevrier %>
+                    <td><%= number_to_currency @fevrier_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @mars %>
+                    <td><%= number_to_currency @mars_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @avril %>
+                    <td><%= number_to_currency @avril_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @mai %>
+                    <td><%= number_to_currency @mai_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @juin %>
+                    <td><%= number_to_currency @juin_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @juillet %>
+                    <td><%= number_to_currency @juillet_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+
+                 <% if @aout %>
+                    <td><%= number_to_currency @aout_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+
+                 <% if @septembre %>
+                    <td><%= number_to_currency @septembre_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @octobre %>
+                    <td><%= number_to_currency @octobre_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @novembre %>
+                    <td><%= number_to_currency @novembre_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @decembre %>
+                    <td><%= number_to_currency @decembre_producer_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                
+            </tr>
+
+           
+        </tbody>
+    </table>
+</div>
