@@ -1,4 +1,10 @@
 class SearchController < ApplicationController
+  include MonthlyCreditTarteHelper
+  include MonthlyBankCommissionTarteHelper
+  include MonthlyProducerCommissionTarteHelper
+  include MonthlyContributorCommissionTarteHelper
+  include MonthlyCompanyCommissionTarteHelper
+
   before_action :authenticate_user!
   before_action :current_excercise_year
 
@@ -74,7 +80,13 @@ class SearchController < ApplicationController
     @total_commission_producteur = @commissions.sum( :producer_commission)
     @total_commission_bank = @commissions.sum( :bank_commission)
 
-    monthly_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
+    #monthly_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
+    @monthly_credit = monthly_credit_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
+    @monthly_producer_commission = monthly_producer_commission_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
+    @monthly_contributor_commission = monthly_contributor_commission_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
+    @monthly_bank_commission = monthly_bank_commission_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
+    @monthly_company_commission = monthly_company_commission_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
+
     production(acte_date_debut, acte_date_fin,production_date_debut, production_date_fin)
   end
 

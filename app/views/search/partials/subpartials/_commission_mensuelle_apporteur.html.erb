@@ -1,0 +1,144 @@
+<div class="commission-mensuelle-apporteur">
+
+    
+
+    <table id="stat-commission-mensuelle-apporteur" class="table table-striped table-bordered table-hover">
+        <thead>
+            <th></th>
+            <% if @janvier %>
+                <th>Janvier</th>
+            <% end %>
+            <% if @fevrier %>
+                <th>Février</th>
+            <% end %>
+            <% if @mars %>
+                <th>Mars</th>
+            <% end %>
+            <% if @avril %>
+                <th>Avril</th>
+            <% end %>
+            <% if @mai %>
+                <th>Mai</th>
+            <% end %>
+            <% if @juin %>
+                <th>Juin</th>
+            <% end %>
+            <% if @juillet %>
+                <th>Juillet</th>
+            <% end %>
+            <% if @aout %>
+                <th>Aôut</th>
+            <% end %>
+            <% if @septembre %>
+                <th>Septembre</th>
+            <% end %>
+            <% if @octobre %>
+                <th>Octobre</th>
+            <% end %>
+                <% if @novembre %>
+            <th>Novembre</th>
+            <% end %>
+            <% if @decembre %>
+                <th>Décembre</th>
+            <% end %>
+
+            <th class="table-contributor-commission-amount">Totaux</th>
+            
+        </thead>
+        <tbody>
+        <% @monthly_contributor_commission.each do |monthly_contributor_commission| %>
+            <tr>
+                <td><%= monthly_contributor_commission.bank_name.humanize %></td>
+                <% if @janvier %>
+                    <td><%= number_to_currency monthly_contributor_commission.janvier_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @fevrier %>
+                    <td><%= number_to_currency monthly_contributor_commission.fevrier_contributor_commission_amount,  unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @mars %>
+                    <td><%= number_to_currency monthly_contributor_commission.mars_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @avril %>
+                    <td><%= number_to_currency monthly_contributor_commission.avril_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @mai %>
+                    <td><%= number_to_currency monthly_contributor_commission.mai_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @juin %>
+                    <td><%= number_to_currency monthly_contributor_commission.juin_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @juillet %>
+                    <td><%= number_to_currency monthly_contributor_commission.juillet_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @aout %>
+                    <td><%= number_to_currency monthly_contributor_commission.aout_contributor_commission_amount , unit: "", seperator: ",", delimiter: "."%></td>
+                <% end %>
+                <% if @septembre %>
+                    <td><%= number_to_currency monthly_contributor_commission.septembre_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @octobre %>
+                    <td><%= number_to_currency monthly_contributor_commission.octobre_contributor_commission_amount , unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @novembre %>
+                    <td><%= number_to_currency monthly_contributor_commission.novembre_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @decembre %>
+                    <td><%= number_to_currency monthly_contributor_commission.decembre_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <td class="table-contributor-commission-amount"><%= number_to_currency monthly_contributor_commission.contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                
+
+            </tr>
+            
+        <% end %>
+
+
+        <!-- Total emprunt -->
+
+            <tr class="table-contributor-commission-amount">
+                <td><strong>Totaux</strong></td>
+                 <% if @janvier %>
+                    <td><%= number_to_currency @janvier_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @fevrier %>
+                    <td><%= number_to_currency @fevrier_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @mars %>
+                    <td><%= number_to_currency @mars_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @avril %>
+                    <td><%= number_to_currency @avril_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @mai %>
+                    <td><%= number_to_currency @mai_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @juin %>
+                    <td><%= number_to_currency @juin_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @juillet %>
+                    <td><%= number_to_currency @juillet_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+
+                 <% if @aout %>
+                    <td><%= number_to_currency @aout_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+
+                 <% if @septembre %>
+                    <td><%= number_to_currency @septembre_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @octobre %>
+                    <td><%= number_to_currency @octobre_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @novembre %>
+                    <td><%= number_to_currency @novembre_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @decembre %>
+                    <td><%= number_to_currency @decembre_contributor_commission_amount, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                
+            </tr>
+
+           
+        </tbody>
+    </table>
+</div>

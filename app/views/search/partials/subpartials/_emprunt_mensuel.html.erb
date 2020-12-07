@@ -1,0 +1,144 @@
+<div class="emprunt-mensuel">
+
+    
+
+    <table id="stat-emprunt-mensuel" class="table table-striped table-bordered table-hover">
+        <thead>
+            <th></th>
+            <% if @janvier %>
+                <th>Janvier</th>
+            <% end %>
+            <% if @fevrier %>
+                <th>Février</th>
+            <% end %>
+            <% if @mars %>
+                <th>Mars</th>
+            <% end %>
+            <% if @avril %>
+                <th>Avril</th>
+            <% end %>
+            <% if @mai %>
+                <th>Mai</th>
+            <% end %>
+            <% if @juin %>
+                <th>Juin</th>
+            <% end %>
+            <% if @juillet %>
+                <th>Juillet</th>
+            <% end %>
+            <% if @aout %>
+                <th>Aôut</th>
+            <% end %>
+            <% if @septembre %>
+                <th>Septembre</th>
+            <% end %>
+            <% if @octobre %>
+                <th>Octobre</th>
+            <% end %>
+                <% if @novembre %>
+            <th>Novembre</th>
+            <% end %>
+            <% if @decembre %>
+                <th>Décembre</th>
+            <% end %>
+
+            <th class="table-credit-amount">Totaux</th>
+            
+        </thead>
+        <tbody>
+        <% @monthly_credit.each do |monthly_credit| %>
+            <tr>
+                <td><%= monthly_credit.bank_name.humanize %></td>
+                <% if @janvier %>
+                    <td><%= number_to_currency monthly_credit.janvier_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @fevrier %>
+                    <td><%= number_to_currency monthly_credit.fevrier_amount_credit,  unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @mars %>
+                    <td><%= number_to_currency monthly_credit.mars_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @avril %>
+                    <td><%= number_to_currency monthly_credit.avril_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @mai %>
+                    <td><%= number_to_currency monthly_credit.mai_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @juin %>
+                    <td><%= number_to_currency monthly_credit.juin_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @juillet %>
+                    <td><%= number_to_currency monthly_credit.juillet_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @aout %>
+                    <td><%= number_to_currency monthly_credit.aout_amount_credit , unit: "", seperator: ",", delimiter: "."%></td>
+                <% end %>
+                <% if @septembre %>
+                    <td><%= number_to_currency monthly_credit.septembre_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @octobre %>
+                    <td><%= number_to_currency monthly_credit.octobre_amount_credit , unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @novembre %>
+                    <td><%= number_to_currency monthly_credit.novembre_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @decembre %>
+                    <td><%= number_to_currency monthly_credit.decembre_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <td class="table-credit-amount"><%= number_to_currency monthly_credit.amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                
+
+            </tr>
+            
+        <% end %>
+
+
+        <!-- Total emprunt -->
+
+            <tr class="table-credit-amount">
+                <td><strong>Totaux</strong></td>
+                 <% if @janvier %>
+                    <td><%= number_to_currency @janvier_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                <% if @fevrier %>
+                    <td><%= number_to_currency @fevrier_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @mars %>
+                    <td><%= number_to_currency @mars_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @avril %>
+                    <td><%= number_to_currency @avril_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @mai %>
+                    <td><%= number_to_currency @mai_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @juin %>
+                    <td><%= number_to_currency @juin_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @juillet %>
+                    <td><%= number_to_currency @juillet_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+
+                 <% if @aout %>
+                    <td><%= number_to_currency @aout_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+
+                 <% if @septembre %>
+                    <td><%= number_to_currency @septembre_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @octobre %>
+                    <td><%= number_to_currency @octobre_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @novembre %>
+                    <td><%= number_to_currency @novembre_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                 <% if @decembre %>
+                    <td><%= number_to_currency @decembre_amount_credit, unit: "", seperator: ",", delimiter: "." %></td>
+                <% end %>
+                
+            </tr>
+
+           
+        </tbody>
+    </table>
+</div>
