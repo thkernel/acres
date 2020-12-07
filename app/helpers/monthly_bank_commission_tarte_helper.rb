@@ -158,12 +158,12 @@ module MonthlyBankCommissionTarteHelper
                         case current_month
                             when 'janvier'
                             monthly_bank_commission_tarte.janvier_bank_commission_amount = monthly_bank_commission.sum(:bank_commission)
-                            @janvier_bank_commission_amount += monthly_bank_commission.sum(:bank_commission_amount)
+                            @janvier_bank_commission_amount += monthly_bank_commission.sum(:bank_commission)
                             monthly_bank_commission_tarte.bank_commission_amount += monthly_bank_commission.sum(:bank_commission)
                             @janvier = true
                         when 'fevrier'
                             monthly_bank_commission_tarte.fevrier_bank_commission_amount = monthly_bank_commission.sum(:bank_commission)
-                            @fevrier_bank_commission_amount += monthly_bank_commission.sum(:bank_commission_amount)
+                            @fevrier_bank_commission_amount += monthly_bank_commission.sum(:bank_commission)
                             monthly_bank_commission_tarte.bank_commission_amount += monthly_bank_commission.sum(:bank_commission)
                             @fevrier = true
                         when 'mars'

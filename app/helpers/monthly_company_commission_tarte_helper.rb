@@ -151,12 +151,12 @@ module MonthlyCompanyCommissionTarteHelper
                         case current_month
                             when 'janvier'
                             monthly_company_commission_tarte.janvier_company_commission_amount = monthly_company_commission.sum(:company_commission)
-                            @janvier_company_commission_amount += monthly_company_commission.sum(:company_commission_amount)
+                            @janvier_company_commission_amount += monthly_company_commission.sum(:company_commission)
                             monthly_company_commission_tarte.company_commission_amount += monthly_company_commission.sum(:company_commission)
                             @janvier = true
                         when 'fevrier'
                             monthly_company_commission_tarte.fevrier_company_commission_amount = monthly_company_commission.sum(:company_commission)
-                            @fevrier_company_commission_amount += monthly_company_commission.sum(:company_commission_amount)
+                            @fevrier_company_commission_amount += monthly_company_commission.sum(:company_commission)
                             monthly_company_commission_tarte.company_commission_amount += monthly_company_commission.sum(:company_commission)
                             @fevrier = true
                         when 'mars'

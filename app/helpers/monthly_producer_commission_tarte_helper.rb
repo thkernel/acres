@@ -151,12 +151,12 @@ module MonthlyProducerCommissionTarteHelper
                         case current_month
                             when 'janvier'
                             monthly_producer_commission_tarte.janvier_producer_commission_amount = monthly_producer_commission.sum(:producer_commission)
-                            @janvier_producer_commission_amount += monthly_producer_commission.sum(:producer_commission_amount)
+                            @janvier_producer_commission_amount += monthly_producer_commission.sum(:producer_commission)
                             monthly_producer_commission_tarte.producer_commission_amount += monthly_producer_commission.sum(:producer_commission)
                             @janvier = true
                         when 'fevrier'
                             monthly_producer_commission_tarte.fevrier_producer_commission_amount = monthly_producer_commission.sum(:producer_commission)
-                            @fevrier_producer_commission_amount += monthly_producer_commission.sum(:producer_commission_amount)
+                            @fevrier_producer_commission_amount += monthly_producer_commission.sum(:producer_commission)
                             monthly_producer_commission_tarte.producer_commission_amount += monthly_producer_commission.sum(:producer_commission)
                             @fevrier = true
                         when 'mars'

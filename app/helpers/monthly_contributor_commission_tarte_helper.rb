@@ -151,12 +151,12 @@ module MonthlyContributorCommissionTarteHelper
                         case current_month
                             when 'janvier'
                             monthly_contributor_commission_tarte.janvier_contributor_commission_amount = monthly_contributor_commission.sum(:contributor_commission)
-                            @janvier_contributor_commission_amount += monthly_contributor_commission.sum(:contributor_commission_amount)
+                            @janvier_contributor_commission_amount += monthly_contributor_commission.sum(:contributor_commission)
                             monthly_contributor_commission_tarte.contributor_commission_amount += monthly_contributor_commission.sum(:contributor_commission)
                             @janvier = true
                         when 'fevrier'
                             monthly_contributor_commission_tarte.fevrier_contributor_commission_amount = monthly_contributor_commission.sum(:contributor_commission)
-                            @fevrier_contributor_commission_amount += monthly_contributor_commission.sum(:contributor_commission_amount)
+                            @fevrier_contributor_commission_amount += monthly_contributor_commission.sum(:contributor_commission)
                             monthly_contributor_commission_tarte.contributor_commission_amount += monthly_contributor_commission.sum(:contributor_commission)
                             @fevrier = true
                         when 'mars'
