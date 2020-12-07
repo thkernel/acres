@@ -59,8 +59,12 @@ module MonthlyCreditTarteHelper
 
                 if start_month.present? && end_month.present?
                     (start_month..end_month).each do |month|
-                        monthly_credit = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id) if production_date_debut.present?
-                        monthly_credit = monthly_credit.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id) if acte_date_debut.present?
+                        monthly_credit = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id)# if production_date_debut.present?
+                       
+                            monthly_credit = monthly_credit.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id) #if acte_date_debut.present?
+                          
+
+                        
                         monthly_credit = monthly_credit.where('producer_name IN (?)', producer_name) if producer_name.present?
                         monthly_credit = monthly_credit.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
                         monthly_credit = monthly_credit.where('notary_name = ?', notary) if notary.present?
