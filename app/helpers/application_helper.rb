@@ -15,6 +15,10 @@ module ApplicationHelper
 		@@my_logger ||= Logger.new("#{Rails.root}/log/commission-log.log")
 	end
 
+	def stats_logger
+		@@stats_logger ||= Logger.new("#{Rails.root}/log/stats.log")
+	end
+
     def first_installment_payment_delay_expired?
         false
     end

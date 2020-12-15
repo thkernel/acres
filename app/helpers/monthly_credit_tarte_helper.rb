@@ -34,13 +34,20 @@ module MonthlyCreditTarteHelper
         production_start_month = production_date_debut.month if production_date_debut
         production_end_month = production_date_fin.month if production_date_fin
 
-        puts "Le mois date debut: #{acte_date_debut.month}" if acte_date_debut
-        puts "Le mois date fin: #{acte_date_fin.month}" if acte_date_fin
+        #puts "Le mois date debut: #{acte_date_debut.month}" if acte_date_debut
+        #puts "Le mois date fin: #{acte_date_fin.month}" if acte_date_fin
         
-        puts "L'année: #{acte_date_fin.year}" if acte_date_fin
+        #puts "L'année: #{acte_date_fin.year}" if acte_date_fin
         acte_year = acte_date_fin.year if acte_date_fin
         production_year = production_date_fin.year if production_date_fin
 
+        if acte_date_debut.present? && acte_date_fin
+            acte_date = true
+        end
+        if production_date_debut.present? && production_date_fin
+            production_date = true
+        end
+        
         if acte_date_debut.present? && acte_date_fin.present?
             start_month = acte_start_month
             end_month = acte_end_month
@@ -59,11 +66,41 @@ module MonthlyCreditTarteHelper
 
                 if start_month.present? && end_month.present?
                     (start_month..end_month).each do |month|
-                        monthly_credit = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id)# if production_date_debut.present?
+                        if production_date && acte_date
+                            monthly_credit_production = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id)# if production_date_debut.present?
                        
-                            monthly_credit = monthly_credit.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id) #if acte_date_debut.present?
-                          
+                            stats_logger.info("1er filtre:  #{monthly_credit_production.count}")
+                            monthly_credit_production.each do |d|
+                                stats_logger.info("ID: #{d.id} /#{d.production_date} --> #{d.amount_credit}")
 
+                            end
+                            stats_logger.info("************************")
+
+
+                            monthly_credit_acte = Commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id) #if acte_date_debut.present?
+                            stats_logger.info("2eme filtre: #{monthly_credit_acte.count}")
+                            monthly_credit_acte.each do |dd|
+                                stats_logger.info("ID: #{dd.id} /#{dd.acte_date}--> #{dd.amount_credit}")
+
+                            end
+                            stats_logger.info("************************")
+
+                            
+
+                            monthly_credit = monthly_credit_production.or(monthly_credit_acte)
+                            stats_logger.info("Merge: #{monthly_credit.count}")
+                            monthly_credit.each do |dd|
+                                stats_logger.info("ID: #{dd.id} --> #{dd.amount_credit}")
+
+                            end
+                            stats_logger.info("************************")
+
+                            
+
+                        
+                        else
+
+                        end
                         
                         monthly_credit = monthly_credit.where('producer_name IN (?)', producer_name) if producer_name.present?
                         monthly_credit = monthly_credit.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
