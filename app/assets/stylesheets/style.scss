@@ -508,3 +508,15 @@ ul.author-brand {
     width: 114px;
     height: 114px;
 }
+.amount-styled th:first-child, .amount-styled td:first-child {  
+    background-color:#605c5c;
+    color: white;    
+}
+.amount-styled th:last-child, .amount-styled td:last-child {  
+    background-color:#3a7de3;
+    color: white;    
+}
+.amount-styled tr:last-child {  
+    background-color:#3a7de3;
+    color: white;    
+}
