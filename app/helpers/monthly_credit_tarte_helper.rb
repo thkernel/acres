@@ -66,6 +66,7 @@ module MonthlyCreditTarteHelper
 
                 if start_month.present? && end_month.present?
                     (start_month..end_month).each do |month|
+                        
                         if production_date && acte_date
                             monthly_credit_production = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id)# if production_date_debut.present?
                        
@@ -95,10 +96,14 @@ module MonthlyCreditTarteHelper
                             end
                             stats_logger.info("************************")
 
-                            
+                            monthly_credit = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id)# if production_date_debut.present?
+                            monthly_credit = monthly_credit.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id)# if production_date_debut.present?
+
 
                         
                         else
+                            monthly_credit = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id)# if production_date_debut.present?
+                            monthly_credit = monthly_credit.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id)# if production_date_debut.present?
 
                         end
                         
