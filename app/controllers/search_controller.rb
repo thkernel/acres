@@ -62,6 +62,9 @@ class SearchController < ApplicationController
 
     @commissions = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary,current_excercise.id)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
 
+    @commissions.each do |c|
+      commissions_search_logger.info("ID: #{c.credit_identifier} -- Date prod: #{c.production_date} --Date acte: #{c.acte_date} -- Montant: #{c.amount_credit}")
+    end
     @commissions_chart_pie = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary, current_excercise.id).unscope(:order).group(:bank_name).sum(:bank_commission)
     @commissions_chart_pie_by_company_commission = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary, current_excercise.id).unscope(:order).group(:bank_name).sum(:company_commission)
     monthly_commissions = Commission.where(excercise_year_id: current_excercise.id).group(:bank_name).select(:bank_name)#.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary)

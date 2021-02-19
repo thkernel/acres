@@ -19,6 +19,18 @@ module ApplicationHelper
 		@@stats_logger ||= Logger.new("#{Rails.root}/log/stats.log")
 	end
 
+	def commissions_search_logger
+		@@commissions_search_logger ||= Logger.new("#{Rails.root}/log/commissions_search.log")
+	end
+
+	def monthly_credit_production_logger
+		@@monthly_credit_production_logger ||= Logger.new("#{Rails.root}/log/monthly_credit_production.log")
+	end
+
+	def monthly_credit_acte_logger
+		@@monthly_credit_acte_logger ||= Logger.new("#{Rails.root}/log/monthly_credit_acte.log")
+	end
+
     def first_installment_payment_delay_expired?
         false
     end
