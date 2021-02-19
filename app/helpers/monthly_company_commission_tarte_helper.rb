@@ -1,6 +1,6 @@
 module MonthlyCompanyCommissionTarteHelper
     # Handle monthly tarte
-    def monthly_company_commission_tarte(acte_date_debut, acte_date_fin,production_date_debut, production_date_fin, banks, producer_name, contributor_name, notary)
+    def monthly_company_commission_tarte(date_debut, date_fin, banks, producer_name, contributor_name, notary, search_term)
         @janvier, @fevrier, @mars, @avril, @mai, @juin, @juillet, @aout, @septembre, @octobre, @novembre, @decembre = false
         @monthly_company_commission = []
         
@@ -28,26 +28,13 @@ module MonthlyCompanyCommissionTarteHelper
 
         #Loop all bank.
     
-        acte_start_month = acte_date_debut.month if acte_date_debut
-        acte_end_month = acte_date_fin.month if acte_date_fin
+        start_month = date_debut.month if date_debut
+        end_month = date_fin.month if date_fin
 
-        production_start_month = production_date_debut.month if production_date_debut
-        production_end_month = production_date_fin.month if production_date_fin
+       
+        year = date_fin.year if date_fin
 
-        puts "Le mois date debut: #{acte_date_debut.month}" if acte_date_debut
-        puts "Le mois date fin: #{acte_date_fin.month}" if acte_date_fin
         
-        puts "L'année: #{acte_date_fin.year}" if acte_date_fin
-        acte_year = acte_date_fin.year if acte_date_fin
-        production_year = production_date_fin.year if production_date_fin
-
-        if acte_date_debut.present? && acte_date_fin.present?
-            start_month = acte_start_month
-            end_month = acte_end_month
-        elsif production_date_debut.present? && production_date_fin.present?
-            start_month = production_start_month
-            end_month = production_end_month
-        end
 
         monthly_amount = []
         months = ['janvier','fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre']
@@ -59,8 +46,12 @@ module MonthlyCompanyCommissionTarteHelper
 
                 if start_month.present? && end_month.present?
                     (start_month..end_month).each do |month|
-                        monthly_company_commission = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id) #if production_date_debut.present?
-                        monthly_company_commission = monthly_company_commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id) #if acte_date_debut.present?
+                        if search_term == "Par date de production"
+                            monthly_company_commission = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, year, item.name, current_excercise.id) #if production_date_debut.present?
+                        elsif search_term == "Par date d'acte"
+                            monthly_company_commission = Commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, year, item.name, current_excercise.id) #if acte_date_debut.present?
+                        end
+
                         monthly_company_commission = monthly_company_commission.where('producer_name IN (?)', producer_name) if producer_name.present?
                         monthly_company_commission = monthly_company_commission.where('contributor_name IN (?)', contributor_name) if contributor_name.present?
                         monthly_company_commission = monthly_company_commission.where('notary_name = ?', notary) if notary.present?

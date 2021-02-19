@@ -1,6 +1,6 @@
 module MonthlyCreditTarteHelper
     # Handle monthly tarte
-    def monthly_credit_tarte(acte_date_debut, acte_date_fin,production_date_debut, production_date_fin, banks, producer_name, contributor_name, notary)
+    def monthly_credit_tarte(date_debut, date_fin, banks, producer_name, contributor_name, notary, search_term)
         @janvier, @fevrier, @mars, @avril, @mai, @juin, @juillet, @aout, @septembre, @octobre, @novembre, @decembre = false
         
         @monthly_credit = []
@@ -22,42 +22,28 @@ module MonthlyCreditTarteHelper
 
         #banks = Bank.all #We filter banks by selected banks.
         banks = banks.present? ? Bank.where("name IN (?)", banks) : Bank.all
-        commissions = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   banks, producer_name, contributor_name, notary,current_excercise.id)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
+        commissions = Commission.search(date_debut, date_fin,   banks, producer_name, contributor_name, notary,current_excercise.id, search_term)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
 
 
     
-        acte_start_month = acte_date_debut.month if acte_date_debut
-        acte_end_month = acte_date_fin.month if acte_date_fin
+        start_month = date_debut.month if date_debut
+        end_month = date_fin.month if date_fin
 
-        production_start_month = production_date_debut.month if production_date_debut
-        production_end_month = production_date_fin.month if production_date_fin
-
-        stats_logger.info("Production date debut:  #{production_date_debut}")
-        stats_logger.info("Production date fin:  #{production_date_fin}")
-
-        stats_logger.info("Acte date debut:  #{acte_date_debut}")
-        stats_logger.info("Acte date fin:  #{acte_date_fin}")
+        #production_start_month = production_date_debut.month if production_date_debut
+        #production_end_month = production_date_fin.month if production_date_fin
 
         
-        acte_year = acte_date_fin.year if acte_date_fin
-        production_year = production_date_fin.year if production_date_fin
 
-        if acte_date_debut.present? && acte_date_fin.present?
-            acte_date = true
-        end
-
-        if production_date_debut.present? && production_date_fin.present?
-            production_date = true
-        end
         
-        if acte_date_debut.present? && acte_date_fin.present?
-            start_month = acte_start_month
-            end_month = acte_end_month
-        elsif production_date_debut.present? && production_date_fin.present?
-            
-            start_month = production_start_month
-            end_month = production_end_month
-        end
+        year = date_fin.year if date_fin
+        
+
+        
+        
+        #if date_debut.present? && date_fin.present?
+            #start_month = start_month
+            #end_month = end_month
+        #end
 
         stats_logger.info("Start month:  #{start_month}")
         stats_logger.info("End month:  #{end_month}")
@@ -73,36 +59,14 @@ module MonthlyCreditTarteHelper
                 if start_month.present? && end_month.present?
                     (start_month..end_month).each do |month|
                         
-                        if production_date && acte_date
-                            stats_logger.info("Production date and Acte date")
-
-
-                            #Filter production by year
-                            monthly_credit_production_year = Commission.where('extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', production_year, item.name, current_excercise.id)# if production_date_debut.present?
-                            
-                            #Filter by month
-                            monthly_credit_production_month = monthly_credit_production_year.where('extract(month  from production_date) = ?', month)# if production_date_debut.present?
-
-                            #Filter by month
-                            monthly_credit_acte_month = monthly_credit_production_year.where('extract(month  from acte_date) = ?', month)# if production_date_debut.present?
-
-
-                            #monthly_credit_acte = commissions.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id) #if acte_date_debut.present?
-                           
-
-                            #monthly_credit = monthly_credit_production.merge(monthly_credit_acte)
-                            
-                            monthly_credit = monthly_credit_acte_month
-
-                        
-                        elsif production_date && !acte_date
+                        if search_term == "Par date de production"
                             stats_logger.info("Production date only")
 
-                            monthly_credit = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, production_year, item.name, current_excercise.id)# if production_date_debut.present?
-                        elsif !production_date && acte_date
+                            monthly_credit = Commission.where('extract(month  from production_date) = ? AND extract(year from production_date) = ? AND bank_name = ? AND excercise_year_id =?', month, year, item.name, current_excercise.id)# if production_date_debut.present?
+                        elsif search_term == "Par date d'acte"
                             stats_logger.info("Acte date only")
 
-                            monthly_credit = Commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, acte_year, item.name, current_excercise.id)# if production_date_debut.present?
+                            monthly_credit = Commission.where('extract(month  from acte_date) = ? AND extract(year from acte_date) = ? AND bank_name = ? AND excercise_year_id =?', month, year, item.name, current_excercise.id)# if production_date_debut.present?
 
                         end
                         

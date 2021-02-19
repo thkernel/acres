@@ -1,58 +1,36 @@
 <div class="search-form">
     <%= form_with url: search_path, method: :get, local: true, class: "form-inlinee" do |f| %>
-        <div class="row lr-margin">	
-            <div class="row date-section">
-                <!-- date row -->
-                <div class="col-md-6">
-                    <fieldset>
-                        <legend>
-                            <strong>
-                                Date production
-                            </strong>
-                        </legend>
-                        <div class="col-xss-6">
-                            <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <%= f.label "Critère de recherche", class: "required" %>  
+                    <%= f.select(:search_term, SEARCH_TERMS,  {prompt: "Sélectionner", selected: (@selected_term if @selected_term.present?)}, class: "form-control", required: true) %> 
 
-                                <%= f.label "Date départ" %>
-                                <%= f.date_field :production_date_debut, id: :production_date_debut, class: "form-control ", value: @selected_production_date_debut  %>
-
-                            </div>
-                        </div>
-                        <div class="col-xss-6">
-                            <div class="form-group">
-
-                                <%= f.label "Date fin" %>
-                                <%= f.date_field :production_date_fin, id: :production_date_debut, class: "form-control ", value: @selected_production_date_fin  %>
-
-                            </div>
-                        </div>
-                    </fieldset>
-                </div><!-- end date col -->
-            
-                <div class="col-md-6">
-                    <fieldset>
-                        <legend><strong>Date acte</strong></legend>
-                        <div class="col-mdd-6">
-                            <div class="form-group">
-
-                                <%= f.label "Date départ" %>
-                                <%= f.date_field :acte_date_debut, id: :acte_date_debut, class: "form-control ", value: @selected_acte_date_debut  %>
-
-                            </div>
-
-                        </div>
-                        <div class="col-mdd-6">
-                            <div class="form-group">
-                                <%= f.label "Date fin" %>
-
-                                <%= f.date_field :acte_date_fin, id: :acte_date_fin, class: "form-control ", value: @selected_acte_date_fin  %>
-                            </div>
-                        </div>
-                    </fieldset>
                 </div>
-            </div><!-- end row -->
+            </div>
+
+                
+                   
+            <div class="col-md-4">
+                <div class="form-group">
+                    <%= f.label "Date début" %>
+                    <%= f.date_field :date_debut, id: :date_debut, class: "form-control ", value: @selected_date_debut  %>
+
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <%= f.label "Date fin" %>
+
+                    <%= f.date_field :date_fin, id: :date_fin, class: "form-control ", value: @selected_date_fin  %>
+                </div>
+            </div>
+                    
+                
+        </div><!-- end row -->
             
-            <div class="row">
+        <div class="row">
                 
                 <div class="col-md-6">
                     <div class="form-group collection-check-boxes">

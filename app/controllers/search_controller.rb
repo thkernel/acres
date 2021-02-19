@@ -21,6 +21,9 @@ class SearchController < ApplicationController
     @producers = User.find_by_role('Producteur')
     @notaries = Notary.all
 
+    search_term = params["search_term"]
+    @selected_term = search_term
+
     #puts "Je suis une date avant #{params[:production_date_debut]}"
    
     production_date_debut = Date.parse(params[:production_date_debut]) if params[:production_date_debut].present?
@@ -28,8 +31,9 @@ class SearchController < ApplicationController
 
     #puts "Je suis une #{production_date}"
     
-    acte_date_debut = Date.parse(params[:acte_date_debut]) if params[:acte_date_debut].present? 
-    acte_date_fin = Date.parse(params[:acte_date_fin]) if params[:acte_date_fin].present? 
+    date_debut = Date.parse(params[:date_debut]) if params[:date_debut].present? 
+    date_fin = Date.parse(params[:date_fin]) if params[:date_fin].present? 
+    
     bank_name = params[:bank] if params[:bank].present?
     producer_name = params[:producer] if params[:producer].present?
     contributor_name = params[:contributor] if params[:contributor].present?
@@ -44,8 +48,8 @@ class SearchController < ApplicationController
     @selected_production_date_fin = production_date_fin if production_date_fin.present?
  
  
-    @selected_acte_date_debut = acte_date_debut if acte_date_debut.present?
-    @selected_acte_date_fin = acte_date_fin if acte_date_fin.present?
+    @selected_date_debut = date_debut if date_debut.present?
+    @selected_date_fin = date_fin if date_fin.present?
     @selected_notary = notary if notary.present?
  
     banks = Bank.find_by_array_of_names(bank_name) if bank_name.present?
@@ -60,13 +64,15 @@ class SearchController < ApplicationController
 
      
 
-    @commissions = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary,current_excercise.id)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
+    @commissions = Commission.search(date_debut, date_fin,   bank_name, producer_name, contributor_name, notary,current_excercise.id, search_term)#.paginate(:page => params[:page], :per_page => 15) #if Credit.search(bank_name).present?
 
     @commissions.each do |c|
       commissions_search_logger.info("ID: #{c.credit_identifier} -- Date prod: #{c.production_date} --Date acte: #{c.acte_date} -- Montant: #{c.amount_credit}")
     end
-    @commissions_chart_pie = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary, current_excercise.id).unscope(:order).group(:bank_name).sum(:bank_commission)
-    @commissions_chart_pie_by_company_commission = Commission.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary, current_excercise.id).unscope(:order).group(:bank_name).sum(:company_commission)
+
+
+    @commissions_chart_pie = @commissions.unscope(:order).group(:bank_name).sum(:bank_commission)
+    @commissions_chart_pie_by_company_commission = @commissions.unscope(:order).group(:bank_name).sum(:company_commission)
     monthly_commissions = Commission.where(excercise_year_id: current_excercise.id).group(:bank_name).select(:bank_name)#.search(production_date_debut,production_date_fin, acte_date_debut, acte_date_fin,   bank_name, producer_name, contributor_name, notary)
 
 
@@ -84,13 +90,13 @@ class SearchController < ApplicationController
     @total_commission_bank = @commissions.sum( :bank_commission)
 
     #monthly_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
-    @monthly_credit = monthly_credit_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
-    @monthly_producer_commission = monthly_producer_commission_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
-    @monthly_contributor_commission = monthly_contributor_commission_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
-    @monthly_bank_commission = monthly_bank_commission_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
-    @monthly_company_commission = monthly_company_commission_tarte(acte_date_debut, acte_date_fin, production_date_debut, production_date_fin, bank_name,  producer_name, contributor_name, notary)
+    @monthly_credit = monthly_credit_tarte(date_debut, date_fin, bank_name,  producer_name, contributor_name, notary, search_term)
+    @monthly_producer_commission = monthly_producer_commission_tarte(date_debut, date_fin, bank_name,  producer_name, contributor_name, notary, search_term)
+    @monthly_contributor_commission = monthly_contributor_commission_tarte(date_debut, date_fin, bank_name,  producer_name, contributor_name, notary, search_term)
+    @monthly_bank_commission = monthly_bank_commission_tarte(date_debut, date_fin, bank_name,  producer_name, contributor_name, notary, search_term)
+    @monthly_company_commission = monthly_company_commission_tarte(date_debut, date_fin, bank_name,  producer_name, contributor_name, notary, search_term)
 
-    production(acte_date_debut, acte_date_fin,production_date_debut, production_date_fin)
+    production(date_debut, date_fin, date_debut, date_fin)
   end
 
   # Handle monthly tarte
