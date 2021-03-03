@@ -62,18 +62,25 @@ class Log < ApplicationRecord
                     credit = Credit.new 
 
 
-                    # Begin insert a bank, before to insert bank we check if bank exist
                     if row[cell[0]].present?
-                       
-                        current_credit = Credit.find_by(credit_id: Extractor.extract_numeric(row[cell[0]]))
+                        puts "AVANT TESTER SI C'EST DOUBLONS: #{current_credit}"
+
+                        current_credit = Credit.find_by(identifier: Extractor.extract_numeric(row[cell[0]]))
+                        
+                        puts "APRES AVOIR TESTER SI C'EST DOUBLONS: #{current_credit}"
+                        
                         if current_credit.present?
+                            puts "DOUBLONS TROUVE"
                             if current_credit.hypoplus.present?
+                                puts "DOUBLONS TROUVE MAIS PAS DE CAS D'HYPOPLUS"
                                 next
                             else
-                                current_credit = current_credit.credit_id + Time.now.min + Time.now.sec
+                                puts "DOUBLONS TROUVE, AJOUT TIMESTAMP"
+                                current_credit_identifier = current_credit.identifier + Time.now.min + Time.now.sec
                             end
                         else
-                            current_credit = Extractor.extract_numeric(row[cell[0]])
+                            puts "DOUBLONS PAS TROUVE, MAIS PAS AJOUT DE TIMESTAMP, DONC ERREUR"
+                            current_credit_identifier = Extractor.extract_numeric(row[cell[0]])
                        
                         end
                     else
@@ -171,7 +178,7 @@ class Log < ApplicationRecord
                     end
 
 
-                    credit.credit_id = current_credit
+                    credit.identifier = current_credit_identifier
                     credit.production_date = row[cell[1]] if row[cell[1]].present?
                     credit.acte_date = row[cell[2]] if row[cell[2]].present?
                     credit.customer_name = row[cell[3]].downcase if row[cell[3]].present?

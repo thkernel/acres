@@ -217,19 +217,26 @@ class LogsController < ApplicationController
                credit = Credit.new 
 
 
-               # Begin insert a bank, before to insert bank we check if bank exist
                if row[cell[0]].present?
+                    puts "AVANT LE TEST DES DOUBLONS"
                     current_credit = Credit.find_by(identifier: Extractor.extract_numeric(row[cell[0]]))
+                    
+                    puts "APRES TEST DE DOUBLONS: #{current_credit}"
                    #current_credit = Credit.where(["identifier = ? AND excercise_year_id = ?",  Extractor.extract_numeric(row[cell[0]]), current_excercise.id]).take
                    if current_credit.present?
+                    puts "DOUBLONS PRESENT: #{current_credit}"
                        if current_credit.hypoplus.present?
+                        puts "DOUBLONS PRESENT ET CAS HYPOPLUS: #{current_credit}"
                            #next (old)
-                           current_credit = current_credit.identifier + Time.now.min + Time.now.sec
+                           current_credit = current_credit.identifier + Time.now.min + Time.now.sec + Credit.last.id + 1
 
                        else
-                           current_credit = current_credit.identifier + Time.now.min + Time.now.sec
+                        puts "DOUBLONS PRESENT ET NON CAS DE HYPOPLUS: #{current_credit.identifier}"
+                           current_credit = current_credit.identifier + Time.now.min + Time.now.sec + Credit.last.id + 1
+                          puts "NOUVEL ID APRES GENERATION: #{current_credit}"
                        end
                    else
+                    puts "DOUBLONS NON PRESENT: #{current_credit}"
                        current_credit = Extractor.extract_numeric(row[cell[0]])
                   
                    end
