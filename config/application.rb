@@ -1,4 +1,4 @@
-require 'uri'
+#require 'uri'
 
 require_relative 'boot'
 
