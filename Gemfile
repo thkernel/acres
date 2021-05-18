@@ -11,7 +11,7 @@ gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 5.3'
 #gem 'puma', '~> 4.3', '>= 4.3.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -52,7 +52,7 @@ group :development, :test do
   gem 'capistrano-rvm', '~> 0.1.2'
 
   # For puma
-  gem 'capistrano3-puma', '~> 3.1', '>= 3.1.1'
+  gem 'capistrano3-puma', '~> 5.0'
   #gem 'capistrano3-puma', github: "seuros/capistrano-puma"
 end
 
